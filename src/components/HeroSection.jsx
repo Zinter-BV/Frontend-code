@@ -10,18 +10,20 @@ const HeroSection = () => {
   return (
     <div className="  w-full  bg-gradient-to-b mt-[80px] from-[#BCDFF6] to-white">
       <div className="w-[90vw] pt-14 max-w-[1500px] items-center flex justify-between mx-auto">
-        <div className="w-[50%]">
-          <h1 className="text-[45px] font-bold font-unbounded w-[90%]">
+        <div className="w-[60%]">
+          <h1 className="text-[56px] leading-[69.44px] font-bold font-unbounded w-[90%]">
             Experience the future of stress free moving today
           </h1>
-          <p className="my-4">
+          <p className="my-[1rem] font-sans text-[18px] leading-[6px] text-[#707070] ">
             Reliable and Professional Movers Dedicated to a Seamless Moving
             Experience
           </p>
           <PrimaryBtn>GET A QUOTE</PrimaryBtn>
-          <SecondaryBtn className={"ml-5"}>TRACK MOVE</SecondaryBtn>
+          <SecondaryBtn className={"ml-5 text-[20px] "}>
+            TRACK MOVE
+          </SecondaryBtn>
         </div>
-        <div className="w-[400px] relative h-[476px]">
+        <div className="w-[402px] relative h-[476px]">
           <div className="flex drop-shadow-md items-center absolute top-10 left-[-120px] bg-white rounded-[18px] w-fit p-3">
             <div className="bg-[#FFF2EB] h-[45px] w-[41px] rounded-[10px] flex items-center mr-4 justify-center ">
               <div className="bg-[#FD6C00] h-[25px] w-[25px] rounded-full flex items-center justify-center ">
@@ -43,7 +45,7 @@ const HeroSection = () => {
           </div>
           <img
             src={img}
-            className="h-full w-full object-cover rounded-[20px]"
+            className="h-full w-full object-cover rounded-[24px]"
             alt="hero"
           />
         </div>
