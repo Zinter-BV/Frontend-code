@@ -84,7 +84,7 @@ const Process = () => {
               <div>
                 <h4 className="text-[14px] font-sans ">GlideWay Relocations</h4>
                 <div className="flex items-center">
-                  <div className="border-2 border-[#D1D1D1] p-1 w-fit items-center rounded-[18px] flex ">
+                  <div className="border-[0.5px] border-[#D1D1D1] p-1 w-fit items-center rounded-[18px] flex ">
                     <p className="mr-1 text-[8.58px] font-sora">4.2</p>
                     <StarIcon />
                   </div>

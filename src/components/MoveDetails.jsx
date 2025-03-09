@@ -18,29 +18,45 @@ const MoveDetails = () => {
           Professional movers for you, It only takes a minute
         </p>
         <div className="w-full bg-white my-4 h-[80px] rounded-[10px] flex ">
-          <div className="w-[25%] flex justify-between border-r-2 border-[#E3E2E0] p-3 items-center  ">
-            <div className="flex items-center">
-              <LocationIcon color="#12B981" />
-              <p className="ml-3 font-sans">Moving From</p>
+          <div className="w-[28%] flex justify-between border-r-2 border-[#E3E2E0] p-3 items-center  ">
+            <div className="flex w-[90%]  items-center">
+              <div className="mr-[8px]">
+                <LocationIcon color="#12B981" />
+              </div>
+
+              <input
+                placeholder="Moving From"
+                className=" font-sans w-full leading-[25.6px] font-light text-[#707070]  border-none outline-none "
+              />
             </div>
             <DownIcon />
           </div>
-          <div className="w-[25%] flex justify-between border-r-2 border-[#E3E2E0] p-3 items-center  ">
-            <div className="flex items-center">
-              <LocationIcon color="#DE2527" />
-              <p className="ml-3 font-sans">Moving To</p>
+          <div className="w-[28%] flex justify-between border-r-2 border-[#E3E2E0] p-3 items-center  ">
+            <div className="flex w-[90%]  items-center">
+              <div className="mr-[8px]">
+                <LocationIcon color="#DE2527" />
+              </div>
+              <input
+                placeholder="Moving To"
+                className=" font-sans w-full font-light text-[#707070]  leading-[25.6px] border-none outline-none "
+              />
             </div>
             <DownIcon />
           </div>
-          <div className="w-[25%] flex justify-between border-r-2 border-[#E3E2E0] p-3 items-center  ">
-            <div className="flex items-center">
-              <MoveSize />
-              <p className="ml-3 font-sans">Move Size</p>
+          <div className="w-[28%] flex justify-between border-r-2 border-[#E3E2E0] p-3 items-center  ">
+            <div className="flex w-[90%]  items-center">
+              <div className="mr-[8px]">
+                <MoveSize />
+              </div>
+              <input
+                placeholder="Moving Size"
+                className=" font-sans w-full font-light text-[#707070] leading-[25.6px] border-none outline-none "
+              />
             </div>
             <DownIcon />
           </div>
-          <div className="w-[25%] flex justify-center p-3 items-center  ">
-            <PrimaryBtn>GET A QUOTE</PrimaryBtn>
+          <div className="w-[16%] flex justify-center p-3 items-center  ">
+            <PrimaryBtn className={"text-[14px]"}>GET A QUOTE</PrimaryBtn>
           </div>
         </div>
       </div>
