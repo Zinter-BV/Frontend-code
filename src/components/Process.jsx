@@ -77,7 +77,7 @@ const Process = () => {
               className="w-full absolute right-0 rounded-[18px] object-cover h-[600px] "
               alt=""
             />
-            <div className="flex drop-shadow-md items-center absolute bottom-20 left-[-80px] bg-white rounded-[18px] w-fit p-3">
+            <div className="flex drop-shadow-md items-center absolute bottom-20 left-[-80px] bg-white rounded-[10px] w-fit p-3">
               <div className="bg-[#FFF2EB] h-[45px] w-[41px] rounded-[10px] flex items-center mr-4 justify-center ">
                 <DiamondIcon />
               </div>

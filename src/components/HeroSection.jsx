@@ -7,7 +7,7 @@ import ZoomingCard from "./ZoomingCard";
 
 const HeroSection = () => {
   return (
-    <div className="  w-full  bg-gradient-to-b mt-[80px] from-[#BCDFF6] to-white">
+    <div className="  w-full  bg-gradient-to-b mt-[80px] from-[#E8F5F5] to-white">
       <div className="w-[90vw] pt-14 max-w-[1500px] items-center flex justify-between mx-auto">
         <div className="w-[60%]">
           <h1 className="text-[56px] leading-[69.44px] font-bold font-unbounded w-[90%]">
@@ -23,7 +23,7 @@ const HeroSection = () => {
           </SecondaryBtn>
         </div>
         <div className="relative">
-          <div className="flex drop-shadow-md z-10 items-center absolute top-10 left-[-120px] bg-white rounded-[18px] w-fit p-3">
+          <div className="flex drop-shadow-md z-10 items-center absolute top-10 left-[-120px] bg-white rounded-[10px] w-fit p-3">
             <div className="bg-[#FFF2EB] h-[45px] w-[41px] rounded-[10px] flex items-center mr-4 justify-center ">
               <div className="bg-[#FD6C00] h-[25px] w-[25px] rounded-full flex items-center justify-center ">
                 <HeroIcon />
