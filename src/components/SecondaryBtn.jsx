@@ -1,8 +1,9 @@
 import React from "react";
 
-const SecondaryBtn = ({ children, className }) => {
+const SecondaryBtn = ({ children, handlePress, className }) => {
   return (
     <button
+      onClick={handlePress}
       className={`bg-white border-[1px] rounded-[43px] hover:bg-primary hover:text-white px-[20px] py-[10px] font-sans border-primary text-primary ${className} `}
     >
       {children}

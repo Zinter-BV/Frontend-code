@@ -18,7 +18,10 @@ const HeroSection = () => {
             Experience
           </p>
           <PrimaryBtn className={"text-[20px]"}>GET A QUOTE</PrimaryBtn>
-          <SecondaryBtn className={"ml-5 text-[20px] "}>
+          <SecondaryBtn
+            handlePress={() => console.log("hELLOO")}
+            className={"ml-5 text-[20px] "}
+          >
             TRACK MOVE
           </SecondaryBtn>
         </div>
