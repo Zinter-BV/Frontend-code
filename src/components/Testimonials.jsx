@@ -5,13 +5,13 @@ import TestimonialCard from "./TestimonialCard";
 
 const Testimonials = () => {
   return (
-    <div className="bg-[#E8F5F5] w-full h-fit ">
+    <div className="bg-[#121212] w-full h-fit ">
       <div className="w-[90vw] py-20 max-w-[1500px] mx-auto">
         <div className="bg-white flex justify-center w-fit border-[#FFDA5B] border-2 items-center rounded-[100px] p-3 ">
-          <p className="text-[#434343] font-sans text-[14px]">TESTIMONIALS</p>
+          <p className="text-[#4] font-sans text-[14px]">TESTIMONIALS</p>
         </div>
         <div className="flex justify-between my-10">
-          <h2 className="font-unbounded text-[#121212] font-bold w-[80%]  text-[48px] ">
+          <h2 className="font-unbounded text-white font-bold w-[80%]  text-[48px] ">
             Don't just take our word for it, Here is what our users are saying
           </h2>
           <div className="flex self-end ">
