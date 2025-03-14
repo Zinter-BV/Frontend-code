@@ -17,7 +17,12 @@ const HeroSection = () => {
             Reliable and Professional Movers Dedicated to a Seamless Moving
             Experience
           </p>
-          <PrimaryBtn className={"text-[20px]"}>GET A QUOTE</PrimaryBtn>
+          <PrimaryBtn
+            handlePress={() => console.log("hELLOO")}
+            className={"text-[20px]"}
+          >
+            GET A QUOTE
+          </PrimaryBtn>
           <SecondaryBtn
             handlePress={() => console.log("hELLOO")}
             className={"ml-5 text-[20px] "}
