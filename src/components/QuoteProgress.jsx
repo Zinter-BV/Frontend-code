@@ -202,7 +202,7 @@ const QuoteProgress = ({ activeTab }) => {
       <div className="flex relative">
         <div
           className={`absolute top-9 left-[15px] ${
-            activeTab > 1 ? "bg-[#248CD9]" : "bg-[#E3E8EF]"
+            activeTab > 3 ? "bg-[#248CD9]" : "bg-[#E3E8EF]"
           } h-[60px] w-[2px] rounded-[2px] `}
         ></div>
         <div className="mr-4">
@@ -295,25 +295,83 @@ const QuoteProgress = ({ activeTab }) => {
       </div>
       <div className="flex ">
         <div className="mr-4">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="32"
-            height="32"
-            viewBox="0 0 32 32"
-            fill="none"
-          >
-            <rect x="1" y="1" width="30" height="30" rx="15" fill="#fff" />
-            <rect
-              x="1"
-              y="1"
-              width="30"
-              height="30"
-              rx="15"
-              stroke="#CDD5DF"
-              stroke-width="2"
-            />
-            <circle cx="16" cy="16" r="5" fill="#CDD5DF" />
-          </svg>
+          {activeTab > 4 ? (
+            <div className="h-[32px] w-[32px] flex justify-center items-center border-[2px] border-[#248CD9] rounded-full">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="14"
+                viewBox="0 0 16 14"
+                fill="none"
+              >
+                <path
+                  d="M2 8.81818C2 8.81818 3.28571 8.81818 5 12C5 12 9.76471 3.66667 14 2"
+                  stroke="#248CD9"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+          ) : (
+            <div>
+              {activeTab === 4 ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 32 32"
+                  fill="none"
+                >
+                  <rect
+                    x="1"
+                    y="1"
+                    width="30"
+                    height="30"
+                    rx="15"
+                    fill="#E4F0FC"
+                  />
+                  <rect
+                    x="1"
+                    y="1"
+                    width="30"
+                    height="30"
+                    rx="15"
+                    stroke="#248CD9"
+                    stroke-width="2"
+                  />
+                  <circle cx="16" cy="16" r="5" fill="#075DB2" />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 32 32"
+                  fill="none"
+                >
+                  <rect
+                    x="1"
+                    y="1"
+                    width="30"
+                    height="30"
+                    rx="15"
+                    fill="#fff"
+                  />
+                  <rect
+                    x="1"
+                    y="1"
+                    width="30"
+                    height="30"
+                    rx="15"
+                    stroke="#CDD5DF"
+                    stroke-width="2"
+                  />
+                  <circle cx="16" cy="16" r="5" fill="#CDD5DF" />
+                </svg>
+              )}
+            </div>
+          )}
         </div>
         <div className="h-[100px] ">
           <p className="text-[#697586] font-sans font-bold text-[16px] mb-2">

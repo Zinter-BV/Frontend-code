@@ -28,6 +28,10 @@ const QuoteContainer = () => {
       content = <ViewSummary />;
       // Code to be executed if expression matches value2
       break;
+    case 5:
+      content = <p>Finish</p>;
+      // Code to be executed if expression matches value2
+      break;
     // Add more cases as needed
     default:
       content = <Location />;
@@ -36,7 +40,7 @@ const QuoteContainer = () => {
 
   // Function to handle moving forward in tabs
   const handleTabs = () => {
-    if (activeTab >= 4) return; // Ensure we don't go beyond the last tab
+    if (activeTab >= 5) return; // Ensure we don't go beyond the last tab
     setActiveTab((prevTab) => prevTab + 1);
     console.log("Next Tab:", activeTab + 1);
   };
