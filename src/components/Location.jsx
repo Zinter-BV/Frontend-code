@@ -1,5 +1,5 @@
 import React from "react";
-import smallMap from "../Assets/smallMap.png";
+import Map from "../Assets/Map.svg";
 
 const Location = () => {
   return (
@@ -40,7 +40,7 @@ const Location = () => {
                   </p>
                 </div>
               </div>
-              <button className="text-[#3C82F6] hover:bg-primary p-1 hover:text-white rounded-[20px] cursor-pointer text-[12px] text-manrope font-light ">
+              <button className="text-[#3C82F6] hover:bg-primary py-1 px-2 hover:text-white rounded-[20px] cursor-pointer text-[12px] text-manrope font-light ">
                 CHANGE
               </button>
             </div>
@@ -74,14 +74,14 @@ const Location = () => {
                   </p>
                 </div>
               </div>
-              <button className="text-[#3C82F6] hover:bg-primary p-1 hover:text-white rounded-[20px] cursor-pointer text-[12px] text-manrope font-light ">
+              <button className="text-[#3C82F6] hover:bg-primary py-1 px-2 hover:text-white rounded-[20px] cursor-pointer text-[12px] text-manrope font-light ">
                 CHANGE
               </button>
             </div>
           </div>
         </div>
         <div>
-          <img src={smallMap} alt="map" />{" "}
+          <img src={Map} alt="map" />{" "}
         </div>
       </div>
     </div>
