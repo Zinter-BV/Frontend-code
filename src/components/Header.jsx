@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
-import logo from "../Assets/logo.png";
 import SecondaryBtn from "./SecondaryBtn";
 import InvoiceIcon from "../Assets/SVG/Invoice";
 import TrackingIcon from "../Assets/SVG/TrackingIcon";
 import TruckIcon from "../Assets/SVG/TruckIcon";
+import Logo from "./Logo";
 
 const Header = () => {
   const [menuOptionsOpen, setMenuOptionsOpen] = useState(false);
@@ -45,7 +45,7 @@ const Header = () => {
     <header className="h-[80px] border-b-[1px] border-[#d1d1d1] w-full z-30 bg-white fixed top-0 left-0 right-0  mx-auto max-w-[1500px] flex justify-center items-center">
       <nav className="flex w-[90vw] relative items-center justify-between">
         <Link to="/" className="">
-          <img src={logo} className="object-cover" alt="logo" />
+          <Logo />
         </Link>
         <ul className="flex justify-between items-center gap-[16px] ">
           <li>
@@ -98,7 +98,7 @@ const Header = () => {
             ref={menuRef} // Attach the ref to the menu options container
             className="bg-white w-[304px] top-[45px] absolute right-0 h-fit p-[4px] rounded-[8px] border-[1px] border-[#E4F2FB] "
           >
-            <Link>
+            <Link to="/quote">
               <div className="p-[8px] hover:bg-[#f7f7f7] mb-[4px] flex items-center w-full ">
                 <InvoiceIcon />
                 <p className="ml-[8px] font-sans text-[#373737] ">Get Quotes</p>

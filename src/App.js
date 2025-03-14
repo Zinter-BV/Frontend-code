@@ -1,13 +1,13 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Home from "./page/Home";
-// import Products from "./page/Products/Products";
+import GetQuote from "./page/GetQuote";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      {/* <Route path="/products" element={<Products />} /> */}
+      <Route path="/quote" element={<GetQuote />} />
     </Routes>
   );
 }
