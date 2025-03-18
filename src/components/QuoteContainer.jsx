@@ -85,14 +85,20 @@ const QuoteContainer = () => {
             {content}
           </div>
         </div>
-        <div className="h-[80px] shadow-[0px_-6px_6px_-6px_rgba(0,0,0,0.3)] bg-white absolute bottom-0 max-w-[1500px] mx-auto w-[90vw] flex items-center justify-center  ">
+        <div className="h-[80px] shadow-[0px_-6px_6px_-6px_rgba(0,0,0,0.3)] bg-white fixed bottom-0 max-w-[1500px] mx-auto w-[90vw] flex items-center justify-center  ">
           <div className="w-full flex items-center justify-between">
-            <button
-              onClick={() => handlePrevTabs(activeTab)}
-              className="text-[#3C82F6] hover:bg-primary py-1 px-2 hover:text-white rounded-[20px] cursor-pointer text-[14px] text-manrope font-light "
-            >
-              GO BACK
-            </button>
+            {activeTab === 1 ? (
+              <p className="text-[#88b5fe]  py-1 px-2 rounded-[20px]  text-[14px] text-manrope font-light ">
+                GO BACK
+              </p>
+            ) : (
+              <button
+                onClick={() => handlePrevTabs(activeTab)}
+                className="text-[#3C82F6] hover:bg-primary py-1 px-2 hover:text-white rounded-[20px] cursor-pointer text-[14px] text-manrope font-light "
+              >
+                GO BACK
+              </button>
+            )}
             <PrimaryBtn
               handlePress={() => handleTabs(activeTab)}
               className={"text-[14px] "}
