@@ -6,10 +6,15 @@ import PrimaryBtn from "./PrimaryBtn";
 import InventoryList from "./InventoryList";
 import MovingInformation from "./MovingInformation";
 import ViewSummary from "./ViewSummary";
+import QuoteSuccess from "../modal/QuoteSuccess";
 
 const QuoteContainer = () => {
   const [activeTab, setActiveTab] = useState(1);
+
+  const [openSuccessModal, setOpenSuccessModal] = useState(false);
+
   let content = <Location />;
+  // let btnText = CONTINUE
 
   switch (activeTab) {
     case 1:
@@ -52,8 +57,15 @@ const QuoteContainer = () => {
     console.log("Previous Tab:", activeTab - 1);
   };
 
+  const handleSubmit = () => {
+    console.log(openSuccessModal);
+    setOpenSuccessModal(true);
+  };
+
+  const closeSuccessModal = () => setOpenSuccessModal(false);
+
   return (
-    <div className="">
+    <div className="relative">
       <div className="w-[90vw] relative h-[calc(100vh-90px)] max-w-[1500px] mx-auto mt-24">
         <div className="w-full  ">
           <div className="flex items-center">
@@ -99,15 +111,27 @@ const QuoteContainer = () => {
                 GO BACK
               </button>
             )}
-            <PrimaryBtn
-              handlePress={() => handleTabs(activeTab)}
-              className={"text-[14px] "}
-            >
-              CONTINUE
-            </PrimaryBtn>
+            <div>
+              {activeTab === 4 ? (
+                <PrimaryBtn
+                  handlePress={handleSubmit}
+                  className={"text-[14px] "}
+                >
+                  GET QUOTES
+                </PrimaryBtn>
+              ) : (
+                <PrimaryBtn
+                  handlePress={() => handleTabs(activeTab)}
+                  className={"text-[14px] "}
+                >
+                  CONTINUE
+                </PrimaryBtn>
+              )}
+            </div>
           </div>
         </div>
       </div>
+      {openSuccessModal && <QuoteSuccess closeModal={closeSuccessModal} />}
     </div>
   );
 };
