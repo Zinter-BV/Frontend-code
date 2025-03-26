@@ -1,4 +1,5 @@
 import React from "react";
+import SelectImage from "../components/SelectImage";
 
 const UploadImageModal = ({
   closeUploadImageModal,
@@ -35,7 +36,7 @@ const UploadImageModal = ({
             </svg>
           </div>
         </div>
-        <div className="w-full h-[80%]">
+        <div className="w-full overflow-y-scroll h-[80%]">
           <div className="w-[90%] py-4 mx-auto h-full ">
             <div className="h-[42px] w-fit rounded-[1000px] border-[1px] p-[3px] border-[#E5E5E5] flex items-center ">
               <div
@@ -56,9 +57,44 @@ const UploadImageModal = ({
                 </p>
               </div>
             </div>
+            <div className="flex items-center mt-[18px] rounded-[12px] bg-[#F0F9FD] py-[16px] px-[20px] ">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 32 32"
+                fill="none"
+              >
+                <circle
+                  cx="16"
+                  cy="16"
+                  r="15"
+                  transform="rotate(180 16 16)"
+                  fill="white"
+                  stroke="#D9D9D9"
+                  stroke-width="1.25"
+                />
+                <path
+                  d="M18.1331 13.5935L14.3558 14.0669L14.2206 14.6936L14.9628 14.8305C15.4478 14.946 15.5434 15.1208 15.4379 15.6041L14.2206 21.3244C13.9006 22.8039 14.3938 23.5 15.5533 23.5C16.4523 23.5 17.4964 23.0843 17.9698 22.5136L18.1149 21.8275C17.785 22.1178 17.3034 22.2332 16.9834 22.2332C16.5298 22.2332 16.3649 21.9149 16.482 21.3541L18.1331 13.5935ZM18.2485 10.1494C18.2485 10.5869 18.0747 11.0064 17.7654 11.3158C17.4561 11.6251 17.0365 11.7989 16.5991 11.7989C16.1616 11.7989 15.7421 11.6251 15.4328 11.3158C15.1234 11.0064 14.9496 10.5869 14.9496 10.1494C14.9496 9.71198 15.1234 9.29244 15.4328 8.98311C15.7421 8.67378 16.1616 8.5 16.5991 8.5C17.0365 8.5 17.4561 8.67378 17.7654 8.98311C18.0747 9.29244 18.2485 9.71198 18.2485 10.1494Z"
+                  fill="black"
+                />
+              </svg>
+              <p className="font-sans ml-2 text-[16px] text-[#136AB5] leading-[25.6px] ">
+                The images should be of a very good quality, file Size should
+                not be more than 2MB.
+              </p>
+            </div>
+            <div className="my-3 grid grid-cols-3 gap-[18px] pb-4 w-full">
+              <SelectImage title="Living Room Images" />
+              <SelectImage title="Room 1 Images" />
+              <SelectImage title="Dinning Room Images" />
+              <SelectImage title="Kitchen Images" />
+              <SelectImage title="Bathroom Images" />
+              <SelectImage title="Toilet Images" />
+            </div>
           </div>
         </div>
-        <div className="flex items-center w-full shadow-[0px_-6px_6px_-6px_rgba(0,0,0,0.3)] justify-between  p-[28px] border-t-[1px] border-[#E3E8EF] ">
+        <div className="flex items-center z-40 w-full shadow-[0px_-6px_6px_-6px_rgba(0,0,0,0.3)] justify-between  p-[28px] border-t-[1px] border-[#E3E8EF] ">
           <div className="flex bg-[#F0F9FF] border-[1px] border-[#E0F2FE] rounded-[4px] p-1 items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
