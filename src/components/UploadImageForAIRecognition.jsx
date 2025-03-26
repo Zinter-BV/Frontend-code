@@ -1,10 +1,12 @@
 import React from "react";
-import image from "../Assets/Rectangle 17796.png";
 import "./UploadImageForAIRecognition.css";
 
-const UploadImageForAIRecognition = () => {
+const UploadImageForAIRecognition = ({ openUploadImageModal }) => {
   return (
-    <div className="mt-4 w-full h-[280px] border-[1px] border-[#054D96] rounded-[12px]">
+    <div
+      onClick={openUploadImageModal}
+      className="mt-4 w-full h-[280px] border-[1px] cursor-pointer border-[#054D96] rounded-[12px]"
+    >
       <div
         style={{
           backgroundSize: "cover",

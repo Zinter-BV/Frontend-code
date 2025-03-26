@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import QuoteProgress from "./QuoteProgress";
 import Location from "./Location";
 import PrimaryBtn from "./PrimaryBtn";
@@ -12,6 +12,7 @@ const QuoteContainer = () => {
   const [activeTab, setActiveTab] = useState(1);
 
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
+  const navigate = useNavigate();
 
   let content = <Location />;
   // let btnText = CONTINUE
@@ -62,7 +63,10 @@ const QuoteContainer = () => {
     setOpenSuccessModal(true);
   };
 
-  const closeSuccessModal = () => setOpenSuccessModal(false);
+  const closeSuccessModal = () => {
+    navigate("/");
+    setOpenSuccessModal(false);
+  };
 
   return (
     <div className="relative">
