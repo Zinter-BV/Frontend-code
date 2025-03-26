@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import SelectImage from "../components/SelectImage";
 
 const UploadImageModal = ({
@@ -6,6 +6,31 @@ const UploadImageModal = ({
   isUploadImageModalOpen,
   openIsInventoryList,
 }) => {
+  const [allImages, setAllImages] = useState([]);
+
+  const handleImagesSelected = (newImages) => {
+    setAllImages((prevImages) => [...prevImages, ...newImages]); // Append new images
+  };
+
+  const uploadImage = () => {
+    console.log(allImages);
+
+    // send image to API
+    // const formData = new FormData();
+    // allImages.forEach((file, index) => {
+    //   formData.append(`image_${index}`, file);
+    // });
+
+    // // Send formData to API
+    // fetch("https://your-api-endpoint.com/upload", {
+    //   method: "POST",
+    //   body: formData,
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => console.log("Upload successful", data))
+    //   .catch((error) => console.error("Upload error", error));
+  };
+
   return (
     <div className="fixed top-0 z-50 left-0 backdrop-blur-[3px] bg-[rgba(0,0,0,0.10)] h-full w-full flex justify-center items-center ">
       <div className="bg-white flex flex-col justify-between w-[80%] rounded-[16px] h-[90%]">
@@ -85,12 +110,30 @@ const UploadImageModal = ({
               </p>
             </div>
             <div className="my-3 grid grid-cols-3 gap-[18px] pb-4 w-full">
-              <SelectImage title="Living Room Images" />
-              <SelectImage title="Room 1 Images" />
-              <SelectImage title="Dinning Room Images" />
-              <SelectImage title="Kitchen Images" />
-              <SelectImage title="Bathroom Images" />
-              <SelectImage title="Toilet Images" />
+              <SelectImage
+                title="Living Room Images"
+                onImagesSelected={handleImagesSelected}
+              />
+              <SelectImage
+                title="Room 1 Images"
+                onImagesSelected={handleImagesSelected}
+              />
+              <SelectImage
+                title="Dinning Room Images"
+                onImagesSelected={handleImagesSelected}
+              />
+              <SelectImage
+                title="Kitchen Images"
+                onImagesSelected={handleImagesSelected}
+              />
+              <SelectImage
+                title="Bathroom Images"
+                onImagesSelected={handleImagesSelected}
+              />
+              <SelectImage
+                title="Toilet Images"
+                onImagesSelected={handleImagesSelected}
+              />
             </div>
           </div>
         </div>
@@ -109,10 +152,13 @@ const UploadImageModal = ({
               />
             </svg>
             <p className="font-sans text-[16px] text-[#3C82F6] ml-2 leading-[25.6px] ">
-              16 Items Selected
+              {allImages.length} Items Selected
             </p>
           </div>
-          <button className="self-center bg-primary py-2 px-4 text-white rounded-[20px] cursor-pointer text-[12px] text-manrope font-light ">
+          <button
+            onClick={uploadImage}
+            className="self-center bg-primary py-2 px-4 text-white rounded-[20px] cursor-pointer text-[12px] text-manrope font-light "
+          >
             UPLOAD IMAGE
           </button>
         </div>
