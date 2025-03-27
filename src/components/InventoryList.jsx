@@ -5,7 +5,7 @@ import UploadImageModal from "../modal/UploadImageModal";
 import InventoryListModal from "../modal/InventoryListModal";
 
 const InventoryList = () => {
-  const [isUploadImageModalOpen, setIsUploadImageModalOpen] = useState(true);
+  const [isUploadImageModalOpen, setIsUploadImageModalOpen] = useState(false);
   const [isInventoryListModalOpen, setIsInventoryListModalModalOpen] =
     useState(false);
 

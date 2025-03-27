@@ -1,4 +1,5 @@
 import React from "react";
+import InventoryItem from "../components/InventoryItem";
 
 const InventoryListModal = ({
   closeInventoryListModal,
@@ -35,7 +36,7 @@ const InventoryListModal = ({
             </svg>
           </div>
         </div>
-        <div className="w-full h-[80%]">
+        <div className="w-full overflow-y-scroll  h-[80%]">
           <div className="w-[90%] py-4 mx-auto h-full ">
             <div className="h-[42px] w-fit rounded-[1000px] border-[1px] p-[3px] border-[#E5E5E5] flex items-center ">
               <div
@@ -59,6 +60,19 @@ const InventoryListModal = ({
                   Upload Image
                 </p>
               </div>
+            </div>
+            <div className="my-3 grid grid-cols-4 gap-[18px] pb-4 w-full  ">
+              <InventoryItem title="Elegant Floor Lamp" />
+              <InventoryItem title="Artistic Wall Decor" />
+              <InventoryItem title="Stylish Coffee Table" />
+              <InventoryItem title="Toilet Seat" />
+              <InventoryItem title="Sectional Sofa" />
+              <InventoryItem title="Recliner Chair" />
+              <InventoryItem title="Coffe Table" />
+              <InventoryItem title="TV Stand" />
+              <InventoryItem title="Bookshelf" />
+              <InventoryItem title="Coffee Table" />
+              <InventoryItem title="Accent Chair" />
             </div>
           </div>
         </div>
