@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import SelectImage from "../components/SelectImage";
+import UploadImageSuccess from "./UploadImageSuccess";
 
 const UploadImageModal = ({
   closeUploadImageModal,
@@ -8,12 +9,18 @@ const UploadImageModal = ({
 }) => {
   const [allImages, setAllImages] = useState([]);
 
+  const [isUploadImageSuccess, setIsUploadImageSuccess] = useState(false);
+
   const handleImagesSelected = (newImages) => {
     setAllImages((prevImages) => [...prevImages, ...newImages]); // Append new images
   };
 
+  const closeUploadSuccessModal = () => setIsUploadImageSuccess(false);
+
   const uploadImage = () => {
+    if (allImages.length === 0) return;
     console.log(allImages);
+    setIsUploadImageSuccess(true);
 
     // send image to API
     // const formData = new FormData();
@@ -33,7 +40,7 @@ const UploadImageModal = ({
 
   return (
     <div className="fixed top-0 z-50 left-0 backdrop-blur-[3px] bg-[rgba(0,0,0,0.10)] h-full w-full flex justify-center items-center ">
-      <div className="bg-white flex flex-col justify-between w-[80%] rounded-[16px] h-[90%]">
+      <div className="bg-white flex flex-col relative justify-between w-[80%] rounded-[16px] h-[90%]">
         <div className="flex items-center w-full justify-between p-[28px] border-b-[1px] border-[#E3E8EF] ">
           <div className="flex items-center">
             <h3 className="mr-2 font-sans text-[20px] font-bold text-[#121212] ">
@@ -162,6 +169,12 @@ const UploadImageModal = ({
             UPLOAD IMAGE
           </button>
         </div>
+        {isUploadImageSuccess && (
+          <UploadImageSuccess
+            closeUploadImageModal={closeUploadImageModal}
+            closeUploadSuccessModal={closeUploadSuccessModal}
+          />
+        )}
       </div>
     </div>
   );

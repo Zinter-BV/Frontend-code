@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import InventoryItem from "../components/InventoryItem";
+import { formattedItems, countMap } from "../utils";
 
 const InventoryListModal = ({
   closeInventoryListModal,
@@ -26,19 +27,12 @@ const InventoryListModal = ({
     });
   };
 
-  // Count occurrences
-  const countMap = allInventories?.reduce((acc, item) => {
-    acc[item] = (acc[item] || 0) + 1;
-    return acc;
-  }, {});
-
-  // Format the list
-  const formattedItems = Object.entries(countMap).map(([item, count]) =>
-    count > 1 ? `${item} x ${count}` : item
-  );
+  const newFormattedData = formattedItems(countMap(allInventories));
 
   const handleSubmit = () => {
+    if (allInventories.length === 0) return;
     console.log(allInventories);
+    closeInventoryListModal();
   };
 
   return (
@@ -174,12 +168,12 @@ const InventoryListModal = ({
                 {allInventories.length} Items Selected
               </p>
             </div>
-            {formattedItems.map((item, index) => (
+            {newFormattedData.map((item, index) => (
               <div key={index} className="flex ml-2 items-center">
                 <p className="mr-2 text-[14px] font-sans leading-[18.2px] text-[#707070] ">
                   {item}
                 </p>
-                {index !== formattedItems.length - 1 && (
+                {index !== newFormattedData.length - 1 && (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="4"
