@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const RoomItemContainer = ({ activeIcon }) => {
+const RoomItemContainer = ({ activeIcon, openIsInventoryList }) => {
   const [isOpenDropDown, setIsOpenDropDown] = useState(false);
   const openDropDown = () => setIsOpenDropDown((prev) => !prev);
 
@@ -220,7 +220,10 @@ const RoomItemContainer = ({ activeIcon }) => {
           )}
         </div>
         <div className="flex items-center">
-          <p className="text-[#b8b8b8] mr-2 cursor-pointer hover:text-[#3C82F6] font-sans text-[14px] font-bold ">
+          <p
+            onClick={openIsInventoryList}
+            className="text-[#b8b8b8] mr-2 cursor-pointer hover:text-[#3C82F6] font-sans text-[14px] font-bold "
+          >
             {" "}
             + ADD ITEMS
           </p>

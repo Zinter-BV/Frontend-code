@@ -48,12 +48,30 @@ const InventoryList = () => {
         <UploadImageForAIRecognition
           openUploadImageModal={openUploadImageModal}
         />
-        <RoomItemContainer activeIcon="Living Room" />
-        <RoomItemContainer activeIcon="Toilet" />
-        <RoomItemContainer activeIcon="Dinning Room" />
-        <RoomItemContainer activeIcon="Kitchen" />
-        <RoomItemContainer activeIcon="Bedroom" />
-        <RoomItemContainer activeIcon="Bathroom" />
+        <RoomItemContainer
+          openIsInventoryList={openIsInventoryList}
+          activeIcon="Living Room"
+        />
+        <RoomItemContainer
+          openIsInventoryList={openIsInventoryList}
+          activeIcon="Toilet"
+        />
+        <RoomItemContainer
+          openIsInventoryList={openIsInventoryList}
+          activeIcon="Dinning Room"
+        />
+        <RoomItemContainer
+          openIsInventoryList={openIsInventoryList}
+          activeIcon="Kitchen"
+        />
+        <RoomItemContainer
+          openIsInventoryList={openIsInventoryList}
+          activeIcon="Bedroom"
+        />
+        <RoomItemContainer
+          openIsInventoryList={openIsInventoryList}
+          activeIcon="Bathroom"
+        />
       </div>
       {isUploadImageModalOpen && (
         <UploadImageModal
