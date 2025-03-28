@@ -1,27 +1,43 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const InventoryItem = ({ title }) => {
+const InventoryItem = ({
+  title,
+  handleInventoriesSelected,
+  handleRemoveInventory,
+}) => {
   const [isCardSelected, setIsCardSelected] = useState(false);
 
   const [count, setCount] = useState(0);
 
-  const increaseItems = () => setCount(count + 1);
+  const increaseItems = (e) => {
+    e.stopPropagation(); // Prevent triggering parent click event
+    if (!isCardSelected) return; // Prevent increasing if not selected
 
-  const decreaseItems = () => {
-    if (count === 0) {
-      return;
-    }
-    setCount(count - 1);
+    setCount((prevCount) => prevCount + 1); // Ensure state is updated correctly
+    handleInventoriesSelected(title);
+  };
+
+  const decreaseItems = (e) => {
+    e.stopPropagation(); // Prevent triggering parent click event
+    if (!isCardSelected || count === 0) return; // Prevent decreasing if not selected or already 0
+
+    setCount((prevCount) => prevCount - 1); // Ensure state is updated correctly
+    handleRemoveInventory(title);
   };
 
   const selectCard = () => {
     setIsCardSelected((prev) => !prev);
   };
+  useEffect(() => {
+    // console.log(isCardSelected); // This logs the latest state after it updates
+  }, [isCardSelected]);
 
   return (
     <div
       onClick={selectCard}
-      className={`w-full cursor-pointer h-[240px] rounded-[16px] hover:bg-[#e8f6ff] hover:border-none border-[1px] {${isCardSelected} ? 'border-primary' : 'border-[#BCDFF6]'}`}
+      className={`w-full group cursor-pointer h-[240px] rounded-[16px] hover:bg-[#e8f6ff] hover:border-none border-[1px] ${
+        isCardSelected ? "border-primary" : "border-[#BCDFF6]"
+      }`}
     >
       <div className="border-b-[1px] border-[#e5e5e5] h-[60%] p-[20px] flex justify-center items-center ">
         <div className="flex justify-center items-center rounded-[8px] bg-white w-full mx-auto ">
@@ -50,46 +66,40 @@ const InventoryItem = ({ title }) => {
           {title}
         </p>
         <div className="flex items-center">
-          <button onClick={decreaseItems}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="15"
-              viewBox="0 0 14 15"
-              fill="none"
+          <button
+            className={`group-hover:bg-primary opacity-30 h-[25px] w-[25px] flex items-center justify-center ${
+              isCardSelected && "bg-primary opacity-100"
+            } duration-500 p-1 rounded-[6px] transition`}
+            onClick={decreaseItems}
+          >
+            <p
+              className={`font-sans font-bold  text-[18px] group-hover:text-white ${
+                isCardSelected ? "text-white" : "text-[#d1d1d1]"
+              } `}
             >
-              <path
-                d="M1.76578 8.29943H12.1396C12.5684 8.29943 12.9159 7.95185 12.9159 7.5231C12.9159 7.09435 12.5684 6.74678 12.1396 6.74678H1.76578C1.33703 6.74678 0.989453 7.09435 0.989453 7.5231C0.989453 7.95185 1.33703 8.29943 1.76578 8.29943Z"
-                // fill="#121212"
-                fill="#d1d1d1"
-                // stroke="#121212"
-                stroke="#d1d1d1"
-                stroke-width="0.4"
-                stroke-linecap="round"
-              />
-            </svg>
+              -
+            </p>
           </button>
-          <p className="mx-3 font-sans text-[16px] text-[#d1d1d1] font-bold ">
+          <p
+            className={`mx-3 font-sans text-[16px] font-bold ${
+              isCardSelected ? "text-black" : "text-[#d1d1d1]"
+            } `}
+          >
             {count}
           </p>
-          <button onClick={increaseItems}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="15"
-              viewBox="0 0 14 15"
-              fill="none"
+          <button
+            className={`group-hover:bg-primary opacity-30 h-[25px] w-[25px] flex items-center justify-center ${
+              isCardSelected && "bg-primary opacity-100"
+            } duration-500 p-1 rounded-[6px] transition`}
+            onClick={increaseItems}
+          >
+            <p
+              className={`font-sans font-bold  text-[20px] group-hover:text-white ${
+                isCardSelected ? "text-white" : "text-[#d1d1d1]"
+              } `}
             >
-              <path
-                d="M6.27012 2.33633V6.74693H1.85953C1.43078 6.74693 1.0832 7.0945 1.0832 7.52325C1.0832 7.952 1.43078 8.29957 1.85953 8.29957H6.27012V12.7102C6.27012 13.1389 6.61769 13.4865 7.04644 13.4865C7.4752 13.4865 7.82277 13.1389 7.82277 12.7102V8.29957H12.2334C12.6621 8.29957 13.0097 7.952 13.0097 7.52325C13.0097 7.0945 12.6621 6.74693 12.2334 6.74693H7.82277V2.33633C7.82277 1.90758 7.4752 1.56001 7.04644 1.56001C6.61769 1.56001 6.27012 1.90758 6.27012 2.33633Z"
-                // fill="#121212"
-                // stroke="#121212"
-                fill="#d1d1d1"
-                stroke="#d1d1d1"
-                stroke-width="0.4"
-                stroke-linecap="round"
-              />
-            </svg>
+              +
+            </p>
           </button>
         </div>
       </div>

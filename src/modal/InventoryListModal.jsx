@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import InventoryItem from "../components/InventoryItem";
 
 const InventoryListModal = ({
@@ -6,6 +6,41 @@ const InventoryListModal = ({
   isInventoryListModalOpen,
   openUploadImageModal,
 }) => {
+  const [allInventories, setAllInventories] = useState([]);
+
+  // add item to the array
+  const handleInventoriesSelected = (newItems) => {
+    setAllInventories((prevItems) => [...prevItems, newItems]); // Append new images
+  };
+
+  // remove item froom array
+  const handleRemoveInventory = (itemToRemove) => {
+    setAllInventories((prevItems) => {
+      const index = prevItems.indexOf(itemToRemove);
+      if (index !== -1) {
+        const newItems = [...prevItems]; // Create a new array
+        newItems.splice(index, 1); // Remove only one occurrence
+        return newItems;
+      }
+      return prevItems; // Return original if item not found
+    });
+  };
+
+  // Count occurrences
+  const countMap = allInventories?.reduce((acc, item) => {
+    acc[item] = (acc[item] || 0) + 1;
+    return acc;
+  }, {});
+
+  // Format the list
+  const formattedItems = Object.entries(countMap).map(([item, count]) =>
+    count > 1 ? `${item} x ${count}` : item
+  );
+
+  const handleSubmit = () => {
+    console.log(allInventories);
+  };
+
   return (
     <div className="fixed top-0 z-50 left-0 backdrop-blur-[3px] bg-[rgba(0,0,0,0.10)] h-full w-full flex justify-center items-center ">
       <div className="bg-white flex flex-col justify-between w-[90%] rounded-[16px] h-[90%]">
@@ -62,39 +97,106 @@ const InventoryListModal = ({
               </div>
             </div>
             <div className="my-3 grid grid-cols-4 gap-[18px] pb-4 w-full  ">
-              <InventoryItem title="Elegant Floor Lamp" />
-              <InventoryItem title="Artistic Wall Decor" />
-              <InventoryItem title="Stylish Coffee Table" />
-              <InventoryItem title="Toilet Seat" />
-              <InventoryItem title="Sectional Sofa" />
-              <InventoryItem title="Recliner Chair" />
-              <InventoryItem title="Coffe Table" />
-              <InventoryItem title="TV Stand" />
-              <InventoryItem title="Bookshelf" />
-              <InventoryItem title="Coffee Table" />
-              <InventoryItem title="Accent Chair" />
+              <InventoryItem
+                handleInventoriesSelected={handleInventoriesSelected}
+                handleRemoveInventory={handleRemoveInventory}
+                title="Elegant Floor Lamp"
+              />
+              <InventoryItem
+                handleInventoriesSelected={handleInventoriesSelected}
+                handleRemoveInventory={handleRemoveInventory}
+                title="Artistic Wall Decor"
+              />
+              <InventoryItem
+                handleInventoriesSelected={handleInventoriesSelected}
+                handleRemoveInventory={handleRemoveInventory}
+                title="Stylish Coffee Table"
+              />
+              <InventoryItem
+                handleInventoriesSelected={handleInventoriesSelected}
+                handleRemoveInventory={handleRemoveInventory}
+                title="Toilet Seat"
+              />
+              <InventoryItem
+                handleInventoriesSelected={handleInventoriesSelected}
+                handleRemoveInventory={handleRemoveInventory}
+                title="Sectional Sofa"
+              />
+              <InventoryItem
+                handleInventoriesSelected={handleInventoriesSelected}
+                handleRemoveInventory={handleRemoveInventory}
+                title="Recliner Chair"
+              />
+              <InventoryItem
+                handleInventoriesSelected={handleInventoriesSelected}
+                handleRemoveInventory={handleRemoveInventory}
+                title="Coffe Table"
+              />
+              <InventoryItem
+                handleInventoriesSelected={handleInventoriesSelected}
+                handleRemoveInventory={handleRemoveInventory}
+                title="TV Stand"
+              />
+              <InventoryItem
+                handleInventoriesSelected={handleInventoriesSelected}
+                handleRemoveInventory={handleRemoveInventory}
+                title="Bookshelf"
+              />
+              <InventoryItem
+                handleInventoriesSelected={handleInventoriesSelected}
+                handleRemoveInventory={handleRemoveInventory}
+                title="Coffee Table"
+              />
+              <InventoryItem
+                handleInventoriesSelected={handleInventoriesSelected}
+                handleRemoveInventory={handleRemoveInventory}
+                title="Accent Chair"
+              />
             </div>
           </div>
         </div>
         <div className="flex items-center w-full shadow-[0px_-6px_6px_-6px_rgba(0,0,0,0.3)] justify-between  p-[28px] border-t-[1px] border-[#E3E8EF] ">
-          <div className="flex bg-[#F0F9FF] border-[1px] border-[#E0F2FE] rounded-[4px] p-1 items-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="10"
-              height="7"
-              viewBox="0 0 10 7"
-              fill="none"
-            >
-              <path
-                d="M3.77578 6.9998L0.925781 4.1498L1.63828 3.4373L3.77578 5.5748L8.36328 0.987305L9.07578 1.6998L3.77578 6.9998Z"
-                fill="#3C82F6"
-              />
-            </svg>
-            <p className="font-sans text-[16px] text-[#3C82F6] ml-2 leading-[25.6px] ">
-              16 Items Selected
-            </p>
+          <div className="flex items-center">
+            <div className="flex bg-[#F0F9FF] border-[1px] border-[#E0F2FE] rounded-[4px] p-1 items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="10"
+                height="7"
+                viewBox="0 0 10 7"
+                fill="none"
+              >
+                <path
+                  d="M3.77578 6.9998L0.925781 4.1498L1.63828 3.4373L3.77578 5.5748L8.36328 0.987305L9.07578 1.6998L3.77578 6.9998Z"
+                  fill="#3C82F6"
+                />
+              </svg>
+              <p className="font-sans text-[16px] text-[#3C82F6] ml-2 leading-[25.6px] ">
+                {allInventories.length} Items Selected
+              </p>
+            </div>
+            {formattedItems.map((item, index) => (
+              <div key={index} className="flex ml-2 items-center">
+                <p className="mr-2 text-[14px] font-sans leading-[18.2px] text-[#707070] ">
+                  {item}
+                </p>
+                {index !== formattedItems.length - 1 && (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="4"
+                    height="4"
+                    viewBox="0 0 4 4"
+                    fill="none"
+                  >
+                    <circle cx="2" cy="2" r="2" fill="#D1D1D1" />
+                  </svg>
+                )}
+              </div>
+            ))}
           </div>
-          <button className="self-center bg-primary py-2 px-4 text-white rounded-[20px] cursor-pointer text-[12px] text-manrope font-light ">
+          <button
+            onClick={handleSubmit}
+            className="self-center bg-primary py-2 px-4 text-white rounded-[20px] cursor-pointer text-[12px] text-manrope font-light "
+          >
             ADD ITEMS
           </button>
         </div>
