@@ -1,0 +1,10 @@
+.sidebar_calendar {
+    /* display: flex; */
+}
+
+.calendar_page {
+    margin-top: 15vh;
+    position: absolute;
+    top: 0;
+    left: 200px ;
+}

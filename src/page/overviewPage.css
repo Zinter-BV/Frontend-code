@@ -1,0 +1,367 @@
+.overview_sidebar {
+    /* display: flex; */
+}
+
+
+
+.container_overview_all {
+    margin-top: 15vh;
+    max-height: 80vh;
+    overflow: auto;
+    position: absolute;
+    top: 0;
+    left: 200px;
+}
+
+
+.container_overview_all::-webkit-scrollbar {
+    width: 0px;
+    background: #f1f1f1;
+    border-radius: 5px;
+  }
+
+.container_overview {
+    display: flex;
+    gap: 20px;
+    
+}
+
+.container_new_jobs {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    border: 1px solid rgba(147, 204, 242, 1);
+    padding: 15px 16px;
+    border-radius: 6px;
+}
+
+
+.moving_truck {
+    background-image: url(../Assets/moving-truck-overview.svg);
+    width: 310px;
+    height: 160px;
+    position: relative;
+}
+
+.notification_user {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    border: 1px solid rgba(255, 255, 255, 1);
+    display: flex;
+    gap: 6px;
+    width: 106px;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(3px);
+    border-radius: 1000px;
+    padding: 3px;
+}
+
+.view_jobs_container {
+    color: #fff;    
+    background: linear-gradient(185deg, rgba(19, 106, 181, 1), rgba(8, 46, 79, 1));
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.view_jobs_header {
+    font-family: "DM Sans", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.view_jobs_body {
+    display: flex;
+    justify-content: space-between;
+}
+
+.view_jobs_text {
+    display: flex;
+    flex-direction: column;
+}
+
+.view_jobs_text :first-child {
+    font-family: "Unbounded", sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.view_jobs_text :last-child {
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.map_container {
+    width: 56.8vw;
+    border: 1px solid rgba(147, 204, 242, 1);
+    padding: 15px 16px;
+    border-radius: 6px;
+}
+
+/* .calendar_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 16px 15px;
+    border-radius: 6px;
+    border: 1px solid rgba(147, 204, 242, 1);
+} */
+
+.calendar_container {
+    display: flex;
+    align-items: center;
+    gap: 0; /* Adjust gap as needed */
+    padding: 30px 16px 15px;
+    border-radius: 6px;
+    margin-top: 10px;
+    border: 1px solid rgba(147, 204, 242, 1);
+}
+
+
+.first_step {
+    position: relative;
+
+}
+/* 
+.first_step_arrow {
+    display: flex;
+    position: absolute;
+    top: -25px;
+    
+} */
+/* 
+.first_step_arrow {
+    display: flex;
+    align-items: center;
+    white-space: nowrap; 
+    gap: 4px; 
+}
+
+.first_step_arrow span {
+    flex-grow: 1; 
+    text-align: center;
+    font-size: 20px;
+    letter-spacing: 2px; 
+} */
+
+.first_step_arrow {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    gap: 0; 
+}
+
+.first_step_arrow::after {
+    content: "";
+    display: block;
+    flex-grow: 1;
+    height: 1px; 
+    border-bottom: 1px dashed rgba(147, 204, 242, 1); 
+}
+
+.first_step:nth-child(n+5) .first_step_arrow::after {
+    display: none;
+}
+    
+
+
+
+
+.approved_number_text_container {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    margin-right: 20px;
+    /* width: 192px; */
+    border-radius: 6px;
+    border: 1px solid rgba(147, 204, 242, 1);
+}
+
+.approved_number_text {
+    display: flex;
+    flex-direction: column;
+}
+
+.approved_number_text :first-child{
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.approved_number_text :last-child{
+    font-family: "DM Sans", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.table_container {
+    border: 1px solid rgba(147, 204, 242, 1);
+    margin-top: 10px;
+    border-radius: 6px;
+}
+
+
+.table_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+
+.left_table_head {
+    font-family: "DM Sans", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+
+}
+
+.right_table_head {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.search_icon {
+    position: relative;
+    width: 300px;
+}
+
+.search_icon input {
+    font-family: "DM Sans", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    width: 100%;
+    border: 1px solid rgba(205, 213, 223, 1);
+    padding: 5px 15px 5px 40px;
+    outline: none;
+    border-radius: 6px;
+}
+
+.search_icon img {
+    position: absolute;
+    top: 15%;
+    left: 10px;
+}
+
+.filter_con {
+    border-radius: 6px;
+    padding: 10px 10px;
+    width: 80px;
+    
+    display: flex;
+    gap: 3px;
+    align-items: center;
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(112, 112, 112, 1);
+  
+    border: 1px solid rgba(205, 213, 223, 1);
+}
+
+.filter_con:hover {
+    cursor: pointer;
+    /* background-color: rgba(206, 142, 142, 0.5); */
+}
+
+.refresh {
+    border-radius: 6px;
+    padding: 10px 10px;
+    width: 40px;
+    cursor: pointer;
+    border: 1px solid rgba(205, 213, 223, 1);
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table thead {
+    background-color: rgba(246, 248, 250, 1);
+    border-top: 1px solid rgba(205, 213, 223, 1);
+    border-bottom: 1px solid rgba(205, 213, 223, 1);
+
+}
+
+table thead tr th div { 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(112, 112, 112, 1);
+    padding: 5px 20px;
+}
+
+tbody tr td .td {
+    padding: 5px 20px;
+}
+.name_td {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.name_text {
+    display: flex;
+    flex-direction: column;
+}
+
+.name_text :first-child {
+    color: rgba(44, 44, 44, 1);
+    font-family: "DM Sans", sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.name_text :last-child {
+    color: rgba(158, 158, 158, 1);
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.move_summary {
+    display: flex;
+    flex-direction: column;
+}
+
+.move_summary :first-child {
+    color: rgba(44, 44, 44, 1);
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.move_summary :last-child {
+    color: rgba(158, 158, 158, 1);
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.status {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    color: rgba(6, 78, 148, 1);
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    background-color: rgba(200, 224, 249, 1);
+    border: 1px solid rgba(200, 224, 249, 1);
+    width: 101px;
+    padding: 2px !important;
+    margin: 0 20px;
+}
+
+.view {
+    cursor: pointer;
+}
