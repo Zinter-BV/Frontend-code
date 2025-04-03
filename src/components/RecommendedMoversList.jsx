@@ -1,6 +1,5 @@
 import React from "react";
 import MoversCard from "./MoversCard";
-import { useState } from "react";
 
 const RecommendedMoversList = ({ makeActive }) => {
   return (
@@ -16,7 +15,7 @@ const RecommendedMoversList = ({ makeActive }) => {
             </p>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-[13px]">
+        <div className="grid grid-cols-2 mb-[30px] gap-[13px]">
           <MoversCard makeActive={makeActive} />
           <MoversCard makeActive={makeActive} />
           <MoversCard makeActive={makeActive} />

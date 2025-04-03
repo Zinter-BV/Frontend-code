@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import RecommendedMoversList from "./RecommendedMoversList";
 import MovingCompanyDetails from "./MovingCompanyDetails";
 
-const MoversHolder = () => {
-  const [isActive, setIsActive] = useState(false);
-
+const MoversHolder = ({ isActive, setIsActive }) => {
   const makeActive = () => setIsActive(true);
 
   const makeInActive = () => setIsActive(false);
