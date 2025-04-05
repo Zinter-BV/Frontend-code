@@ -5,11 +5,14 @@ import Payment from "./Payment";
 import TrackMove from "./TrackMove";
 import MoversHolder from "./MoversHolder";
 import PrimaryBtn from "./PrimaryBtn";
+import PaymentSuccess from "../modal/PaymentSuccess";
 
 const MoversContainer = () => {
   const [activeTab, setActiveTab] = useState(1);
 
   const [isActive, setIsActive] = useState(false);
+
+  const [openSuccessModal, setOpenSuccessModal] = useState(false);
 
   let content = (
     <MoversHolder MoversHolder isActive={isActive} setIsActive={setIsActive} />
@@ -58,8 +61,15 @@ const MoversContainer = () => {
 
   const handleSubmit = () => {
     console.log("Helloo");
-    // console.log(openSuccessModal);
-    // setOpenSuccessModal(true);
+  };
+
+  const openModal = () => {
+    handleTabs();
+    setOpenSuccessModal(true);
+  };
+
+  const closeSuccessModal = () => {
+    setOpenSuccessModal(false);
   };
 
   return (
@@ -68,11 +78,11 @@ const MoversContainer = () => {
         <div className="w-full mt-4 flex ">
           <div className="mr-4">
             <StaticMoversStepper />
-            <MoversProgress />
+            <MoversProgress activeTab={activeTab} />
           </div>
           {content}
         </div>
-        {isActive && (
+        {isActive && activeTab !== 3 && (
           <div className="h-[80px] shadow-[0px_-6px_6px_-6px_rgba(0,0,0,0.3)] bg-white fixed bottom-0 max-w-[1500px] mx-auto w-[90vw] flex items-center justify-center  ">
             <div className="w-full flex items-center justify-between">
               {activeTab === 1 ? (
@@ -90,7 +100,7 @@ const MoversContainer = () => {
               <div>
                 {activeTab === 2 ? (
                   <PrimaryBtn
-                    handlePress={handleSubmit}
+                    handlePress={openModal}
                     className={"text-[14px] "}
                   >
                     COMPLETE PAYMENT
@@ -108,6 +118,9 @@ const MoversContainer = () => {
           </div>
         )}
       </div>
+      {openSuccessModal && (
+        <PaymentSuccess closeSuccessModal={closeSuccessModal} />
+      )}
     </div>
   );
 };

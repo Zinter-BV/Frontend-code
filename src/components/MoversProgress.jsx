@@ -1,7 +1,7 @@
 import React from "react";
 
-const MoversProgress = () => {
-  const activeTab = 1;
+const MoversProgress = ({ activeTab }) => {
+  console.log(activeTab);
   return (
     <div className="h-fit w-[350px] bg-[#f7f7f7] rounded-[20px] border-[1px] border-[#E4F2FB] px-[24px] py-[32px] ">
       <div className="flex relative">
@@ -92,14 +92,14 @@ const MoversProgress = () => {
         <div className="h-[100px] ">
           <p
             className={`${
-              activeTab > 1 ? "text-[#2c2c2c]" : "text-primary"
+              activeTab > 2 ? "text-[#2c2c2c]" : "text-primary"
             } font-sans font-bold text-[16px] mb-2`}
           >
             Recommended Movers
           </p>
           <p
             className={`${
-              activeTab > 1 ? "text-[#2c2c2c]" : "text-primary"
+              activeTab > 2 ? "text-[#2c2c2c]" : "text-primary"
             } font-sans text-[14px]`}
           >
             List of moving companies & quotes
@@ -110,11 +110,11 @@ const MoversProgress = () => {
       <div className="flex relative">
         <div
           className={`absolute top-9 left-[15px] ${
-            activeTab > 3 ? "bg-[#248CD9]" : "bg-[#E3E8EF]"
+            activeTab > 2 ? "bg-[#248CD9]" : "bg-[#E3E8EF]"
           } h-[60px] w-[2px] rounded-[2px] `}
         ></div>
         <div className="mr-4">
-          {activeTab > 3 ? (
+          {activeTab > 2 ? (
             <div className="h-[32px] w-[32px] flex justify-center items-center border-[2px] border-[#248CD9] rounded-full">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -134,7 +134,7 @@ const MoversProgress = () => {
             </div>
           ) : (
             <div>
-              {activeTab === 3 ? (
+              {activeTab === 2 ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="32"
@@ -203,7 +203,7 @@ const MoversProgress = () => {
       </div>
       <div className="flex ">
         <div className="mr-4">
-          {activeTab > 4 ? (
+          {activeTab > 3 ? (
             <div className="h-[32px] w-[32px] flex justify-center items-center border-[2px] border-[#248CD9] rounded-full">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -223,7 +223,7 @@ const MoversProgress = () => {
             </div>
           ) : (
             <div>
-              {activeTab === 4 ? (
+              {activeTab === 3 ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="32"

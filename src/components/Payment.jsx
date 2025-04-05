@@ -192,7 +192,7 @@ const Payment = () => {
             </div>
           </div>
         </div>
-        <div className="rounded-[12px] w-full flex justify-between h-fit border-[1px] p-[16px] border-[#e3e3e3] ">
+        {/* <div className="rounded-[12px] w-full flex justify-between h-fit border-[1px] p-[16px] border-[#e3e3e3] ">
           <div className="flex items-center">
             <div className="rounded-[2px] flex items-center justify-center h-[37px] w-[37px] border-[1px] border-[#E2E8F0] ">
               <svg
@@ -226,7 +226,7 @@ const Payment = () => {
           </div>
           <div className="">
             <div className="w-[16px] h-[16px] rounded-full border-[1px] border-[#CBD5E1] "></div>
-            {/* <svg
+            <svg
               xmlns="http://www.w3.org/2000/svg"
               width="19"
               height="20"
@@ -235,9 +235,9 @@ const Payment = () => {
             >
               <circle cx="9.5" cy="10" r="9" fill="#F5F5F5" stroke="#136AB5" />
               <circle cx="9.49862" cy="9.99996" r="6.14706" fill="#136AB5" />
-            </svg> */}
+            </svg>
           </div>
-        </div>
+        </div> */}
         <div className="rounded-[12px] h-fit w-full flex-col mt-5 flex border-[1px] p-[16px] border-[#e3e3e3] ">
           <div className="items-center w-full justify-between flex">
             <div className="flex items-center">
