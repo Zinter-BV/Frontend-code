@@ -33,7 +33,7 @@ const TrackMove = () => {
             <img className="w-[400px] h-[440px] " src={Map} alt="map" />{" "}
           </div>
           <div className="mt-4 relative ">
-            <div className="w-full h-[400px] absolute top-0 z-30 ">
+            <div className="w-full h-[420px] absolute top-0 z-30 ">
               <div className="w-full h-[25%]"></div>
               <div className="w-full h-[75%] bg-white opacity-90 "></div>
             </div>

@@ -4,8 +4,10 @@ import PrimaryBtn from "./PrimaryBtn";
 import HeroIcon from "../Assets/SVG/HeroIcon";
 import StarIcon from "../Assets/SVG/StarIcon";
 import ZoomingCard from "./ZoomingCard";
+import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   return (
     <div className="  w-full  bg-gradient-to-b mt-[80px] from-[#E8F5F5] to-white">
       <div className="w-[90vw] pt-14 max-w-[1500px] items-center flex justify-between mx-auto">
@@ -24,7 +26,7 @@ const HeroSection = () => {
             GET A QUOTE
           </PrimaryBtn>
           <SecondaryBtn
-            handlePress={() => console.log("hELLOO")}
+            handlePress={() => navigate("/track-code")}
             className={"ml-5 text-[20px] "}
           >
             TRACK MOVE

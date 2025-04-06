@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import StaticMoversStepper from "./StaticMoversStepper";
 import MoversProgress from "./MoversProgress";
 import Payment from "./Payment";
@@ -7,12 +7,17 @@ import MoversHolder from "./MoversHolder";
 import PrimaryBtn from "./PrimaryBtn";
 import PaymentSuccess from "../modal/PaymentSuccess";
 
-const MoversContainer = () => {
+const MoversContainer = ({ trackingCode }) => {
   const [activeTab, setActiveTab] = useState(1);
 
   const [isActive, setIsActive] = useState(false);
 
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
+
+  useEffect(() => {
+    if (trackingCode) setActiveTab(3);
+    else setActiveTab(1);
+  }, [trackingCode]);
 
   let content = (
     <MoversHolder MoversHolder isActive={isActive} setIsActive={setIsActive} />
