@@ -10,7 +10,7 @@ const Footer = () => {
   return (
     <div className="bg-[#E5E5E5] w-full h-fit ">
       <div className="w-[90vw] py-10  max-w-[1500px] mx-auto">
-        <div className="flex justify-between">
+        <div className="flex footerContainer justify-between">
           <div>
             <img src={logo} alt="logo" className="" />
             <div className="flex mt-5">
@@ -20,41 +20,44 @@ const Footer = () => {
               <FaFacebookF size={20} />
             </div>
           </div>
-          <div className="flex">
+          <div className="flex footerSubContainer">
             <div className="mr-8">
-              <p className="font-sans text-[24px] text-[#136AB5] text-right font-bold ">
+              <p className="font-sans text-[24px] footerMainText text-[#136AB5] text-right font-bold ">
                 Quicklinks
               </p>
               <div className="flex flex-col">
-                <Link to="/about" className="font-sora text-right font-regular">
+                <Link
+                  to="/about"
+                  className="font-sora text-right font-regular footerDesc"
+                >
                   {" "}
                   About Us
                 </Link>
                 <Link
                   to="/faq"
-                  className="font-sora text-right font-regular mt-2"
+                  className="font-sora text-right font-regular footerDesc mt-2"
                 >
                   {" "}
                   Frequently Asked Questions
                 </Link>
                 <Link
                   to="/privacy"
-                  className="font-sora text-right font-regular mt-2"
+                  className="font-sora text-right font-regular footerDesc mt-2"
                 >
                   {" "}
                   Privacy Policy
                 </Link>
                 <Link
                   to="/terms"
-                  className="font-sora text-right font-regular mt-2"
+                  className="font-sora text-right font-regular footerDesc mt-2"
                 >
                   {" "}
                   Terms & Conditions
                 </Link>
               </div>
             </div>
-            <div className="">
-              <p className="font-sans text-[24px] text-[#136AB5] text-right font-bold ">
+            <div className="footerSubBox">
+              <p className="font-sans text-[24px] footerMainText text-[#136AB5] text-right font-bold ">
                 Contact
               </p>
               <div className="flex flex-col">
@@ -67,16 +70,16 @@ const Footer = () => {
                 </a>
                 <a
                   href="tel:+4930000000000"
-                  className="font-sora text-right font-regular"
+                  className="font-sora text-right font-regular footerDesc"
                 >
                   {" "}
                   +493 00 00000000
                 </a>
-                <p className="font-sora text-right font-regular mt-2">
+                <p className="font-sora text-right font-regular footerDesc mt-2">
                   {" "}
                   Mon. - Fri.: 08:00 - 19:00
                 </p>
-                <p className="font-sora text-right font-regular mt-2">
+                <p className="font-sora text-right font-regular footerDesc mt-2">
                   {" "}
                   Sat.: 09:00 - 17:00
                 </p>
@@ -84,7 +87,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="border-t-2 w-full py-4 flex justify-between border-black mt-6 ">
+        <div className="border-t-2 w-full py-4 footerEndContainer flex justify-between border-black mt-6 ">
           <p className="font-sans text-[18px] text-[#121212] font-normal ">
             © 2025 All rights Reserved
           </p>

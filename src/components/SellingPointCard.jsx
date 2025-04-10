@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 
 const SellingPointCard = ({ card }) => {
   return (
-    <div className="h-fit border-2 border-[#BCDFF6] rounded-[18px] p-4 w-full ">
+    <div className="h-fit border-2 border-[#BCDFF6] sellingpointCard rounded-[18px] p-4 w-full ">
       <img
         src={card?.img}
         alt="more"
-        className="w-full object-cover h-[160px] rounded-[18px] "
+        className="w-full object-cover h-[160px] sellingpointCardImage rounded-[18px] "
       />
-      <p className="font-unbounded text-[#121212] font-bold my-2 text-[20px]">
+      <p className="font-unbounded text-[#121212] sellingCardText font-bold my-2 text-[20px]">
         {card?.text}
       </p>
       <Link to="/">

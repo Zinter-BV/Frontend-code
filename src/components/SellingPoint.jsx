@@ -25,17 +25,17 @@ const SellingPoint = () => {
 
   return (
     <div className=" max-w-[1500px] w-[90vw] mt-16 mx-auto mb-36 ">
-      <div className="bg-[#E5E5E54D] flex justify-center w-fit mx-auto items-center rounded-[100px] p-3 ">
+      <div className="bg-[#E5E5E54D] flex sellingPointStyle justify-center w-fit mx-auto items-center rounded-[100px] p-3 ">
         <p className="text-[#707070] font-sans text-[14px]">SELLING POINT</p>
       </div>
-      <h2 className="font-unbounded text-[#121212] text-center font-bold my-2 text-[36px]">
+      <h2 className="font-unbounded text-[#121212] sellingPointText text-center font-bold my-2 text-[36px]">
         Professional movers at your service
       </h2>
-      <p className="font-sans text-center text-[18px] text-[#9E9E9E] ">
+      <p className="font-sans text-center sellingPointDesc text-[18px] text-[#9E9E9E] ">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor
       </p>
-      <div className="mt-16 grid gap-8 grid-cols-3 ">
+      <div className="mt-16 sellingCardContainer  grid gap-8 grid-cols-3 ">
         {data?.map((card) => {
           return <SellingPointCard key={card?.id} card={card} />;
         })}

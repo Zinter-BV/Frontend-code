@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import QuoteProgress from "./QuoteProgress";
 import Location from "./Location";
@@ -8,11 +8,16 @@ import MovingInformation from "./MovingInformation";
 import ViewSummary from "./ViewSummary";
 import QuoteSuccess from "../modal/QuoteSuccess";
 
-const QuoteContainer = () => {
+const QuoteContainer = ({ data }) => {
   const [activeTab, setActiveTab] = useState(1);
 
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (data) setActiveTab(2);
+    else setActiveTab(1);
+  }, [data]);
 
   let content = <Location />;
   // let btnText = CONTINUE
