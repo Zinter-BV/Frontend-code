@@ -110,7 +110,7 @@ const SideBar = () => {
         { path: "/overview", icon: overviewIcon, activeIcon: overviewIconActive, label: "Overview" },
         { path: "/calendar", icon: calendarIcon, activeIcon: calenarIconActive, label: "Calendar" },
         { path: "/jobs", icon: jobsIcon, activeIcon: jobsIconActive, label: "Jobs" },
-        { path: "/support", icon: supportIcon, label: "Support" },
+        { path: "/payment", icon: supportIcon, activeIcon: jobsIconActive,  label: "Payment" },
     ];
 
     return (

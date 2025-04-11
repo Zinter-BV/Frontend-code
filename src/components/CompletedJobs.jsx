@@ -24,94 +24,178 @@ import viewMore from "../Assets/Eye.svg"
 import "./completedJobs.css"
 
 const CompletedJobs = () => {
+    const completedRequests = [
+        {
+            name: "Chidera Okafor",
+            email: "chidera.okafor@mail.com",
+            initials: "CO",
+            moveSummary: "2 Bedroom Flat",
+            route: "Lagos (Yaba - Surulere)",
+        },
+        {
+            name: "Mariam Yusuf",
+            email: "mariam.yusuf@mail.com",
+            initials: "MY",
+            moveSummary: "3 Bedroom Duplex",
+            route: "Abuja (Maitama - Asokoro)",
+        },
+        {
+            name: "Emmanuel Bassey",
+            email: "emmanuel.bassey@mail.com",
+            initials: "EB",
+            moveSummary: "1 Bedroom Apartment",
+            route: "Calabar (Marian - Ikot Ansa)",
+        },
+        {
+            name: "Zainab Bello",
+            email: "zainab.bello@mail.com",
+            initials: "ZB",
+            moveSummary: "4 Bedroom House",
+            route: "Kaduna (Barnawa - Ungwan Rimi)",
+        },
+        {
+            name: "Ifeanyi Nwachukwu",
+            email: "ifeanyi.nwachukwu@mail.com",
+            initials: "IN",
+            moveSummary: "5 Bedroom Mansion",
+            route: "Owerri (Douglas - Ikenegbu)",
+        },
+        {
+            name: "Kelechi Umeh",
+            email: "kelechi.umeh@mail.com",
+            initials: "KU",
+            moveSummary: "2 Bedroom Shared Flat",
+            route: "Port Harcourt (D-line - GRA)",
+        },
+        {
+            name: "Fatima Sani",
+            email: "fatima.sani@mail.com",
+            initials: "FS",
+            moveSummary: "Luxury Penthouse",
+            route: "Kano (Nassarawa - Hotoro)",
+        },
+        {
+            name: "Tope Balogun",
+            email: "tope.balogun@mail.com",
+            initials: "TB",
+            moveSummary: "3 Bedroom Bungalow",
+            route: "Ibadan (Molete - Bodija)",
+        },
+        {
+            name: "Grace Enoh",
+            email: "grace.enoh@mail.com",
+            initials: "GE",
+            moveSummary: "2 Bedroom Condo",
+            route: "Benin (GRA - Ring Road)",
+        },
+        {
+            name: "Nura Suleiman",
+            email: "nura.suleiman@mail.com",
+            initials: "NS",
+            moveSummary: "Studio Apartment",
+            route: "Sokoto (Arkilla - Gawon Nama)",
+        },
+    ];
+
     return (
         <div>
-                  <div className="table_container">
-                    <div className="table_header">
-                        <div className="left_table_head">
-                            <h1>Completed Jobs</h1>
+            <div className="table_container">
+                <div className="table_header">
+                    <div className="left_table_head">
+                        <h1>Completed Jobs</h1>
+                    </div>
+                    <div className="right_table_head">
+                        <div className="search_icon">
+                            <input type="text" placeholder="Search" />
+                            <img src={searchIcon} alt="" />
                         </div>
-                        <div className="right_table_head">
-                            <div className="search_icon">
-                                <input type="text" placeholder="Search" />
-                                <img src={searchIcon} alt="" />
-                            </div>
-                            <div className="filter_con">
-                                <span>
-                                    <img src={filterIcon} alt="" />
-                                </span>
-                                <span>Filter</span>
-                            </div>
-                            <div className="refresh">
-                                <img src={refreshIcon} alt="" />
-                            </div>
+                        <div className="filter_con">
+                            <span>
+                                <img src={filterIcon} alt="" />
+                            </span>
+                            <span>Filter</span>
+                        </div>
+                        <div className="refresh">
+                            <img src={refreshIcon} alt="" />
                         </div>
                     </div>
-                    <div >
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>
-                                        <div>
-                                            <span>Name</span>
-                                            <img src={arrowDown} alt="" />
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div>
-                                            <span>Move Summary</span>
-                                            <img src={arrowDown} alt="" />
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div>
-                                            <span>Status</span>
-                                            <img src={arrowDown} alt="" />
-                                        </div>
-                                    </th>
-                                    <th>
+                </div>
+                <div >
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div>
+                                        <span>Name</span>
+                                        <img src={arrowDown} alt="" />
+                                    </div>
+                                </th>
+                                <th>
+                                    <div>
+                                        <span>Move Summary</span>
+                                        <img src={arrowDown} alt="" />
+                                    </div>
+                                </th>
+                                <th>
+                                    <div>
+                                        <span>Status</span>
+                                        <img src={arrowDown} alt="" />
+                                    </div>
+                                </th>
+                                <th>
+                                    <div>
+                                        <span>Progress</span>
+                                        <img src={arrowDown} alt="" />
+                                    </div>
+                                </th>
 
-                                    </th>
+                                <th>
 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {completedRequests.map((request, index) => (
+                                <tr key={index}>
                                     <td>
                                         <div className="name_td td">
-                                            <div>
-                                                <img src={avatar} alt="user-initials" />
+                                            <div className="avatar_circle">
+                                                <span>{request.initials}</span>
                                             </div>
                                             <div className="name_text">
-                                                <span>Anna van Dijk</span>
-                                                <span>AnnaVanDijk@gmail.com</span>
+                                                <span>{request.name}</span>
+                                                <span>{request.email}</span>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
                                         <div className="move_summary td">
-                                            <span>3 Bedroom House</span>
-                                            <span>Amsterdam (Damrack - Hilversum)</span>
+                                            <span>{request.moveSummary}</span>
+                                            <span>{request.route}</span>
                                         </div>
                                     </td>
                                     <td>
                                         <div className="status_completed td">
-                                            <span>
-                                                <img src={dot} alt="" />
-                                            </span>
-                                            <span>
-                                                Completed
-                                            </span>
+                                            <span><img src={dot} alt="" /></span>
+                                            <span>Completed</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div className="progress_bar_complete">
+                                            <div className="progress_bar_moving_complete"></div>
                                         </div>
                                     </td>
                                     <td className="view">
                                         <img src={viewMore} alt="view more" />
                                     </td>
                                 </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                            ))}
+
+                        </tbody>
+                    </table>
                 </div>
+            </div>
         </div>
     )
 }

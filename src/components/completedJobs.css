@@ -159,8 +159,22 @@ tbody tr td .td {
     background-color: rgba(220, 250, 230, 1);
     border: 1px solid rgba(220, 250, 230, 1);
     width: 95px;
+    border-radius: 6px;
     padding: 2px !important;
     margin: 0 20px;
+}
+
+.progress_bar_complete {
+    border: 2px solid rgba(234, 236, 240, 1);  
+    background-color: rgba(234, 236, 240, 1);
+    width: 80%;
+    border-radius: 6px;
+}
+
+.progress_bar_moving_complete {
+    width: 100%;
+    border: 4px solid rgba(18, 185, 129, 1);
+    border-radius: 6px;
 }
 
 .view {

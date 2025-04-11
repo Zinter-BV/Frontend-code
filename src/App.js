@@ -4,9 +4,12 @@ import Home from "./page/Home";
 import GetQuote from "./page/GetQuote";
 import AboutUs from "./page/AboutUs";
 import FirstStepCompanies from "./page/FirstStepCompanies";
+import SecondStepCompanies from "./page/SecondStepCompanies";
+import ThirdStepCompanies from "./page/ThirdStepCompanies";
 import Overview from "./page/OverviewPage";
 import CalendarPage from "./page/calendarPage";
 import JobsPage from "./page/jobsPage";
+import Payment from "./page/PaymentPage";
 
 import SideBar from "./components/SideBar";  // Import Sidebar
 
@@ -29,10 +32,12 @@ function App() {
         <Route path="/quote" element={<GetQuote />} />
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/get-started" element={<FirstStepCompanies />} />
+        <Route path="/email-verification" element={<SecondStepCompanies/>}/>
+        <Route path="/profile-setup" element={<ThirdStepCompanies/>}/>
         <Route path="/overview" element={<Overview/>}/>
         <Route path="/calendar" element={<CalendarPage/>}/>
         <Route path="/jobs" element={<JobsPage/>}/>
-        
+        <Route path="/payment" element={<Payment/>}/>
         {/* Sidebar should only be visible on Overview & Calendar */}
 
       </Routes>

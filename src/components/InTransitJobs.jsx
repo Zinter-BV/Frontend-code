@@ -24,94 +24,177 @@ import viewMore from "../Assets/Eye.svg"
 import "./inTransitJobs.css"
 
 const InTransitJobs = () => {
+    const inTransitRequests = [
+        {
+            name: "Leila Bakari",
+            email: "leila.bakari@mail.com",
+            initials: "LB",
+            moveSummary: "1 Bedroom Apartment",
+            route: "Nairobi (Westlands - Kilimani)",
+        },
+        {
+            name: "Samuel Adekunle",
+            email: "samuel.adekunle@mail.com",
+            initials: "SA",
+            moveSummary: "3 Bedroom Duplex",
+            route: "Abuja (Wuse - Garki)",
+        },
+        {
+            name: "Blessing Eze",
+            email: "blessing.eze@mail.com",
+            initials: "BE",
+            moveSummary: "2 Bedroom Flat",
+            route: "Enugu (New Haven - Uwani)",
+        },
+        {
+            name: "Tunde Afolabi",
+            email: "tunde.afolabi@mail.com",
+            initials: "TA",
+            moveSummary: "4 Bedroom Mansion",
+            route: "Lagos (Ajah - Ikoyi)",
+        },
+        {
+            name: "Adama Diallo",
+            email: "adama.diallo@mail.com",
+            initials: "AD",
+            moveSummary: "Studio Apartment",
+            route: "Dakar (Plateau - Almadies)",
+        },
+        {
+            name: "Yemi Okoro",
+            email: "yemi.okoro@mail.com",
+            initials: "YO",
+            moveSummary: "5 Bedroom House",
+            route: "Owerri (Orji - Irete)",
+        },
+        {
+            name: "Fatou Jallow",
+            email: "fatou.jallow@mail.com",
+            initials: "FJ",
+            moveSummary: "2 Bedroom Shared",
+            route: "Banjul (Fajara - Bakau)",
+        },
+        {
+            name: "Chris Nwankwo",
+            email: "chris.nwankwo@mail.com",
+            initials: "CN",
+            moveSummary: "3 Bedroom Terrace",
+            route: "Onitsha (Nkpor - Odoakpu)",
+        },
+        {
+            name: "Halima Bello",
+            email: "halima.bello@mail.com",
+            initials: "HB",
+            moveSummary: "Luxury Condo",
+            route: "Kano (Tarauni - Gwarzo)",
+        },
+        {
+            name: "Victor Essien",
+            email: "victor.essien@mail.com",
+            initials: "VE",
+            moveSummary: "4 Bedroom Townhouse",
+            route: "Calabar (State Housing - Marian)",
+        },
+    ];
+
     return (
         <div>
-                  <div className="table_container">
-                    <div className="table_header">
-                        <div className="left_table_head">
-                            <h1>In Transit</h1>
+            <div className="table_container">
+                <div className="table_header">
+                    <div className="left_table_head">
+                        <h1>In Transit</h1>
+                    </div>
+                    <div className="right_table_head">
+                        <div className="search_icon">
+                            <input type="text" placeholder="Search" />
+                            <img src={searchIcon} alt="" />
                         </div>
-                        <div className="right_table_head">
-                            <div className="search_icon">
-                                <input type="text" placeholder="Search" />
-                                <img src={searchIcon} alt="" />
-                            </div>
-                            <div className="filter_con">
-                                <span>
-                                    <img src={filterIcon} alt="" />
-                                </span>
-                                <span>Filter</span>
-                            </div>
-                            <div className="refresh">
-                                <img src={refreshIcon} alt="" />
-                            </div>
+                        <div className="filter_con">
+                            <span>
+                                <img src={filterIcon} alt="" />
+                            </span>
+                            <span>Filter</span>
+                        </div>
+                        <div className="refresh">
+                            <img src={refreshIcon} alt="" />
                         </div>
                     </div>
-                    <div >
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>
-                                        <div>
-                                            <span>Name</span>
-                                            <img src={arrowDown} alt="" />
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div>
-                                            <span>Move Summary</span>
-                                            <img src={arrowDown} alt="" />
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div>
-                                            <span>Status</span>
-                                            <img src={arrowDown} alt="" />
-                                        </div>
-                                    </th>
-                                    <th>
+                </div>
+                <div >
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div>
+                                        <span>Name</span>
+                                        <img src={arrowDown} alt="" />
+                                    </div>
+                                </th>
+                                <th>
+                                    <div>
+                                        <span>Move Summary</span>
+                                        <img src={arrowDown} alt="" />
+                                    </div>
+                                </th>
+                                <th>
+                                    <div>
+                                        <span>Status</span>
+                                        <img src={arrowDown} alt="" />
+                                    </div>
+                                </th>
+                                <th>
+                                    <div>
+                                        <span>Progress</span>
+                                        <img src={arrowDown} alt="" />
+                                    </div>
+                                </th>
+                                <th>
 
-                                    </th>
+                                </th>
 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {inTransitRequests.map((request, index) => (
+                                <tr key={index}>
                                     <td>
                                         <div className="name_td td">
-                                            <div>
-                                                <img src={avatar} alt="user-initials" />
+                                            <div className="avatar_circle">
+                                                <span>{request.initials}</span>
                                             </div>
                                             <div className="name_text">
-                                                <span>Anna van Dijk</span>
-                                                <span>AnnaVanDijk@gmail.com</span>
+                                                <span>{request.name}</span>
+                                                <span>{request.email}</span>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
                                         <div className="move_summary td">
-                                            <span>3 Bedroom House</span>
-                                            <span>Amsterdam (Damrack - Hilversum)</span>
+                                            <span>{request.moveSummary}</span>
+                                            <span>{request.route}</span>
                                         </div>
                                     </td>
                                     <td>
                                         <div className="status_transit td">
-                                            <span>
-                                                <img src={dot} alt="" />
-                                            </span>
-                                            <span>
-                                                In Transit
-                                            </span>
+                                            <span><img src={dot} alt="" /></span>
+                                            <span>In Transit</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div className="progress_bar_transit">
+                                            <div className="progress_bar_moving_transit"></div>
                                         </div>
                                     </td>
                                     <td className="view">
                                         <img src={viewMore} alt="view more" />
                                     </td>
                                 </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                            ))}
+
+                        </tbody>
+                    </table>
                 </div>
+            </div>
         </div>
     )
 }

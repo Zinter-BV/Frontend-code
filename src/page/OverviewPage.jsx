@@ -22,10 +22,27 @@ import avatar from "../Assets/Gb-Avatar.svg"
 import dot from "../Assets/Dot.svg"
 import viewMore from "../Assets/Eye.svg"
 import "./overviewPage.css"
+import ViewLocationMap from "../components/GoogleMap";
+import revenueIcon from "../Assets/dashboard-revenue-logo.svg";
+import addServiceIcon from "../Assets/add-service.svg"
+import configureIcon from "../Assets/configure-icon.svg"
+import settingsIcon from "../Assets/settings.svg"
 
 
 
 const OverviewPage = () => {
+    const moveRequests = [
+        { name: "Anna van Dijk", email: "AnnaVanDijk@gmail.com", status: "New Request" },
+        // { name: "David Osei", email: "davidosei@mail.com", status: "In Transit" },
+        // { name: "Fatima Bello", email: "fatimabello@mail.com", status: "Completed" },
+        // { name: "John Park", email: "johnpark@fastmail.com", status: "New Request" },
+        // { name: "Lina Chukwu", email: "linachuks@mail.com", status: "In Transit" },
+        // { name: "James Okoro", email: "okorojames@gmail.com", status: "Completed" },
+        // { name: "Sara Müller", email: "sara.mueller@email.com", status: "In Transit" },
+        // { name: "Peter Mensah", email: "mensahpeter@yahoo.com", status: "New Request" },
+        // { name: "Grace Kim", email: "gracekim@outlook.com", status: "Completed" },
+        // { name: "Ali Jibril", email: "alijibril@mail.com", status: "In Transit" },
+    ];
     return (
 
         <div className="overview_sidebar">
@@ -59,7 +76,35 @@ const OverviewPage = () => {
                         </div>
                     </div>
                     <div className="map_container">
-                        Map is going here
+                        <div className="map_revenue">
+                            <div className="revenue_container">
+                                <div>
+                                    <img src={revenueIcon} alt="" />
+                                </div>
+                                <div className="revenue_text">
+                                    <span>Total Revenue</span>
+                                    <span>$123,000</span>
+                                </div>
+                            </div>
+
+                            <div className="map_image">
+                                <ViewLocationMap />
+                            </div>
+                        </div>
+                        <div className="map_btn">
+                            <button>
+                                <img src={addServiceIcon} alt="" />
+                                <span>Add Your Services</span>
+                            </button>
+                            <button>
+                                <img src={configureIcon} alt="" />
+                                <span>Configure Pricing</span>
+                            </button>
+                            <button>
+                                <img src={settingsIcon} alt="" />
+                                <span>Account Settings</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div className="calendar_container">
@@ -198,44 +243,52 @@ const OverviewPage = () => {
                                         </div>
                                     </th>
                                     <th>
+                                        <div>
+                                            <span>Progress</span>
+                                            <img src={arrowDown} alt="" />
+                                        </div>
+                                    </th>
+                                    <th>
 
                                     </th>
 
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <div className="name_td td">
-                                            <div>
-                                                <img src={avatar} alt="user-initials" />
+                                {moveRequests.map((request, index) => (
+                                    <tr key={index}>
+                                        <td>
+                                            <div className="name_td td">
+                                                <div><img src={avatar} alt="user-initials" /></div>
+                                                <div className="name_text">
+                                                    <span>{request.name}</span>
+                                                    <span>{request.email}</span>
+                                                </div>
                                             </div>
-                                            <div className="name_text">
-                                                <span>Anna van Dijk</span>
-                                                <span>AnnaVanDijk@gmail.com</span>
+                                        </td>
+                                        <td>
+                                            <div className="move_summary td">
+                                                <span>3 Bedroom House</span>
+                                                <span>Amsterdam (Damrack - Hilversum)</span>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="move_summary td">
-                                            <span>3 Bedroom House</span>
-                                            <span>Amsterdam (Damrack - Hilversum)</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="status td">
-                                            <span>
-                                                <img src={dot} alt="" />
-                                            </span>
-                                            <span>
-                                                New Request
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td className="view">
-                                        <img src={viewMore} alt="view more" />
-                                    </td>
-                                </tr>
+                                        </td>
+                                        <td>
+                                            <div className="status td">
+                                                <span><img src={dot} alt="" /></span>
+                                                <span>{request.status}</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div className="progress_bar_new">
+                                                <div className="progress_bar_moving_new"></div>
+                                            </div>
+                                        </td>
+                                        <td className="view">
+                                            <img src={viewMore} alt="view more" />
+                                        </td>
+                                    </tr>
+                                ))}
+
                             </tbody>
                         </table>
                     </div>
