@@ -312,6 +312,23 @@
     flex-direction: column;
     gap:10px ;
   }
+  .trackCodeBox{
+    width: 400px;
+  }
+}
+
+@media screen and (max-width:430px) {
+  .trackCodeBoxText{
+    font-size: 18px;
+  }
+  .trackCodeBoxInput{
+    height: 30px;
+    width: 30px;
+    font-size: 16px;
+  }
+  .trackCodeBox{
+    width: 95%;
+  }
 }
 
 @media screen and (max-width: 400px){
@@ -330,4 +347,15 @@
   .processWoman{
     height: 380px;
   }
+}
+
+@media screen and (max-width:430px) {
+  .trackCodeBoxText{
+    font-size: 16px;
+  }
+
+  .trackBoxInputContainer{
+    grid-gap: 6px;
+  }
+  
 }

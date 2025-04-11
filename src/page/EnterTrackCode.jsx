@@ -81,13 +81,13 @@ const EnterTrackCode = () => {
                 Track your move progress
               </p>
             </div>
-            <div className="flex flex-col items-center justify-center w-full h-[60vh] my-auto mt-5">
-              <div className="flex border-[1px]  flex-col rounded-[12px] bg-white w-[450px] justify-center">
+            <div className="flex flex-col  items-center justify-center w-full h-[60vh] my-auto mt-5">
+              <div className="flex border-[1px] trackCodeBox flex-col rounded-[12px] bg-white w-[450px] justify-center">
                 <div className="flex flex-col  justify-center items-center px-[24px] pt-[24px] ">
-                  <h2 className="my-3 text-center font-sans text-[24px] text-[#121212] font-bold ">
+                  <h2 className="my-3 text-center trackCodeBoxText font-sans text-[24px] text-[#121212] font-bold ">
                     Enter Code to Track Move
                   </h2>
-                  <div className="flex gap-x-3 mb-[16px] items-center">
+                  <div className="flex gap-x-3 mb-[16px] trackBoxInputContainer items-center">
                     <div className="flex items-center gap-x-3">
                       {[...Array(3)].map((_, i) => (
                         <input
@@ -104,7 +104,7 @@ const EnterTrackCode = () => {
                           onBlur={() => setFocusedIndex(null)}
                           onChange={(e) => handleInputChange(e, i)}
                           onKeyDown={(e) => handleKeyDown(e, i)}
-                          className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none outline-none text-[28px] h-[44px] text-center w-[44px] border-[1px] rounded-[8px] border-[#BCDFF6]"
+                          className="[appearance:textfield] trackCodeBoxInput [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none outline-none text-[28px] h-[44px] text-center w-[44px] border-[1px] rounded-[8px] border-[#BCDFF6]"
                         />
                       ))}
                     </div>
@@ -127,7 +127,7 @@ const EnterTrackCode = () => {
                           value={otp[i + 3]}
                           onChange={(e) => handleInputChange(e, i + 3)}
                           onKeyDown={(e) => handleKeyDown(e, i + 3)}
-                          className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none outline-none text-[28px] h-[44px] text-center w-[44px] border-[1px] rounded-[8px] border-[#BCDFF6]"
+                          className="[appearance:textfield] trackCodeBoxInput [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none outline-none text-[28px] h-[44px] text-center w-[44px] border-[1px] rounded-[8px] border-[#BCDFF6]"
                         />
                       ))}
                     </div>
