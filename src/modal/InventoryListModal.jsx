@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import InventoryItem from "../components/InventoryItem";
 import { formattedItems, countMap } from "../utils";
+import "./InventoryListModal.css";
 
 const InventoryListModal = ({
   closeInventoryListModal,
@@ -39,7 +40,7 @@ const InventoryListModal = ({
     <div className="fixed top-0 z-50 left-0 backdrop-blur-[3px] bg-[rgba(0,0,0,0.10)] h-full w-full flex justify-center items-center ">
       <div className="bg-white flex flex-col justify-between w-[90%] rounded-[16px] h-[90%]">
         <div className="flex items-center w-full justify-between p-[28px] border-b-[1px] border-[#E3E8EF] ">
-          <div className="flex items-center">
+          <div className="flex inventoryListHeader items-center">
             <h3 className="mr-2 font-sans text-[20px] font-bold text-[#121212] ">
               Add Items to
             </h3>
@@ -90,7 +91,7 @@ const InventoryListModal = ({
                 </p>
               </div>
             </div>
-            <div className="my-3 grid grid-cols-4 gap-[18px] pb-4 w-full  ">
+            <div className="my-3 grid grid-cols-4 inventoryItemContainer gap-[18px] pb-4 w-full  ">
               <InventoryItem
                 handleInventoriesSelected={handleInventoriesSelected}
                 handleRemoveInventory={handleRemoveInventory}
@@ -149,8 +150,8 @@ const InventoryListModal = ({
             </div>
           </div>
         </div>
-        <div className="flex items-center w-full shadow-[0px_-6px_6px_-6px_rgba(0,0,0,0.3)] justify-between  p-[28px] border-t-[1px] border-[#E3E8EF] ">
-          <div className="flex items-center">
+        <div className="flex allListCont items-center w-full shadow-[0px_-6px_6px_-6px_rgba(0,0,0,0.3)] justify-between  p-[28px] border-t-[1px] border-[#E3E8EF] ">
+          <div className="flex allSelectedContainer items-center">
             <div className="flex bg-[#F0F9FF] border-[1px] border-[#E0F2FE] rounded-[4px] p-1 items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -164,32 +165,35 @@ const InventoryListModal = ({
                   fill="#3C82F6"
                 />
               </svg>
-              <p className="font-sans text-[16px] text-[#3C82F6] ml-2 leading-[25.6px] ">
-                {allInventories.length} Items Selected
+              <p className="font-sans text-[16px] w-[130px] text-[#3C82F6] ml-2 leading-[25.6px] ">
+                {allInventories.length}{" "}
+                <span className="selectedItems">Items Selected</span>
               </p>
             </div>
-            {newFormattedData.map((item, index) => (
-              <div key={index} className="flex ml-2 items-center">
-                <p className="mr-2 text-[14px] font-sans leading-[18.2px] text-[#707070] ">
-                  {item}
-                </p>
-                {index !== newFormattedData.length - 1 && (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="4"
-                    height="4"
-                    viewBox="0 0 4 4"
-                    fill="none"
-                  >
-                    <circle cx="2" cy="2" r="2" fill="#D1D1D1" />
-                  </svg>
-                )}
-              </div>
-            ))}
+            <div className="flex flex-wrap finalItemsContainer ml-2 w-[60%] items-center">
+              {newFormattedData.map((item, index) => (
+                <div key={index} className="flex ml-2 items-center">
+                  <p className="mr-2 text-[14px] font-sans leading-[18.2px] text-[#707070] ">
+                    {item}
+                  </p>
+                  {index !== newFormattedData.length - 1 && (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="4"
+                      height="4"
+                      viewBox="0 0 4 4"
+                      fill="none"
+                    >
+                      <circle cx="2" cy="2" r="2" fill="#D1D1D1" />
+                    </svg>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
           <button
             onClick={handleSubmit}
-            className="self-center bg-primary py-2 px-4 text-white rounded-[20px] cursor-pointer text-[12px] text-manrope font-light "
+            className="self-center bg-primary py-2 px-4 w-[150px] inventoryListBtn text-white rounded-[20px] cursor-pointer text-[12px] text-manrope font-light "
           >
             ADD ITEMS
           </button>

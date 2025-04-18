@@ -62,7 +62,7 @@ const InventoryItem = ({
         </div>
       </div>
       <div className="flex h-[40%] flex-col items-center justify-center ">
-        <p className="font-sans text-[20px] leading-[32px] text-[#262626] ">
+        <p className="font-sans text-[20px] inventoryItemText leading-[32px] text-[#262626] ">
           {title}
         </p>
         <div className="flex items-center">

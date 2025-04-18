@@ -26,7 +26,7 @@ const QuoteHeader = () => {
               />
             </svg>
           </div>
-          <p className="font-sans text-[14px] leading-[19.6px] text-[#9e9e9e] ">
+          <p className="font-sans needMoreAssitance text-[14px] leading-[19.6px] text-[#9e9e9e] ">
             Need more assistance ?
           </p>
         </div>

@@ -14,7 +14,7 @@ const UploadImageForAIRecognition = ({ openUploadImageModal }) => {
         }}
         className="w-full imageContainer flex justify-center items-center rounded-t-[12px] h-[240px]"
       >
-        <div className="backdrop-blur-[3px] bg-[rgba(255,255,255,0.50)] w-[50%] h-[75%] rounded-[10px]  ">
+        <div className="backdrop-blur-[3px] blurryContainer bg-[rgba(255,255,255,0.50)] w-[50%] h-[75%] rounded-[10px]  ">
           <div className="flex flex-col w-[80%] mx-auto items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -32,10 +32,10 @@ const UploadImageForAIRecognition = ({ openUploadImageModal }) => {
                 fill="black"
               />
             </svg>
-            <p className="font-sans text-[20px] my-2 text-[#121212] ">
+            <p className="font-sans imageRecogText text-[20px] my-2 text-[#121212] ">
               Image Recognition
             </p>
-            <p className=" font-sans text-[14px] text-center text-[#121212] mb-2">
+            <p className=" font-sans text-[14px] imageRecogDesc text-center text-[#121212] mb-2">
               Take photos of each room and let the AI create a personalized
               checklist for your move or relocation
             </p>
@@ -75,7 +75,7 @@ const UploadImageForAIRecognition = ({ openUploadImageModal }) => {
             </clipPath>
           </defs>
         </svg>
-        <p className="text-[#054D96] font-sans tetxt-[14px] font-bold  ">
+        <p className="text-[#054D96] ml-1 textSecure font-sans tetxt-[14px] font-bold  ">
           SECURE & CONFIDENTIAL
         </p>
       </div>

@@ -78,6 +78,21 @@
   }
 }
 
+@media screen and (max-width: 1200px){
+  .locationDetailsContainer{
+    flex-direction: column;
+  }
+  .locationContainer{
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  .locationMap{
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+  }
+}
+
 @media screen and (max-width: 1120px) {
   .processWoman{
     height: 800px;
@@ -102,6 +117,15 @@
   }
   .newsLetterText{
     width: 90%;
+  }
+  .ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.locationMap{
+    height: 100%;
+    object-fit: cover;
   }
 }
 
@@ -141,6 +165,7 @@
     font-size: 16px;
     width: 100%;
   }
+  
 }
 
 @media screen and (max-width: 850px) {
@@ -174,6 +199,56 @@
     width: 100%;
     font-size: 32px;
   }
+  .quoteContainer{
+    flex-direction: column;
+  }
+  .quoteContainerProgress{
+    width: 100%;
+    display: none;
+  }
+  .quoteContainerBtns{
+    display: none;
+  }
+  .quoteContainerPrimaryBtn{
+    display: block;
+  }
+  .locationParentContainer{
+    margin-left: 0;
+  }
+  .mobileQuoteProgress{
+    display: flex;
+    padding: 16px 8px;
+    width: 100%;
+  }
+ 
+}
+
+@media screen and (max-width: 775px){
+  
+  .subMobileProgressArrow{
+    width: 125px;
+  }
+}
+
+@media screen and (max-width: 755px){
+  .subMobileProgressArrow{
+    width: 120px;
+  }
+}
+
+@media screen and (max-width: 745px){
+  .mobileProgressArrow{
+    width: 130px;
+  }
+  /* .subMobileProgressArrow{
+    width: 110px;
+  } */
+}
+
+@media screen and (max-width: 735px){
+  .subMobileProgressArrow{
+    width: 115px;
+  }
 }
 
 @media screen and (max-width: 720px) {
@@ -196,6 +271,18 @@
     width: 100%;
   }
  
+}
+
+@media screen and (max-width: 715px){
+  .subMobileProgressArrow{
+    width: 110px;
+  }
+}
+
+@media screen and (max-width: 695px){
+  .subMobileProgressArrow{
+    width: 105px;
+  }
 }
 
 @media screen and (max-width:680px) {
@@ -222,6 +309,39 @@
   }
 }
 
+@media screen and (max-width: 675px){
+  .subMobileProgressArrow{
+    width: 103px;
+  }
+}
+
+@media screen and (max-width: 675px){
+  .subMobileProgressArrow{
+    width: 210%;
+  }
+}
+
+@media screen and (max-width: 655px){
+  .mobileProgressArrow{
+    width: 110px;
+  }
+  .subMobileProgressArrow{
+    width: 200%;
+  }
+}
+
+@media screen and (max-width: 635px){
+  .subMobileProgressArrow{
+    width: 190%;
+  }
+}
+
+@media screen and (max-width: 615px){
+  .subMobileProgressArrow{
+    width: 180%;
+  }
+}
+
 @media screen and (max-width: 600px){
   .moveDetailsText{
     font-size: 32px;
@@ -240,7 +360,21 @@
   .newsLetterContainer{
     padding: 2rem .5rem
   }
+
+  .subMobileProgressArrow{
+    width: 172%;
+  }
 }
+
+@media screen and (max-width: 570px){
+  .mobileProgressArrow{
+    width: 90px;
+  }
+  .subMobileProgressArrow{
+    width: 162%;
+  }
+}
+
 
 @media screen and (max-width: 565px){
   .fromAndToContainer{
@@ -257,13 +391,32 @@
   }
 }
 
+@media screen and (max-width: 560px){
+  .subMobileProgressArrow{
+    width: 152%;
+  }
+}
 
+@media screen and (max-width: 540px){
+  .subMobileProgressArrow{
+    width: 142%;
+  }
+}
+
+@media screen and (max-width: 520px){
+  .subMobileProgressArrow{
+    width: 132%;
+  }
+}
 
 @media screen and (max-width: 500px) {
   .heroBtnContainer{
     flex-direction: column;
     margin-top: 2rem;
     width: 100%;
+  }
+  .needMoreAssitance{
+    display: none;
   }
   .secoondaryBtnContaiiner{
     margin-left: 0;
@@ -315,7 +468,32 @@
   .trackCodeBox{
     width: 400px;
   }
+  .mobileProgressArrow{
+    width: 70px;
+  }
+  .subMobileProgressArrow{
+    width: 122%;
+  }
 }
+
+@media screen and (max-width: 480px){
+  .subMobileProgressArrow{
+    width: 112%;
+  }
+}
+
+@media screen and (max-width: 480px){
+  .subMobileProgressArrow{
+    width: 102%;
+  }
+}
+
+@media screen and (max-width: 440px){
+  .subMobileProgressArrow{
+    width: 92%;
+  }
+}
+
 
 @media screen and (max-width:430px) {
   .trackCodeBoxText{
@@ -328,6 +506,25 @@
   }
   .trackCodeBox{
     width: 95%;
+  }
+  /* .trackCodeBoxText{
+    font-size: 16px;
+  } */
+
+  .trackBoxInputContainer{
+    grid-gap: 6px;
+  }
+}
+
+@media screen and (max-width: 420px){
+  .subMobileProgressArrow{
+    width: 82%;
+  }
+}
+
+@media screen and (max-width:415px) {
+  .mobileProgressArrow{
+    width: 50px;
   }
 }
 
@@ -347,15 +544,26 @@
   .processWoman{
     height: 380px;
   }
+  .subMobileProgressArrow{
+    width: 72%;
+  }
 }
 
-@media screen and (max-width:430px) {
-  .trackCodeBoxText{
-    font-size: 16px;
+@media screen and (max-width: 380px){
+  .subMobileProgressArrow{
+    width: 62%;
   }
-
-  .trackBoxInputContainer{
-    grid-gap: 6px;
-  }
-  
 }
+
+@media screen and (max-width: 360px){
+  .subMobileProgressArrow{
+    width: 52%;
+  }
+}
+
+@media screen and (max-width: 340px){
+  .subMobileProgressArrow{
+    width: 43%;
+  }
+}
+

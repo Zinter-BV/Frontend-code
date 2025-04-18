@@ -3,13 +3,13 @@ import Map from "../Assets/Map.svg";
 
 const Location = () => {
   return (
-    <div className="ml-4 w-full ">
-      <div className="justify-between flex ">
-        <div className="w-[69%]">
+    <div className="ml-4 locationParentContainer w-full ">
+      <div className="justify-between locationDetailsContainer flex ">
+        <div className="w-[69%] locationContainer ">
           <h2 className="font-sans text-[20px] mb-4 text-[#121212] font-bold ">
             Location Details
           </h2>
-          <div className="w-full flex flex-col gap-[16px] ">
+          <div className="w-full  flex flex-col gap-[16px] ">
             <div className="w-full h-[68px] rounded-[8px] border-[1px] px-[16px] flex items-center justify-between border-[#e3e3e3] ">
               <div className="flex items-center">
                 <div className="flex items-center">
@@ -81,7 +81,7 @@ const Location = () => {
           </div>
         </div>
         <div>
-          <img src={Map} alt="map" />{" "}
+          <img className="locationMap" src={Map} alt="map" />{" "}
         </div>
       </div>
     </div>

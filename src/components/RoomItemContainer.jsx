@@ -4,6 +4,8 @@ const RoomItemContainer = ({ activeIcon, openIsInventoryList }) => {
   const [isOpenDropDown, setIsOpenDropDown] = useState(false);
   const openDropDown = () => setIsOpenDropDown((prev) => !prev);
 
+  const data = ["Bed", "Night stand", "Table Lamp", "Curtain"];
+
   let content = (
     <div className="bg-[#FFF5DA] h-[48px] w-[48px] rounded-[6px] flex justify-center items-center ">
       <svg
@@ -196,11 +198,11 @@ const RoomItemContainer = ({ activeIcon, openIsInventoryList }) => {
       <div className="flex items-center justify-between w-full py-[16px] ">
         <div className="flex items-center">
           {content}
-          <p className="mx-2 font-sans text-[18px] text-[#525252] font-bold ">
+          <p className="mx-2 font-sans text-[18px] roomItemName text-[#525252] font-bold ">
             {activeIcon}
           </p>
           {!isOpenDropDown && (
-            <div className="flex bg-[#F0F9FF] border-[1px] border-[#E0F2FE] rounded-[4px] p-1 items-center">
+            <div className="flex bg-[#F0F9FF] numberOfItemsContainer border-[1px] border-[#E0F2FE] rounded-[4px] p-1 items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="10"
@@ -214,19 +216,38 @@ const RoomItemContainer = ({ activeIcon, openIsInventoryList }) => {
                 />
               </svg>
               <p className="font-sans text-[16px] text-[#3C82F6] ml-2 leading-[25.6px] ">
-                6 Items Selected
+                6 <span className="selectedText"> Items Selected</span>
               </p>
             </div>
           )}
         </div>
         <div className="flex items-center">
-          <p
-            onClick={openIsInventoryList}
-            className="text-[#b8b8b8] mr-2 cursor-pointer hover:text-[#3C82F6] font-sans text-[14px] font-bold "
-          >
-            {" "}
-            + ADD ITEMS
-          </p>
+          <div>
+            <p
+              onClick={openIsInventoryList}
+              className="text-[#b8b8b8] mr-2 cursor-pointer addItemsText hover:text-[#3C82F6] font-sans text-[14px] font-bold "
+            >
+              {" "}
+              + ADD ITEMS
+            </p>
+            <button
+              onClick={openIsInventoryList}
+              className="h-[28px] mr-2 w-[28px] rounded-full addNewItemBtn hidden self-center justify-center items-center border-[1px] border-[#b8b8b8] cursor-pointer text-[14px]"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="12"
+                viewBox="0 0 16 16"
+                fill="none"
+              >
+                <path
+                  d="M14.8571 9.07143H9.14286V14.4286C9.14286 15.0179 8.62857 15.5 8 15.5C7.37143 15.5 6.85714 15.0179 6.85714 14.4286V9.07143H1.14286C0.514286 9.07143 0 8.58929 0 8C0 7.41071 0.514286 6.92857 1.14286 6.92857H6.85714V1.57143C6.85714 0.982143 7.37143 0.5 8 0.5C8.62857 0.5 9.14286 0.982143 9.14286 1.57143V6.92857H14.8571C15.4857 6.92857 16 7.41071 16 8C16 8.58929 15.4857 9.07143 14.8571 9.07143Z"
+                  fill="#b8b8b8"
+                />
+              </svg>
+            </button>
+          </div>
           <div>
             <div
               onClick={openDropDown}
@@ -278,65 +299,29 @@ const RoomItemContainer = ({ activeIcon, openIsInventoryList }) => {
                 fill="#3C82F6"
               />
             </svg>
-            <p className="font-sans text-[16px] text-[#3C82F6] ml-2 leading-[25.6px] ">
-              6 Items Selected
+            <p className="font-sans text-[16px] numberText text-[#3C82F6] ml-2 leading-[25.6px] ">
+              6 <span className="selectedText">Items Selected </span>
             </p>
           </div>
-          <div className="flex ml-2 items-center">
-            <p className="mr-2 text-[14px] font-sans leading-[18.2px] text-[#707070] ">
-              Bed
-            </p>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="4"
-              height="4"
-              viewBox="0 0 4 4"
-              fill="none"
-            >
-              <circle cx="2" cy="2" r="2" fill="#D1D1D1" />
-            </svg>
-          </div>
-          <div className="flex ml-2 items-center">
-            <p className="mr-2 text-[14px] font-sans leading-[18.2px] text-[#707070] ">
-              Night Stand
-            </p>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="4"
-              height="4"
-              viewBox="0 0 4 4"
-              fill="none"
-            >
-              <circle cx="2" cy="2" r="2" fill="#D1D1D1" />
-            </svg>
-          </div>
-          <div className="flex ml-2 items-center">
-            <p className="mr-2 text-[14px] font-sans leading-[18.2px] text-[#707070] ">
-              Table Lamp x2
-            </p>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="4"
-              height="4"
-              viewBox="0 0 4 4"
-              fill="none"
-            >
-              <circle cx="2" cy="2" r="2" fill="#D1D1D1" />
-            </svg>
-          </div>
-          <div className="flex ml-2 items-center">
-            <p className="mr-2 text-[14px] font-sans leading-[18.2px] text-[#707070] ">
-              Curtains or Blinds x6
-            </p>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="4"
-              height="4"
-              viewBox="0 0 4 4"
-              fill="none"
-            >
-              <circle cx="2" cy="2" r="2" fill="#D1D1D1" />
-            </svg>
+          <div className="w-full flex flex-wrap items-center ">
+            {data?.map((item, id) => {
+              return (
+                <div key={id} className="flex ml-2  items-center">
+                  <p className="mr-2 text-[14px] allItemsTextX font-sans leading-[18.2px] text-[#707070] ">
+                    {item}
+                  </p>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="4"
+                    height="4"
+                    viewBox="0 0 4 4"
+                    fill="none"
+                  >
+                    <circle cx="2" cy="2" r="2" fill="#D1D1D1" />
+                  </svg>
+                </div>
+              );
+            })}
           </div>
         </div>
       )}

@@ -2,7 +2,7 @@ import React from "react";
 
 const QuoteProgress = ({ activeTab }) => {
   return (
-    <div className="h-fit w-[450px] bg-[#f7f7f7] rounded-[20px] border-[1px] border-[#E4F2FB] px-[24px] py-[32px] ">
+    <div className="h-fit w-[450px] bg-[#f7f7f7] quoteContainerProgress rounded-[20px] border-[1px] border-[#E4F2FB] px-[24px] py-[32px] ">
       <div className="flex relative">
         <div
           className={`absolute top-9 left-[15px] ${

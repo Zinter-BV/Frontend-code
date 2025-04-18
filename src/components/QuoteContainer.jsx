@@ -7,6 +7,7 @@ import InventoryList from "./InventoryList";
 import MovingInformation from "./MovingInformation";
 import ViewSummary from "./ViewSummary";
 import QuoteSuccess from "../modal/QuoteSuccess";
+import MobileQuoteProgress from "./MobileQuoteProgress";
 
 const QuoteContainer = ({ data }) => {
   const [activeTab, setActiveTab] = useState(1);
@@ -101,12 +102,13 @@ const QuoteContainer = ({ data }) => {
               Get a quote for a move
             </p>
           </div>
-          <div className="mt-4 flex ">
+          <div className="mt-4  quoteContainer flex ">
+            <MobileQuoteProgress activeTab={activeTab} />
             <QuoteProgress activeTab={activeTab} />
             {content}
           </div>
         </div>
-        <div className="h-[80px] shadow-[0px_-6px_6px_-6px_rgba(0,0,0,0.3)] bg-white fixed bottom-0 max-w-[1500px] mx-auto w-[90vw] flex items-center justify-center  ">
+        <div className="h-[80px] quoteContainerBtns shadow-[0px_-6px_6px_-6px_rgba(0,0,0,0.3)] bg-white fixed bottom-0 max-w-[1500px] mx-auto w-[90vw] flex items-center justify-center  ">
           <div className="w-full flex items-center justify-between">
             {activeTab === 1 ? (
               <p className="text-[#88b5fe]  py-1 px-2 rounded-[20px]  text-[14px] text-manrope font-light ">
@@ -138,6 +140,25 @@ const QuoteContainer = ({ data }) => {
               )}
             </div>
           </div>
+        </div>
+        <div className="pb-[20px]">
+          {activeTab > 1 && (
+            <button
+              onClick={() => handlePrevTabs(activeTab)}
+              className="text-[#3C82F6] w-full quoteContainerPrimaryBtn  py-1 px-2 rounded-[20px] cursor-pointer text-[14px] text-manrope font-light "
+            >
+              GO BACK
+            </button>
+          )}
+
+          <PrimaryBtn
+            handlePress={() => handleTabs(activeTab)}
+            className={
+              "text-[14px] quoteContainerPrimaryBtn hidden my-3 w-full "
+            }
+          >
+            CONTINUE
+          </PrimaryBtn>
         </div>
       </div>
       {openSuccessModal && <QuoteSuccess closeModal={closeSuccessModal} />}
