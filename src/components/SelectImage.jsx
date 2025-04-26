@@ -46,43 +46,45 @@ const SelectImage = ({ title, onImagesSelected }) => {
             />
 
             {fileLength > 1 && (
-              <div className="flex bg-[#F0F9FF] w-fit px-2 border-[1px] bottom-4 absolute left-[65px] border-[#E0F2FE] rounded-[4px] p-1 items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="12"
-                  height="12"
-                  viewBox="0 0 12 12"
-                  fill="none"
-                >
-                  <path
-                    d="M5.75 1.5C3.51083 1.5 2.39124 1.5 1.69562 2.19562C1 2.89124 1 4.01083 1 6.25C1 8.48917 1 9.60876 1.69562 10.3044C2.39124 11 3.51083 11 5.75 11C7.98917 11 9.10876 11 9.80438 10.3044C10.5 9.60876 10.5 8.48917 10.5 6.25V4.5"
-                    stroke="#3C82F6"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                  />
-                  <path
-                    d="M1 7.06772C1.30951 7.02277 1.62242 7.00055 1.93586 7.00134C3.26183 6.97332 4.55532 7.38647 5.58554 8.16709C6.541 8.89107 7.21236 9.88744 7.5 11"
-                    stroke="#3C82F6"
-                    stroke-width="1.5"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M10.5 8.44811C9.91228 8.15043 9.30439 7.9994 8.69311 8.00003C7.76725 7.99638 6.85076 8.33667 6 9"
-                    stroke="#3C82F6"
-                    stroke-width="1.5"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M7 3C7 3 7.5 3 8 4C8 4 9.58824 1.5 11 1"
-                    stroke="#3C82F6"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-                <p className="font-sans text-[14px] text-[#3C82F6] ml-2 leading-[25.6px] ">
-                  {fileLength} Images Added
-                </p>
+              <div className=" flex items-center relative bottom-[70px] justify-center w-full">
+                <div className="flex bg-[#F0F9FF] w-fit px-2 border-[1px]  border-[#E0F2FE] rounded-[4px] p-1 items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="12"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                  >
+                    <path
+                      d="M5.75 1.5C3.51083 1.5 2.39124 1.5 1.69562 2.19562C1 2.89124 1 4.01083 1 6.25C1 8.48917 1 9.60876 1.69562 10.3044C2.39124 11 3.51083 11 5.75 11C7.98917 11 9.10876 11 9.80438 10.3044C10.5 9.60876 10.5 8.48917 10.5 6.25V4.5"
+                      stroke="#3C82F6"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M1 7.06772C1.30951 7.02277 1.62242 7.00055 1.93586 7.00134C3.26183 6.97332 4.55532 7.38647 5.58554 8.16709C6.541 8.89107 7.21236 9.88744 7.5 11"
+                      stroke="#3C82F6"
+                      stroke-width="1.5"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M10.5 8.44811C9.91228 8.15043 9.30439 7.9994 8.69311 8.00003C7.76725 7.99638 6.85076 8.33667 6 9"
+                      stroke="#3C82F6"
+                      stroke-width="1.5"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M7 3C7 3 7.5 3 8 4C8 4 9.58824 1.5 11 1"
+                      stroke="#3C82F6"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  <p className="font-sans text-[14px] text-[#3C82F6] ml-2 leading-[25.6px] ">
+                    {fileLength} Images Added
+                  </p>
+                </div>
               </div>
             )}
           </div>

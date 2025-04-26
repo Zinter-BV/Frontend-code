@@ -42,7 +42,7 @@ const UploadImageModal = ({
     <div className="fixed top-0 z-50 left-0 backdrop-blur-[3px] bg-[rgba(0,0,0,0.10)] h-full w-full flex justify-center items-center ">
       <div className="bg-white flex flex-col relative justify-between w-[80%] rounded-[16px] h-[90%]">
         <div className="flex items-center w-full justify-between p-[28px] border-b-[1px] border-[#E3E8EF] ">
-          <div className="flex items-center">
+          <div className="flex uploadImageHeader items-center">
             <h3 className="mr-2 font-sans text-[20px] font-bold text-[#121212] ">
               Upload Image
             </h3>
@@ -75,13 +75,13 @@ const UploadImageModal = ({
                 onClick={openIsInventoryList}
                 className={`h-[36px] mr-1 cursor-pointer {${!isUploadImageModalOpen} && border-[1px]}  rounded-[1000px] p-[10px] flex justify-center items-center border-[#E5E5E5] `}
               >
-                <p className="font-sans text-[16px] leading-[25.6px] text-[#9e9e9e] ">
+                <p className="font-sans text-[16px] inventoryListModal leading-[25.6px] text-[#9e9e9e] ">
                   Inventory List
                 </p>
               </div>
               <div className="h-[36px] border-[1px] cursor-pointer  rounded-[1000px] p-[10px] flex justify-center items-center border-[#E5E5E5] ">
                 <p
-                  className={` font-sans text-[16px] leading-[25.6px] {${
+                  className={` font-sans text-[16px] leading-[25.6px] inventoryListModal {${
                     isUploadImageModalOpen ? "text-[#121212]" : "text-[#9e9e9e]"
                   }`}
                 >
@@ -89,7 +89,7 @@ const UploadImageModal = ({
                 </p>
               </div>
             </div>
-            <div className="flex items-center mt-[18px] rounded-[12px] bg-[#F0F9FD] py-[16px] px-[20px] ">
+            <div className="flex items-center mt-[18px] tipsContainer rounded-[12px] bg-[#F0F9FD] py-[16px] px-[20px] ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="32"
@@ -111,12 +111,12 @@ const UploadImageModal = ({
                   fill="black"
                 />
               </svg>
-              <p className="font-sans ml-2 text-[16px] text-[#136AB5] leading-[25.6px] ">
+              <p className="font-sans ml-2 text-[16px] imagesDescText text-[#136AB5] leading-[25.6px] ">
                 The images should be of a very good quality, file Size should
                 not be more than 2MB.
               </p>
             </div>
-            <div className="my-3 grid grid-cols-3 gap-[18px] pb-4 w-full">
+            <div className="my-3 grid grid-cols-3 uploadImageContainer gap-[18px] pb-4 w-full">
               <SelectImage
                 title="Living Room Images"
                 onImagesSelected={handleImagesSelected}
@@ -159,7 +159,8 @@ const UploadImageModal = ({
               />
             </svg>
             <p className="font-sans text-[16px] text-[#3C82F6] ml-2 leading-[25.6px] ">
-              {allImages.length} Items Selected
+              {allImages.length}
+              <span className="uploadImageItemSelected"> Items Selected</span>
             </p>
           </div>
           <button

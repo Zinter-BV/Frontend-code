@@ -2,7 +2,7 @@ import React from "react";
 
 const MoversProgress = ({ activeTab }) => {
   return (
-    <div className="h-fit w-[350px] bg-[#f7f7f7] rounded-[20px] border-[1px] border-[#E4F2FB] px-[24px] py-[32px] ">
+    <div className="h-fit w-[350px] moversProgressContainer bg-[#f7f7f7] rounded-[20px] border-[1px] border-[#E4F2FB] px-[24px] py-[32px] ">
       <div className="flex relative">
         <div
           className={`absolute top-9 left-[15px] ${

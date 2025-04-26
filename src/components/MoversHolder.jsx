@@ -7,7 +7,7 @@ const MoversHolder = ({ isActive, setIsActive }) => {
 
   const makeInActive = () => setIsActive(false);
   return (
-    <div className={` ${isActive && "w-full"} `}>
+    <div className={"w-full"}>
       {!isActive ? (
         <RecommendedMoversList makeActive={makeActive} />
       ) : (

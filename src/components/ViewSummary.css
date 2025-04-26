@@ -1,0 +1,12 @@
+@media screen and (max-width: 800px) {
+    .viewSummaryContainer{
+        height: fit-content;
+        padding-bottom: 0;
+    }
+    .summaryContainer{
+        margin-bottom: 2rem;
+    }
+    .summaryBox{
+        margin-left: 0;
+    }
+}

@@ -73,7 +73,7 @@ const InventoryListModal = ({
                 className={`h-[36px] mr-1 cursor-pointer  border-[1px] rounded-[1000px] p-[10px] flex justify-center items-center border-[#E5E5E5] `}
               >
                 <p
-                  className={` font-sans text-[16px] leading-[25.6px] {${
+                  className={` font-sans text-[16px] inventoryListModal leading-[25.6px] {${
                     isInventoryListModalOpen
                       ? "text-[#121212]"
                       : "text-[#9e9e9e]"
@@ -86,7 +86,7 @@ const InventoryListModal = ({
                 onClick={openUploadImageModal}
                 className={`h-[36px]  cursor-pointer {${!isInventoryListModalOpen} && border-[1px]}  rounded-[1000px] p-[10px] flex justify-center items-center border-[#E5E5E5] `}
               >
-                <p className="font-sans text-[16px] leading-[25.6px] text-[#9e9e9e] ">
+                <p className="font-sans text-[16px] inventoryListModal leading-[25.6px] text-[#9e9e9e] ">
                   Upload Image
                 </p>
               </div>
@@ -167,7 +167,9 @@ const InventoryListModal = ({
               </svg>
               <p className="font-sans text-[16px] w-[130px] text-[#3C82F6] ml-2 leading-[25.6px] ">
                 {allInventories.length}{" "}
-                <span className="selectedItems">Items Selected</span>
+                <span className="selectedItems  uploadImageItemSelected">
+                  Items Selected
+                </span>
               </p>
             </div>
             <div className="flex flex-wrap finalItemsContainer ml-2 w-[60%] items-center">

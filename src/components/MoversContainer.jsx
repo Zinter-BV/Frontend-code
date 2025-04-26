@@ -6,6 +6,8 @@ import TrackMove from "./TrackMove";
 import MoversHolder from "./MoversHolder";
 import PrimaryBtn from "./PrimaryBtn";
 import PaymentSuccess from "../modal/PaymentSuccess";
+import MoversMobileContainer from "./MoversMobileContainer";
+import "./MoversContainer.css";
 
 const MoversContainer = ({ trackingCode }) => {
   const [activeTab, setActiveTab] = useState(1);
@@ -80,9 +82,10 @@ const MoversContainer = ({ trackingCode }) => {
   return (
     <div className="relative">
       <div className="w-[90vw] relative h-[calc(100vh-90px)] max-w-[1500px] mx-auto mt-24">
-        <div className="w-full mt-4 flex ">
-          <div className="mr-4">
+        <div className="w-full moversMainContainer mt-4 flex ">
+          <div className="mr-4 stepHolder ">
             <StaticMoversStepper />
+            <MoversMobileContainer activeTab={activeTab} />
             <MoversProgress activeTab={activeTab} />
           </div>
           {content}

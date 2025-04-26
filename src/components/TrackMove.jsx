@@ -3,13 +3,13 @@ import Map from "../Assets/Map - Showing location details.svg";
 
 const TrackMove = () => {
   return (
-    <div className="ml-4 h-fit w-full">
+    <div className="ml-4 movingCompanyDetailBox h-fit w-full">
       <div className="overflow-y-scroll pb-[70px] custom-scroll ">
         <h3 className="mb-3 font-sans text-[20px] font-bold text-[#121212] ">
           Track Move
         </h3>
-        <div className="flex items-center mb-4 bg-[#F0F9FD] w-fit rounded-[12px] p-[20px]  ">
-          <div className="flex justify-center border-[1px] border-black items-center w-[24px] h-[24px] rounded-full mr-2 ">
+        <div className="flex moversTrackInfoContainer items-center mb-4 bg-[#F0F9FD] w-fit rounded-[12px] p-[20px]  ">
+          <div className="flex justify-center border-[1px] border-black items-center w-[24px] h-[24px] min-w-[24px] min-h-[24px] rounded-full mr-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="4"
@@ -23,19 +23,19 @@ const TrackMove = () => {
               />
             </svg>
           </div>
-          <p className="text-[#136AB5] font-sans text-[16px] leading-[25.6px]  ">
+          <p className="text-[#136AB5] moversTrackInfo font-sans text-[16px] leading-[25.6px]  ">
             Make sure you get in touch with moving company to confirm any needed
             information
           </p>
         </div>
-        <div className="flex gap-x-[22px] items-center">
-          <div>
-            <img className="w-[400px] h-[440px] " src={Map} alt="map" />{" "}
+        <div className="flex gap-x-[22px] moveTimeLine items-center">
+          <div className="bg-red-500 moveTimeLineMapContainer h-[440px] w-[400px] ">
+            {/* <img className="w-[400px] h-[440px] " src={Map} alt="map" />{" "} */}
           </div>
-          <div className="mt-4 relative ">
-            <div className="w-full h-[420px] absolute top-0 z-30 ">
-              <div className="w-full h-[25%]"></div>
-              <div className="w-full h-[75%] bg-white opacity-90 "></div>
+          <div className="mt-4 moveTimeLineInfo relative ">
+            <div className="w-full hidden h-[420px] moveTimeLineInfoOverlay absolute top-0 z-30 ">
+              <div className="w-full h-[75%]"></div>
+              <div className="w-full h-[25%] bg-white opacity-90 "></div>
             </div>
             <p className="font-sans text-[18px] mb-2 font-extralight text-[#121212] ">
               Move Timeline
@@ -43,6 +43,7 @@ const TrackMove = () => {
             <div className="">
               <div className="flex gap-[10px] mb-[30px] relative items-center">
                 <div className="absolute h-[80px] w-[2px] left-2 top-11 bg-[#b8b8b8] rounded-[1px] "></div>
+
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="19"
@@ -65,28 +66,25 @@ const TrackMove = () => {
                   />
                 </svg>
                 <div className="flex gap-[10px] items-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="50"
-                    height="50"
-                    viewBox="0 0 50 50"
-                    fill="none"
-                  >
-                    <path
-                      d="M0.5 25C0.5 11.469 11.469 0.5 25 0.5C38.531 0.5 49.5 11.469 49.5 25C49.5 38.531 38.531 49.5 25 49.5C11.469 49.5 0.5 38.531 0.5 25Z"
-                      fill="white"
-                      stroke="#E3E3E3"
-                    />
-                    <path
-                      d="M14 25.9155L19.8801 30.3928L29.3219 19.6276L27.4548 18L19.5404 27.0237L15.5026 23.949L14 25.9155ZM38 19.6276L36.133 18L28.2371 27.0027L27.3036 26.2581L25.7539 28.19L28.5396 30.4138L38 19.6276Z"
-                      fill="#121212"
-                    />
-                  </svg>
+                  <div className="flex items-center justify-center rounded-full h-[50px] w-[50px] min-h-[50px] min-w-[50px] border-[1px] border-[#e3e3e3] trackMoveIconContainer">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="13"
+                      viewBox="0 0 24 13"
+                      fill="none"
+                    >
+                      <path
+                        d="M0 7.91554L5.88006 12.3928L15.3219 1.62763L13.4548 0L5.54037 9.02372L1.50256 5.94902L0 7.91554ZM24 1.62763L22.133 0L14.2371 9.00269L13.3036 8.25813L11.7539 10.19L14.5396 12.4138L24 1.62763Z"
+                        fill="#121212"
+                      />
+                    </svg>
+                  </div>
                   <div>
                     <p className="font-sans text-[18px] font-bold text-[#121212] ">
                       Payment Made
                     </p>
-                    <p className="text-[14px] font-sans text-[#707070] w-[60%] font-extralight ">
+                    <p className="text-[14px] font-sans text-[#707070] w-[60%] trackMoveText font-extralight ">
                       Payment confirmed and tracking code generated{" "}
                     </p>
                   </div>
@@ -116,7 +114,7 @@ const TrackMove = () => {
                   />
                 </svg>
                 <div className="flex gap-[10px] items-center">
-                  <div className="flex items-center justify-center rounded-full h-[50px] w-[50px] border-[1px] border-[#e3e3e3] ">
+                  <div className="flex items-center justify-center rounded-full h-[50px] w-[50px] min-h-[50px] min-w-[50px] border-[1px] border-[#e3e3e3] trackMoveIconContainer">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="22"
@@ -158,7 +156,7 @@ const TrackMove = () => {
                     <p className="font-sans text-[18px] font-bold text-[#121212] ">
                       Pickup & Move Start
                     </p>
-                    <p className="text-[14px] font-sans text-[#707070] w-[60%] font-extralight ">
+                    <p className="text-[14px] font-sans text-[#707070] w-[60%] trackMoveText font-extralight ">
                       Mover navigates to pickup location on schedule.
                     </p>
                   </div>
@@ -188,7 +186,7 @@ const TrackMove = () => {
                   />
                 </svg>
                 <div className="flex gap-[10px] items-center">
-                  <div className="flex items-center justify-center rounded-full h-[50px] w-[50px] border-[1px] border-[#e3e3e3] ">
+                  <div className="flex items-center justify-center rounded-full h-[50px] w-[50px] min-h-[50px] min-w-[50px] border-[1px] border-[#e3e3e3] trackMoveIconContainer">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -216,7 +214,7 @@ const TrackMove = () => {
                     <p className="font-sans text-[18px] font-bold text-[#121212] ">
                       Mover In Transit
                     </p>
-                    <p className="text-[14px] font-sans text-[#707070] w-[60%] font-extralight ">
+                    <p className="text-[14px] font-sans text-[#707070] w-[60%] trackMoveText font-extralight ">
                       Belongings securely loaded; transit begins immediately.
                     </p>
                   </div>
@@ -245,7 +243,7 @@ const TrackMove = () => {
                   />
                 </svg>
                 <div className="flex gap-[10px] items-center">
-                  <div className="flex items-center justify-center rounded-full h-[50px] w-[50px] border-[1px] border-[#e3e3e3] ">
+                  <div className="flex items-center justify-center rounded-full h-[50px] w-[50px] min-h-[50px] min-w-[50px] border-[1px] border-[#e3e3e3] trackMoveIconContainer">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="33"
@@ -265,7 +263,7 @@ const TrackMove = () => {
                     <p className="font-sans text-[18px] font-bold text-[#121212] ">
                       Unloading Move
                     </p>
-                    <p className="text-[14px] font-sans text-[#707070] w-[60%] font-extralight ">
+                    <p className="text-[14px] font-sans text-[#707070] w-[60%] trackMoveText font-extralight ">
                       Mover unloads inventory at delivery location.
                     </p>
                   </div>

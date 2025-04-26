@@ -3,9 +3,9 @@ import "./movingInformation.css";
 
 const MovingInformation = () => {
   return (
-    <div className="ml-4 w-full">
-      <div className="overflow-y-scroll pb-[40px] h-[700px] custom-scroll w-fit">
-        <div className="flex mb-4 items-center">
+    <div className="ml-4 movingInfoBox w-full">
+      <div className="overflow-y-scroll pb-[40px] h-[700px] moveBox custom-scroll w-fit">
+        <div className="flex movingInformationHeader mb-4 items-center">
           <h3 className="mr-2 font-sans text-[20px] font-bold text-[#121212] ">
             Moving Information
           </h3>
@@ -14,7 +14,7 @@ const MovingInformation = () => {
           </p>
         </div>
 
-        <div className="p-[24px] w-[600px] h-fit mb-20 border-[#e3e3e3] border-[1px] rounded-[12px] ">
+        <div className="p-[24px] movingInformationContainer w-[600px] h-fit mb-20 border-[#e3e3e3] border-[1px] rounded-[12px] ">
           <p className="font-sans text-[#136AB5] text-[18px] font-bold ">
             Date and Time
           </p>
@@ -115,7 +115,7 @@ const MovingInformation = () => {
                 </button>
               </div>
             </div>
-            <div className="flex mt-4 mb-5 justify-between  items-center">
+            <div className="flex mt-4 mb-5 justify-between  items-center apartmentNumberContainer ">
               <div className="flex  w-[35%] mb-[10px] flex-col">
                 <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
                   Apartment Number
@@ -141,7 +141,7 @@ const MovingInformation = () => {
               <p className="font-sans mb-2 text-[#136AB5] text-[16px] ">
                 Restrictions
               </p>
-              <div className="flex mt-4 mb-1 justify-between  items-center">
+              <div className="flex mt-4 mb-1 justify-between  items-center apartmentNumberContainer">
                 <div className="flex  w-[48%] mb-[10px] flex-col">
                   <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
                     Number of floors
@@ -163,12 +163,12 @@ const MovingInformation = () => {
                   />
                 </div>
               </div>
-              <div className="mb-2 flex">
-                <div className="flex mb-[10px] mr-4 flex-col">
+              <div className="mb-2 elevatorContainer flex">
+                <div className="flex eleInnerBox mb-[10px] mr-4 flex-col">
                   <p className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
                     Elevator?
                   </p>
-                  <div className="flex w-[200px] h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
+                  <div className="flex w-[200px] elevatorQuestionBox h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
                     <div className="flex w-[50%] bg-[#E4F0FC] rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center ">
                       <input
                         placeholder="Enter Number"
@@ -200,7 +200,7 @@ const MovingInformation = () => {
                   <p className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
                     Need Shuttle?
                   </p>
-                  <div className="flex w-[200px] h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
+                  <div className="flex w-[200px] elevatorQuestionBox h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
                     <div className="flex w-[50%] bg-[#E4F0FC] rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center ">
                       <input
                         placeholder="Enter Number"
@@ -229,12 +229,12 @@ const MovingInformation = () => {
                   </div>
                 </div>
               </div>
-              <div className="mb-3 flex">
-                <div className="flex mb-[10px] mr-4 flex-col">
+              <div className="mb-3 elevatorContainer flex">
+                <div className="flex eleInnerBox mb-[10px] mr-4 flex-col">
                   <p className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
                     Building Insurance
                   </p>
-                  <div className="flex w-[200px] h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
+                  <div className="flex w-[200px] elevatorQuestionBox h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
                     <div className="flex w-[50%] bg-[#E4F0FC] rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center ">
                       <input
                         placeholder="Enter Number"
@@ -266,7 +266,7 @@ const MovingInformation = () => {
                   <p className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
                     Need help packing your items?
                   </p>
-                  <div className="flex w-[200px] h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
+                  <div className="flex w-[200px] elevatorQuestionBox h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
                     <div className="flex w-[50%] bg-[#E4F0FC] rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center ">
                       <input
                         placeholder="Enter Number"
@@ -332,7 +332,7 @@ const MovingInformation = () => {
                 </button>
               </div>
             </div>
-            <div className="flex mt-4 mb-5 justify-between  items-center">
+            <div className="flex mt-4 mb-5 justify-between  items-center apartmentNumberContainer ">
               <div className="flex  w-[35%] mb-[10px] flex-col">
                 <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
                   Apartment Number
@@ -358,7 +358,7 @@ const MovingInformation = () => {
               <p className="font-sans mb-2 text-[#136AB5] text-[16px] ">
                 Restrictions
               </p>
-              <div className="flex mt-4 mb-1 justify-between  items-center">
+              <div className="flex mt-4 mb-1 justify-between  items-center apartmentNumberContainer">
                 <div className="flex  w-[48%] mb-[10px] flex-col">
                   <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
                     Number of floors
@@ -380,12 +380,12 @@ const MovingInformation = () => {
                   />
                 </div>
               </div>
-              <div className="mb-2 flex">
-                <div className="flex mb-[10px] mr-4 flex-col">
+              <div className="mb-2 elevatorContainer flex">
+                <div className="flex eleInnerBox mb-[10px] mr-4 flex-col">
                   <p className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
                     Elevator?
                   </p>
-                  <div className="flex w-[200px] h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
+                  <div className="flex w-[200px] elevatorQuestionBox h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
                     <div className="flex w-[50%] bg-[#E4F0FC] rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center ">
                       <input
                         placeholder="Enter Number"
@@ -417,7 +417,7 @@ const MovingInformation = () => {
                   <p className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
                     Need Shuttle?
                   </p>
-                  <div className="flex w-[200px] h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
+                  <div className="flex w-[200px] elevatorQuestionBox h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
                     <div className="flex w-[50%] bg-[#E4F0FC] rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center ">
                       <input
                         placeholder="Enter Number"
@@ -446,12 +446,12 @@ const MovingInformation = () => {
                   </div>
                 </div>
               </div>
-              <div className="mb-3 flex">
-                <div className="flex mb-[10px] mr-4 flex-col">
+              <div className="mb-3 elevatorContainer flex">
+                <div className="flex eleInnerBox mb-[10px] mr-4 flex-col">
                   <p className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
                     Building Insurance
                   </p>
-                  <div className="flex w-[200px] h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
+                  <div className="flex w-[200px] elevatorQuestionBox h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
                     <div className="flex w-[50%] bg-[#E4F0FC] rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center ">
                       <input
                         placeholder="Enter Number"
@@ -483,7 +483,7 @@ const MovingInformation = () => {
                   <p className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
                     Need help packing your items?
                   </p>
-                  <div className="flex w-[200px] h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
+                  <div className="flex w-[200px] elevatorQuestionBox h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
                     <div className="flex w-[50%] bg-[#E4F0FC] rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center ">
                       <input
                         placeholder="Enter Number"

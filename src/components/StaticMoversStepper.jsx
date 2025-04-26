@@ -3,7 +3,7 @@ import React from "react";
 const StaticMoversStepper = () => {
   const activeTab = 4;
   return (
-    <div className="h-fit w-[350px] mb-4 bg-[#f7f7f7] rounded-[20px] border-[1px] border-[#E4F2FB] px-[24px] py-[32px] ">
+    <div className="h-fit w-[350px] staticContainer mb-4 bg-[#f7f7f7] rounded-[20px] border-[1px] border-[#E4F2FB] px-[24px] py-[32px] ">
       <div className="flex relative">
         <div
           className={`absolute top-8 left-[15px] ${
