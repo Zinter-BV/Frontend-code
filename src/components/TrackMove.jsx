@@ -34,8 +34,8 @@ const TrackMove = () => {
           </div>
           <div className="mt-4 moveTimeLineInfo relative ">
             <div className="w-full hidden h-[420px] moveTimeLineInfoOverlay absolute top-0 z-30 ">
-              <div className="w-full h-[75%]"></div>
-              <div className="w-full h-[25%] bg-white opacity-90 "></div>
+              <div className="w-full h-[25%]"></div>
+              <div className="w-full h-[75%] bg-red-500 opacity-90 "></div>
             </div>
             <p className="font-sans text-[18px] mb-2 font-extralight text-[#121212] ">
               Move Timeline

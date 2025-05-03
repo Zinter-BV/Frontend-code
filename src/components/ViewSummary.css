@@ -22,3 +22,9 @@
         display: flex;
     }
 }
+
+@media screen and (max-width: 720px) {
+    .headerMobileLinks{
+        font-size: 18px;
+    }
+}

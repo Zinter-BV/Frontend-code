@@ -5,23 +5,24 @@ import OurMission from "../components/OurMission";
 import OurVision from "../components/OurVision";
 import OurServices from "../components/OurServices";
 import Testimonials from "../components/Testimonials";
-import TestimonialsAboutUs from "../components/TestimonialsAbout";
-import ContactUs from "../components/ContactUs"
+// import TestimonialsAboutUs from "../components/TestimonialsAbout";
+import ContactUs from "../components/ContactUs";
 import Footer from "../components/Footer";
 
 const AboutUs = () => {
-    return (
-        <div>
-            <Header/>
-            <AboutZinter/>
-            <OurMission/>
-            <OurVision/>
-            <OurServices/>
-            <TestimonialsAboutUs/>
-            <ContactUs/>
-            <Footer/>
-        </div>
-    )
-}
+  return (
+    <div>
+      <Header />
+      <AboutZinter />
+      <OurMission />
+      <OurVision />
+      {/*<OurServices /> */}
+      {/* <TestimonialsAboutUs/> */}
+      {/* <Testimonials /> */}
+      {/*<ContactUs /> */}
+      {/* <Footer /> */}
+    </div>
+  );
+};
 
-export default AboutUs
+export default AboutUs;

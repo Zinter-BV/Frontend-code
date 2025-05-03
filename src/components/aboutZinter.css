@@ -1,12 +1,6 @@
 .about_zinter_container {
-    /* margin-top: "100px"
-    margin: "100px auto 0"
-    width: "90%"
-    display: "flex"
-    flexDirection: "column"
-    justify-content: "center" */
-    margin: 310px auto 0;
-    width: 90%;
+
+    margin-top: 200px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -33,11 +27,10 @@
 .inner_card {
     position: absolute;
     top: 26px;
-    left: 26px;
+    padding: 0 1rem;
+    justify-content: space-between;
     display: flex;
     align-items: center;
-    gap: 661px;
-    width: 100%;
 }
 
 .small_picture_container {
@@ -50,9 +43,6 @@
     width: fit-content;
     display: block;
     padding: 5px;
-    /* border: 1px solid rgba(217, 217, 217, 1); */
-    /* background: rebeccapurple; */
-    /* padding: 10px; */
 }
 
 .small_picture_text {
@@ -72,4 +62,93 @@
     background-color: rgba(255, 255, 255, 1);
     border-radius: 50%;
     padding: 5px;
+}
+
+@media screen and (max-width: 1330px){
+    .about_zinter_head {
+        justify-content: center;
+        flex-direction: column;
+    }
+    .about_zinter_head h1 {
+        margin-bottom: 2rem ;
+        text-align: center;
+        width: 100;
+    }
+    .about_zinter_text {
+       text-align: center;
+    }
+    
+}
+
+@media screen and (max-width: 1150px) {
+    .about_zinter_head h1 {
+        font-size: 56px;
+    }
+}
+
+@media screen and (max-width:900px){
+    .zoomingCardContainer{
+        height: 500px;
+    }
+}
+
+@media screen and (max-width:850px){
+    .zoomingCardContainer{
+        height: 450px;
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .about_zinter_head h1 {
+        font-size: 36px;
+    }
+    .about_zinter_text {
+        width: 80%;
+     }
+     .about_zinter_container {
+        margin-top: 130px;
+    }
+    .zoomingCardContainer{
+        height: 400px;
+    }
+    
+}
+
+@media screen and (max-width:650px){
+    .zoomingCardContainer{
+        height: 370px;
+    }
+}
+@media screen and (max-width:550px){
+    .zoomingCardContainer{
+        height: 320px;
+    }
+}
+
+@media screen and (max-width:430px){
+    .zoomingCardContainer{
+        height: 280px;
+    }
+}
+@media screen and (max-width: 400px) {
+    .about_zinter_head h1 {
+        font-size: 28px;
+        margin-bottom: 1rem;
+    }
+    .about_zinter_text {
+        width: 90%;
+    }
+    .arrow_down {
+        align-self: flex-start
+    }
+    .small_picture_text {
+        font-size: 14px;
+    }
+    
+}
+
+@media screen and (max-width:380px){
+    .zoomingCardContainer{
+        height: 260px;
+    }
 }
