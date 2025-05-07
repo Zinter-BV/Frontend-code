@@ -114,7 +114,7 @@ const OverviewPage = () => {
                             {/* <span>--------------</span> */}
                         </div>
                         <div className="approved_number_text_container">
-                            <div>
+                            <div className="approved_icon">
                                 <img src={approvedRequestIcon} alt="" />
                             </div>
                             <div className="approved_number_text">
@@ -129,7 +129,7 @@ const OverviewPage = () => {
                             {/* <span>-----------</span> */}
                         </div>
                         <div className="approved_number_text_container">
-                            <div>
+                            <div className="approved_icon">
                                 <img src={paymentMadeIcon} alt="" />
                             </div>
                             <div className="approved_number_text">
@@ -144,7 +144,7 @@ const OverviewPage = () => {
                             {/* <span>----------------</span> */}
                         </div>
                         <div className="approved_number_text_container">
-                            <div>
+                            <div className="approved_icon">
                                 <img src={upcomingIcon} alt="" />
                             </div>
                             <div className="approved_number_text">
@@ -159,7 +159,7 @@ const OverviewPage = () => {
                             {/* <span>---------</span> */}
                         </div>
                         <div className="approved_number_text_container">
-                            <div>
+                            <div className="approved_icon">
                                 <img src={inTransit} alt="" />
                             </div>
                             <div className="approved_number_text">
@@ -174,7 +174,7 @@ const OverviewPage = () => {
 
                         </div>
                         <div className="approved_number_text_container">
-                            <div>
+                            <div className="approved_icon">
                                 <img src={completedIcon} alt="" />
                             </div>
                             <div className="approved_number_text">
@@ -189,7 +189,7 @@ const OverviewPage = () => {
 
                         </div>
                         <div className="approved_number_text_container">
-                            <div>
+                            <div className="approved_icon"  >
                                 <img src={cancalledIcon} alt="" />
                             </div>
                             <div className="approved_number_text">
@@ -213,14 +213,14 @@ const OverviewPage = () => {
                                 <span>
                                     <img src={filterIcon} alt="" />
                                 </span>
-                                <span>Filter</span>
+                                <span className="filter_con_text">Filter</span>
                             </div>
                             <div className="refresh">
                                 <img src={refreshIcon} alt="" />
                             </div>
                         </div>
                     </div>
-                    <div >
+                    <div className="table_container_all" >
                         <table>
                             <thead>
                                 <tr>
@@ -249,7 +249,10 @@ const OverviewPage = () => {
                                         </div>
                                     </th>
                                     <th>
-
+                                        <div className="view_more_thead">
+                                            {/* <span>View</span>
+                                            <img src={arrowDown} alt="" /> */}
+                                        </div>
                                     </th>
 
                                 </tr>

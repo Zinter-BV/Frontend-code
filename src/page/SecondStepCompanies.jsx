@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import FirstCardToggle from "../components/FirstCardToggle";
 import VerifyTokenModal from "../components/VerifyToken";
 import SuccessMessage from "../components/SuccessModal";
+import stepperMobileSecond from "../Assets/mobile-stepper-icon-second.svg"
+// import stepperIcon from "../Assets/Progress minimal icons connected.svg"
+import mobileStepperIcon from "../Assets/mobile-stepper-icon.svg"
 import stepperIconSecond from "../Assets/second-step.svg"
 import "./firstStepCompanies.css"
 import "./secondStepCompanies.css"
@@ -33,12 +36,13 @@ const SecondStepCompanies = () => {
     }
     return (
         <div className="container_firstStep">
-            <div>
+            <div className="card_toggle"> 
                 <FirstCardToggle />
             </div>
             <div className="first_company_card">
-                <div>
-                    <img src={stepperIconSecond} alt="" />
+                <div className="stepper_icon">
+                    <img className="mobile_only_stepper_icon" src={stepperMobileSecond} alt="" />
+                    <img className="laptop_only_stepper_icon" src={stepperIconSecond} alt="" />
                 </div>
                 <div className="company_header">
                     <h1>Email Verification</h1>

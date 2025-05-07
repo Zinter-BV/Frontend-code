@@ -106,7 +106,7 @@ tbody tr td .td {
 }
 .name_td {
     display: flex;
-    gap: 5px;
+    gap: 12px;
     align-items: center;
 }
 

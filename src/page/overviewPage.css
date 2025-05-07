@@ -7,6 +7,7 @@
 .container_overview_all {
     margin-top: 15vh;
     max-height: 80vh;
+    width: 85vw;
     overflow: auto;
     position: absolute;
     top: 0;
@@ -20,10 +21,12 @@
     border-radius: 5px;
 }
 
+
 .container_overview {
     display: flex;
     gap: 20px;
-
+    justify-content: space-between;
+    width: 100%;
 }
 
 .container_new_jobs {
@@ -154,6 +157,7 @@
     padding: 5px;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
+    display: none;
 }
 
 .map_btn button {
@@ -163,7 +167,7 @@
     gap: 5px;
     color: rgba(5, 77, 150, 1);
     background-color: rgba(255, 255, 255, 1);
-    padding: 6px 16px;
+    padding: 4px 16px;
     border: 1px solid rgba(228, 242, 251, 1);
     border-radius: 1000px;
 }
@@ -427,12 +431,10 @@ tbody tr td .td {
     margin: 0 20px;
 }
 
-.status_intransit {
-
-}
+.status_intransit {}
 
 .progress_bar_new {
-    border: 2px solid rgba(234, 236, 240, 1);  
+    border: 2px solid rgba(234, 236, 240, 1);
     background-color: rgba(234, 236, 240, 1);
     width: 80%;
     border-radius: 6px;
@@ -446,4 +448,279 @@ tbody tr td .td {
 
 .view {
     cursor: pointer;
+}
+
+.view_more_thead {
+    display: none;
+}
+
+@media (max-width:1400px) {
+    .container_overview_all {
+        margin-top: 15vh;
+        max-height: 80vh;
+        width: 83%;
+        overflow: auto;
+        position: absolute;
+        top: 0;
+        left: 200px;
+    }
+
+}
+
+@media (max-width: 1308px) {
+    .approved_number_text :first-child {
+        font-family: "DM Sans", sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .approved_number_text :last-child {
+        font-family: "DM Sans", sans-serif;
+        font-size: 12px;
+        font-weight: 400;
+    }
+}
+
+@media (max-width: 1212px) {
+    .approved_number_text :first-child {
+        font-family: "DM Sans", sans-serif;
+        font-size: 10px;
+        font-weight: 600;
+    }
+
+    .approved_number_text :last-child {
+        font-family: "DM Sans", sans-serif;
+        font-size: 12px;
+        font-weight: 400;
+    }
+
+    .container_overview_all {
+        margin-top: 15vh;
+        max-height: 80vh;
+        width: 80%;
+        overflow: auto;
+        position: absolute;
+        top: 0;
+        left: 200px;
+    }
+
+    .approved_icon img {
+        width: 70%;
+    }
+}
+
+@media (max-width:1124px) {
+    .approved_number_text :first-child {
+        font-family: "DM Sans", sans-serif;
+        font-size: 8px;
+        font-weight: 600;
+    }
+
+    .approved_number_text :last-child {
+        font-family: "DM Sans", sans-serif;
+        font-size: 10px;
+        font-weight: 400;
+    }
+}
+
+@media (max-width: 1104px) {
+    .container_overview_all {
+        margin-top: 15vh;
+        max-height: 80vh;
+        width: 75%;
+        overflow: auto;
+        position: absolute;
+        top: 0;
+        left: 200px;
+    }
+
+    .container_new_jobs {
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        width: 40%;
+        border: 1px solid rgba(147, 204, 242, 1);
+        padding: 15px 16px;
+        border-radius: 6px;
+    }
+
+    .moving_truck {
+        /* background-image: url(http://localhost:3000/static/media/moving-truck-overview.8c7f0d7….svg); */
+        width: auto;
+        height: 160px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
+    }
+
+    .view_jobs_text :first-child {
+        font-family: "Unbounded", sans-serif;
+        font-size: 18px;
+        font-weight: 500;
+    }
+
+    .view_jobs_text :last-child {
+        font-family: "DM Sans", sans-serif;
+        font-size: 12px;
+        font-weight: 400;
+    }
+
+    .revenue_container {
+        border: 1px solid rgba(227, 227, 227, 1);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        /* width: 171px; */
+        padding: 15px;
+        border-radius: 6px;
+        height: 206px;
+    }
+
+    .revenue_text :last-child {
+        color: rgba(18, 18, 18, 1);
+        font-family: "Unbounded", sans-serif;
+        font-weight: 500;
+        font-size: 16px;
+    }
+
+}
+
+@media (max-width: 1000px) {
+    .container_overview_all {
+        margin-top: 15vh;
+        max-height: 80vh;
+        width: 100%;
+        overflow: auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 20px;
+    }
+
+    .container_overview {
+        display: flex;
+        gap: 20px;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .container_new_jobs {
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        width: 100%;
+        border: 1px solid rgba(147, 204, 242, 1);
+        padding: 15px 16px;
+        border-radius: 6px;
+    }
+
+    .map_container {
+        width: 56.8vw;
+        border: 1px solid rgba(147, 204, 242, 1);
+        /* padding: 15px 16px; */
+        border-radius: 6px;
+        display: none;
+    }
+
+    .calendar_container {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        padding: 30px 16px 15px;
+        border-radius: 6px;
+        margin-top: 10px;
+        border: 1px solid rgba(238, 242, 246, 1);
+        display: none;
+    }
+}
+
+@media (max-width: 780px) {
+
+    .search_icon {
+        position: relative;
+        width: 200px !important;
+    }
+
+    .search_icon input {
+        font-family: "DM Sans", sans-serif;
+        font-size: 14px !important;
+        font-weight: 400;
+        width: 100%;
+        border: 1px solid rgba(205, 213, 223, 1);
+        padding: 5px 15px 5px 40px;
+        outline: none;
+        border-radius: 6px;
+    }
+
+    .search_icon img {
+        position: absolute;
+        top: 18% !important;
+        left: 10px;
+    }
+    .left_table_head {
+        font-family: "DM Sans", sans-serif;
+        font-size: 16px !important;
+        font-weight: 600;
+    }
+
+
+    .table_header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start !important;
+        justify-content: space-between;
+        padding: 10px 20px;
+    }
+
+
+    .filter_con {
+        border-radius: 6px;
+        padding: 10px 10px;
+        width: auto !important;
+        display: flex;
+        gap: 3px;
+        align-items: center;
+        font-family: "DM Sans", sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        color: rgba(112, 112, 112, 1);
+        border: 1px solid rgba(205, 213, 223, 1);
+    }
+
+    .filter_con_text {
+        display: none;
+    }
+
+    .name_td img {
+        display: none;
+    }
+
+    .table_container_all {
+        max-width: 100%;
+        overflow: auto;
+    }
+
+    .view_more_thead {
+        display: flex;
+        gap: 3px;
+    }
+
+    .move_summary :first-child {
+        color: rgba(44, 44, 44, 1);
+        font-family: "DM Sans", sans-serif;
+        font-size: 12px;
+        font-weight: 400;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .move_summary :last-child {
+        color: rgba(158, 158, 158, 1);
+        font-family: "DM Sans", sans-serif;
+        font-size: 12px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-weight: 400;
+    }
 }

@@ -4,6 +4,7 @@ import FirstCardToggle from "../components/FirstCardToggle";
 import RichTextEditor from "../components/RichTextEditor";
 import AccountSuccessMessage from "../components/AccountSuccessModal";
 import stepperIconSecond from "../Assets/third-stepper-icon.svg"
+import stepperMobileThird from "../Assets/mobile-stepper-icon-third.svg"
 import dropdown from "../Assets/arrow-down-dropdown.svg"
 import imageUpload from "../Assets/image-upload.svg"
 import coverPhotoIcon from "../Assets/album-02.svg"
@@ -14,8 +15,10 @@ import thirdPhoto from "../Assets/cover-photo-third.svg"
 import fourthPhoto from "../Assets/cover-photo-four.svg"
 import fifthPhoto from "../Assets/cover-photo-five.svg"
 import sixthPhoto from "../Assets/cover-photo-six.svg"
+import { useNavigate } from "react-router-dom";
 
 const ThirdStepCompanies = () => {
+    const navigate = useNavigate()
     const [showMoreOptions, setShowOptions] = useState(false)
     const [showCoverPhoto, setShowCoverPhoto] = useState(false)
     const [coverPhoto, setCoverPhoto] = useState(null);
@@ -23,8 +26,20 @@ const ThirdStepCompanies = () => {
     const [showDropdown, setShowDropdown] = useState(false);
     const [showSuccessModal, setShowSuccessModal] = useState(false)
     const [allProvinces] = useState([
-        'Lagos', 'Abuja', 'Kano', 'Rivers', 'Oyo', 'Kaduna', 'Delta',
+        'Drenthe',
+        'Flevoland',
+        'Friesland',
+        'Gelderland',
+        'Groningen',
+        'Limburg',
+        'Noord-Brabant',
+        'Noord-Holland',
+        'Overijssel',
+        'Utrecht',
+        'Zeeland',
+        'Zuid-Holland',
     ]);
+
 
     const toggleProvince = (province) => {
         if (selectedProvinces.includes(province)) {
@@ -56,17 +71,22 @@ const ThirdStepCompanies = () => {
         setShowOptions(false)
     }
 
+    const goToDashboard = () => {
+        navigate("/overview")
+    }
+
     const openSuccessMessage = () => {
         setShowSuccessModal(true)
     }
     return (
         <div className="container_firstStep">
-            <div>
+            <div className="card_toggle">
                 <FirstCardToggle />
             </div>
             <div className="first_company_card">
-                <div>
-                    <img src={stepperIconSecond} alt="" />
+                <div className="stepper_icon">
+                    <img className="mobile_only_stepper_icon" src={stepperMobileThird} alt="" />
+                    <img className="laptop_only_stepper_icon" src={stepperIconSecond} alt="" />
                 </div>
                 <div className="company_header">
                     <h1>Profile Setup</h1>
@@ -158,7 +178,7 @@ const ThirdStepCompanies = () => {
                     </div>
                 </div>
                 <div className="company_firststep_btn_second">
-                    <button>Skip</button>
+                    <button onClick={goToDashboard}>Skip</button>
                     <button onClick={openSuccessMessage}>Continue</button> {/* Add onClick */}
                 </div>
             </div>
@@ -192,7 +212,7 @@ const ThirdStepCompanies = () => {
                     </div>
                 </div>}
             {showSuccessModal &&
-                <div className="verify_component">
+                <div className="account_component">
                     <AccountSuccessMessage />
                 </div>}
 

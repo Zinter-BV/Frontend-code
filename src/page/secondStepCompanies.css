@@ -94,7 +94,7 @@
     font-size: 14px;
     color: rgba(44, 44, 44, 1);
     cursor: pointer;
-    
+
 }
 
 .verify_component {
@@ -103,4 +103,29 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 10;
+}
+
+@media (max-width: 1000px) {
+
+
+    .company_firststep_btn_second {
+        position: absolute;
+        padding-top: 10px;
+        padding-bottom: 20px;
+        width: 100%;
+        top: 85vh;
+        /* border-top: 1px solid rgba(229, 229, 229, 1); */
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        /* justify-content: space-between; */
+    }
+
+    .verify_component {
+        position: absolute;
+        top: 99%;
+        left: 50%;
+        transform: translate(-50%, -45%);
+        z-index: 10;
+    }
 }

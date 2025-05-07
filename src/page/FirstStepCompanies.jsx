@@ -2,6 +2,7 @@ import { React } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import FirstCardToggle from "../components/FirstCardToggle";
 import stepperIcon from "../Assets/Progress minimal icons connected.svg"
+import mobileStepperIcon from "../Assets/mobile-stepper-icon.svg"
 import "./firstStepCompanies.css";
 import { useState } from "react";
 import goodTick from "../Assets/tick-01.svg"
@@ -48,12 +49,13 @@ const FirstStepCompanies = () => {
 
     return (
         <div className="container_firstStep">
-            <div>
+            <div className="card_toggle">
                 <FirstCardToggle />
             </div>
             <div className="first_company_card">
-                <div>
-                    <img src={stepperIcon} alt="" />
+                <div className="stepper_icon">
+                    <img className="mobile_only_stepper_icon" src={mobileStepperIcon} alt="" />
+                    <img className="laptop_only_stepper_icon" src={stepperIcon} alt="" />
                 </div>
                 <div className="company_header">
                     <h1>Company Information</h1>

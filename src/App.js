@@ -12,6 +12,8 @@ import JobsPage from "./page/jobsPage";
 import Payment from "./page/PaymentPage";
 
 import SideBar from "./components/SideBar";  // Import Sidebar
+import ViewNewJobs from "./page/ViewNewJobs";
+import UpcomingJobView from "./page/UpcomingJobView";
 
 function App() {
   // debugger
@@ -38,6 +40,8 @@ function App() {
         <Route path="/calendar" element={<CalendarPage/>}/>
         <Route path="/jobs" element={<JobsPage/>}/>
         <Route path="/payment" element={<Payment/>}/>
+        <Route path="/view-new-jobs" element={<ViewNewJobs/>}/>
+        <Route path="/upcoming-jobs-view" element={<UpcomingJobView/>}/>
         {/* Sidebar should only be visible on Overview & Calendar */}
 
       </Routes>
