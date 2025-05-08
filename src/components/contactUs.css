@@ -36,3 +36,22 @@
     width: 558px;
     color: rgba(255, 255, 255, 1);
 }
+
+@media screen and (max-width: 1050px){
+    .contact_us_text, .contact_us_partners {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 500px){
+    .contact_us_container{
+        padding: 20px;
+        width: 90%;
+    }
+    .contact_us_text  {
+        font-size: 24px;
+    }
+    .contact_us_partners {
+        font-size: 16px;
+    }
+}

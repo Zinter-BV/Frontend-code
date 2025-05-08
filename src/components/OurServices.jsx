@@ -8,9 +8,9 @@ import "./ourServices.css";
 
 const ourServices = () => {
   return (
-    <div className="mx-auto w-[100vw]">
+    <div className="mx-auto w-full">
       <div className="services_container mx-auto w-[90vw] max-w-[1500px]">
-        <div className="our_services_container">
+        <div className="our_services_container w-full mb-3">
           <div>Our Services</div>
           <div>Zinter BV does not carry out moves directly</div>
           <div>

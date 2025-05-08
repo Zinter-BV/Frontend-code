@@ -16,11 +16,11 @@ const AboutUs = () => {
       <AboutZinter />
       <OurMission />
       <OurVision />
-      {/*<OurServices /> */}
+      <OurServices />
       {/* <TestimonialsAboutUs/> */}
-      {/* <Testimonials /> */}
-      {/*<ContactUs /> */}
-      {/* <Footer /> */}
+      <Testimonials />
+      <ContactUs />
+      <Footer />
     </div>
   );
 };

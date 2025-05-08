@@ -3,12 +3,12 @@ import user from "../Assets/user.png";
 
 const TestimonialCard = () => {
   return (
-    <div className="w-[500px] h-fit rounded-[20px] p-7 bg-white border-2 flex justify-between flex-col border-[#D1D1D1] ">
-      <p className="font-sans text-[18px] text-[#232323] ">
+    <div className="w-[500px] testimonialCardContainer h-fit rounded-[20px] p-7 bg-white border-2 flex justify-between flex-col border-[#D1D1D1] ">
+      <p className="font-sans testimonialText text-[18px] text-[#232323] ">
         Lorem ipsum dolor sit amet, consecte elit, sed do eiusmod tempor
         incididunt abore et dolore magna aliqua. Ut enim ad min.
       </p>
-      <div className="flex mt-10 ">
+      <div className="flex cardImageContainer mt-10 ">
         <img
           src={user}
           alt="user"

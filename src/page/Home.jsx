@@ -18,8 +18,7 @@ const Home = () => {
       <TrustedBy />
       <SellingPoint />
       <Process />
-      {/* <Testimonials /> */}
-
+      <Testimonials />
       <NewsLetter />
       <Footer />
     </div>

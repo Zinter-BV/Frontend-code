@@ -11,8 +11,8 @@ const contactUs = () => {
           excellence!
         </div>
         <div className="contact_us_partners">
-          For inquiries, partnerships, or service bookings, reach out to us at📧
-          support@zinter.nl
+          For inquiries, partnerships, or service bookings, reach out to us at
+          📧 support@zinter.nl
         </div>
       </div>
     </div>
