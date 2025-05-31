@@ -2,17 +2,16 @@ name: zinter frontend Pipeline
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  workflow_dispatch:
   # pull_request:
   #   branches:
   #     - cicd
-
 jobs:
   build_and_push:
     name: Continuous Integration - Build and Push
     runs-on: ubuntu-latest
-
+  
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
