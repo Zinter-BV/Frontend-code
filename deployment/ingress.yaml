@@ -1,0 +1,44 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: zinter-ingress
+  labels:
+    name: zinter-ingress
+
+  annotations:
+    cert-manager.io/cluster-issuer: production
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+
+
+spec:
+  tls:
+  - hosts:
+    - www.zinter.nl
+    - zinter.nl
+    secretName: zinter-backend-tls-secret
+
+
+  ingressClassName: external-nginx
+  rules:
+  - host: www.zinter.nl
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-zinter-service
+            port:
+              number: 3000
+
+
+  - host: zinter.nl
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: zinter-backend-service
+            port:
+              number: 8080
