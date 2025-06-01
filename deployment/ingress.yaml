@@ -3,10 +3,10 @@ kind: Ingress
 metadata:
   name: zinter-ingress
   annotations:
-    cert-manager.io/cluster-issuer: production
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /
+
 
 spec:
   ingressClassName: external-nginx
