@@ -14,4 +14,4 @@ RUN npm audit fix --force || echo "Continuing despite npm audit fix failures"
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["npm", "start", "--", "--host", "0.0.0.0"]
