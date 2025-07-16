@@ -1,35 +1,80 @@
 import React, { useEffect, useState } from "react";
 
 const InventoryItem = ({
+  activeRoom = { activeRoom },
+  appendItemToArray,
   title,
   handleInventoriesSelected,
   handleRemoveInventory,
+  selectedItems = [], // Pass selected items from parent
 }) => {
-  const [isCardSelected, setIsCardSelected] = useState(false);
+  // Find if this item is already selected
+  const existingItem = selectedItems.find((item) => item.itemName === title);
+  const initialCount = existingItem ? existingItem.numberOfCount : 0;
+  const initialSelected = existingItem ? true : false;
 
-  const [count, setCount] = useState(0);
+  const [isCardSelected, setIsCardSelected] = useState(initialSelected);
+  const [count, setCount] = useState(initialCount);
 
   const increaseItems = (e) => {
-    e.stopPropagation(); // Prevent triggering parent click event
-    if (!isCardSelected) return; // Prevent increasing if not selected
+    e.stopPropagation();
+    if (!isCardSelected) return;
 
-    setCount((prevCount) => prevCount + 1); // Ensure state is updated correctly
+    const newCount = count + 1;
+    setCount(newCount);
     handleInventoriesSelected(title);
+
+    // Update the array with the new count
+    updateItemInArray(newCount);
   };
 
   const decreaseItems = (e) => {
-    e.stopPropagation(); // Prevent triggering parent click event
-    if (!isCardSelected || count === 0) return; // Prevent decreasing if not selected or already 0
+    e.stopPropagation();
+    if (!isCardSelected || count === 0) return;
 
-    setCount((prevCount) => prevCount - 1); // Ensure state is updated correctly
+    const newCount = count - 1;
+    setCount(newCount);
     handleRemoveInventory(title);
+
+    // Update the array with the new count
+    updateItemInArray(newCount);
+  };
+
+  const updateItemInArray = (newCount) => {
+    // Pass the item with a flag to indicate it should update existing
+    appendItemToArray({
+      itemName: title,
+      numberOfCount: newCount,
+      room: activeRoom,
+      shouldUpdateExisting: true,
+    });
   };
 
   const selectCard = () => {
-    setIsCardSelected((prev) => !prev);
+    const newSelectedState = !isCardSelected;
+    setIsCardSelected(newSelectedState);
+
+    if (newSelectedState) {
+      // When selecting, add item with current count
+      appendItemToArray({
+        itemName: title,
+        numberOfCount: count,
+        room: activeRoom,
+      });
+    } else {
+      // When deselecting, you might want to remove the item
+      // or set count to 0 - depends on your requirements
+      setCount(0);
+      appendItemToArray({
+        itemName: title,
+        numberOfCount: 0,
+        room: activeRoom,
+      });
+    }
   };
+
   useEffect(() => {
-    // console.log(isCardSelected); // This logs the latest state after it updates
+    // console.log(isCardSelected);
   }, [isCardSelected]);
 
   return (
@@ -53,8 +98,8 @@ const InventoryItem = ({
               fill="#4BA8E9"
             />
             <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
+              fillRule="evenodd"
+              clipRule="evenodd"
               d="M28.4805 53.5833V45.4167C28.4805 37.8217 23.2538 31.4925 16.2305 29.655V25C16.2305 18.2625 21.743 12.75 28.4805 12.75H69.3138C76.0513 12.75 81.5638 18.2625 81.5638 25V29.655C74.5405 31.4925 69.3138 37.8217 69.3138 45.4167V53.5833H28.4805ZM48.5042 33.6113C51.5206 33.6113 53.9659 31.166 53.9659 28.1496C53.9659 25.1332 51.5206 22.6879 48.5042 22.6879C45.4878 22.6879 43.0425 25.1332 43.0425 28.1496C43.0425 31.166 45.4878 33.6113 48.5042 33.6113Z"
               fill="#136AB5"
             />

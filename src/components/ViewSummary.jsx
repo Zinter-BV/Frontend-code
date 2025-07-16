@@ -1,7 +1,11 @@
 import React from "react";
 import "./ViewSummary.css";
+import { useSelector } from "react-redux";
+import { formatDate, getDayOfWeek, convertTo12Hour } from "../utils";
 
 const ViewSummary = () => {
+  const data = useSelector((state) => state.user);
+
   return (
     <div className="ml-4 summaryBox w-full">
       <div className="overflow-y-scroll pb-[80px] viewSummaryContainer h-[700px] custom-scroll w-full">
@@ -48,7 +52,7 @@ const ViewSummary = () => {
                   Moving From
                 </p>
                 <p className="text-[20px] text-[#136AB5] font-bold font-sans ">
-                  Keizersgracht 123, 1015 CJ Amsterdam
+                  {data?.moreInfo?.pickUpAddress}
                 </p>
               </div>
             </div>
@@ -92,7 +96,7 @@ const ViewSummary = () => {
                   Moving To
                 </p>
                 <p className="text-[20px] text-[#136AB5] font-bold font-sans ">
-                  Rozengracht 55, 1016 LZ Amsterdam
+                  {data?.moreInfo?.dropOffAddress}
                 </p>
               </div>
             </div>
@@ -221,7 +225,7 @@ const ViewSummary = () => {
                     Move Date
                   </p>
                   <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                    22 March, 2025
+                    {formatDate(data?.moreInfo?.moveDate)}
                   </p>
                 </div>
                 <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
@@ -229,7 +233,7 @@ const ViewSummary = () => {
                     Day
                   </p>
                   <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                    Tuesday
+                    {getDayOfWeek(data?.moreInfo?.moveDate)}
                   </p>
                 </div>
                 <div className="flex p-[16px] rounded-br-[12px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
@@ -237,7 +241,7 @@ const ViewSummary = () => {
                     Move Time
                   </p>
                   <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                    10:00 AM
+                    {convertTo12Hour(data?.moreInfo?.pickupTime)}
                   </p>
                 </div>
               </div>
@@ -247,7 +251,7 @@ const ViewSummary = () => {
                     Movers phone
                   </p>
                   <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                    08148705378
+                    {data?.moreInfo?.phoneNumber}
                   </p>
                 </div>
                 <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
@@ -255,7 +259,7 @@ const ViewSummary = () => {
                     Movers email
                   </p>
                   <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                    dasola_awoye@gmail.com
+                    {data?.moreInfo?.email}
                   </p>
                 </div>
                 <div className="flex p-[16px] rounded-br-[12px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
@@ -263,7 +267,7 @@ const ViewSummary = () => {
                     Address
                   </p>
                   <p className="text-[16px] overflow-hidden text-ellipsis whitespace-nowrap leading-[25.6px] font-light text-[#121212] font-sans ">
-                    utrechtsestraat 30 1017 va amsterdam
+                    {data?.moreInfo?.pickUpAddress}
                   </p>
                 </div>
               </div>
@@ -276,7 +280,7 @@ const ViewSummary = () => {
                       Move Date
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      22 March, 2025
+                      {formatDate(data?.moreInfo?.moveDate)}
                     </p>
                   </div>
 
@@ -285,7 +289,7 @@ const ViewSummary = () => {
                       Day
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      Tuesday
+                      {getDayOfWeek(data?.moreInfo?.moveDate)}
                     </p>
                   </div>
                 </div>
@@ -295,7 +299,7 @@ const ViewSummary = () => {
                       Move Time
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      10:00 AM
+                      {convertTo12Hour(data?.moreInfo?.pickupTime)}
                     </p>
                   </div>
                   <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[50%] h-full  justify-between">
@@ -303,7 +307,7 @@ const ViewSummary = () => {
                       Movers phone
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      08148705378
+                      {data?.moreInfo?.phoneNumber}
                     </p>
                   </div>
                 </div>
@@ -313,7 +317,7 @@ const ViewSummary = () => {
                       Movers email
                     </p>
                     <p className="text-[16px] tableText leading-[25.6px] font-light text-[#121212] font-sans ">
-                      dasola_awoye@gmail.com
+                      {data?.moreInfo?.email}
                     </p>
                   </div>
                   <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[50%] h-full  justify-between">
@@ -321,7 +325,7 @@ const ViewSummary = () => {
                       Address
                     </p>
                     <p className="text-[16px] tableText overflow-hidden text-ellipsis whitespace-nowrap leading-[25.6px] font-light text-[#121212] font-sans ">
-                      utrechtsestraat 30 1017 va amsterdam
+                      {data?.moreInfo?.pickUpAddress}
                     </p>
                   </div>
                 </div>

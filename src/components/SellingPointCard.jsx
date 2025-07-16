@@ -18,7 +18,7 @@ const SellingPointCard = ({ card }) => {
           <p className="font-sans font-bold text-[#3C82F6] mr-2 ">
             Get Started
           </p>
-          <RightIcon />
+          <RightIcon color="#3C82F6" />
         </div>
       </Link>
     </div>

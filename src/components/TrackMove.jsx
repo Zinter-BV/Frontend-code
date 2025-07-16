@@ -29,8 +29,8 @@ const TrackMove = () => {
           </p>
         </div>
         <div className="flex gap-x-[22px] moveTimeLine items-center">
-          <div className="bg-red-500 moveTimeLineMapContainer h-[440px] w-[400px] ">
-            {/* <img className="w-[400px] h-[440px] " src={Map} alt="map" />{" "} */}
+          <div className="moveTimeLineMapContainer h-[440px] w-[400px] ">
+            <img className="w-[400px] h-[440px] " src={Map} alt="map" />{" "}
           </div>
           <div className="mt-4 moveTimeLineInfo relative ">
             <div className="w-full hidden h-[420px] moveTimeLineInfoOverlay absolute top-0 z-30 ">

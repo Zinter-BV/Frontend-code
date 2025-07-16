@@ -113,7 +113,7 @@ const Header = () => {
                 <p className="ml-[8px] font-sans text-[#373737] ">Get Quotes</p>
               </div>
             </Link>
-            <Link>
+            <Link to="/track-code">
               <div className="p-[8px] hover:bg-[#f7f7f7] mb-[4px] flex items-center w-full ">
                 <TrackingIcon />
                 <p className="ml-[8px] font-sans text-[#373737] ">Track Move</p>
@@ -268,7 +268,7 @@ const Header = () => {
                         </p>
                       </div>
                     </Link>
-                    <Link>
+                    <Link to="/track-code">
                       <div className="py-[8px] mb-[4px] flex items-center w-full ">
                         <TrackingIcon />
                         <p className="ml-[8px] font-sans text-[#373737] ">

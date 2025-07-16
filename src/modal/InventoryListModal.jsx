@@ -2,20 +2,62 @@ import React, { useState } from "react";
 import InventoryItem from "../components/InventoryItem";
 import { formattedItems, countMap } from "../utils";
 import "./InventoryListModal.css";
+import { useDispatch } from "react-redux";
+import { setUserItems } from "../redux/action";
 
 const InventoryListModal = ({
+  activeRoom,
   closeInventoryListModal,
   isInventoryListModalOpen,
   openUploadImageModal,
 }) => {
   const [allInventories, setAllInventories] = useState([]);
+  const [items, setItems] = useState([]);
+
+  const appendItemToArray = (newItem) => {
+    setItems((prevArray) => {
+      // Find if item already exists
+      const existingItemIndex = prevArray.findIndex(
+        (item) =>
+          item.itemName === newItem.itemName && item.room === newItem.room
+      );
+
+      if (existingItemIndex >= 0) {
+        // Item exists, update its count
+        const updatedArray = [...prevArray];
+
+        if (newItem.numberOfCount === 0) {
+          // Remove item if count is 0
+          return updatedArray.filter((_, index) => index !== existingItemIndex);
+        } else {
+          // Update existing item's count
+          updatedArray[existingItemIndex] = {
+            ...updatedArray[existingItemIndex],
+            numberOfCount: newItem.numberOfCount,
+          };
+          return updatedArray;
+        }
+      } else if (newItem.numberOfCount > 0) {
+        // Add new item only if count > 0
+        return [
+          ...prevArray,
+          {
+            itemName: newItem.itemName,
+            numberOfCount: newItem.numberOfCount,
+            room: newItem.room,
+          },
+        ];
+      }
+      return prevArray;
+    });
+  };
 
   // add item to the array
   const handleInventoriesSelected = (newItems) => {
     setAllInventories((prevItems) => [...prevItems, newItems]); // Append new images
   };
 
-  // remove item froom array
+  // remove item from array
   const handleRemoveInventory = (itemToRemove) => {
     setAllInventories((prevItems) => {
       const index = prevItems.indexOf(itemToRemove);
@@ -30,9 +72,12 @@ const InventoryListModal = ({
 
   const newFormattedData = formattedItems(countMap(allInventories));
 
+  const dispatch = useDispatch();
+
   const handleSubmit = () => {
-    if (allInventories.length === 0) return;
-    console.log(allInventories);
+    if (items.length === 0) return;
+    console.log(items);
+    dispatch(setUserItems(items));
     closeInventoryListModal();
   };
 
@@ -45,7 +90,7 @@ const InventoryListModal = ({
               Add Items to
             </h3>
             <p className="font-sans text-[20px] font-semibold italic text-[#9e9e9e]">
-              Living room
+              {activeRoom}
             </p>
           </div>
           <div
@@ -96,56 +141,89 @@ const InventoryListModal = ({
                 handleInventoriesSelected={handleInventoriesSelected}
                 handleRemoveInventory={handleRemoveInventory}
                 title="Elegant Floor Lamp"
+                appendItemToArray={appendItemToArray}
+                selectedItems={items}
+                activeRoom={activeRoom}
               />
               <InventoryItem
                 handleInventoriesSelected={handleInventoriesSelected}
                 handleRemoveInventory={handleRemoveInventory}
                 title="Artistic Wall Decor"
+                appendItemToArray={appendItemToArray}
+                selectedItems={items}
+                activeRoom={activeRoom}
               />
               <InventoryItem
                 handleInventoriesSelected={handleInventoriesSelected}
                 handleRemoveInventory={handleRemoveInventory}
                 title="Stylish Coffee Table"
+                appendItemToArray={appendItemToArray}
+                selectedItems={items}
+                activeRoom={activeRoom}
               />
               <InventoryItem
+                appendItemToArray={appendItemToArray}
                 handleInventoriesSelected={handleInventoriesSelected}
                 handleRemoveInventory={handleRemoveInventory}
                 title="Toilet Seat"
+                selectedItems={items}
+                activeRoom={activeRoom}
               />
               <InventoryItem
                 handleInventoriesSelected={handleInventoriesSelected}
                 handleRemoveInventory={handleRemoveInventory}
                 title="Sectional Sofa"
+                appendItemToArray={appendItemToArray}
+                selectedItems={items}
+                activeRoom={activeRoom}
               />
               <InventoryItem
                 handleInventoriesSelected={handleInventoriesSelected}
                 handleRemoveInventory={handleRemoveInventory}
                 title="Recliner Chair"
+                appendItemToArray={appendItemToArray}
+                selectedItems={items}
+                activeRoom={activeRoom}
               />
               <InventoryItem
                 handleInventoriesSelected={handleInventoriesSelected}
                 handleRemoveInventory={handleRemoveInventory}
                 title="Coffe Table"
+                appendItemToArray={appendItemToArray}
+                selectedItems={items}
+                activeRoom={activeRoom}
               />
               <InventoryItem
                 handleInventoriesSelected={handleInventoriesSelected}
                 handleRemoveInventory={handleRemoveInventory}
                 title="TV Stand"
+                appendItemToArray={appendItemToArray}
+                selectedItems={items}
+                activeRoom={activeRoom}
               />
               <InventoryItem
                 handleInventoriesSelected={handleInventoriesSelected}
                 handleRemoveInventory={handleRemoveInventory}
                 title="Bookshelf"
+                appendItemToArray={appendItemToArray}
+                selectedItems={items}
+                activeRoom={activeRoom}
               />
               <InventoryItem
                 handleInventoriesSelected={handleInventoriesSelected}
                 handleRemoveInventory={handleRemoveInventory}
                 title="Coffee Table"
+                appendItemToArray={appendItemToArray}
+                selectedItems={items}
+                activeRoom={activeRoom}
               />
               <InventoryItem
                 handleInventoriesSelected={handleInventoriesSelected}
                 handleRemoveInventory={handleRemoveInventory}
                 title="Accent Chair"
+                appendItemToArray={appendItemToArray}
+                selectedItems={items}
+                activeRoom={activeRoom}
               />
             </div>
           </div>
@@ -166,19 +244,19 @@ const InventoryListModal = ({
                 />
               </svg>
               <p className="font-sans text-[16px] w-[130px] text-[#3C82F6] ml-2 leading-[25.6px] ">
-                {allInventories.length}{" "}
+                {items.length}{" "}
                 <span className="selectedItems  uploadImageItemSelected">
                   Items Selected
                 </span>
               </p>
             </div>
             <div className="flex flex-wrap finalItemsContainer ml-2 w-[60%] items-center">
-              {newFormattedData.map((item, index) => (
+              {items.map((item, index) => (
                 <div key={index} className="flex ml-2 items-center">
                   <p className="mr-2 text-[14px] font-sans leading-[18.2px] text-[#707070] ">
-                    {item}
+                    {item.itemName} ({item.numberOfCount})
                   </p>
-                  {index !== newFormattedData.length - 1 && (
+                  {index !== items.length - 1 && (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="4"

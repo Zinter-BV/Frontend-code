@@ -1,7 +1,122 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import "./movingInformation.css";
 
-const MovingInformation = () => {
+const MovingInformation = ({
+  moveDate,
+  setMoveDate,
+  pickupTime,
+  setPickupTime,
+  fullName,
+  setFullName,
+  email,
+  setEmail,
+  phoneNumber,
+  setPhoneNumber,
+  provinceId,
+  setProvinceId,
+  pickUpAddress,
+  setPickUpAddress,
+  dropOffAddress,
+  setDropOffAddress,
+  pickUpAddressNumber,
+  setPickUpAddressNumber,
+  dropOffAddressNumber,
+  setDropOffAddressNumber,
+  pickUpLongitude,
+  setPickUpLongitude,
+  pickUpLatitude,
+  setPickUpLatitude,
+  dropOffLongitude,
+  setDropOffLongitude,
+  dropOffLatitude,
+  setDropOffLatitude,
+  fromNumberOfFloors,
+  setFromNumberOfFloors,
+  toNumberOfFloors,
+  setToNumberOfFloors,
+  fromLongCarry,
+  setFromLongCarry,
+  toLongCarry,
+  setToLongCarry,
+  fromRemark,
+  setFromRemark,
+  toRemark,
+  setToRemark,
+  fromHasElevator,
+  setFromHasElevator,
+  toHasElevator,
+  setToHasElevator,
+  fromNeedShuttle,
+  setFromNeedShuttle,
+  toNeedShuttle,
+  setToNeedShuttle,
+  fromHasBuildingInsurance,
+  setFromHasBuildingInsurance,
+  toHasBuildingInsurance,
+  setToHasBuildingInsurance,
+  fromNeedHelpPacking,
+  setFromNeedHelpPacking,
+  toNeedHelpPacking,
+  setToNeedHelpPacking,
+  isEditingFrom,
+  setIsEditingFrom,
+  isEditingTo,
+  setIsEditingTo,
+  fromLocation,
+  toLocation,
+  setFromLocation,
+  setToLocation,
+}) => {
+  const fromInputRef = useRef(null);
+  const toInputRef = useRef(null);
+
+  // Focus input when editing starts
+  useEffect(() => {
+    if (isEditingFrom && fromInputRef.current) {
+      fromInputRef.current.focus();
+    }
+  }, [isEditingFrom]);
+
+  useEffect(() => {
+    if (isEditingTo && toInputRef.current) {
+      toInputRef.current.focus();
+    }
+  }, [isEditingTo]);
+
+  const handleFromChange = () => {
+    setIsEditingFrom(true);
+  };
+
+  const handleToChange = () => {
+    setIsEditingTo(true);
+  };
+
+  const handleFromBlur = () => {
+    setIsEditingFrom(false);
+  };
+
+  const handleToBlur = () => {
+    setIsEditingTo(false);
+  };
+
+  const handleFromInputChange = (e) => {
+    setFromLocation(e.target.value);
+  };
+
+  const handleToInputChange = (e) => {
+    setToLocation(e.target.value);
+  };
+
+  const handleKeyDown = (e, type) => {
+    if (e.key === "Enter") {
+      if (type === "from") {
+        setIsEditingFrom(false);
+      } else {
+        setIsEditingTo(false);
+      }
+    }
+  };
+
   return (
     <div className="ml-4 movingInfoBox w-full">
       <div className="overflow-y-scroll pb-[40px] h-[700px] moveBox custom-scroll w-fit">
@@ -26,6 +141,8 @@ const MovingInformation = () => {
               <input
                 placeholder="Select Move Date"
                 type="date"
+                value={moveDate}
+                onChange={(e) => setMoveDate(e.target.value)}
                 className="h-[45px] border-[#e3e3e3] w-full font-light border-[1px] outline-none p-[8px] rounded-[8px] "
               />
             </div>
@@ -34,9 +151,11 @@ const MovingInformation = () => {
                 Pickup Time
               </label>
               <input
-                placeholder="Select Move Time"
+                placeholder="Select Pickup Time"
                 type="time"
-                className="h-[45px] w-full border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
+                value={pickupTime}
+                onChange={(e) => setPickupTime(e.target.value)}
+                className="h-[45px] border-[#e3e3e3] w-full font-light border-[1px] outline-none p-[8px] rounded-[8px] "
               />
             </div>
           </div>
@@ -49,6 +168,8 @@ const MovingInformation = () => {
                 Full Name
               </label>
               <input
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
                 placeholder="Enter Your Full Name"
                 type="text"
                 className="h-[45px] border-[#e3e3e3] font-light w-full border-[1px] outline-none p-[8px] rounded-[8px] "
@@ -59,8 +180,10 @@ const MovingInformation = () => {
                 Email Address
               </label>
               <input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter Your Email Address"
-                type="text"
+                type="email"
                 className="h-[45px] w-full border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
               />
             </div>
@@ -69,6 +192,8 @@ const MovingInformation = () => {
                 Phone Number
               </label>
               <input
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
                 placeholder="Enter Your Phone Number"
                 type="number"
                 className="h-[45px] appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none w-full border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
@@ -79,41 +204,54 @@ const MovingInformation = () => {
             <p className="font-sans mb-2 text-[#136AB5] text-[18px] font-bold ">
               Pickup Details
             </p>
-            <div>
-              <div className="w-full h-[68px] rounded-[8px] border-[1px] px-[16px] flex items-center justify-between border-[#e3e3e3] ">
+            <div className="w-full h-[68px] locationFrom rounded-[8px] border-[1px] px-[16px] flex items-center justify-between border-[#e3e3e3] ">
+              <div className="flex items-center flex-1">
                 <div className="flex items-center">
-                  <div className="flex items-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M12 2C14.3869 2 16.6761 2.94821 18.364 4.63604C20.0518 6.32387 21 8.61305 21 11C21 14.074 19.324 16.59 17.558 18.395C16.6757 19.2871 15.7129 20.0958 14.682 20.811L14.256 21.101L14.056 21.234L13.679 21.474L13.343 21.679L12.927 21.921C12.6446 22.0822 12.3251 22.1669 12 22.1669C11.6749 22.1669 11.3554 22.0822 11.073 21.921L10.657 21.679L10.137 21.359L9.945 21.234L9.535 20.961C8.42283 20.2085 7.3869 19.3491 6.442 18.395C4.676 16.589 3 14.074 3 11C3 8.61305 3.94821 6.32387 5.63604 4.63604C7.32387 2.94821 9.61305 2 12 2ZM12 4C10.1435 4 8.36301 4.7375 7.05025 6.05025C5.7375 7.36301 5 9.14348 5 11C5 13.322 6.272 15.36 7.871 16.996C8.55853 17.692 9.30166 18.3308 10.093 18.906L10.551 19.232C10.699 19.3353 10.8413 19.4313 10.978 19.52L11.368 19.77L11.711 19.979L12 20.148L12.455 19.879L12.822 19.649C13.0173 19.525 13.2263 19.386 13.449 19.232L13.907 18.906C14.6983 18.3308 15.4415 17.692 16.129 16.996C17.728 15.361 19 13.322 19 11C19 9.14348 18.2625 7.36301 16.9497 6.05025C15.637 4.7375 13.8565 4 12 4ZM12 7C13.0609 7 14.0783 7.42143 14.8284 8.17157C15.5786 8.92172 16 9.93913 16 11C16 12.0609 15.5786 13.0783 14.8284 13.8284C14.0783 14.5786 13.0609 15 12 15C10.9391 15 9.92172 14.5786 9.17157 13.8284C8.42143 13.0783 8 12.0609 8 11C8 9.93913 8.42143 8.92172 9.17157 8.17157C9.92172 7.42143 10.9391 7 12 7ZM12 9C11.4696 9 10.9609 9.21071 10.5858 9.58579C10.2107 9.96086 10 10.4696 10 11C10 11.5304 10.2107 12.0391 10.5858 12.4142C10.9609 12.7893 11.4696 13 12 13C12.5304 13 13.0391 12.7893 13.4142 12.4142C13.7893 12.0391 14 11.5304 14 11C14 10.4696 13.7893 9.96086 13.4142 9.58579C13.0391 9.21071 12.5304 9 12 9Z"
-                        fill="#12B981"
-                      />
-                    </svg>
-                    <p className="text-[#b8b8b8] ml-2 font-light font-sans text-[16px] leading-[25.6px] ">
-                      From
-                    </p>
-                  </div>
-                  <div className="flex">
-                    <p className="text-[#b8b8b8] ml-2 font-light font-sans text-[16px]">
-                      -
-                    </p>
-                    <p className="text-[#707070] ml-2 font-sans text-[16px] leading-[25.6px]">
-                      Keizersgracht 123, 1015 CJ Amsterdam
-                    </p>
-                  </div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M12 2C14.3869 2 16.6761 2.94821 18.364 4.63604C20.0518 6.32387 21 8.61305 21 11C21 14.074 19.324 16.59 17.558 18.395C16.6757 19.2871 15.7129 20.0958 14.682 20.811L14.256 21.101L14.056 21.234L13.679 21.474L13.343 21.679L12.927 21.921C12.6446 22.0822 12.3251 22.1669 12 22.1669C11.6749 22.1669 11.3554 22.0822 11.073 21.921L10.657 21.679L10.137 21.359L9.945 21.234L9.535 20.961C8.42283 20.2085 7.3869 19.3491 6.442 18.395C4.676 16.589 3 14.074 3 11C3 8.61305 3.94821 6.32387 5.63604 4.63604C7.32387 2.94821 9.61305 2 12 2ZM12 4C10.1435 4 8.36301 4.7375 7.05025 6.05025C5.7375 7.36301 5 9.14348 5 11C5 13.322 6.272 15.36 7.871 16.996C8.55853 17.692 9.30166 18.3308 10.093 18.906L10.551 19.232C10.699 19.3353 10.8413 19.4313 10.978 19.52L11.368 19.77L11.711 19.979L12 20.148L12.455 19.879L12.822 19.649C13.0173 19.525 13.2263 19.386 13.449 19.232L13.907 18.906C14.6983 18.3308 15.4415 17.692 16.129 16.996C17.728 15.361 19 13.322 19 11C19 9.14348 18.2625 7.36301 16.9497 6.05025C15.637 4.7375 13.8565 4 12 4ZM12 7C13.0609 7 14.0783 7.42143 14.8284 8.17157C15.5786 8.92172 16 9.93913 16 11C16 12.0609 15.5786 13.0783 14.8284 13.8284C14.0783 14.5786 13.0609 15 12 15C10.9391 15 9.92172 14.5786 9.17157 13.8284C8.42143 13.0783 8 12.0609 8 11C8 9.93913 8.42143 8.92172 9.17157 8.17157C9.92172 7.42143 10.9391 7 12 7ZM12 9C11.4696 9 10.9609 9.21071 10.5858 9.58579C10.2107 9.96086 10 10.4696 10 11C10 11.5304 10.2107 12.0391 10.5858 12.4142C10.9609 12.7893 11.4696 13 12 13C12.5304 13 13.0391 12.7893 13.4142 12.4142C13.7893 12.0391 14 11.5304 14 11C14 10.4696 13.7893 9.96086 13.4142 9.58579C13.0391 9.21071 12.5304 9 12 9Z"
+                      fill="#12B981"
+                    />
+                  </svg>
+                  <p className="text-[#b8b8b8] ml-2 font-light font-sans text-[16px] leading-[25.6px] ">
+                    From
+                  </p>
                 </div>
-                <button className="text-[#3C82F6] hover:bg-primary py-1 px-2 hover:text-white rounded-[20px] cursor-pointer text-[12px] text-manrope font-light ">
-                  CHANGE
-                </button>
+                <div className="flex flex-1">
+                  <p className="text-[#b8b8b8] ml-2 font-light font-sans text-[16px]">
+                    -
+                  </p>
+                  {isEditingFrom ? (
+                    <input
+                      ref={fromInputRef}
+                      type="text"
+                      value={fromLocation}
+                      onChange={handleFromInputChange}
+                      onBlur={handleFromBlur}
+                      onKeyDown={(e) => handleKeyDown(e, "from")}
+                      className="text-[#707070] ml-2 font-sans text-[16px] leading-[25.6px] bg-transparent outline-none flex-1 min-w-0"
+                    />
+                  ) : (
+                    <p className="text-[#707070] ml-2 font-sans text-[16px] line-clamp-2 leading-[25.6px] fromLocationText truncate ">
+                      {fromLocation}
+                    </p>
+                  )}
+                </div>
               </div>
+              <button
+                onClick={handleFromChange}
+                className="text-[#3C82F6] hover:bg-primary py-1 px-2 hover:text-white rounded-[20px] cursor-pointer text-[10px] text-manrope font-light ml-2"
+              >
+                CHANGE
+              </button>
             </div>
             <div className="flex mt-4 mb-5 justify-between  items-center apartmentNumberContainer ">
               <div className="flex  w-[35%] mb-[10px] flex-col">
@@ -121,6 +259,8 @@ const MovingInformation = () => {
                   Apartment Number
                 </label>
                 <input
+                  value={pickUpAddressNumber}
+                  onChange={(e) => setPickUpAddressNumber(e.target.value)}
                   placeholder="Apartment Number"
                   type="number"
                   className="h-[45px] appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none w-full border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
@@ -131,6 +271,8 @@ const MovingInformation = () => {
                   Remarks for the location
                 </label>
                 <input
+                  value={fromRemark}
+                  onChange={(e) => setFromRemark(e.target.value)}
                   placeholder="Enter Remarks for this location"
                   type="text"
                   className="h-[45px]  border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
@@ -147,6 +289,8 @@ const MovingInformation = () => {
                     Number of floors
                   </label>
                   <input
+                    value={fromNumberOfFloors}
+                    onChange={(e) => setFromNumberOfFloors(e.target.value)}
                     placeholder="How many floors"
                     type="number"
                     className="h-[45px] appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none w-full border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
@@ -158,6 +302,8 @@ const MovingInformation = () => {
                   </label>
                   <input
                     placeholder="Enter Number"
+                    value={fromLongCarry}
+                    onChange={(e) => setFromLongCarry(e.target.value)}
                     type="number"
                     className="h-[45px] appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none w-full border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
                   />
@@ -171,10 +317,11 @@ const MovingInformation = () => {
                   <div className="flex w-[200px] elevatorQuestionBox h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
                     <div className="flex w-[50%] bg-[#E4F0FC] rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center ">
                       <input
-                        placeholder="Enter Number"
                         type="radio"
                         name="elevator"
                         id="yes"
+                        checked={fromHasElevator === true}
+                        onChange={() => setFromHasElevator(true)}
                       />
                       <label
                         htmlFor="yes"
@@ -185,10 +332,11 @@ const MovingInformation = () => {
                     </div>
                     <div className="flex items-center justify-center h-full w-[50%]">
                       <input
-                        placeholder="Enter Number"
                         type="radio"
                         name="elevator"
                         id="no"
+                        checked={fromHasElevator === false}
+                        onChange={() => setFromHasElevator(false)}
                       />
                       <label className="ml-1" htmlFor="no">
                         No
@@ -203,10 +351,11 @@ const MovingInformation = () => {
                   <div className="flex w-[200px] elevatorQuestionBox h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
                     <div className="flex w-[50%] bg-[#E4F0FC] rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center ">
                       <input
-                        placeholder="Enter Number"
                         type="radio"
                         name="from_shuttle"
                         id="needShuttle_yes"
+                        checked={fromNeedShuttle === true}
+                        onChange={() => setFromNeedShuttle(true)}
                       />
                       <label
                         htmlFor="needShuttle_yes"
@@ -217,10 +366,11 @@ const MovingInformation = () => {
                     </div>
                     <div className="flex items-center justify-center h-full w-[50%]">
                       <input
-                        placeholder="Enter Number"
                         type="radio"
                         name="from_shuttle"
                         id="needShuttle_no"
+                        checked={fromNeedShuttle === false}
+                        onChange={() => setFromNeedShuttle(false)}
                       />
                       <label className="ml-1" htmlFor="needShuttle_no">
                         No
@@ -237,10 +387,11 @@ const MovingInformation = () => {
                   <div className="flex w-[200px] elevatorQuestionBox h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
                     <div className="flex w-[50%] bg-[#E4F0FC] rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center ">
                       <input
-                        placeholder="Enter Number"
                         type="radio"
                         name="insurance"
                         id="insurance_yes"
+                        checked={fromHasBuildingInsurance === true}
+                        onChange={() => setFromHasBuildingInsurance(true)}
                       />
                       <label
                         htmlFor="insurance_yes"
@@ -251,10 +402,11 @@ const MovingInformation = () => {
                     </div>
                     <div className="flex items-center justify-center h-full w-[50%]">
                       <input
-                        placeholder="Enter Number"
                         type="radio"
                         name="insurance"
                         id="insurance_no"
+                        checked={fromHasBuildingInsurance === false}
+                        onChange={() => setFromHasBuildingInsurance(false)}
                       />
                       <label className="ml-1" htmlFor="insurance_no">
                         No
@@ -269,10 +421,11 @@ const MovingInformation = () => {
                   <div className="flex w-[200px] elevatorQuestionBox h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
                     <div className="flex w-[50%] bg-[#E4F0FC] rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center ">
                       <input
-                        placeholder="Enter Number"
                         type="radio"
                         name="from_need_help"
                         id="need_help_yes"
+                        checked={fromNeedHelpPacking === true}
+                        onChange={() => setFromNeedHelpPacking(true)}
                       />
                       <label
                         htmlFor="need_help_yes"
@@ -283,10 +436,11 @@ const MovingInformation = () => {
                     </div>
                     <div className="flex items-center justify-center h-full w-[50%]">
                       <input
-                        placeholder="Enter Number"
                         type="radio"
                         name="from_need_help"
                         id="need_help_no"
+                        checked={fromNeedHelpPacking === false}
+                        onChange={() => setFromNeedHelpPacking(false)}
                       />
                       <label className="ml-1" htmlFor="need_help_no">
                         No
@@ -296,41 +450,54 @@ const MovingInformation = () => {
                 </div>
               </div>
             </div>
-            <div>
-              <div className="w-full h-[68px] rounded-[8px] border-[1px] px-[16px] flex items-center justify-between border-[#e3e3e3] ">
+            <div className="w-full h-[68px] rounded-[8px] locationFrom border-[1px] px-[16px] flex items-center justify-between border-[#e3e3e3] ">
+              <div className="flex items-center flex-1">
                 <div className="flex items-center">
-                  <div className="flex items-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M12 2C14.3869 2 16.6761 2.94821 18.364 4.63604C20.0518 6.32387 21 8.61305 21 11C21 14.074 19.324 16.59 17.558 18.395C16.6757 19.2871 15.7129 20.0958 14.682 20.811L14.256 21.101L14.056 21.234L13.679 21.474L13.343 21.679L12.927 21.921C12.6446 22.0822 12.3251 22.1669 12 22.1669C11.6749 22.1669 11.3554 22.0822 11.073 21.921L10.657 21.679L10.137 21.359L9.945 21.234L9.535 20.961C8.42283 20.2085 7.3869 19.3491 6.442 18.395C4.676 16.589 3 14.074 3 11C3 8.61305 3.94821 6.32387 5.63604 4.63604C7.32387 2.94821 9.61305 2 12 2ZM12 4C10.1435 4 8.36301 4.7375 7.05025 6.05025C5.7375 7.36301 5 9.14348 5 11C5 13.322 6.272 15.36 7.871 16.996C8.55853 17.692 9.30166 18.3308 10.093 18.906L10.551 19.232C10.699 19.3353 10.8413 19.4313 10.978 19.52L11.368 19.77L11.711 19.979L12 20.148L12.455 19.879L12.822 19.649C13.0173 19.525 13.2263 19.386 13.449 19.232L13.907 18.906C14.6983 18.3308 15.4415 17.692 16.129 16.996C17.728 15.361 19 13.322 19 11C19 9.14348 18.2625 7.36301 16.9497 6.05025C15.637 4.7375 13.8565 4 12 4ZM12 7C13.0609 7 14.0783 7.42143 14.8284 8.17157C15.5786 8.92172 16 9.93913 16 11C16 12.0609 15.5786 13.0783 14.8284 13.8284C14.0783 14.5786 13.0609 15 12 15C10.9391 15 9.92172 14.5786 9.17157 13.8284C8.42143 13.0783 8 12.0609 8 11C8 9.93913 8.42143 8.92172 9.17157 8.17157C9.92172 7.42143 10.9391 7 12 7ZM12 9C11.4696 9 10.9609 9.21071 10.5858 9.58579C10.2107 9.96086 10 10.4696 10 11C10 11.5304 10.2107 12.0391 10.5858 12.4142C10.9609 12.7893 11.4696 13 12 13C12.5304 13 13.0391 12.7893 13.4142 12.4142C13.7893 12.0391 14 11.5304 14 11C14 10.4696 13.7893 9.96086 13.4142 9.58579C13.0391 9.21071 12.5304 9 12 9Z"
-                        fill="#DE2527"
-                      />
-                    </svg>
-                    <p className="text-[#b8b8b8] ml-2 font-light font-sans text-[16px] leading-[25.6px] ">
-                      To
-                    </p>
-                  </div>
-                  <div className="flex">
-                    <p className="text-[#b8b8b8] ml-2 font-light font-sans text-[16px]">
-                      -
-                    </p>
-                    <p className="text-[#707070] ml-2 font-sans text-[16px] leading-[25.6px]">
-                      Rozengracht 55, 1016 LZ Amsterdam
-                    </p>
-                  </div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M12 2C14.3869 2 16.6761 2.94821 18.364 4.63604C20.0518 6.32387 21 8.61305 21 11C21 14.074 19.324 16.59 17.558 18.395C16.6757 19.2871 15.7129 20.0958 14.682 20.811L14.256 21.101L14.056 21.234L13.679 21.474L13.343 21.679L12.927 21.921C12.6446 22.0822 12.3251 22.1669 12 22.1669C11.6749 22.1669 11.3554 22.0822 11.073 21.921L10.657 21.679L10.137 21.359L9.945 21.234L9.535 20.961C8.42283 20.2085 7.3869 19.3491 6.442 18.395C4.676 16.589 3 14.074 3 11C3 8.61305 3.94821 6.32387 5.63604 4.63604C7.32387 2.94821 9.61305 2 12 2ZM12 4C10.1435 4 8.36301 4.7375 7.05025 6.05025C5.7375 7.36301 5 9.14348 5 11C5 13.322 6.272 15.36 7.871 16.996C8.55853 17.692 9.30166 18.3308 10.093 18.906L10.551 19.232C10.699 19.3353 10.8413 19.4313 10.978 19.52L11.368 19.77L11.711 19.979L12 20.148L12.455 19.879L12.822 19.649C13.0173 19.525 13.2263 19.386 13.449 19.232L13.907 18.906C14.6983 18.3308 15.4415 17.692 16.129 16.996C17.728 15.361 19 13.322 19 11C19 9.14348 18.2625 7.36301 16.9497 6.05025C15.637 4.7375 13.8565 4 12 4ZM12 7C13.0609 7 14.0783 7.42143 14.8284 8.17157C15.5786 8.92172 16 9.93913 16 11C16 12.0609 15.5786 13.0783 14.8284 13.8284C14.0783 14.5786 13.0609 15 12 15C10.9391 15 9.92172 14.5786 9.17157 13.8284C8.42143 13.0783 8 12.0609 8 11C8 9.93913 8.42143 8.92172 9.17157 8.17157C9.92172 7.42143 10.9391 7 12 7ZM12 9C11.4696 9 10.9609 9.21071 10.5858 9.58579C10.2107 9.96086 10 10.4696 10 11C10 11.5304 10.2107 12.0391 10.5858 12.4142C10.9609 12.7893 11.4696 13 12 13C12.5304 13 13.0391 12.7893 13.4142 12.4142C13.7893 12.0391 14 11.5304 14 11C14 10.4696 13.7893 9.96086 13.4142 9.58579C13.0391 9.21071 12.5304 9 12 9Z"
+                      fill="#DE2527"
+                    />
+                  </svg>
+                  <p className="text-[#b8b8b8] ml-2 font-light font-sans text-[16px] leading-[25.6px] ">
+                    To
+                  </p>
                 </div>
-                <button className="text-[#3C82F6] hover:bg-primary py-1 px-2 hover:text-white rounded-[20px] cursor-pointer text-[12px] text-manrope font-light ">
-                  CHANGE
-                </button>
+                <div className="flex flex-1">
+                  <p className="text-[#b8b8b8] ml-2 font-light font-sans text-[16px]">
+                    -
+                  </p>
+                  {isEditingTo ? (
+                    <input
+                      ref={toInputRef}
+                      type="text"
+                      value={toLocation}
+                      onChange={handleToInputChange}
+                      onBlur={handleToBlur}
+                      onKeyDown={(e) => handleKeyDown(e, "to")}
+                      className="text-[#707070] ml-2 font-sans text-[16px] leading-[25.6px] bg-transparent outline-none flex-1 min-w-0"
+                    />
+                  ) : (
+                    <p className="text-[#707070] ml-2 fromLocationText line-clamp-2 truncate font-sans text-[16px] leading-[25.6px]">
+                      {toLocation}
+                    </p>
+                  )}
+                </div>
               </div>
+              <button
+                onClick={handleToChange}
+                className="text-[#3C82F6] hover:bg-primary py-1 px-2 hover:text-white rounded-[20px] cursor-pointer text-[10px] text-manrope font-light ml-2"
+              >
+                CHANGE
+              </button>
             </div>
             <div className="flex mt-4 mb-5 justify-between  items-center apartmentNumberContainer ">
               <div className="flex  w-[35%] mb-[10px] flex-col">
@@ -338,6 +505,8 @@ const MovingInformation = () => {
                   Apartment Number
                 </label>
                 <input
+                  value={dropOffAddressNumber}
+                  onChange={(e) => setDropOffAddressNumber(e.target.value)}
                   placeholder="Apartment Number"
                   type="number"
                   className="h-[45px] appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none w-full border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
@@ -348,6 +517,8 @@ const MovingInformation = () => {
                   Remarks for the location
                 </label>
                 <input
+                  value={toRemark}
+                  onChange={(e) => setToRemark(e.target.value)}
                   placeholder="Enter Remarks for this location"
                   type="text"
                   className="h-[45px]  border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
@@ -364,6 +535,8 @@ const MovingInformation = () => {
                     Number of floors
                   </label>
                   <input
+                    value={toNumberOfFloors}
+                    onChange={(e) => setToNumberOfFloors(e.target.value)}
                     placeholder="How many floors"
                     type="number"
                     className="h-[45px] appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none w-full border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
@@ -374,6 +547,8 @@ const MovingInformation = () => {
                     Long Carry
                   </label>
                   <input
+                    value={toLongCarry}
+                    onChange={(e) => setToLongCarry(e.target.value)}
                     placeholder="Enter Number"
                     type="number"
                     className="h-[45px] appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none w-full border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
@@ -392,6 +567,8 @@ const MovingInformation = () => {
                         type="radio"
                         name="to_elevator"
                         id="elevator_yes"
+                        checked={toHasElevator === true}
+                        onChange={() => setToHasElevator(true)}
                       />
                       <label
                         htmlFor="elevator_yes"
@@ -406,6 +583,8 @@ const MovingInformation = () => {
                         type="radio"
                         name="to_elevator"
                         id="elevator_no"
+                        checked={toHasElevator === false}
+                        onChange={() => setToHasElevator(false)}
                       />
                       <label className="ml-1" htmlFor="elevator_no">
                         No
@@ -424,6 +603,8 @@ const MovingInformation = () => {
                         type="radio"
                         name="to_shuttle"
                         id="need_to_Shuttle_yes"
+                        checked={toNeedShuttle === true}
+                        onChange={() => setToNeedShuttle(true)}
                       />
                       <label
                         htmlFor="need_to_Shuttle_yes"
@@ -438,6 +619,8 @@ const MovingInformation = () => {
                         type="radio"
                         name="to_shuttle"
                         id="need_to_Shuttle_no"
+                        checked={toNeedShuttle === false}
+                        onChange={() => setToNeedShuttle(false)}
                       />
                       <label className="ml-1" htmlFor="need_to_Shuttle_no">
                         No
@@ -458,6 +641,8 @@ const MovingInformation = () => {
                         type="radio"
                         name="to_insurance"
                         id="to_insurance_yes"
+                        checked={toHasBuildingInsurance === true}
+                        onChange={() => setToHasBuildingInsurance(true)}
                       />
                       <label
                         htmlFor="to_insurance_yes"
@@ -472,6 +657,8 @@ const MovingInformation = () => {
                         type="radio"
                         name="to_insurance"
                         id="to_insurance_no"
+                        checked={toHasBuildingInsurance === false}
+                        onChange={() => setToHasBuildingInsurance(false)}
                       />
                       <label className="ml-1" htmlFor="to_insurance_no">
                         No
@@ -490,6 +677,8 @@ const MovingInformation = () => {
                         type="radio"
                         name="to_need_help"
                         id="need_help_to_yes"
+                        checked={toNeedHelpPacking === true}
+                        onChange={() => setToNeedHelpPacking(true)}
                       />
                       <label
                         htmlFor="need_help_to_yes"
@@ -504,6 +693,8 @@ const MovingInformation = () => {
                         type="radio"
                         name="to_need_help"
                         id="need_help_to_no"
+                        checked={toNeedHelpPacking === false}
+                        onChange={() => setToNeedHelpPacking(false)}
                       />
                       <label className="ml-1" htmlFor="need_help_to_no">
                         No

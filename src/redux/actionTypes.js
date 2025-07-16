@@ -1,0 +1,5 @@
+export const actionTypes = {
+  SET_USER_INFO: "SET_USER_INFO",
+  SET_USER_ITEMS: "SET_USER_ITEMS",
+  SET_USER_MORE_INFO: "SET_USER_MORE_INFO",
+};

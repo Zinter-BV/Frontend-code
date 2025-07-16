@@ -8,24 +8,185 @@ import MovingInformation from "./MovingInformation";
 import ViewSummary from "./ViewSummary";
 import QuoteSuccess from "../modal/QuoteSuccess";
 import MobileQuoteProgress from "./MobileQuoteProgress";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserDetails, setUserMoreInfo } from "../redux/action";
+import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
 
 const QuoteContainer = ({ data }) => {
   const [activeTab, setActiveTab] = useState(1);
+  const dispatch = useDispatch();
 
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
   const navigate = useNavigate();
+  // location details
+  const [fromLocation, setFromLocation] = useState(
+    "Keizersgracht 123, 1015 CJ Amsterdam"
+  );
+  const [toLocation, setToLocation] = useState(
+    "Rozengracht 55, 1016 LZ Amsterdam"
+  );
+  const [isEditingFrom, setIsEditingFrom] = useState(false);
+  const [isEditingTo, setIsEditingTo] = useState(false);
+
+  //moving info
+  const [moveDate, setMoveDate] = useState("");
+  const [pickupTime, setPickupTime] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [provinceId, setProvinceId] = useState(0);
+  const [pickUpAddress, setPickUpAddress] = useState(fromLocation);
+  const [dropOffAddress, setDropOffAddress] = useState(toLocation);
+  const [pickUpAddressNumber, setPickUpAddressNumber] = useState("");
+  const [dropOffAddressNumber, setDropOffAddressNumber] = useState("");
+  const [pickUpLongitude, setPickUpLongitude] = useState("");
+  const [pickUpLatitude, setPickUpLatitude] = useState("");
+  const [dropOffLongitude, setDropOffLongitude] = useState("");
+  const [dropOffLatitude, setDropOffLatitude] = useState("");
+  const [toNumberOfFloors, setToNumberOfFloors] = useState("");
+  const [toLongCarry, setToLongCarry] = useState("");
+  const [toRemark, setToRemark] = useState("");
+  const [toHasElevator, setToHasElevator] = useState(null);
+  const [toNeedShuttle, setToNeedShuttle] = useState(null);
+  const [toHasBuildingInsurance, setToHasBuildingInsurance] = useState(null);
+  const [toNeedHelpPacking, setToNeedHelpPacking] = useState(null);
+  const [fromNumberOfFloors, setFromNumberOfFloors] = useState("");
+  const [fromLongCarry, setFromLongCarry] = useState("");
+  const [fromRemark, setFromRemark] = useState("");
+  const [fromHasElevator, setFromHasElevator] = useState(null);
+  const [fromNeedShuttle, setFromNeedShuttle] = useState(null);
+  const [fromHasBuildingInsurance, setFromHasBuildingInsurance] =
+    useState(null);
+  const [fromNeedHelpPacking, setFromNeedHelpPacking] = useState(null);
 
   useEffect(() => {
     if (data) setActiveTab(2);
     else setActiveTab(1);
   }, [data]);
 
-  let content = <Location />;
-  // let btnText = CONTINUE
+  // Function to validate move info data
+  const validateMoveInfo = () => {
+    const requiredFields = [
+      { field: moveDate, name: "Move Date" },
+      { field: pickupTime, name: "Pickup Time" },
+      { field: fullName, name: "Full Name" },
+      { field: email, name: "Email" },
+      { field: phoneNumber, name: "Phone Number" },
+      { field: pickUpAddress, name: "Pick Up Address" },
+      { field: dropOffAddress, name: "Drop Off Address" },
+    ];
+
+    const missingFields = requiredFields.filter(
+      ({ field }) => !field || field.trim() === ""
+    );
+
+    if (missingFields.length > 0) {
+      const fieldNames = missingFields.map(({ name }) => name).join(", ");
+      alert(`Please fill in the following required fields: ${fieldNames}`);
+      return false;
+    }
+
+    // Additional validation for email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("Please enter a valid email address");
+      return false;
+    }
+
+    return true;
+  };
+
+  const moreInfoData = {
+    moveDate,
+    pickupTime,
+    fullName,
+    email,
+    phoneNumber,
+    provinceId,
+    pickUpAddress,
+    dropOffAddress,
+    pickUpAddressNumber,
+    dropOffAddressNumber,
+    pickUpLongitude,
+    pickUpLatitude,
+    dropOffLongitude,
+    dropOffLatitude,
+    toNumberOfFloors,
+    toLongCarry,
+    toRemark,
+    toHasElevator,
+    toNeedShuttle,
+    toHasBuildingInsurance,
+    toNeedHelpPacking,
+    fromNumberOfFloors,
+    fromLongCarry,
+    fromRemark,
+    fromHasElevator,
+    fromNeedShuttle,
+    fromHasBuildingInsurance,
+    fromNeedHelpPacking,
+  };
+
+  let content = (
+    <Location
+      fromLocation={fromLocation}
+      toLocation={toLocation}
+      setFromLocation={setFromLocation}
+      setToLocation={setToLocation}
+      isEditingFrom={isEditingFrom}
+      isEditingTo={isEditingTo}
+      setIsEditingFrom={setIsEditingFrom}
+      setIsEditingTo={setIsEditingTo}
+    />
+  );
+
+  // gets the whole data nneeded and puts in one object
+  const user = useSelector((state) => state.user);
+
+  function mergeTwoObjects(obj1, obj2) {
+    return { Items: obj1, ...obj2 };
+  }
+  const dataToSend = mergeTwoObjects(user?.items, user?.moreInfo);
+
+  const addUserDetails = async () => {
+    const response = await axios.post(
+      "https://involved-birgit-zinter-cb767b47.koyeb.app/api/MoveRequest/GetQuote",
+      {
+        dataToSend, // Use params for query parameters
+      }
+    );
+    return response.data;
+  };
+
+  const mutation = useMutation({
+    mutationFn: addUserDetails,
+    onSuccess: (data) => {
+      console.log(data);
+      setEmail("");
+    },
+    onError: (error) => {
+      console.error("Error creating user:", error);
+    },
+  });
+  const fetchData = () => {
+    mutation.mutate(dataToSend);
+  };
 
   switch (activeTab) {
     case 1:
-      content = <Location />;
+      content = (
+        <Location
+          fromLocation={fromLocation}
+          toLocation={toLocation}
+          setFromLocation={setFromLocation}
+          setToLocation={setToLocation}
+          isEditingFrom={isEditingFrom}
+          isEditingTo={isEditingTo}
+          setIsEditingFrom={setIsEditingFrom}
+          setIsEditingTo={setIsEditingTo}
+        />
+      );
       // Code to be executed if expression matches value1
       break;
     case 2:
@@ -33,7 +194,74 @@ const QuoteContainer = ({ data }) => {
       // Code to be executed if expression matches value2
       break;
     case 3:
-      content = <MovingInformation />;
+      content = (
+        <MovingInformation
+          moveDate={moveDate}
+          setMoveDate={setMoveDate}
+          pickupTime={pickupTime}
+          setPickupTime={setPickupTime}
+          fullName={fullName}
+          setFullName={setFullName}
+          email={email}
+          setEmail={setEmail}
+          phoneNumber={phoneNumber}
+          setPhoneNumber={setPhoneNumber}
+          provinceId={provinceId}
+          setProvinceId={setProvinceId}
+          pickUpAddress={pickUpAddress}
+          setPickUpAddress={setPickUpAddress}
+          dropOffAddress={dropOffAddress}
+          setDropOffAddress={setDropOffAddress}
+          pickUpAddressNumber={pickUpAddressNumber}
+          setPickUpAddressNumber={setPickUpAddressNumber}
+          dropOffAddressNumber={dropOffAddressNumber}
+          setDropOffAddressNumber={setDropOffAddressNumber}
+          pickUpLongitude={pickUpLongitude}
+          setPickUpLongitude={setPickUpLongitude}
+          pickUpLatitude={pickUpLatitude}
+          setPickUpLatitude={setPickUpLatitude}
+          dropOffLongitude={dropOffLongitude}
+          setDropOffLongitude={setDropOffLongitude}
+          dropOffLatitude={dropOffLatitude}
+          setDropOffLatitude={setDropOffLatitude}
+          fromNumberOfFloors={fromNumberOfFloors}
+          setFromNumberOfFloors={setFromNumberOfFloors}
+          toNumberOfFloors={toNumberOfFloors}
+          setToNumberOfFloors={setToNumberOfFloors}
+          fromLongCarry={fromLongCarry}
+          setFromLongCarry={setFromLongCarry}
+          toLongCarry={toLongCarry}
+          setToLongCarry={setToLongCarry}
+          fromRemark={fromRemark}
+          setFromRemark={setFromRemark}
+          toRemark={toRemark}
+          setToRemark={setToRemark}
+          fromHasElevator={fromHasElevator}
+          setFromHasElevator={setFromHasElevator}
+          toHasElevator={toHasElevator}
+          setToHasElevator={setToHasElevator}
+          fromNeedShuttle={fromNeedShuttle}
+          setFromNeedShuttle={setFromNeedShuttle}
+          toNeedShuttle={toNeedShuttle}
+          setToNeedShuttle={setToNeedShuttle}
+          fromHasBuildingInsurance={fromHasBuildingInsurance}
+          setFromHasBuildingInsurance={setFromHasBuildingInsurance}
+          toHasBuildingInsurance={toHasBuildingInsurance}
+          setToHasBuildingInsurance={setToHasBuildingInsurance}
+          fromNeedHelpPacking={fromNeedHelpPacking}
+          setFromNeedHelpPacking={setFromNeedHelpPacking}
+          toNeedHelpPacking={toNeedHelpPacking}
+          setToNeedHelpPacking={setToNeedHelpPacking}
+          isEditingFrom={isEditingFrom}
+          setIsEditingFrom={setIsEditingFrom}
+          isEditingTo={isEditingTo}
+          setIsEditingTo={setIsEditingTo}
+          fromLocation={fromLocation}
+          toLocation={toLocation}
+          setFromLocation={setFromLocation}
+          setToLocation={setToLocation}
+        />
+      );
       // Code to be executed if expression matches value2
       break;
     case 4:
@@ -52,6 +280,28 @@ const QuoteContainer = ({ data }) => {
 
   // Function to handle moving forward in tabs
   const handleTabs = () => {
+    console.log(activeTab, "activeTab");
+    if (activeTab === 1) {
+      console.log(activeTab, 1);
+      dispatch(
+        setUserDetails({
+          pickUpAddress: fromLocation,
+          dropOffAddress: toLocation,
+        })
+      );
+    }
+    if (activeTab === 2) {
+      console.log(activeTab, 2);
+    }
+    if (activeTab === 3) {
+      console.log(activeTab, 3);
+      // Validate move info before proceeding
+      if (!validateMoveInfo()) {
+        return; // Stop execution if validation fails
+      }
+      dispatch(setUserMoreInfo(moreInfoData));
+    }
+
     if (activeTab >= 5) return; // Ensure we don't go beyond the last tab
     setActiveTab((prevTab) => prevTab + 1);
     console.log("Next Tab:", activeTab + 1);
@@ -66,7 +316,8 @@ const QuoteContainer = ({ data }) => {
 
   const handleSubmit = () => {
     console.log(openSuccessModal);
-    setOpenSuccessModal(true);
+    fetchData();
+    // setOpenSuccessModal(true);
   };
 
   const closeSuccessModal = () => {

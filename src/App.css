@@ -1,3 +1,17 @@
+/* Add this */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* for Internet Explorer and Edge */
+  scrollbar-width: none;     /* for Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;             /* for Chrome, Safari, and Opera */
+}
+
+.fromLocationText{
+    width: 350px;
+  }
+
 @media screen and (max-width: 1380px) {
   .heroDesc{
     width: 80%;
@@ -270,6 +284,7 @@
   .processText{
     width: 100%;
   }
+  
  
 }
 
@@ -363,6 +378,9 @@
 
   .subMobileProgressArrow{
     width: 172%;
+  }
+  .fromLocationText{
+    width: 250px;
   }
 }
 
@@ -474,6 +492,9 @@
   .subMobileProgressArrow{
     width: 122%;
   }
+  .fromLocationText{
+    width: 200px;
+  }
 }
 
 @media screen and (max-width: 480px){
@@ -491,6 +512,9 @@
 @media screen and (max-width: 440px){
   .subMobileProgressArrow{
     width: 92%;
+  }
+  .fromLocationText{
+    width: 160px;
   }
 }
 
@@ -553,12 +577,19 @@
   .subMobileProgressArrow{
     width: 62%;
   }
+  .locationFrom{
+    padding: 0 8px;
+  }
+  .fromLocationText{
+    width: 120px;
+  }
 }
 
 @media screen and (max-width: 360px){
   .subMobileProgressArrow{
     width: 52%;
   }
+  
 }
 
 @media screen and (max-width: 340px){
