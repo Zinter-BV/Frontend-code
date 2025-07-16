@@ -14,6 +14,12 @@ import Payment from "./page/PaymentPage";
 import SideBar from "./components/SideBar";  // Import Sidebar
 import ViewNewJobs from "./page/ViewNewJobs";
 import UpcomingJobView from "./page/UpcomingJobView";
+import OverviewPageAdmin from "./page/OverviewPageAdmin";
+import RequestPage from "./page/RequestPage";
+import UsersPage from "./page/UserPageAdmin";
+import Transactions from "./page/Transaction";
+import AdminLogin from "./page/AdminLogin";
+import Resolution from "./page/Resolution"
 
 function App() {
   // debugger
@@ -42,6 +48,13 @@ function App() {
         <Route path="/payment" element={<Payment/>}/>
         <Route path="/view-new-jobs" element={<ViewNewJobs/>}/>
         <Route path="/upcoming-jobs-view" element={<UpcomingJobView/>}/>
+        <Route path="/admin-login" element={<AdminLogin/>}/>
+        <Route path="/overview-admin" element={<OverviewPageAdmin/>}/>
+        <Route path="/request" element={<RequestPage/>}/>
+        <Route path="/users" element={<UsersPage/>} />
+        <Route path="/transactions" element={<Transactions/>} />
+        <Route path="/resolution" element={<Resolution/>} />
+        
         {/* Sidebar should only be visible on Overview & Calendar */}
 
       </Routes>

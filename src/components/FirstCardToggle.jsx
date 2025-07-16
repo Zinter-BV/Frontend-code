@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import RegisterProgress from "./RegisterProgessBar";
 import zinterLogo from "../Assets/logo.svg"
+import newZinterLogo from "../Assets/logo.svg"
+import newLogo from "../Assets/new-zinter-logo-only.svg"
 import trustedMovers from "../Assets/trusted_movers.svg"
 import bgImage1 from "../Assets/truck-login.svg"
 import bgImage2 from "../Assets/box-login.svg"
@@ -21,7 +23,7 @@ const FirstCardToggle = () => {
     return (
         <div className="container-img" style={{ backgroundImage: `url(${bgImage})`, transition: "background 1s ease-in-out" }}>
             <div className="container_logo_header">
-                <img src={zinterLogo} alt="" />
+                <img src={newLogo} alt="" />
                 <span>Zinter</span>
             </div>
             <div className="our_network">

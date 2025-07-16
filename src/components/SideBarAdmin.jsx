@@ -94,23 +94,25 @@ import overviewIcon from "../Assets/dasboard-icon.svg";
 import overviewIconActive from "../Assets/overview-active-icon.svg"
 import calendarIcon from "../Assets/calendar-icon.svg";
 import calenarIconActive from "../Assets/calendar-active-icon.svg"
+import requestIcon from "../Assets/truck-delivery.svg"
+import userIcon from "../Assets/user-group.svg"
+import userIconActive from "../Assets/user-group-active.svg"
+import transactionIcon from "../Assets/credit-card.svg"
+import transactionIconActive from "../Assets/credit-card-active.svg"
 import jobsIcon from "../Assets/jobs-icon.svg";
 import jobsIconActive from "../Assets/jobs-active-icon.svg"
 import supportIcon from "../Assets/support-icon.svg";
+// import logoAndTextNew from "../Assets/new-logo-zinter.svg"
+import logoAndTextNew from "../Assets/new-logo-zinter-complete.svg"
 import sidebarIcon from "../Assets/sidebar-icon.svg";
-import resolutionIcon from "../Assets/resolutionIcon.svg"
-import resolutionIconActive from "../Assets/resolutionIconActive.svg"
-import transactionIcon from "../Assets/credit-card.svg"
-import transactionIconActive from "../Assets/credit-card-active.svg"
 import logoAndText from "../Assets/logo-text.svg";
 import notificationLogo from "../Assets/notification-03.svg";
-import logoAndTextNew from "../Assets/new-logo-zinter-complete.svg"
 import helpLogo from "../Assets/help-circle.svg";
 import logoMobileScreen from "../Assets/logo_mobile_screen.svg"
 import hamburgerBtn from "../Assets/hamburger_btn.svg"
 
 
-const SideBar = () => {
+const SideBarAdmin = () => {
     const [isOpen, setIsOpen] = useState(false);
     const toggleSidebar = () => {
         setIsOpen(!isOpen);
@@ -118,16 +120,15 @@ const SideBar = () => {
     const location = useLocation();
 
     const navItems = [
-        { path: "/overview", icon: overviewIcon, activeIcon: overviewIconActive, label: "Overview" },
-        { path: "/calendar", icon: calendarIcon, activeIcon: calenarIconActive, label: "Upcoming" },
-        { path: "/jobs", icon: jobsIcon, activeIcon: jobsIconActive, label: "Jobs" },
-        { path: "/payment", icon: transactionIcon, activeIcon: transactionIconActive, label: "Payment" },
-        { path: "/resolution", icon:resolutionIcon, activeIcon: resolutionIconActive, label: "Resolution" }
+        { path: "/overview-admin", icon: overviewIcon, activeIcon: overviewIconActive, label: "Overview" },
+        { path: "/request", icon: requestIcon, activeIcon: requestIcon, label: "Request" },
+        { path: "/users", icon: userIcon, activeIcon: userIconActive, label: "Users" },
+        { path: "/transactions", icon: transactionIcon, activeIcon: transactionIconActive, label: "Transactions" },
     ];
 
     const navItemsMobile = [
-        { path: "/overview", icon: overviewIcon, activeIcon: overviewIconActive, label: "Overview" },
-        { path: "/calendar", icon: calendarIcon, activeIcon: calenarIconActive, label: "Upcoming" },
+        { path: "/overview-admin", icon: overviewIcon, activeIcon: overviewIconActive, label: "Overview" },
+        { path: "/request", icon: calendarIcon, activeIcon: calenarIconActive, label: "Request" },
     ];
 
     return (
@@ -143,7 +144,7 @@ const SideBar = () => {
                         </Link>
                     ))}
 
-                    <div className="side_bar_bottom">
+                    {/* <div className="side_bar_bottom">
                         <div>
                             <img src={sidebarIcon} alt="" />
                         </div>
@@ -151,7 +152,7 @@ const SideBar = () => {
                             <span>Urban Movers</span>
                             <span>Workspace</span>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="header_container">
                     <div className="header_container_left">
@@ -200,15 +201,7 @@ const SideBar = () => {
                             </Link>
                         ))}
 
-                        <div className="side_bar_bottom">
-                            <div>
-                                <img src={sidebarIcon} alt="" />
-                            </div>
-                            <div className="side_bar_bottom_text">
-                                <span>Urban Movers</span>
-                                <span>Workspace</span>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
 
@@ -217,4 +210,4 @@ const SideBar = () => {
     );
 };
 
-export default SideBar;
+export default SideBarAdmin;

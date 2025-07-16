@@ -38,6 +38,7 @@ const VerifyTokenModal = ({handleSubmit, closeModal }) => {
                                 <input
                                     ref={(el) => (inputRefs.current[index] = el)}
                                     type="number"
+                                    placeholder="0"
                                     maxLength={1}
                                     onChange={(e) => handleInput(e, index)}
                                     onKeyDown={(e) => handleKeyDown(e, index)}

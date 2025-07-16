@@ -61,6 +61,7 @@
     padding: 14px;
     border-radius: 8px;
     outline: none;
+    font-size: 20px;
 }
 
 .token_input div input::-webkit-outer-spin-button,

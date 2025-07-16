@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FirstCardToggle from "../components/FirstCardToggle";
 import VerifyTokenModal from "../components/VerifyToken";
 import SuccessMessage from "../components/SuccessModal";
@@ -8,22 +8,54 @@ import mobileStepperIcon from "../Assets/mobile-stepper-icon.svg"
 import stepperIconSecond from "../Assets/second-step.svg"
 import "./firstStepCompanies.css"
 import "./secondStepCompanies.css"
+import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import { getVerificationAgent } from "../api/agentApi";
+import Loader from "../components/loader";
 
 const SecondStepCompanies = () => {
 
     const navigate = useNavigate()
     const [showPassword, setShowPassword] = useState(false);
     const [password, setPassword] = useState("");
+    const [shouldFetch, setShouldFetch] = useState(false);
+    const [email,  setEmail] = useState("")
     const [showVerifyEmail, setShowVerifyEmail] = useState(false)
     const [showSucessModal, setSuccessModal] = useState(false)
+    const { data, isLoading, error,  refetch } = useQuery({
+        queryKey: ["get-verification", email, password],
+        queryFn: () => getVerificationAgent({email, password}),
+        enabled: false,
+        refetchOnWindowFocus: false,
+        // enabled: regNumber.length === 8,
+    });
+    useEffect(() => {
+        if (data) {
+            if(data.responseStatus === false ) {
+                return
+            } else {
+                console.log(data);
+                setShowVerifyEmail(true);
+                setShouldFetch(false)
+            }
+        }
+        if (error) {
+          console.error( error);
+          setShouldFetch(false); // reset even on error
+        }
+      }, [data, error]);
     const handlePrevious = () => {
+
         navigate("/get-started")
     }
 
     
     const handleContinue = () => {
-        setShowVerifyEmail(true)
+        if (email && password) {
+            refetch(); 
+          }
+     
+        // setShowVerifyEmail(true)
     }
 
     const handleBtnInOtherPage = () => {
@@ -50,7 +82,7 @@ const SecondStepCompanies = () => {
                 </div>
                 <div className="company_input_reg">
                     <label>Email Address</label>
-                    <input type="text" placeholder="Enter Email" />
+                    <input value={email} onChange={(e) => setEmail(e.target.value)} type="text" placeholder="Enter Email" />
                 </div>
 
                 <div className="company_input_reg_pass">
@@ -85,7 +117,7 @@ const SecondStepCompanies = () => {
                     <SuccessMessage />
                 </div>}
 
-
+                {isLoading && <Loader />}
         </div>
     )
 }

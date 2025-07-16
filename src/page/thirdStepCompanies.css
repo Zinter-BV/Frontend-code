@@ -46,7 +46,20 @@
     color: rgba(44, 44, 44, 1);
     font-family: "DM Sans", sans-serif;
     font-weight: 400;
+}
 
+.input_multiple_sub {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    width: 85%;
+}
+
+.input_multiple_sub span {
+    color: rgba(44, 44, 44, 1);
+    font-family: "DM Sans", sans-serif;
+    font-weight: 400;
 }
 
 .input_multiple input {
@@ -69,10 +82,20 @@
     gap: 5px;
     align-items: center;
     padding: 5px;
+    max-height: 70px;
     min-height: 40px;
     border: 1px solid #ccc;
     border-radius: 4px;
     width: 85%;
+    overflow: auto;
+}
+
+.tag_input_wrapper::-webkit-scrollbar {
+    width: 0;
+}
+
+.dropdown_icon {
+    cursor: pointer;
 }
 
 .tag_item {
@@ -276,10 +299,11 @@
         gap: 5px;
         align-items: center;
         padding: 5px;
-        min-height: 40px;
+        max-height: 70px;
         border: 1px solid #ccc;
         border-radius: 4px;
         width: 100%;
+        overflow: auto;
     }
 
     .input_multiple img {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./thirdStepCompanies.css"
 import FirstCardToggle from "../components/FirstCardToggle";
 import RichTextEditor from "../components/RichTextEditor";
@@ -16,30 +16,66 @@ import fourthPhoto from "../Assets/cover-photo-four.svg"
 import fifthPhoto from "../Assets/cover-photo-five.svg"
 import sixthPhoto from "../Assets/cover-photo-six.svg"
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { fetchProvince } from "../api/agentApi";
 
 const ThirdStepCompanies = () => {
+
     const navigate = useNavigate()
+    const dropdownRef = useRef(null);
+    const fileInputRef = useRef(null);
     const [showMoreOptions, setShowOptions] = useState(false)
     const [showCoverPhoto, setShowCoverPhoto] = useState(false)
     const [coverPhoto, setCoverPhoto] = useState(null);
+
     const [selectedProvinces, setSelectedProvinces] = useState([]);
     const [showDropdown, setShowDropdown] = useState(false);
     const [showSuccessModal, setShowSuccessModal] = useState(false)
-    const [allProvinces] = useState([
-        'Drenthe',
-        'Flevoland',
-        'Friesland',
-        'Gelderland',
-        'Groningen',
-        'Limburg',
-        'Noord-Brabant',
-        'Noord-Holland',
-        'Overijssel',
-        'Utrecht',
-        'Zeeland',
-        'Zuid-Holland',
-    ]);
+    const [allProvinces, setAllProvinces] = useState([]);
 
+    const { data, isLoading, error } = useQuery({
+        queryKey: ["province"],
+        queryFn: fetchProvince,
+    });
+
+    useEffect(() => {
+        if (data?.result) {
+            setAllProvinces(data.result);
+        }
+    }, [data]);
+
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target)
+            ) {
+                setShowDropdown(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
+    // console.log('Dataaa', data)
+    if (isLoading) return <p>Loading...</p>;
+    if (error) return <p>Error loading users</p>;
+
+    const handleFileUpload = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setCoverPhoto(reader.result); // base64 image
+                setShowOptions(false);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
 
     const toggleProvince = (province) => {
         if (selectedProvinces.includes(province)) {
@@ -84,6 +120,11 @@ const ThirdStepCompanies = () => {
                 <FirstCardToggle />
             </div>
             <div className="first_company_card">
+                {/* <ul>
+                    {data.map((user) => (
+                        <li key={user.id}>{user.name}</li>
+                    ))}
+                </ul> */}
                 <div className="stepper_icon">
                     <img className="mobile_only_stepper_icon" src={stepperMobileThird} alt="" />
                     <img className="laptop_only_stepper_icon" src={stepperIconSecond} alt="" />
@@ -114,9 +155,16 @@ const ThirdStepCompanies = () => {
                                     <img src={coverPhotoIcon} alt="" />
                                     <span>Choose cover photo</span>
                                 </div>
-                                <div className="choose_photo_btn">
+                                <div className="choose_photo_btn" onClick={() => fileInputRef.current && fileInputRef.current.click()}>
                                     <img src={imageUpload} alt="" />
                                     <span>Upload from device</span>
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        ref={fileInputRef}
+                                        onChange={handleFileUpload}
+                                        style={{ display: "none" }}
+                                    />
                                 </div>
                             </div>}
                         {coverPhoto && <div className="inner_upload_section">
@@ -133,27 +181,38 @@ const ThirdStepCompanies = () => {
                         <span>This is the photo users see when you send them a quote</span>
                     </div>
                 </div>
-                <div className="input_multiple" onClick={() => setShowDropdown(!showDropdown)}>
+                <div
+                    className="input_multiple"
+                    ref={dropdownRef}
+                    onClick={() => {
+                        if (!showDropdown) {
+                            setShowDropdown(true);
+                        }
+                    }}
+                >
                     <span>Provinces Covered</span>
 
                     <div className="tag_input_wrapper">
                         {selectedProvinces.map((province, idx) => (
                             <div className="tag_item" key={idx}>
                                 <span>{province}</span>
-                                <button className="remove_btn" onClick={(e) => {
-                                    e.stopPropagation();
-                                    removeProvince(province);
-                                }}>×</button>
+                                <button
+                                    className="remove_btn"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        removeProvince(province);
+                                    }}
+                                >
+                                    ×
+                                </button>
                             </div>
                         ))}
-                        {/* <input
-                            type="text"
-                            placeholder="Select the Provinces covered"
-                            
-                        /> */}
                     </div>
 
-                    <img src={dropdown} alt="" onFocus={() => setShowDropdown(true)} />
+                    <img className="dropdown_icon" src={dropdown} alt="" onClick={(e) => {
+                        e.stopPropagation();
+                        setShowDropdown((prev) => !prev);
+                    }} />
 
                     {showDropdown && (
                         <div className="dropdown_list">
@@ -161,17 +220,18 @@ const ThirdStepCompanies = () => {
                                 <label className="dropdown_item" key={idx}>
                                     <input
                                         type="checkbox"
-                                        checked={selectedProvinces.includes(province)}
-                                        onChange={() => toggleProvince(province)}
+                                        checked={selectedProvinces.includes(province.provinceName)}
+                                        onChange={() => toggleProvince(province.provinceName)}
                                     />
-                                    <span>{province}</span>
+                                    <span>{province.provinceName}</span>
                                 </label>
                             ))}
                         </div>
                     )}
                 </div>
 
-                <div className="input_multiple">
+
+                <div className="input_multiple_sub">
                     <span>Company Overview</span>
                     <div className="rich_text">
                         <RichTextEditor />

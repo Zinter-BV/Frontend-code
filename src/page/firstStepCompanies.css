@@ -160,6 +160,15 @@
     border-radius: 6px;
 }
 
+.loader-cont {
+    z-index: 100;
+    /* position: absolute; */
+    /* position: absolute;
+    top: 40%; */
+    /* left: -50%;
+    transform: translate(50%, 0); */
+}
+
 .mover_details_container {
     display: flex;
     flex-direction: column;
@@ -257,7 +266,7 @@
 }
 
 .company_firststep_btn :last-child {
-    background-color: rgba(5, 77, 150, 1);
+    background-color: #054d96;
     color: #fff;
     padding: 5px 15px;
     border-radius: 1000px;
