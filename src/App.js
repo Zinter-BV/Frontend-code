@@ -38,25 +38,13 @@ function App() {
   // const { hash, pathname, search } = location;
 
   return (
-    <div>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/quote" element={<GetQuote />} />
-        <Route path="/about-us" element={<AboutUs />} />
-        <Route path="/faq" element={<Faq />} />
-        <Route path="/movers" element={<Movers />} />
-        <Route path="/track-code" element={<EnterTrackCode />} />
-        <Route path="/make-report" element={<MakeAReport />} />
-        <Route path="/track-report" element={<TrackReport />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/terms" element={<TermsAndCondition />} />
-      </Routes>
-
+    
       <div className="app-container">
         {/* { pathname === '/overview' && <SideBar /> } */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/quote" element={<GetQuote />} />
+          <Route path="/faq" element={<Faq />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/get-started" element={<FirstStepCompanies />} />
           <Route path="/email-verification" element={<SecondStepCompanies />} />
@@ -67,6 +55,12 @@ function App() {
           <Route path="/payment" element={<Payment />} />
           <Route path="/view-new-jobs" element={<ViewNewJobs />} />
           <Route path="/upcoming-jobs-view" element={<UpcomingJobView />} />
+          <Route path="/movers" element={<Movers />} />
+          <Route path="/track-code" element={<EnterTrackCode />} />
+          <Route path="/make-report" element={<MakeAReport />} />
+          <Route path="/track-report" element={<TrackReport />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsAndCondition />} />
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/overview-admin" element={<OverviewPageAdmin />} />
           <Route path="/request" element={<RequestPage />} />
@@ -77,7 +71,7 @@ function App() {
           {/* Sidebar should only be visible on Overview & Calendar */}
 
         </Routes>
-      </div>
+  
     </div>
 
   );
