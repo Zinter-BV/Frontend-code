@@ -92,29 +92,34 @@ export function getDayOfWeek(dateString) {
 }
 
 export function convertTo12Hour(timeString) {
-  // Validate input format (HH:MM)
-  const timeRegex = /^([01]?\d|2[0-3]):([0-5]\d)$/;
-  if (!timeRegex.test(timeString)) {
-    throw new Error("Invalid time format. Expected HH:MM (24-hour format)");
+  if (typeof timeString !== "string") {
+    console.warn("Time must be a string in HH:MM or HH:MM:SS format");
+    return "";
   }
 
-  const [hours, minutes] = timeString.split(":").map(Number);
+  const match = timeString.match(/^([01]?\d|2[0-3]):([0-5]\d)(:\d{2})?$/);
+  if (!match) {
+    console.warn(
+      "Invalid time format. Expected HH:MM or HH:MM:SS (24-hour format)"
+    );
+    return "";
+  }
 
-  // Convert to 12-hour format
+  const hours = parseInt(match[1]);
+  const minutes = parseInt(match[2]);
+
   let period = "AM";
   let displayHours = hours;
 
   if (hours === 0) {
-    displayHours = 12; // Midnight
+    displayHours = 12;
   } else if (hours === 12) {
-    period = "PM"; // Noon
+    period = "PM";
   } else if (hours > 12) {
     displayHours = hours - 12;
     period = "PM";
   }
 
-  // Format minutes with leading zero if needed
   const formattedMinutes = minutes.toString().padStart(2, "0");
-
   return `${displayHours}:${formattedMinutes} ${period}`;
 }

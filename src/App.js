@@ -9,6 +9,8 @@ import "./App.css";
 import MakeAReport from "./page/MakeAReport";
 import TrackReport from "./page/TrackReport";
 import Faq from "./page/Faq";
+import PrivacyPolicy from "./page/PrivacyPolicy";
+import TermsAndCondition from "./page/TermsAndCondition";
 
 function App() {
   return (
@@ -21,7 +23,8 @@ function App() {
       <Route path="/track-code" element={<EnterTrackCode />} />
       <Route path="/make-report" element={<MakeAReport />} />
       <Route path="/track-report" element={<TrackReport />} />
-      {/* <Route path="/products" element={<Products />} /> */}
+      <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+      <Route path="/terms" element={<TermsAndCondition />} />
     </Routes>
   );
 }

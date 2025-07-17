@@ -4,7 +4,7 @@ import "./movingInformation.css";
 const MovingInformation = ({
   moveDate,
   setMoveDate,
-  pickupTime,
+  pickUpTime,
   setPickupTime,
   fullName,
   setFullName,
@@ -153,7 +153,7 @@ const MovingInformation = ({
               <input
                 placeholder="Select Pickup Time"
                 type="time"
-                value={pickupTime}
+                value={pickUpTime}
                 onChange={(e) => setPickupTime(e.target.value)}
                 className="h-[45px] border-[#e3e3e3] w-full font-light border-[1px] outline-none p-[8px] rounded-[8px] "
               />

@@ -54,7 +54,7 @@ const Footer = () => {
                   Frequently Asked Questions
                 </Link>
                 <Link
-                  to="/privacy"
+                  to="/privacy-policy"
                   className="font-sora text-right font-regular footerDesc mt-2"
                 >
                   {" "}

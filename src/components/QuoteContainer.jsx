@@ -31,11 +31,11 @@ const QuoteContainer = ({ data }) => {
 
   //moving info
   const [moveDate, setMoveDate] = useState("");
-  const [pickupTime, setPickupTime] = useState("");
+  const [pickUpTime, setPickupTime] = useState("");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [provinceId, setProvinceId] = useState(0);
+  const [provinceId, setProvinceId] = useState(1);
   const [pickUpAddress, setPickUpAddress] = useState(fromLocation);
   const [dropOffAddress, setDropOffAddress] = useState(toLocation);
   const [pickUpAddressNumber, setPickUpAddressNumber] = useState("");
@@ -69,7 +69,7 @@ const QuoteContainer = ({ data }) => {
   const validateMoveInfo = () => {
     const requiredFields = [
       { field: moveDate, name: "Move Date" },
-      { field: pickupTime, name: "Pickup Time" },
+      { field: pickUpTime, name: "Pickup Time" },
       { field: fullName, name: "Full Name" },
       { field: email, name: "Email" },
       { field: phoneNumber, name: "Phone Number" },
@@ -99,7 +99,7 @@ const QuoteContainer = ({ data }) => {
 
   const moreInfoData = {
     moveDate,
-    pickupTime,
+    pickUpTime,
     fullName,
     email,
     phoneNumber,
@@ -144,20 +144,24 @@ const QuoteContainer = ({ data }) => {
   // gets the whole data nneeded and puts in one object
   const user = useSelector((state) => state.user);
 
-  function mergeTwoObjects(obj1, obj2) {
-    return { Items: obj1, ...obj2 };
-  }
-  const dataToSend = mergeTwoObjects(user?.items, user?.moreInfo);
-
+  // Remove the wrapper object - send dataToSend directly
   const addUserDetails = async () => {
     const response = await axios.post(
       "https://involved-birgit-zinter-cb767b47.koyeb.app/api/MoveRequest/GetQuote",
-      {
-        dataToSend, // Use params for query parameters
-      }
+      dataToSend // Send directly, not wrapped in an object
     );
     return response.data;
   };
+
+  // Ensure your merge function creates the correct structure
+  function mergeTwoObjects(items, moreInfo) {
+    return {
+      items: items, // Should be array of {room, itemName, numberOfItems}
+      ...moreInfo, // Should contain all other required fields
+    };
+  }
+
+  const dataToSend = mergeTwoObjects(user?.items, user?.moreInfo);
 
   const mutation = useMutation({
     mutationFn: addUserDetails,
@@ -169,8 +173,9 @@ const QuoteContainer = ({ data }) => {
       console.error("Error creating user:", error);
     },
   });
+
   const fetchData = () => {
-    mutation.mutate(dataToSend);
+    mutation.mutate(); // Remove parameter since it's already in the function
   };
 
   switch (activeTab) {
@@ -198,7 +203,7 @@ const QuoteContainer = ({ data }) => {
         <MovingInformation
           moveDate={moveDate}
           setMoveDate={setMoveDate}
-          pickupTime={pickupTime}
+          pickUpTime={pickUpTime}
           setPickupTime={setPickupTime}
           fullName={fullName}
           setFullName={setFullName}

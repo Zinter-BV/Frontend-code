@@ -241,7 +241,8 @@ const ViewSummary = () => {
                     Move Time
                   </p>
                   <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                    {convertTo12Hour(data?.moreInfo?.pickupTime)}
+                    {/* {convertTo12Hour(data?.moreInfo?.pickupTime)} */}
+                    {convertTo12Hour(data?.moreInfo?.pickUpTime)}
                   </p>
                 </div>
               </div>
@@ -299,7 +300,8 @@ const ViewSummary = () => {
                       Move Time
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      {convertTo12Hour(data?.moreInfo?.pickupTime)}
+                      {/* {convertTo12Hour(data?.moreInfo?.pickupTime)} */}
+                      {convertTo12Hour(data?.moreInfo?.pickUpTime)}
                     </p>
                   </div>
                   <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[50%] h-full  justify-between">
