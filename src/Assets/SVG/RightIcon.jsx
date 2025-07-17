@@ -8,7 +8,7 @@ const RightIcon = (props) => (
     {...props}
   >
     <path
-      stroke="#3C82F6"
+      stroke={props.color}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1.5}

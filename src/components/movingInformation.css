@@ -1,0 +1,69 @@
+.custom-scroll::-webkit-scrollbar {
+    display: none;
+  }
+  .custom-scroll {
+    -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+  }
+
+@media screen and (max-width:980px) {
+  .movingInformationContainer{
+    width: 500px;
+  }
+}
+
+@media screen and (max-width:880px) {
+  .movingInformationContainer{
+    width: 450px;
+  }
+  .elevatorContainer{
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width:800px) {
+  .movingInformationContainer{
+    width: 100% !important; 
+    margin-bottom: 2rem;
+  }
+  .elevatorContainer{
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .moveBox{
+    width: 100% ;
+    height: fit-content;
+    padding-bottom: 5px;
+  }
+  .movingInfoBox{
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width:500px) {
+
+  .elevatorContainer{
+    flex-direction: column;
+  }
+  .eleInnerBox{
+    margin-right: 0;
+  }
+  .elevatorQuestionBox{
+    width: 100%;
+  }
+  .apartmentNumberContainer{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .apartmentNumberContainer div{
+    width: 100%;
+  }
+  .movingInformationHeader{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .movingInformationHeader h3, .movingInformationHeader p {
+    font-size: 16px;
+  }
+}

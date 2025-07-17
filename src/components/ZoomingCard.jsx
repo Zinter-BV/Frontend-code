@@ -10,7 +10,7 @@ import avatar4 from "../Assets/Avatar (3).png";
 
 const ZoomingCard = () => {
   const ComponentOne = () => (
-    <div className="w-[450px] h-[476px] overflow-hidden rounded-[20px] relative">
+    <div className="w-[450px] zoomingCard h-[476px] overflow-hidden rounded-[20px] relative">
       <img
         src={img}
         className=" w-full h-full object-cover transition-transform duration-700 ease-in-out hover:scale-125 rounded-[25px]"
@@ -42,11 +42,11 @@ const ZoomingCard = () => {
               />
             </div>
           </div>
-          <div className="bg-[#d9d9d9] w-[100%] rounded-tr-[10px] py-[10px] bg-opacity-70 backdrop-blur-sm rounded-b-[10px] pl-[14px] ">
+          <div className="bg-[#d9d9d9] w-[100%] rounded-tr-[10px] zoomcardTextBox py-[10px] bg-opacity-70 backdrop-blur-sm rounded-b-[10px] pl-[14px] ">
             <span className="mr-1 font-sans text-[#121212] font-bold leading-[25.6px] ">
               20,000+
             </span>
-            <span className="font-sans text-[#262626] leading-[25.6px]">
+            <span className="font-sans text-[#262626] leading-[25.6px] text-[16px] zoomCardDesc ">
               Moves completed in 2024 alone
             </span>
           </div>
@@ -55,7 +55,7 @@ const ZoomingCard = () => {
     </div>
   );
   const ComponentTwo = () => (
-    <div className="w-[450px] h-[476px] overflow-hidden rounded-[20px] relative">
+    <div className="w-[450px] zoomingCard h-[476px] overflow-hidden rounded-[20px] relative">
       <img
         src={img1}
         className=" w-full h-full object-cover transition-transform duration-700 ease-in-out hover:scale-125 rounded-[25px]"
@@ -87,11 +87,11 @@ const ZoomingCard = () => {
               />
             </div>
           </div>
-          <div className="bg-[#d9d9d9] w-[100%] rounded-tr-[10px] py-[10px] bg-opacity-70 backdrop-blur-sm rounded-b-[10px] pl-[14px] ">
+          <div className="bg-[#d9d9d9] w-[100%] rounded-tr-[10px] zoomcardTextBox py-[10px] bg-opacity-70 backdrop-blur-sm rounded-b-[10px] pl-[14px] ">
             <span className="mr-1 font-sans text-[#121212] font-bold leading-[25.6px] ">
               20,000+
             </span>
-            <span className="font-sans text-[#262626] leading-[25.6px]">
+            <span className="font-sans text-[#262626] leading-[25.6px] text-[16px] zoomCardDesc ">
               Moves completed in 2024 alone
             </span>
           </div>
@@ -101,7 +101,7 @@ const ZoomingCard = () => {
   );
 
   const ComponentThree = () => (
-    <div className="w-[450px] h-[476px] overflow-hidden rounded-[20px] relative">
+    <div className="w-[450px] zoomingCard h-[476px] overflow-hidden rounded-[20px] relative">
       <img
         src={img2}
         className=" w-full h-full object-cover transition-transform duration-700 ease-in-out hover:scale-125 rounded-[25px]"
@@ -133,11 +133,11 @@ const ZoomingCard = () => {
               />
             </div>
           </div>
-          <div className="bg-[#d9d9d9] w-[100%] rounded-tr-[10px] py-[10px] bg-opacity-70 backdrop-blur-sm rounded-b-[10px] pl-[14px] ">
+          <div className="bg-[#d9d9d9] w-[100%] rounded-tr-[10px] zoomcardTextBox py-[10px] bg-opacity-70 backdrop-blur-sm rounded-b-[10px] pl-[14px] ">
             <span className="mr-1 font-sans text-[#121212] font-bold leading-[25.6px] ">
               6000+
             </span>
-            <span className="font-sans text-[#262626] leading-[25.6px]">
+            <span className="font-sans text-[#262626] leading-[25.6px] text-[16px] zoomCardDesc ">
               active users are happy with Zinter
             </span>
           </div>
@@ -146,7 +146,7 @@ const ZoomingCard = () => {
     </div>
   );
   const ComponentFour = () => (
-    <div className="w-[450px] h-[476px] overflow-hidden rounded-[20px] relative">
+    <div className="w-[450px] zoomingCard h-[476px] overflow-hidden rounded-[20px] relative">
       <img
         src={img3}
         className=" w-full h-full object-cover transition-transform duration-700 ease-in-out hover:scale-125 rounded-[25px]"
@@ -178,11 +178,11 @@ const ZoomingCard = () => {
               />
             </div>
           </div>
-          <div className="bg-[#d9d9d9] w-[100%] rounded-tr-[10px] py-[10px] bg-opacity-70 backdrop-blur-sm rounded-b-[10px] pl-[14px] ">
+          <div className="bg-[#d9d9d9] w-[100%] rounded-tr-[10px] zoomcardTextBox py-[10px] bg-opacity-70 backdrop-blur-sm rounded-b-[10px] pl-[14px] ">
             <span className="mr-1 font-sans text-[#121212] font-bold leading-[25.6px] ">
               800+
             </span>
-            <span className="font-sans text-[#262626] leading-[25.6px]">
+            <span className="font-sans text-[#262626] leading-[25.6px] text-[16px] zoomCardDesc ">
               Moving companies fully verified
             </span>
           </div>

@@ -8,6 +8,7 @@ import Process from "../components/Process";
 import Testimonials from "../components/Testimonials";
 import NewsLetter from "../components/NewsLetter";
 import Footer from "../components/Footer";
+import FAQ from "../components/FAQ";
 
 const Home = () => {
   return (
@@ -19,6 +20,7 @@ const Home = () => {
       <SellingPoint />
       <Process />
       <Testimonials />
+      <FAQ />
       <NewsLetter />
       <Footer />
     </div>
