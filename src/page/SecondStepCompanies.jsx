@@ -90,6 +90,11 @@ const SecondStepCompanies = () => {
                     <input type={showPassword ? "text" : "password"} value={password} placeholder="Enter Password"
                         onChange={(e) => setPassword(e.target.value)} />
                     <div>Password must be 8 characters long</div>
+                    <div>Passowrd must include 1 uppercase letter</div>
+                    <div>Passowrd must include 1 lowercase letter</div>
+                    <div>Passowrd must include 1 number</div>
+                    <div>Password must include 1 special character</div>
+
                     <span onClick={() => setShowPassword((prev) => !prev)}>
                         {showPassword ? "HIDE" : "SHOW"}
                     </span>
