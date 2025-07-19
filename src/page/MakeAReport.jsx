@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import SelectImage from "../components/SelectImage";
 import PrimaryBtn from "../components/PrimaryBtn";
 import ReportSuccess from "../modal/ReportSuccess";
+import ReportCard from "../components/ReportCard";
 
 const MakeAReport = () => {
   const [isDamagedActive, setIsDamagedActive] = useState(true);
@@ -27,7 +28,7 @@ const MakeAReport = () => {
       <div className="w-[90vw] relative max-w-[1500px] mx-auto mt-24">
         <div className="w-full mt-4 ">
           <QuoteHeader />
-          <div className="w-full h-[70vh] bg-white">
+          <div className="w-full h-[200vh] bg-white">
             <div className="flex items-center">
               <Link to="/">
                 <p className="text-[#9e9e9e] text-[14px] font-sans leading-[19.6px]">
@@ -160,13 +161,16 @@ const MakeAReport = () => {
                     </div>
                   </div>
                 </div>
-                <div className=" mt-4 w-full ">
+                <div className=" mt-4 border-t-[#B8B8B8] border-t-[1px] pt-5 w-full ">
                   <p className=" font-sans font-[18px] text-black ">
                     Recent Moves
                   </p>
                   <p className="text-[14px] text-[#9e9e9e] font-sans my-3 ">
                     Select a move you are making report on
                   </p>
+                  <div className="">
+                    <ReportCard />
+                  </div>
                 </div>
               </div>
             </div>

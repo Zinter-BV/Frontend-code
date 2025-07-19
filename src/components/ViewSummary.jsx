@@ -5,6 +5,7 @@ import { formatDate, getDayOfWeek, convertTo12Hour } from "../utils";
 
 const ViewSummary = () => {
   const data = useSelector((state) => state.user);
+  console.log(data);
 
   return (
     <div className="ml-4 summaryBox w-full">
@@ -241,8 +242,9 @@ const ViewSummary = () => {
                     Move Time
                   </p>
                   <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                    {/* {convertTo12Hour(data?.moreInfo?.pickupTime)} */}
                     {convertTo12Hour(data?.moreInfo?.pickUpTime)}
+                    {/* {convertTo12Hour(data?.moreInfo?.pickUpTime)} */}
+                    {/* {data?.moreInfo?.pickUpTime} */}
                   </p>
                 </div>
               </div>
@@ -300,7 +302,6 @@ const ViewSummary = () => {
                       Move Time
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      {/* {convertTo12Hour(data?.moreInfo?.pickupTime)} */}
                       {convertTo12Hour(data?.moreInfo?.pickUpTime)}
                     </p>
                   </div>

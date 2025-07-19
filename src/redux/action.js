@@ -14,3 +14,7 @@ export const setUserMoreInfo = (items) => ({
   type: actionTypes.SET_USER_MORE_INFO,
   payload: items,
 });
+
+export const resetUserInfo = () => ({
+  type: actionTypes.RESET_USER_INFO,
+});

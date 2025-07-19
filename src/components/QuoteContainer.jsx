@@ -9,7 +9,11 @@ import ViewSummary from "./ViewSummary";
 import QuoteSuccess from "../modal/QuoteSuccess";
 import MobileQuoteProgress from "./MobileQuoteProgress";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserDetails, setUserMoreInfo } from "../redux/action";
+import {
+  resetUserInfo,
+  setUserDetails,
+  setUserMoreInfo,
+} from "../redux/action";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 
@@ -40,10 +44,10 @@ const QuoteContainer = ({ data }) => {
   const [dropOffAddress, setDropOffAddress] = useState(toLocation);
   const [pickUpAddressNumber, setPickUpAddressNumber] = useState("");
   const [dropOffAddressNumber, setDropOffAddressNumber] = useState("");
-  const [pickUpLongitude, setPickUpLongitude] = useState("");
-  const [pickUpLatitude, setPickUpLatitude] = useState("");
-  const [dropOffLongitude, setDropOffLongitude] = useState("");
-  const [dropOffLatitude, setDropOffLatitude] = useState("");
+  const [pickUpLongitude, setPickUpLongitude] = useState("4.478618");
+  const [pickUpLatitude, setPickUpLatitude] = useState("51.924419");
+  const [dropOffLongitude, setDropOffLongitude] = useState("6.093440");
+  const [dropOffLatitude, setDropOffLatitude] = useState("52.010199");
   const [toNumberOfFloors, setToNumberOfFloors] = useState("");
   const [toLongCarry, setToLongCarry] = useState("");
   const [toRemark, setToRemark] = useState("");
@@ -64,6 +68,24 @@ const QuoteContainer = ({ data }) => {
     if (data) setActiveTab(2);
     else setActiveTab(1);
   }, [data]);
+
+  // Function to format datetime to ISO 8601 format
+  const formatToISODateTime = (dateStr, timeStr) => {
+    if (!dateStr || !timeStr) return "";
+
+    // Combine date and time
+    const combinedDateTime = `${dateStr}T${timeStr}:00`;
+
+    // Create a Date object and convert to ISO string
+    const date = new Date(combinedDateTime);
+
+    // Check if date is valid
+    if (isNaN(date.getTime())) {
+      return "";
+    }
+
+    return date.toISOString();
+  };
 
   // Function to validate move info data
   const validateMoveInfo = () => {
@@ -97,9 +119,11 @@ const QuoteContainer = ({ data }) => {
     return true;
   };
 
+  // Format the datetime when creating moreInfoData
+  const formattedMoveDateTime = formatToISODateTime(moveDate, pickUpTime);
   const moreInfoData = {
-    moveDate,
-    pickUpTime,
+    moveDate: formattedMoveDateTime,
+    pickUpTime: formattedMoveDateTime,
     fullName,
     email,
     phoneNumber,
@@ -167,6 +191,7 @@ const QuoteContainer = ({ data }) => {
     mutationFn: addUserDetails,
     onSuccess: (data) => {
       console.log(data);
+      setOpenSuccessModal(true);
       setEmail("");
     },
     onError: (error) => {
@@ -328,6 +353,7 @@ const QuoteContainer = ({ data }) => {
   const closeSuccessModal = () => {
     navigate("/");
     setOpenSuccessModal(false);
+    dispatch(resetUserInfo());
   };
 
   return (

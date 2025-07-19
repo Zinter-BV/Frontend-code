@@ -71,7 +71,8 @@ const InventoryListModal = ({
   };
 
   const newFormattedData = formattedItems(countMap(allInventories));
-
+  // alert(newFormattedData);
+  // console.log(newFormattedData);
   const dispatch = useDispatch();
 
   const handleSubmit = () => {

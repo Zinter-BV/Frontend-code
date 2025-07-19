@@ -23,6 +23,13 @@ const UserReducer = (state = initialState, action) => {
         ...state,
         moreInfo: action.payload,
       };
+    case actionTypes.RESET_USER_INFO:
+      return {
+        ...state,
+        moreInfo: {},
+        userMoveInfo: {},
+        items: [],
+      };
     default:
       return state;
   }
