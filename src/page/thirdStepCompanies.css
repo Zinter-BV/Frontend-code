@@ -112,6 +112,7 @@
     margin-right: 5px;
 }
 
+
 .remove_btn {
     background: transparent;
     border: none;
@@ -263,6 +264,55 @@
     top: 0;
     left: 0;
 }
+
+.error_message_background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    backdrop-filter: blur(4px);
+    width: 100vw;
+    height: 100vh;
+
+}
+
+.error_message_container_third {
+    position: relative;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, 10px);
+    background-color: rgba(247, 247, 247, 1);
+    padding: 35px;
+    border-radius: 10px;
+    width: fit-content;
+    /* margin-top: 10px; */
+}
+
+.close_modal_third{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    color: red;
+    font-size: 32px;
+    font-family: "DM Sans", sans-serif;
+    cursor: pointer;
+}
+
+.close-button {
+    position: absolute;
+    top: 0;
+    right: 0.5rem;
+    background: transparent;
+    border: none;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+  
+  .close-button:hover {
+    color: #ff4d4f;
+  }
 
 @media (max-width: 1000px) {
     .upload_container_all {

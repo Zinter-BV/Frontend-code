@@ -112,6 +112,8 @@ const FirstStepCompanies = () => {
             setShowError(true)
             return
         } else if (showTick === true) {
+            sessionStorage.setItem('kvkNumber', regNumber)
+            sessionStorage.setItem('companyName', companyName)
             navigate("/email-verification");
         }
 

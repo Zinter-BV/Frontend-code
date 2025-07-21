@@ -18,6 +18,8 @@ import sixthPhoto from "../Assets/cover-photo-six.svg"
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { fetchProvince } from "../api/agentApi";
+import { registerAgent } from "../api/agentApi"
+import Loader from "../components/loader";
 
 const ThirdStepCompanies = () => {
 
@@ -26,7 +28,16 @@ const ThirdStepCompanies = () => {
     const fileInputRef = useRef(null);
     const [showMoreOptions, setShowOptions] = useState(false)
     const [showCoverPhoto, setShowCoverPhoto] = useState(false)
+    const [submitErr, showSubmitErr] = useState(false)
+    const [resMsg, showResMsg] = useState(false)
     const [coverPhoto, setCoverPhoto] = useState(null);
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("");
+    const [kvkNumber, setKvkNumber] = useState("");
+    const [companyName, setCompanyName] = useState("");
+    const [image, setImage] = useState("");
+    const [provinces, setProvinces] = useState("");
+    const [companyOverView, setCompanyOverView] = useState("");
 
     const [selectedProvinces, setSelectedProvinces] = useState([]);
     const [showDropdown, setShowDropdown] = useState(false);
@@ -37,6 +48,31 @@ const ThirdStepCompanies = () => {
         queryKey: ["province"],
         queryFn: fetchProvince,
     });
+    const { data: dataReg, isLoading: isLoadingReg, error: errorReg, refetch } = useQuery({
+        queryKey: ["register-agent", email, kvkNumber, companyName, password, image, provinces, companyOverView],
+        queryFn: () => registerAgent({
+            email,
+            kvkNumber,
+            companyName,
+            password,
+            image: coverPhoto,
+            provinces: selectedProvinces.map((provinceName) => {
+                const match = allProvinces.find(p => p.provinceName === provinceName);
+                return match.provinceId;
+            }),
+            companyOverView
+        }),
+        enabled: false,
+        refetchOnWindowFocus: false,
+        // enabled: regNumber.length === 8,
+    });
+
+    useEffect(() => {
+        if (errorReg) {
+            console.error("Error from registration query:", errorReg);
+        }
+    }, [errorReg]);
+
 
     useEffect(() => {
         if (data?.result) {
@@ -61,16 +97,28 @@ const ThirdStepCompanies = () => {
         };
     }, []);
 
+    useEffect(() => {
+        const storedEmail = sessionStorage.getItem("email");
+        const storedPassword = sessionStorage.getItem("password");
+        const storedKvkNumber = sessionStorage.getItem("kvkNumber");
+        const storedCompanyName = sessionStorage.getItem("companyName");
+
+        if (storedEmail) setEmail(storedEmail);
+        if (storedPassword) setPassword(storedPassword);
+        if (storedKvkNumber) setKvkNumber(storedKvkNumber);
+        if (storedCompanyName) setCompanyName(storedCompanyName);
+    }, []);
+
     // console.log('Dataaa', data)
-    if (isLoading) return <p>Loading...</p>;
-    if (error) return <p>Error loading users</p>;
+    // if (isLoading) return <p>Loading...</p>;
+    // if (error) return <p>Error loading provinces</p>;
 
     const handleFileUpload = (e) => {
         const file = e.target.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
-                setCoverPhoto(reader.result); // base64 image
+                setCoverPhoto(reader.result);
                 setShowOptions(false);
             };
             reader.readAsDataURL(file);
@@ -95,6 +143,7 @@ const ThirdStepCompanies = () => {
 
     const openCoverPhoto = () => {
         setShowCoverPhoto(true)
+
     }
 
     const hideCoverPhoto = () => {
@@ -107,13 +156,47 @@ const ThirdStepCompanies = () => {
         setShowOptions(false)
     }
 
-    const goToDashboard = () => {
-        navigate("/overview")
+
+    const handleCloseModal = () => {
+        showSubmitErr(false)
     }
 
-    const openSuccessMessage = () => {
-        setShowSuccessModal(true)
-    }
+
+
+    const openSuccessMessage = async () => {
+        if (
+            email &&
+            kvkNumber &&
+            companyName &&
+            password &&
+            coverPhoto &&
+            selectedProvinces.length > 0 &&
+            companyOverView.trim() !== ""
+        ) {
+
+            // setShowSuccessModal(true); 
+            const result = await refetch();
+
+            const data = result?.data;
+
+            if (data?.responseStatus === false) {
+                console.log(data.responseMessage);
+                showSubmitErr(true)
+                showResMsg(data.responseMessage)
+                // Optionally show error modal/message here
+            } else {
+                console.log(data);
+                setShowSuccessModal(true);
+            }
+
+            if (result?.error) {
+                console.error(result.error);
+            }
+        } else {
+            alert("Please fill in all required fields.");
+        }
+    };
+
     return (
         <div className="container_firstStep">
             <div className="card_toggle">
@@ -234,11 +317,12 @@ const ThirdStepCompanies = () => {
                 <div className="input_multiple_sub">
                     <span>Company Overview</span>
                     <div className="rich_text">
-                        <RichTextEditor />
+                        <RichTextEditor onChange={(val) => setCompanyOverView(val)} />
                     </div>
                 </div>
+
                 <div className="company_firststep_btn_second">
-                    <button onClick={goToDashboard}>Skip</button>
+                    <button ></button>
                     <button onClick={openSuccessMessage}>Continue</button> {/* Add onClick */}
                 </div>
             </div>
@@ -275,7 +359,27 @@ const ThirdStepCompanies = () => {
                 <div className="account_component">
                     <AccountSuccessMessage />
                 </div>}
+            {submitErr &&
+                <div className="error_message_background">
+                    <div className="error_message_container_third">
+                        <div className="error_message">
+                            <span>An Error Occurred!</span>
+                            <span>
+                                {resMsg}
+                            </span>
+                        </div>
+                        <div className="close-button" onClick={handleCloseModal}>
+                            &times;
+                        </div>
+                    </div>
+                </div>
+            }
 
+
+
+
+            {isLoadingReg && <Loader />}
+            {isLoading && <Loader />}
         </div>
     )
 }
