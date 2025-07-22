@@ -174,7 +174,7 @@ const UploadImageModal = ({
                 onImagesSelected={handleImagesSelected}
               />
               <SelectImage
-                title="Toilet Images"
+                title="Toilet and bath Images"
                 onImagesSelected={handleImagesSelected}
               />
             </div>

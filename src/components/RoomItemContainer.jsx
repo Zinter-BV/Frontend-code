@@ -63,7 +63,7 @@ const RoomItemContainer = ({ activeIcon, openIsInventoryList }) => {
       );
       // Code to be executed if expression matches value1
       break;
-    case "Toilet":
+    case "Toilet and bath":
       content = (
         <div className="bg-[#f3f3f3] h-[48px] w-[48px] rounded-[6px] flex justify-center items-center ">
           <svg

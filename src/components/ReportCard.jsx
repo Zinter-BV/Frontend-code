@@ -1,8 +1,9 @@
 import React from "react";
+import girl from "../Assets/Rectangle 4533 (1).png";
 
 const ReportCard = () => {
   return (
-    <div className="h-[200px] w-[300px] border-[#E5E5E5] border-[1px] rounded-[20px] p-4 ">
+    <div className="h-fit w-[100%] border-[#E5E5E5] border-[1px] rounded-[20px] p-4 ">
       <div>
         <div className="flex items-center  ">
           <div className="bg-[#f7f7f7] w-[400px] flex items-center rounded-[10px] p-[10px] ">
@@ -70,6 +71,17 @@ const ReportCard = () => {
               </p>
             </div>
           </div>
+        </div>
+      </div>
+      <div className="flex items-center mt-3 gap-3">
+        <img src={girl} className="h-[60px] w-[60px] rounded-full   " alt="" />
+        <div>
+          <p className="font-sans font-bold text-[18px] text-[#202939] ">
+            Urban Movers
+          </p>
+          <p className=" font-sans text-[12px] text-[#697586] font-regular ">
+            urbanmovers@gmail.com
+          </p>
         </div>
       </div>
     </div>

@@ -72,8 +72,8 @@ const InventoryList = () => {
           activeIcon="Living Room"
         />
         <RoomItemContainer
-          openIsInventoryList={() => openIsInventoryList("Toilet")}
-          activeIcon="Toilet"
+          openIsInventoryList={() => openIsInventoryList("Toilet and bath")}
+          activeIcon="Toilet and bath"
         />
         <RoomItemContainer
           openIsInventoryList={() => openIsInventoryList("Dinning Room")}
@@ -86,10 +86,6 @@ const InventoryList = () => {
         <RoomItemContainer
           openIsInventoryList={() => openIsInventoryList("Bedroom")}
           activeIcon="Bedroom"
-        />
-        <RoomItemContainer
-          openIsInventoryList={() => openIsInventoryList("Bathroom")}
-          activeIcon="Bathroom"
         />
       </div>
 
