@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import QuoteHeader from "../components/QuoteHeader";
 
 const TrackReport = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div>
       <div className="w-[90vw] relative max-w-[1500px] mx-auto mt-24">

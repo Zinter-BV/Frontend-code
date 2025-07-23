@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import QuoteHeader from "../components/QuoteHeader";
 import { Link, useNavigate } from "react-router-dom";
 import SelectImage from "../components/SelectImage";
@@ -22,6 +22,10 @@ const MakeAReport = () => {
   };
 
   const data = [1, 2, 3];
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const makeDamagedTabActive = () => setIsDamagedActive(false);
   const makeMissingTabActive = () => setIsDamagedActive(true);

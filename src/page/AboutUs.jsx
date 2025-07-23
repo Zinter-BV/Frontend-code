@@ -6,8 +6,12 @@ import OurServices from "../components/OurServices";
 import Testimonials from "../components/Testimonials";
 import ContactUs from "../components/ContactUs";
 import Footer from "../components/Footer";
+import { useEffect } from "react";
 
 const AboutUs = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div>
       <Header />
