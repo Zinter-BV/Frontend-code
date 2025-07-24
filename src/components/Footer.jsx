@@ -40,7 +40,7 @@ const Footer = () => {
                   About Us
                 </Link>
                 <p
-                  onClick={openModal}
+                  // onClick={openModal}
                   className="font-sora cursor-pointer text-right font-regular footerDesc mt-2"
                 >
                   {" "}

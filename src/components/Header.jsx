@@ -96,7 +96,7 @@ const Header = () => {
         </ul>
         <div>
           <SecondaryBtn
-            handlePress={openMenuOptions}
+            // handlePress={openMenuOptions}
             className={"text-[14px] "}
           >
             GET STARTED
@@ -216,7 +216,7 @@ const Header = () => {
             </ul>
 
             <div
-              onClick={openMenuOptions}
+              // onClick={openMenuOptions}
               className="flex w-fit px-4 mt-5 items-center"
             >
               <p className="font-unbounded font-bold text-[18px] text-[#054D96] ">

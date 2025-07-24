@@ -3,9 +3,39 @@ import BackwardArrow from "../Assets/SVG/BackwardArrow";
 import ForwardArrow from "../Assets/SVG/ForwardArrow";
 import TestimonialCard from "./TestimonialCard";
 import "./testimonials.css";
+import user from "../Assets/user.png";
+import user1 from "../Assets/4c1f020e665b93ab6ff1e8297abbedb1dda92198.jpg";
+import user2 from "../Assets/dcbfbd2b7302409e7e9d0a16dd17c2a75fb19840.png";
 
 const Testimonials = () => {
   const scrollContainerRef = useRef(null);
+
+  const data = [
+    {
+      id: 1,
+      text: "”I uploaded five photos from my phone and had a quote in minutes. Movers showed up exactly when they said they would.”",
+      name: "Fatima Noor",
+      moveType: "Studio Move",
+      location: "Rotterham",
+      img: user,
+    },
+    {
+      id: 2,
+      text: "“Honestly, it felt too easy. I expected forms and stress but it was all handled through the platform.”",
+      name: "Koen de Vries",
+      moveType: "Family Move",
+      location: "Eindhoven",
+      img: user1,
+    },
+    {
+      id: 3,
+      text: "“I hate moving. But this time? It was smooth, fast, and didn’t wreck my weekend.”",
+      name: "Fatima Noor",
+      moveType: "2-Bedroom Apartment",
+      location: "Utrecht",
+      img: user2,
+    },
+  ];
 
   // Function to scroll backward
   const scrollBackward = () => {
@@ -39,7 +69,7 @@ const Testimonials = () => {
         </div>
         <div className="flex testimonialHeader justify-between my-10">
           <h2 className="font-unbounded testimonialHeaderText text-[#121212] font-bold w-[80%] text-[48px]">
-            Don't just take our word for it, Here is what our users are saying
+            Real People. Real Moves. Real Peace of Mind.
           </h2>
           <div className="flex arrowsContainer self-end">
             <div
@@ -72,14 +102,9 @@ const Testimonials = () => {
             style={{ msOverflowStyle: "none" }}
             className="flex gap-4 min-w-min"
           >
-            <TestimonialCard />
-            <TestimonialCard />
-            <TestimonialCard />
-            <TestimonialCard />
-            <TestimonialCard />
-            <TestimonialCard />
-            <TestimonialCard />
-            <TestimonialCard />
+            {data?.map((card) => {
+              return <TestimonialCard key={card?.id} card={card} />;
+            })}
           </div>
         </div>
       </div>

@@ -12,42 +12,42 @@ const FAQ = ({ showBackgroundColor }) => {
         "We offer five specialized mentorship programs: Couples and Family Financial Mentorship, Teenagers' Financial Mentorship, Corps Members' Financial Mentorship, Retirement Wealth Planning Mentorship, and Elite Financial Mentorship. Each program is tailored to specific life stages and financial goals.",
     },
     {
-      question: "How far in advance should I book a moving company?",
+      question: "How early should I book my move?",
       answer:
         "Our mentorship programs typically run for 3-6 months, depending on the specific program. The duration is designed to provide comprehensive learning while allowing time for practical application of financial strategies. Some programs offer extended support and follow-up sessions.",
     },
     {
-      question: "Do moving companies provide packing services?",
+      question: "Will the movers pack my stuff too?",
       answer:
         "We offer both online and in-person options to accommodate different preferences and locations. Our online programs include live video sessions, interactive workshops, and digital resources. In-person sessions are available in select locations and for group workshops.",
     },
     {
-      question: "What services do moving companies offer for packing?",
+      question: "What's included in my quote?",
       answer:
         "Our mentors are certified financial professionals with extensive experience in wealth building, investment strategies, and financial planning. They hold relevant certifications and have proven track records in helping individuals and families achieve their financial goals.",
     },
     {
-      question: "Are packing services included when hiring movers?",
+      question: "Is packing part of the deal or extra?",
       answer:
         "Yes, we offer a 30-day money-back guarantee for all our mentorship programs. If you're not satisfied with the program within the first 30 days, you can request a full refund. We're confident in the value our programs provide.",
     },
     {
-      question: "What happens if my moving date changes?",
+      question: "Can I reschedule if plans change?",
       answer:
         "Yes, you can upgrade or switch to a different mentorship program that better suits your needs. Our team will work with you to ensure a smooth transition and apply any applicable credits from your current program to the new one.",
     },
     {
-      question: "Can I track the location of my items during the move?",
+      question: "Can I track my move in real time?",
       answer:
         "Absolutely! Each mentorship program includes personalized financial advice tailored to your specific situation, goals, and risk tolerance. Our mentors work closely with you to develop customized strategies for wealth building and financial success.",
     },
     {
-      question: "Do moving companies offer storage options?",
+      question: "What if I need storage , can you help?",
       answer:
         "All programs include comprehensive workbooks, financial planning templates, video tutorials, access to our online learning platform, and ongoing support materials. You'll also receive tools for budgeting, investment tracking, and goal setting.",
     },
     {
-      question: "How are moving company rates calculated?",
+      question: "How is the cost of moving worked out?",
       answer:
         "No specific prerequisites are required, but some programs are designed for particular life stages or situations. For example, the Teenagers' program is for ages 13-19, while the Corps Members' program is specifically for NYSC participants. We'll help you choose the right program during consultation.",
     },
