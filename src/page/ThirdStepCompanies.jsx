@@ -51,7 +51,7 @@ const ThirdStepCompanies = () => {
     const { data: dataReg, isLoading: isLoadingReg, error: errorReg, refetch } = useQuery({
         queryKey: ["register-agent", email, kvkNumber, companyName, password, image, provinces, companyOverView],
         queryFn: () => registerAgent({
-            email,
+            email, 
             kvkNumber,
             companyName,
             password,
