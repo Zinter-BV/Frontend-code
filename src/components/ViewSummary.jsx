@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import "./ViewSummary.css";
 import { useSelector } from "react-redux";
 import { formatDate, getDayOfWeek, convertTo12Hour } from "../utils";
@@ -6,6 +6,31 @@ import { formatDate, getDayOfWeek, convertTo12Hour } from "../utils";
 const ViewSummary = () => {
   const data = useSelector((state) => state.user);
   console.log(data);
+
+  // Memoized room items and counts calculation
+  const { roomCounts } = useMemo(() => {
+    return data?.items?.reduce(
+      (acc, item) => {
+        // Count items per room
+        acc.roomCounts[item.room] =
+          (acc.roomCounts[item.room] || 0) + (item.numberOfCount || 1);
+
+        // Collect items for the current room
+        // if (item.room === activeIcon) {
+        //   // Use item.name or item.itemName or whatever property contains the display name
+        //   const itemName = item.name || item.itemName || "Unnamed Item";
+        //   acc.roomItems.push(itemName);
+        // }
+        return acc;
+      },
+      { roomCounts: {}, roomItems: [] }
+    );
+  }, [data.items]);
+
+  // Safe function to get room count
+  const getRoomCount = (roomName) => {
+    return roomCounts[roomName] ?? 0;
+  };
 
   return (
     <div className="ml-4 summaryBox w-full">
@@ -121,25 +146,25 @@ const ViewSummary = () => {
                       Living Room
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      20 items selected
+                      {getRoomCount("Living Room")} items selected
                     </p>
                   </div>
                   <div className="flex p-[16px] rounded-tr-[12px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
                     <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      Bedroom 1
+                      Toilet and Bath
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      12 items selected
+                      {getRoomCount("Toilet and bath")} items selected
                     </p>
                   </div>
                 </div>
                 <div className="w-full h-[50%] flex items-center justify-between ">
                   <div className="flex rounded-bl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full justify-between">
                     <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      Bedroom 2
+                      Kitchen
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      7 items selected
+                      {getRoomCount("Kitchen")} items selected
                     </p>
                   </div>
                   <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
@@ -147,15 +172,15 @@ const ViewSummary = () => {
                       Dinning Room
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      6 items selected
+                      {getRoomCount("Dinning Room")} items selected
                     </p>
                   </div>
                   <div className="flex p-[16px] rounded-br-[12px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
                     <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      Kitchen
+                      Bedroom
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      18 items selected
+                      {getRoomCount("Bedroom")} items selected
                     </p>
                   </div>
                 </div>
