@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import OSMMap from "../components/OsMap";
 // import JobsPage from "./JobsPage";
@@ -22,6 +22,10 @@ import arrowDown from "../Assets/arrow-down-02.svg"
 import avatar from "../Assets/Gb-Avatar.svg"
 import dot from "../Assets/Dot.svg"
 import viewMore from "../Assets/Eye.svg"
+import { getAllJobs } from "../api/province";
+import { useQuery } from "@tanstack/react-query";
+import Loader from "./loader";
+import LoaderInApp from "./LoaderInApp";
 
 import "./allJobs.css"
 
@@ -29,12 +33,37 @@ import "./allJobs.css"
 
 
 const AllJobs = () => {
-    const navigate = useNavigate()
+    const [pageNumber, setPageNumber] = useState(1);
+    const [numberOfRecords, setNumberOfRecords] = useState(5);
+    const [allJobs, setAllJobs] = useState([]);
+    const navigate = useNavigate();
+
+    const { data, isLoading, error } = useQuery({
+        queryKey: ["allJobs", pageNumber, numberOfRecords],
+        queryFn: () => getAllJobs(pageNumber, numberOfRecords),
+        staleTime: Infinity,              // ✅ prevent re-fetching due to stale data
+        refetchOnWindowFocus: false,      // ✅ don't refetch on tab/window focus
+        refetchOnReconnect: false,        // ✅ don't refetch on network reconnect
+        refetchInterval: false,
+    });
+
+    useEffect(() => {
+        if (data?.result) {
+            setAllJobs(data.result.items);
+            console.log(allJobs)
+        } else if (error) {
+            console.log(error);
+        }
+    }, [data, error]);
+
+    useEffect(() => {
+        console.log("Updated allJobs:", allJobs); // ✅ this logs after state updates
+    }, [allJobs]);
 
     const handleViewMore = () => {
+        navigate("/view-new-jobs");
+    };
 
-        navigate("/view-new-jobs")
-    }
 
     return (
         <div>
@@ -94,47 +123,51 @@ const AllJobs = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <div className="name_td td">
-                                        <div>
-                                            <img src={avatar} alt="user-initials" />
+                            {allJobs.map((job, index) => {
+                                <tr>
+                                    <td>
+                                        <div className="name_td td">
+                                            <div>
+                                                <img src={avatar} alt="user-initials" />
+                                            </div>
+                                            <div className="name_text">
+                                                <span>{job.fullName}</span>
+                                                <span>{job.email}</span>
+                                            </div>
                                         </div>
-                                        <div className="name_text">
-                                            <span>Anna van Dijk</span>
-                                            <span>AnnaVanDijk@gmail.com</span>
+                                    </td>
+                                    <td>
+                                        <div className="move_summary td">
+                                            <span>{job.numberOfRooms} Bedroom House</span>
+                                            <span>{job.address}</span>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div className="move_summary td">
-                                        <span>3 Bedroom House</span>
-                                        <span>Amsterdam (Damrack - Hilversum)</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div className="status td">
-                                        <span>
-                                            <img src={dot} alt="" />
-                                        </span>
-                                        <span>
-                                            New Request
-                                        </span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div className="progress_bar_new">
-                                        <div className="progress_bar_moving_new"></div>
-                                    </div>
-                                </td>
-                                <td className="view" onClick={handleViewMore}>
-                                    <img src={viewMore} alt="view more" />
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td>
+                                        <div className="status td">
+                                            <span>
+                                                <img src={dot} alt="" />
+                                            </span>
+                                            <span>
+                                                New Request
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div className="progress_bar_new">
+                                            <div className="progress_bar_moving_new"></div>
+                                        </div>
+                                    </td>
+                                    <td className="view" onClick={handleViewMore}>
+                                        <img src={viewMore} alt="view more" />
+                                    </td>
+                                </tr>
+                            })}
+
                         </tbody>
                     </table>
                 </div>
             </div>
+            {isLoading && <LoaderInApp />}
         </div>
     )
 }
