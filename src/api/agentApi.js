@@ -23,3 +23,8 @@ export const getVerificationAgent = async ({ email, password }) => {
     })
     return response.data
 }
+
+export const moversDashboardAnalytics = async () => {
+    const response = await api.get(`Agent/DashBoardAnalytics`)
+    return response.data
+}

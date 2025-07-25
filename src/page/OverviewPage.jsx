@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import OSMMap from "../components/OsMap";
 // import JobsPage from "./JobsPage";
 import SideBar from "../components/SideBar";
@@ -27,6 +27,9 @@ import revenueIcon from "../Assets/dashboard-revenue-logo.svg";
 import addServiceIcon from "../Assets/add-service.svg"
 import configureIcon from "../Assets/configure-icon.svg"
 import settingsIcon from "../Assets/settings.svg"
+import { useQuery } from "@tanstack/react-query";
+import { moversDashboardAnalytics } from "../api/agentApi";
+import Loader from "../components/loader";
 
 
 
@@ -43,6 +46,34 @@ const OverviewPage = () => {
         // { name: "Grace Kim", email: "gracekim@outlook.com", status: "Completed" },
         // { name: "Ali Jibril", email: "alijibril@mail.com", status: "In Transit" },
     ];
+
+    const [incomingRequest, setIncomingRequest] = useState(0)
+    const [approvedRequest, setApprovedRequest] = useState(0)
+    const [paymentMade, setPaymentMade] = useState(0)
+    const [upcomingPickup, setUpcomingPickup] = useState(0)
+    const [inTransitNumber, setInTransitNumber] = useState(0)
+    const [completedMoves, setCompletedMove] = useState(0)
+    const [cancelledMoves, setCancelledMove] = useState(0)
+
+
+
+
+    const {data, isLoading, error} = useQuery({
+        queryKey: ['statistics'], 
+        queryFn: moversDashboardAnalytics
+    })
+
+    useEffect(() => {
+        if(data?.result) {
+            setIncomingRequest(data.result.incoming)
+            setApprovedRequest(data.result.approvedRequest)
+            setPaymentMade(data.result.paymentMade)
+            setUpcomingPickup(data.result.upcoming)
+            setInTransitNumber(data.result.inTransit)
+            setCompletedMove(data.result.completed)
+            setCancelledMove(data.result.cancelled)
+        }
+    }, [data])
     return (
 
         <div className="overview_sidebar">
@@ -119,7 +150,7 @@ const OverviewPage = () => {
                             </div>
                             <div className="approved_number_text">
                                 <span>Approved Requests</span>
-                                <span>122</span>
+                                <span> {approvedRequest} </span>
                             </div>
                         </div>
                     </div>
@@ -134,7 +165,7 @@ const OverviewPage = () => {
                             </div>
                             <div className="approved_number_text">
                                 <span>Payments Made</span>
-                                <span>98</span>
+                                <span> {paymentMade}</span>
                             </div>
                         </div>
                     </div>
@@ -149,7 +180,7 @@ const OverviewPage = () => {
                             </div>
                             <div className="approved_number_text">
                                 <span>Upcoming Pickups</span>
-                                <span>25</span>
+                                <span> {upcomingPickup} </span>
                             </div>
                         </div>
                     </div>
@@ -164,7 +195,7 @@ const OverviewPage = () => {
                             </div>
                             <div className="approved_number_text">
                                 <span>In Transit</span>
-                                <span>15</span>
+                                <span> {inTransitNumber} </span>
                             </div>
                         </div>
                     </div>
@@ -179,7 +210,7 @@ const OverviewPage = () => {
                             </div>
                             <div className="approved_number_text">
                                 <span>Completed Moves</span>
-                                <span>122</span>
+                                <span> {completedMoves} </span>
                             </div>
                         </div>
                     </div>
@@ -194,7 +225,7 @@ const OverviewPage = () => {
                             </div>
                             <div className="approved_number_text">
                                 <span>Cancelled Moves</span>
-                                <span>12</span>
+                                <span> {cancelledMoves} </span>
                             </div>
                         </div>
                     </div>

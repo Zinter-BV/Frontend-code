@@ -1,6 +1,6 @@
 import React from "react";
 import "./zinterHeadPartner.css"
-import zinterHead from "../Assets/logo-text.svg"
+import zinterHead from "../Assets/new-logo-zinter.svg"
 import infoIcon from "../Assets/Info-icon.svg"
 
 const ZinterHeaderPartner = () => {

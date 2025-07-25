@@ -60,6 +60,8 @@ const ViewNewJobs = () => {
         setshowSuccessQuote(true)
     }
 
+   
+
     const handleAllClose = () => {
         setShowProvideQuote(false)
         setshowSuccessQuote(false)
@@ -397,7 +399,7 @@ const ViewNewJobs = () => {
                     </div>
                 </div>
                 <div className="footer_view_jobs">
-                    <button>REJECT</button>
+                    <button onClick={handleAllClose}>REJECT</button>
                     <button onClick={handleSuccess}>PROVIDE QUOTE</button>
                 </div>
             </div>
@@ -405,7 +407,7 @@ const ViewNewJobs = () => {
                 <div className="provide_quote_container">
                     <div className="provide_quote_body">
                         <div className="header_quote">
-                            <img src={closeIcon} alt="" />
+                            <img onClick={handleAllClose}  src={closeIcon} alt="" />
                             <span>Provide Quote</span>
                         </div>
                         <div className="body_quote_container">
@@ -491,7 +493,7 @@ const ViewNewJobs = () => {
                             </div>
                         </div>
                         <div className="body_quote_footer">
-                            <button> GO BACK</button>
+                            <button onClick={handleAllClose}> GO BACK</button>
                             <button onClick={handleClose}> CONTINUE</button>
                         </div>
                     </div>
@@ -502,7 +504,7 @@ const ViewNewJobs = () => {
                 <div className="provide_quote_container">
                     <div className="provide_quote_body">
                         <div className="header_quote">
-                            <img src={closeIcon} alt="" />
+                            <img onClick={handleAllClose} src={closeIcon} alt="" />
                             {/* <span>Provide Quote</span> */}
                         </div>
                         <div className="body_quote_container">
