@@ -1,10 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
+import { useSelector } from "react-redux";
 
 const RoomItemContainer = ({ activeIcon, openIsInventoryList }) => {
   const [isOpenDropDown, setIsOpenDropDown] = useState(false);
   const openDropDown = () => setIsOpenDropDown((prev) => !prev);
 
   const data = ["Bed", "Night stand", "Table Lamp", "Curtain"];
+
+  const items = useSelector((state) => state.user.items);
+
+  // Memoized room items and counts calculation
+  const { roomCounts, roomItems } = useMemo(() => {
+    return items.reduce(
+      (acc, item) => {
+        // Count items per room
+        acc.roomCounts[item.room] =
+          (acc.roomCounts[item.room] || 0) + (item.numberOfCount || 1);
+
+        // Collect items for the current room
+        if (item.room === activeIcon) {
+          // Use item.name or item.itemName or whatever property contains the display name
+          const itemName = item.name || item.itemName || "Unnamed Item";
+          acc.roomItems.push(itemName);
+        }
+        return acc;
+      },
+      { roomCounts: {}, roomItems: [] }
+    );
+  }, [items, activeIcon]);
+
+  // Safe function to get room count
+  const getRoomCount = (roomName) => {
+    return roomCounts[roomName] ?? 0;
+  };
 
   let content = (
     <div className="bg-[#FFF5DA] h-[48px] w-[48px] rounded-[6px] flex justify-center items-center ">
@@ -63,7 +91,7 @@ const RoomItemContainer = ({ activeIcon, openIsInventoryList }) => {
       );
       // Code to be executed if expression matches value1
       break;
-    case "Toilet":
+    case "Toilet and bath":
       content = (
         <div className="bg-[#f3f3f3] h-[48px] w-[48px] rounded-[6px] flex justify-center items-center ">
           <svg
@@ -216,7 +244,8 @@ const RoomItemContainer = ({ activeIcon, openIsInventoryList }) => {
                 />
               </svg>
               <p className="font-sans text-[16px] text-[#3C82F6] ml-2 leading-[25.6px] ">
-                6 <span className="selectedText"> Items Selected</span>
+                {getRoomCount(activeIcon)}{" "}
+                <span className="selectedText"> Items Selected</span>
               </p>
             </div>
           )}
@@ -285,8 +314,8 @@ const RoomItemContainer = ({ activeIcon, openIsInventoryList }) => {
         </div>
       </div>
       {isOpenDropDown && (
-        <div className="flex items-center border-[#e3e3e3]  border-t-[1px] w-full py-[16px] ">
-          <div className="flex bg-[#F0F9FF] border-[1px] border-[#E0F2FE] rounded-[4px] p-1 items-center">
+        <div className="flex items-center border-[#e3e3e3] border-t-[1px] w-full py-[16px] ">
+          <div className="flex bg-[#F0F9FF] w-[200px] border-[1px] border-[#E0F2FE] rounded-[4px] p-1 items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="10"
@@ -300,28 +329,42 @@ const RoomItemContainer = ({ activeIcon, openIsInventoryList }) => {
               />
             </svg>
             <p className="font-sans text-[16px] numberText text-[#3C82F6] ml-2 leading-[25.6px] ">
-              6 <span className="selectedText">Items Selected </span>
+              {getRoomCount(activeIcon)}{" "}
+              <span className="selectedText">Items Selected </span>
             </p>
           </div>
           <div className="w-full flex flex-wrap items-center ">
-            {data?.map((item, id) => {
-              return (
-                <div key={id} className="flex ml-2  items-center">
-                  <p className="mr-2 text-[14px] allItemsTextX font-sans leading-[18.2px] text-[#707070] ">
-                    {item}
-                  </p>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="4"
-                    height="4"
-                    viewBox="0 0 4 4"
-                    fill="none"
-                  >
-                    <circle cx="2" cy="2" r="2" fill="#D1D1D1" />
-                  </svg>
-                </div>
-              );
-            })}
+            {roomItems?.length > 0 && (
+              <div className="w-full flex flex-wrap items-center">
+                {roomItems.slice(0, 5).map((item, id) => (
+                  <div key={id} className="flex ml-2 items-center">
+                    <p className="mr-2 text-[14px] allItemsTextX font-sans leading-[18.2px] text-[#707070]">
+                      {item}
+                    </p>
+                    {/* Only show dot if not the last visible item AND there are more items to show */}
+                    {(id < 4 || roomItems.length <= 5) &&
+                      id < roomItems.length - 1 && (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="4"
+                          height="4"
+                          viewBox="0 0 4 4"
+                          fill="none"
+                        >
+                          <circle cx="2" cy="2" r="2" fill="#D1D1D1" />
+                        </svg>
+                      )}
+                  </div>
+                ))}
+                {roomItems.length > 5 && (
+                  <div className="flex ml-2 items-center">
+                    <p className="text-[14px] font-sans leading-[18.2px] text-[#3C82F6]">
+                      +{roomItems.length - 5} more
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       )}

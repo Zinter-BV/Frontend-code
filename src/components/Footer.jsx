@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../Assets/domain.com.png";
 import { SiGmail } from "react-icons/si";
 import { AiFillInstagram } from "react-icons/ai";
 import { BsTwitterX } from "react-icons/bs";
 import { FaFacebookF } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import ReportIssue from "../modal/ReportIssue";
 
 const Footer = () => {
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
+
+  const openModal = () => setIsReportModalOpen(true);
+  const closeModal = () => setIsReportModalOpen(false);
+
   return (
     <div className="bg-[#E5E5E5] w-full h-fit ">
       <div className="w-[90vw] py-10  max-w-[1500px] mx-auto">
@@ -27,12 +33,19 @@ const Footer = () => {
               </p>
               <div className="flex flex-col">
                 <Link
-                  to="/about"
+                  to="/about-us"
                   className="font-sora text-right font-regular footerDesc"
                 >
                   {" "}
                   About Us
                 </Link>
+                <p
+                  // onClick={openModal}
+                  className="font-sora cursor-pointer text-right font-regular footerDesc mt-2"
+                >
+                  {" "}
+                  Report an issue
+                </p>
                 <Link
                   to="/faq"
                   className="font-sora text-right font-regular footerDesc mt-2"
@@ -41,7 +54,7 @@ const Footer = () => {
                   Frequently Asked Questions
                 </Link>
                 <Link
-                  to="/privacy"
+                  to="/privacy-policy"
                   className="font-sora text-right font-regular footerDesc mt-2"
                 >
                   {" "}
@@ -96,6 +109,7 @@ const Footer = () => {
           </p>
         </div>
       </div>
+      {isReportModalOpen && <ReportIssue closeModal={closeModal} />}
     </div>
   );
 };

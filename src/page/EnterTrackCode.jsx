@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Footer from "../components/Footer";
 import QuoteHeader from "../components/QuoteHeader";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,6 +6,10 @@ import PrimaryBtn from "../components/PrimaryBtn";
 
 const EnterTrackCode = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const inputRefs = useRef([]);
   const [focusedIndex, setFocusedIndex] = useState(null);

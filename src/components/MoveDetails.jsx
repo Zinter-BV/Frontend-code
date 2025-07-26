@@ -362,11 +362,13 @@ const MoveDetails = () => {
         <div className="bg-[#136AB5] flex justify-center w-fit mx-auto items-center rounded-[100px] p-3">
           <p className="text-white font-sans text-[14px]">GET A QUOTE</p>
         </div>
-        <h2 className="font-unbounded moveDetailsText text-white text-center font-bold my-2 text-[36px]">
-          Submit your move details
+        <h2 className="font-unbounded moveDetailsText text-white text-center font-bold my-2 text-[32px]">
+          Smarter Than a Form. Easier Than a Call
         </h2>
-        <p className="font-sans moveDetailsDesc text-center text-[18px] text-[#BCDFF6]">
-          Professional movers for you, It only takes a minute
+        <p className="font-sans moveDetailsDesc w-[60%] mx-auto text-center text-[18px] text-[#BCDFF6]">
+          Upload a few photos of your space and our AI scans your inventory and
+          instantly pulls in competitive quotes from our network of professional
+          movers.
         </p>
 
         <div className="w-full bg-white my-4 h-[80px] moveDetailsCtaContainer rounded-[10px] flex">
@@ -556,7 +558,7 @@ const MoveDetails = () => {
           {/* Get Quote Button */}
           <div className="w-[16%] flex justify-center p-3 moversBtnContainer items-center">
             <PrimaryBtn
-              handlePress={handlePress}
+              // handlePress={handlePress}
               className="text-[14px] moversBtn"
             >
               GET A QUOTE

@@ -29,7 +29,7 @@ const SellingPoint = () => {
         <p className="text-[#707070] font-sans text-[14px]">SELLING POINT</p>
       </div>
       <h2 className="font-unbounded text-[#121212] sellingPointText text-center font-bold my-2 text-[36px]">
-        Professional movers at your service
+        Elite Movers. Fully Vetted. Always Reliable.
       </h2>
       <p className="font-sans text-center sellingPointDesc text-[18px] text-[#9E9E9E] ">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod

@@ -12,17 +12,19 @@ const HeroSection = () => {
     <div className="  w-full  bg-gradient-to-b mt-[80px] from-[#E8F5F5] to-white">
       <div className="w-[90vw] heroSection pt-14 max-w-[1500px] items-center flex justify-between mx-auto">
         <div className="w-[60%] heroLeft ">
-          <h1 className="text-[56px] heroText leading-[69.44px] font-bold font-unbounded w-[90%]">
-            Experience the future of stress free moving today
+          <h1 className="text-[38px] heroText leading-[150%] font-bold font-unbounded w-[75%]">
+            Moving, Upgraded. No stress. No guesswork. Just tap, snap, and
+            relax.
           </h1>
-          <p className="my-[1rem] heroDesc font-sans text-[18px] leading-[6px] text-[#707070] ">
-            Reliable and Professional Movers Dedicated to a Seamless Moving
-            Experience
+          <p className="my-[1rem] heroDesc font-sans text-[16px] leading-[160%] w-[90%] text-[#707070] ">
+            Our platform uses AI to instantly identify your items, match you
+            with trusted movers, and streamline the entire process. One photo.
+            One minute. One less headache.
           </p>
           <div className="flex heroBtnContainer items-center">
             <PrimaryBtn
               dummy={true}
-              handlePress={() => navigate("/quote")}
+              // handlePress={() => navigate("/quote")}
               className={"text-[20px]"}
             >
               GET A QUOTE
@@ -30,7 +32,7 @@ const HeroSection = () => {
             <div className="ml-5 secoondaryBtnContaiiner">
               <SecondaryBtn
                 dummy={true}
-                handlePress={() => navigate("/track-code")}
+                // handlePress={() => navigate("/track-code")}
                 className={"text-[20px] "}
               >
                 TRACK MOVE

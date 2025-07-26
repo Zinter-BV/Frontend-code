@@ -8,9 +8,11 @@ const InventoryList = () => {
   const [isUploadImageModalOpen, setIsUploadImageModalOpen] = useState(false);
   const [isInventoryListModalOpen, setIsInventoryListModalModalOpen] =
     useState(false);
+  const [activeRoom, setActiveRoom] = useState(null); // ✅ added state for activeIcon text
 
-  // open inventorylist modal
-  const openIsInventoryList = () => {
+  // open inventory list modal with room name
+  const openIsInventoryList = (roomName) => {
+    setActiveRoom(roomName);
     setIsInventoryListModalModalOpen(true);
     setIsUploadImageModalOpen(false);
   };
@@ -19,7 +21,7 @@ const InventoryList = () => {
     setIsInventoryListModalModalOpen(false);
   };
 
-  // open uplo0ad image modal
+  // open upload image modal
   const openUploadImageModal = () => {
     setIsUploadImageModalOpen(true);
     setIsInventoryListModalModalOpen(false);
@@ -59,34 +61,35 @@ const InventoryList = () => {
             </svg>
           </button>
         </div>
+
         <UploadImageForAIRecognition
           openUploadImageModal={openUploadImageModal}
         />
+
+        {/* RoomItemContainers with updated props */}
         <RoomItemContainer
-          openIsInventoryList={openIsInventoryList}
+          openIsInventoryList={() => openIsInventoryList("Living Room")}
           activeIcon="Living Room"
         />
         <RoomItemContainer
-          openIsInventoryList={openIsInventoryList}
-          activeIcon="Toilet"
+          openIsInventoryList={() => openIsInventoryList("Toilet and bath")}
+          activeIcon="Toilet and bath"
         />
         <RoomItemContainer
-          openIsInventoryList={openIsInventoryList}
+          openIsInventoryList={() => openIsInventoryList("Dinning Room")}
           activeIcon="Dinning Room"
         />
         <RoomItemContainer
-          openIsInventoryList={openIsInventoryList}
+          openIsInventoryList={() => openIsInventoryList("Kitchen")}
           activeIcon="Kitchen"
         />
         <RoomItemContainer
-          openIsInventoryList={openIsInventoryList}
+          openIsInventoryList={() => openIsInventoryList("Bedroom")}
           activeIcon="Bedroom"
         />
-        <RoomItemContainer
-          openIsInventoryList={openIsInventoryList}
-          activeIcon="Bathroom"
-        />
       </div>
+
+      {/* Modals */}
       {isUploadImageModalOpen && (
         <UploadImageModal
           openIsInventoryList={openIsInventoryList}
@@ -96,6 +99,7 @@ const InventoryList = () => {
       )}
       {isInventoryListModalOpen && (
         <InventoryListModal
+          activeRoom={activeRoom} // ✅ passed here
           isInventoryListModalOpen={isInventoryListModalOpen}
           openUploadImageModal={openUploadImageModal}
           closeInventoryListModal={closeInventoryListModal}

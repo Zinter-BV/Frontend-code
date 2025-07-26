@@ -53,13 +53,13 @@ const UploadImageSuccess = ({
     };
   }, [index, words.length]);
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      getData();
-    }, 9000);
+  // useEffect(() => {
+  //   const timeout = setTimeout(() => {
+  //     getData();
+  //   }, 9000);
 
-    return () => clearTimeout(timeout); // Cleanup
-  }, []); // Empty dependency array ensures it runs once
+  //   return () => clearTimeout(timeout); // Cleanup
+  // }, []); // Empty dependency array ensures it runs once
 
   return (
     <div className="fixed top-0 z-50 left-0 backdrop-blur-[3px] bg-[rgba(0,0,0,0.10)] h-full w-full flex justify-center items-center">

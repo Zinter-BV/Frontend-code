@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import SelectImage from "../components/SelectImage";
 import UploadImageSuccess from "./UploadImageSuccess";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
 const UploadImageModal = ({
   closeUploadImageModal,
@@ -17,11 +19,45 @@ const UploadImageModal = ({
 
   const closeUploadSuccessModal = () => setIsUploadImageSuccess(false);
 
-  const uploadImage = () => {
-    if (allImages.length === 0) return;
+  // Remove the wrapper object - send dataToSend directly
+  const uploadImages = async () => {
+    const formData = new FormData();
+    allImages.forEach((image, index) => {
+      formData.append("images", image);
+    });
     console.log(allImages);
-    setIsUploadImageSuccess(true);
+    const response = await axios.post(
+      "https://involved-birgit-zinter-cb767b47.koyeb.app/api/MoveRequest/GetItemsByImage",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          accept: "application/json",
+        },
+      }
+    );
+    return response.data;
+  };
 
+  const mutation = useMutation({
+    mutationFn: uploadImages,
+    onSuccess: (data) => {
+      console.log(data);
+    },
+    onError: (error) => {
+      console.error("Error creating user:", error);
+    },
+  });
+
+  const fetchData = () => {
+    mutation.mutate(); // Remove parameter since it's already in the function
+  };
+
+  const uploadImage = () => {
+    // if (allImages.length === 0) return;
+    console.log(allImages);
+    // setIsUploadImageSuccess(true);
+    fetchData();
     // send image to API
     // const formData = new FormData();
     // allImages.forEach((file, index) => {
@@ -138,7 +174,7 @@ const UploadImageModal = ({
                 onImagesSelected={handleImagesSelected}
               />
               <SelectImage
-                title="Toilet Images"
+                title="Toilet and bath Images"
                 onImagesSelected={handleImagesSelected}
               />
             </div>
