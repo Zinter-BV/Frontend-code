@@ -19,7 +19,7 @@ const Home = () => {
       <Header />
       <HeroSection />
       <MoveDetails />
-      <TrustedBy />
+      {/* <TrustedBy /> */}
       <SellingPoint />
       <Process />
       <Testimonials />
