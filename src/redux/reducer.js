@@ -4,6 +4,7 @@ const initialState = {
   userMoveInfo: {},
   items: [],
   moreInfo: {},
+  moversData: {},
 };
 
 const UserReducer = (state = initialState, action) => {
@@ -22,6 +23,16 @@ const UserReducer = (state = initialState, action) => {
       return {
         ...state,
         moreInfo: action.payload,
+      };
+    case actionTypes.SET_MOVERS_DATA:
+      return {
+        ...state,
+        moversData: action.payload,
+      };
+    case actionTypes.RESET_MOVERS_DATA:
+      return {
+        ...state,
+        moversData: {},
       };
     case actionTypes.RESET_USER_INFO:
       return {

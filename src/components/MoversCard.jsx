@@ -1,10 +1,18 @@
 import React from "react";
 import img from "../Assets/Rectangle 4562.svg";
+import { useDispatch } from "react-redux";
+import { setMoversData } from "../redux/action";
 
-const MoversCard = ({ makeActive }) => {
+const MoversCard = ({ makeActive, quoteData }) => {
+  const dispatch = useDispatch();
+  const makeCardActive = () => {
+    dispatch(setMoversData(quoteData));
+    makeActive();
+  };
+
   return (
     <div
-      onClick={makeActive}
+      onClick={makeCardActive}
       className="relative w-full moversCardHolder h-fit border-[1px] cursor-pointer pb-3 border-[#e3e3e3] rounded-[16px]"
     >
       <div className="border-[0.5px] backdrop-blur-[3px] bg-[rgba(255,255,255,0.50)] border-[#D1D1D1] py-1 px-2  w-fit absolute top-5 left-5 items-center rounded-[18px] flex ">
@@ -28,7 +36,7 @@ const MoversCard = ({ makeActive }) => {
           <div className="flex items-center mt-2 justify-between">
             <p className="font-sans text-[24px] cardCompanyName leading-[38.5px] font-thin ">
               {" "}
-              Independent Movers
+              {quoteData?.companyName}
             </p>
             <div className="bg-[#DCFAE6] rounded-[4px] px-[8px] py-[4px] ">
               <p className="text-[#079455] cardCompanyAvailability text-[14px] font-sans leading-[18.2px] ">
@@ -46,7 +54,7 @@ const MoversCard = ({ makeActive }) => {
         <div className="flex items-center mt-2 justify-between">
           <p className="font-sans text-[32px] cardCompanyAmount leading-[38.5px] font-normal ">
             {" "}
-            $921
+            ${quoteData?.amount}
           </p>
 
           <p className="text-[#9e9e9e] cardCompanyFeatures font-normal text-[16px] leading-[25.6px] font-sans  ">
