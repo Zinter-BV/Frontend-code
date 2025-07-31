@@ -1,8 +1,12 @@
 import React from "react";
 import QuoteSuccessIcon from "../Assets/SVG/QuoteSuccess";
 import PrimaryBtn from "../components/PrimaryBtn";
+import { useSelector } from "react-redux";
+import { convertTo12Hour, formatDate } from "../utils";
 
 const PaymentSuccess = ({ closeSuccessModal }) => {
+  const moversData = useSelector((state) => state.user.moversData);
+  console.log(moversData);
   return (
     <div className="fixed top-0 z-50 left-0 backdrop-blur-[3px] bg-[rgba(0,0,0,0.10)] h-full w-full flex pb-7 justify-center paymentSuccessModal items-center">
       <div className="flex flex-col paymentSuccessModalBox rounded-[12px] bg-white w-[470px] h-fit justify-center">
@@ -23,14 +27,14 @@ const PaymentSuccess = ({ closeSuccessModal }) => {
             </p>
             <div className="flex justify-center items-center">
               <p className="text-[#121212] trackMoveSuccessInnerBoxText font-sans text-[18px] font-bold ">
-                25th March, 2025,
+                {formatDate(moversData?.moveDetails?.moveDate)}
               </p>
               <p className="text-[#121212] trackMoveSuccessInnerBoxText font-sans text-[18px] font-bold ml-2 ">
-                10:00 AM
+                {convertTo12Hour(moversData?.moveDetails?.moveTime)}
               </p>
             </div>
             <p className="text-[#121212] mt-2 text-center trackMoveSuccessInnerBoxText font-sans text-[18px] font-bold ">
-              Rozengracht 55, 1016 LZ Amsterdam
+              {moversData?.moveDetails?.from}
             </p>
             <div className="flex flex-wrap w-[90%] items-center mx-auto "></div>
           </div>

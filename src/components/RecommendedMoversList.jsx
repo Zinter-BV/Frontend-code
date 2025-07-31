@@ -7,7 +7,7 @@ import axios from "axios";
 // API function to fetch quotes
 const fetchQuotes = async () => {
   const response = await axios.get(
-    "https://involved-birgit-zinter-cb767b47.koyeb.app/api/Quote/GetAllQuotes?code=32DISE"
+    "https://involved-birgit-zinter-cb767b47.koyeb.app/api/Quote/GetAllQuotes?code=XUf2yX"
   );
 
   return response.data;

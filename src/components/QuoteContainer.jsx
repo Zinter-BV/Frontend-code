@@ -168,6 +168,15 @@ const QuoteContainer = ({ data }) => {
   // gets the whole data nneeded and puts in one object
   const user = useSelector((state) => state.user);
 
+  // Ensure your merge function creates the correct structure
+  function mergeTwoObjects(items, moreInfo) {
+    return {
+      items: items, // Should be array of {room, itemName, numberOfItems}
+      ...moreInfo, // Should contain all other required fields
+    };
+  }
+  const dataToSend = mergeTwoObjects(user?.items, user?.moreInfo);
+
   // Remove the wrapper object - send dataToSend directly
   const addUserDetails = async () => {
     const response = await axios.post(
@@ -176,16 +185,6 @@ const QuoteContainer = ({ data }) => {
     );
     return response.data;
   };
-
-  // Ensure your merge function creates the correct structure
-  function mergeTwoObjects(items, moreInfo) {
-    return {
-      items: items, // Should be array of {room, itemName, numberOfItems}
-      ...moreInfo, // Should contain all other required fields
-    };
-  }
-
-  const dataToSend = mergeTwoObjects(user?.items, user?.moreInfo);
 
   const mutation = useMutation({
     mutationFn: addUserDetails,

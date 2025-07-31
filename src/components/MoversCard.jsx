@@ -30,7 +30,7 @@ const MoversCard = ({ makeActive, quoteData }) => {
         </svg>
         <p className="ml-1 self-center text-[16px] font-sora ">4.3</p>
       </div>
-      <img src={img} alt="user" className="w-full" />
+      <img src={img} alt="user" className="w-full  " />
       <div className="border-b-[1px] pb-[20px] border-[#e3e3e3]">
         <div className="w-[90%] mx-auto ">
           <div className="flex items-center mt-2 justify-between">
