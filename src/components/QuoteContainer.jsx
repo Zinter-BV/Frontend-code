@@ -176,7 +176,8 @@ const QuoteContainer = ({ data }) => {
     };
   }
   const dataToSend = mergeTwoObjects(user?.items, user?.moreInfo);
-
+  // to display the code on the ui
+  const [serverResponse, setServerResponse] = useState({});
   // Remove the wrapper object - send dataToSend directly
   const addUserDetails = async () => {
     const response = await axios.post(
@@ -189,6 +190,7 @@ const QuoteContainer = ({ data }) => {
   const mutation = useMutation({
     mutationFn: addUserDetails,
     onSuccess: (data) => {
+      setServerResponse(data);
       console.log(data);
       setOpenSuccessModal(true);
       setEmail("");
@@ -442,7 +444,12 @@ const QuoteContainer = ({ data }) => {
           </PrimaryBtn>
         </div>
       </div>
-      {openSuccessModal && <QuoteSuccess closeModal={closeSuccessModal} />}
+      {openSuccessModal && (
+        <QuoteSuccess
+          serverResponse={serverResponse}
+          closeModal={closeSuccessModal}
+        />
+      )}
     </div>
   );
 };

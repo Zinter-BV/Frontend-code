@@ -17,6 +17,8 @@ const MoversContainer = ({ trackingCode }) => {
 
   const [isActive, setIsActive] = useState(false);
 
+  const [err, setErr] = useState(false);
+
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
 
   const moversData = useSelector((state) => state.user.moversData);
@@ -60,8 +62,13 @@ const MoversContainer = ({ trackingCode }) => {
   const mutation = useMutation({
     mutationFn: sendQuoteData,
     onSuccess: (data) => {
-      console.log(data);
-      setOpenSuccessModal(true);
+      if (data.responseStatus) {
+        setOpenSuccessModal(true);
+        setErr(false);
+      } else {
+        alert("Not Cool");
+        setErr(true);
+      }
     },
     onError: (error) => {
       console.error("Error creating user:", error);
@@ -75,7 +82,9 @@ const MoversContainer = ({ trackingCode }) => {
   // Function to handle moving forward in tabs
   const handleTabs = () => {
     if (activeTab >= 3) return; // Ensure we don't go beyond the last tab
-    setActiveTab((prevTab) => prevTab + 1);
+    if (err && activeTab === 2) {
+      return;
+    } else setActiveTab((prevTab) => prevTab + 1);
   };
 
   // Function to handle moving backward in tabs
