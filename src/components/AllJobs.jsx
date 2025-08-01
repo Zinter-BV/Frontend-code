@@ -22,6 +22,7 @@ import arrowDown from "../Assets/arrow-down-02.svg"
 import avatar from "../Assets/Gb-Avatar.svg"
 import dot from "../Assets/Dot.svg"
 import viewMore from "../Assets/Eye.svg"
+import SkeletonLine from "./SkeletonLineLoader";
 import { getAllJobs } from "../api/province";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "./loader";
@@ -35,32 +36,36 @@ import "./allJobs.css"
 const AllJobs = () => {
     const [pageNumber, setPageNumber] = useState(1);
     const [numberOfRecords, setNumberOfRecords] = useState(5);
+    // const [allCount, setAllCount] =
     const [allJobs, setAllJobs] = useState([]);
     const navigate = useNavigate();
 
     const { data, isLoading, error } = useQuery({
         queryKey: ["allJobs", pageNumber, numberOfRecords],
         queryFn: () => getAllJobs(pageNumber, numberOfRecords),
-        staleTime: Infinity,              // ✅ prevent re-fetching due to stale data
-        refetchOnWindowFocus: false,      // ✅ don't refetch on tab/window focus
-        refetchOnReconnect: false,        // ✅ don't refetch on network reconnect
+        staleTime: Infinity,              // prevent re-fetching due to stale data
+        refetchOnWindowFocus: false,      // don't refetch on tab/window focus
+        refetchOnReconnect: false,        // don't refetch on network reconnect
         refetchInterval: false,
     });
 
     useEffect(() => {
         if (data?.result) {
             setAllJobs(data.result.items);
-            console.log(allJobs)
+            // setAllCount(data.result.totalCount) // Set actual job data here
+            console.log("Fetched jobs:", data.result.items);
         } else if (error) {
-            console.log(error);
+            console.log("Error fetching jobs:", error);
         }
     }, [data, error]);
 
     useEffect(() => {
-        console.log("Updated allJobs:", allJobs); // ✅ this logs after state updates
+        console.log("Updated allJobs:", allJobs);
     }, [allJobs]);
 
-    const handleViewMore = () => {
+    const handleViewMore = (moveCode, moveId) => {
+        sessionStorage.setItem('moveCode', moveCode)
+        sessionStorage.setItem('moveId', moveId)
         navigate("/view-new-jobs");
     };
 
@@ -123,8 +128,62 @@ const AllJobs = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {allJobs.map((job, index) => {
+                            {isLoading &&
                                 <tr>
+                                    <td>
+                                        <SkeletonLine />
+                                    </td>
+                                    <td>
+                                        <SkeletonLine />
+                                    </td>
+                                    <td>
+                                        <SkeletonLine />
+                                    </td>
+                                    <td>
+                                        <SkeletonLine />
+                                    </td>
+
+                                </tr>
+
+                            }
+                            {isLoading &&
+                                <tr>
+                                    <td>
+                                        <SkeletonLine />
+                                    </td>
+                                    <td>
+                                        <SkeletonLine />
+                                    </td>
+                                    <td>
+                                        <SkeletonLine />
+                                    </td>
+                                    <td>
+                                        <SkeletonLine />
+                                    </td>
+
+                                </tr>
+
+                            }
+                            {isLoading &&
+                                <tr>
+                                    <td>
+                                        <SkeletonLine />
+                                    </td>
+                                    <td>
+                                        <SkeletonLine />
+                                    </td>
+                                    <td>
+                                        <SkeletonLine />
+                                    </td>
+                                    <td>
+                                        <SkeletonLine />
+                                    </td>
+
+                                </tr>
+
+                            }
+                            {allJobs.map((job, index) => (
+                                <tr key={index}>
                                     <td>
                                         <div className="name_td td">
                                             <div>
@@ -147,9 +206,7 @@ const AllJobs = () => {
                                             <span>
                                                 <img src={dot} alt="" />
                                             </span>
-                                            <span>
-                                                New Request
-                                            </span>
+                                            <span>New Request</span>
                                         </div>
                                     </td>
                                     <td>
@@ -157,17 +214,18 @@ const AllJobs = () => {
                                             <div className="progress_bar_moving_new"></div>
                                         </div>
                                     </td>
-                                    <td className="view" onClick={handleViewMore}>
+                                    <td className="view" onClick={() => handleViewMore(job.moveCode, job.moveId)}>
                                         <img src={viewMore} alt="view more" />
                                     </td>
                                 </tr>
-                            })}
+                            ))}
+        
 
                         </tbody>
                     </table>
                 </div>
             </div>
-            {isLoading && <LoaderInApp />}
+            {/* {true && <Loader />} */}
         </div>
     )
 }

@@ -50,7 +50,7 @@ const FirstStepCompanies = () => {
             } else {
                 setShowTick(true);
                 setShowError(false);
-                console.log("Company Data:", data);
+                // console.log("Company Data:", data);
                 setCompanyName(data.result.companyName)
                 setPhoneNumber(data.result.phoneNumber)
                 setRegistrationDate(data.result.registerationDate)

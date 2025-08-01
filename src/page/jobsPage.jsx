@@ -30,17 +30,17 @@ const JobsPage = () => {
                     <div className={activeTab === "transit" ? "job_header_text_active" : "job_header_text"}
                         onClick={() => setActiveTab("transit")}>
                         <span>In Transit Jobs</span>
-                        <span>12</span>
+                        <span>0</span>
                     </div>
                     <div className={activeTab === "complete" ? "job_header_text_active" : "job_header_text"}
                         onClick={() => setActiveTab("complete")}>
                         <span>Completed Jobs</span>
-                        <span>98</span>
+                        <span>0</span>
                     </div>
                     <div className={activeTab === "cancel" ? "job_header_text_active" : "job_header_text"}
                         onClick={() => setActiveTab("cancel")}>
                         <span>Cancelled Jobs</span>
-                        <span>2</span>
+                        <span>0</span>
                     </div>
                 </div>
                 <div>

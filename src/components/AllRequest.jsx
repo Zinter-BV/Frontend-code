@@ -30,7 +30,6 @@ import "./allJobs.css"
 
 const AllJobs = () => {
     const navigate = useNavigate()
-
     const handleViewMore = () => {
 
         navigate("/view-new-jobs")

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import OSMMap from "../components/OsMap";
 // import JobsPage from "./JobsPage";
 // import SideBar from "../components/SideBar";
@@ -22,6 +22,10 @@ import avatar from "../Assets/Gb-Avatar.svg"
 import dot from "../Assets/canceled_dot.svg"
 import viewMore from "../Assets/Eye.svg"
 import "./cancelledJobs.css"
+import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import SkeletonLine from "./SkeletonLineLoader";
+import { getCancelledJobs } from "../api/province";
 
 const CompletedJobs = () => {
     const netherlandsMoves = [
@@ -86,6 +90,37 @@ const CompletedJobs = () => {
             route: "Rotterdam (Noord - Spangen)",
         },
     ];
+    const [pageNumber, setPageNumber] = useState(1);
+    const [numberOfRecords, setNumberOfRecords] = useState(5);
+    const [cancelledJobs, setCancelledJobs] = useState([]);
+    const navigate = useNavigate();
+    const { data, isLoading, error } = useQuery({
+        queryKey: ["cancelledJobs", pageNumber, numberOfRecords],
+        queryFn: () => getCancelledJobs(pageNumber, numberOfRecords),
+        staleTime: Infinity,              // prevent re-fetching due to stale data
+        refetchOnWindowFocus: false,      // don't refetch on tab/window focus
+        refetchOnReconnect: false,        // don't refetch on network reconnect
+        refetchInterval: false,
+    });
+    useEffect(() => {
+        if (data?.result) {
+            setCancelledJobs(data.result.items); 
+            // setAllCount(data.result.totalCount)// Set actual job data here
+            console.log("Fetched jobs:", data.result.items);
+        } else if (error) {
+            console.log("Error fetching jobs:", error);
+        }
+    }, [data, error]);
+
+    useEffect(() => {
+        console.log("Updated allJobs:", cancelledJobs);
+    }, [cancelledJobs]);
+
+    const handleViewMore = (moveCode, moveId) => {
+        sessionStorage.setItem('moveCode', moveCode)
+        sessionStorage.setItem('moveId', moveId)
+        navigate("/view-new-jobs");
+    };
 
     return (
         <div>
@@ -145,7 +180,7 @@ const CompletedJobs = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {netherlandsMoves.map((move, index) => (
+                            {/* {netherlandsMoves.map((move, index) => (
                                 <tr key={index}>
                                     <td>
                                         <div className="name_td td">
@@ -178,6 +213,98 @@ const CompletedJobs = () => {
                                         </div>
                                     </td>
                                     <td className="view">
+                                        <img src={viewMore} alt="view more" />
+                                    </td>
+                                </tr>
+                            ))} */}
+
+                            {isLoading &&
+                                <tr>
+                                    <td>
+                                        <SkeletonLine />
+                                    </td>
+                                    <td>
+                                        <SkeletonLine />
+                                    </td>
+                                    <td>
+                                        <SkeletonLine />
+                                    </td>
+                                    <td>
+                                        <SkeletonLine />
+                                    </td>
+
+                                </tr>
+
+                            }
+                            {isLoading &&
+                                <tr>
+                                    <td>
+                                        <SkeletonLine />
+                                    </td>
+                                    <td>
+                                        <SkeletonLine />
+                                    </td>
+                                    <td>
+                                        <SkeletonLine />
+                                    </td>
+                                    <td>
+                                        <SkeletonLine />
+                                    </td>
+
+                                </tr>
+
+                            }
+                            {isLoading &&
+                                <tr>
+                                    <td>
+                                        <SkeletonLine />
+                                    </td>
+                                    <td>
+                                        <SkeletonLine />
+                                    </td>
+                                    <td>
+                                        <SkeletonLine />
+                                    </td>
+                                    <td>
+                                        <SkeletonLine />
+                                    </td>
+
+                                </tr>
+
+                            }
+                            {cancelledJobs.map((job, index) => (
+                                <tr key={index}>
+                                    <td>
+                                        <div className="name_td td">
+                                            <div>
+                                                <img src={avatar} alt="user-initials" />
+                                            </div>
+                                            <div className="name_text">
+                                                <span>{job.fullName}</span>
+                                                <span>{job.email}</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div className="move_summary td">
+                                            <span>{job.numberOfRooms} Bedroom House</span>
+                                            <span>{job.address}</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div className="status_cancel td">
+                                            <span>
+                                                <img src={dot} alt="" />
+                                            </span>
+                                            <span>Cancelled</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div className="progress_bar_cancel">
+                                            <div className="progress_bar_moving_cancel"></div>
+                                        </div>
+                                    </td>
+                                    <td className="view" onClick={() => handleViewMore(job.moveCode, job.moveId)}>
                                         <img src={viewMore} alt="view more" />
                                     </td>
                                 </tr>

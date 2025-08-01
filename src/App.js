@@ -28,6 +28,7 @@ import UsersPage from "./page/UserPageAdmin";
 import Transactions from "./page/Transaction";
 import AdminLogin from "./page/AdminLogin";
 import Resolution from "./page/Resolution"
+import VendorLogin from "./page/VendorLogin";
 
 function App() {
   // debugger
@@ -43,6 +44,7 @@ function App() {
         {/* { pathname === '/overview' && <SideBar /> } */}
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/vendor-login" element={<VendorLogin/>}/>
           <Route path="/quote" element={<GetQuote />} />
           <Route path="/faq" element={<Faq />} />
           <Route path="/about-us" element={<AboutUs />} />

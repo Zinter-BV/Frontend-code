@@ -6,23 +6,23 @@ import arrowBack from "../Assets/arrow-back-btn.svg"
 import dotCompleted from "../Assets/completed_dot.svg"
 import movingFromIcon from "../Assets/point-a.svg"
 import MovementMap from "../components/GoogleMapMove";
-import displayPicture from "../Assets/avatar-icon.svg"
-import sofaIcon from "../Assets/sofa-03.svg"
-import floorLampIcon from "../Assets/lamp.svg"
-import clockIcon from "../Assets/vintage-clock.svg"
-import tableIcon from "../Assets/table-01.svg"
-import poolTable from "../Assets/pool-table.svg"
-import radioIcon from "../Assets/radio.svg"
-import tvStandIcon from "../Assets/television-table.svg"
-import remoteControl from "../Assets/remote-control.svg"
-import magazineRack from "../Assets/bookshelf-02.svg"
-import indoorPlant from "../Assets/flower-pot.svg"
-import kingSizeBed from "../Assets/bed-double.svg"
-import babyBedIcon from "../Assets/baby-bed-02.svg"
-import curtains from "../Assets/curtains.svg"
-import bookShelf from "../Assets/bookshelf-02.svg"
-import monitorIcon from "../Assets/modern-tv.svg"
-import chairIcon from "../Assets/chair-02.svg"
+// import displayPicture from "../Assets/avatar-icon.svg"
+// import sofaIcon from "../Assets/sofa-03.svg"
+// import floorLampIcon from "../Assets/lamp.svg"
+// import clockIcon from "../Assets/vintage-clock.svg"
+// import tableIcon from "../Assets/table-01.svg"
+// import poolTable from "../Assets/pool-table.svg"
+// import radioIcon from "../Assets/radio.svg"
+// import tvStandIcon from "../Assets/television-table.svg"
+// import remoteControl from "../Assets/remote-control.svg"
+// import magazineRack from "../Assets/bookshelf-02.svg"
+// import indoorPlant from "../Assets/flower-pot.svg"
+// import kingSizeBed from "../Assets/bed-double.svg"
+// import babyBedIcon from "../Assets/baby-bed-02.svg"
+// import curtains from "../Assets/curtains.svg"
+// import bookShelf from "../Assets/bookshelf-02.svg"
+// import monitorIcon from "../Assets/modern-tv.svg"
+// import chairIcon from "../Assets/chair-02.svg"
 import calendarIcon from "../Assets/calendar-minus-02.svg"
 import messageIcon from "../Assets/icon-park-outline_message.svg"
 import closeIcon from "../Assets/close-modal-icon.svg"
@@ -103,7 +103,7 @@ const UpcomingJobView = () => {
                         {showMoveDetails && <div className="header_upcoming_details">
                             <div className='upcoming_details_view'>
                                 <div>
-                                    <img src={displayPicture} alt="" />
+                                    {/* <img src={displayPicture} alt="" /> */}
                                 </div>
                                 <div className="header_job_details_user">
                                     <h2>Anna van Dijk</h2>
@@ -185,7 +185,7 @@ const UpcomingJobView = () => {
                                     <span>10:00 AM</span>
                                 </div>
                             </div>
-                            <div className="inventory_tab_job">
+                            {/* <div className="inventory_tab_job">
                                 <div className="inventory_tab_job_head">
                                     <h3>Living Room Inventory List</h3>
                                 </div>
@@ -282,7 +282,7 @@ const UpcomingJobView = () => {
                                         <span> <img src={indoorPlant} alt="" /> </span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                             {/* <table className="table_jobs">
                                 <thead>
                                     <tr className="move_jobs_head">
@@ -401,7 +401,7 @@ const UpcomingJobView = () => {
                             <div className="header_upcoming_details">
                                 <div className='upcoming_details_view'>
                                     <div>
-                                        <img src={displayPicture} alt="" />
+                                        {/* <img src={displayPicture} alt="" /> */}
                                     </div>
                                     <div className="header_job_details_user">
                                         <h2>Anna van Dijk</h2>
@@ -500,7 +500,7 @@ const UpcomingJobView = () => {
                         <div className="body_quote">
                             <div className="body_quote_first">
                                 <div>
-                                    <img src={displayPicture} alt="" />
+                                    {/* <img src={displayPicture} alt="" /> */}
                                 </div>
                                 <div className="body_quote_details">
                                     <h2>Anna van Dijk</h2>
@@ -576,7 +576,7 @@ const UpcomingJobView = () => {
                     <div className="body_quote_sucess_modal">
                         <div className="body_quote_first">
                             <div>
-                                <img src={displayPicture} alt="" />
+                                {/* <img src={displayPicture} alt="" /> */}
                             </div>
                             <div className="body_quote_details">
                                 <h2>Anna van Dijk</h2>

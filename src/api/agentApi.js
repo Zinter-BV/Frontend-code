@@ -17,6 +17,13 @@ export const registerAgent = async ({ email, kvkNumber, companyName, password, i
     return response.data
 }
 
+export const loginAgent = async ({user, password}) => {
+    const response = await api.post(`Auth/LoginUser`, {
+        user, password
+    })
+    return response.data
+}
+
 export const getVerificationAgent = async ({ email, password }) => {
     const response = await api.post(`Agent/GetVerificationCode`, {
         email, password
@@ -26,5 +33,6 @@ export const getVerificationAgent = async ({ email, password }) => {
 
 export const moversDashboardAnalytics = async () => {
     const response = await api.get(`Agent/DashBoardAnalytics`)
+
     return response.data
 }

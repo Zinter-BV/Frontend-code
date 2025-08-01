@@ -8,6 +8,7 @@
     /* background-color: #fff; */
     backdrop-filter: blur(4px);
     height: 100vh;
+    z-index: 2;
 }
 
 .container-loader {

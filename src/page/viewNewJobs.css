@@ -373,6 +373,18 @@
     margin: 0 auto;
 }
 
+.input_date_time {
+    display: flex;
+    gap: 5px;
+}
+
+.input_date_time input {
+    border: 1px solid rgba(227, 227, 227, 1);
+    padding: 8px 12px;
+    outline: none;
+    width: 50%;
+}
+
 .tag_input_wrapper_view {
     display: flex;
     flex-wrap: wrap;
@@ -504,6 +516,13 @@
     color: #fff;
     border-radius: 1000px;
     margin: 0 auto;
+}
+
+.inventory_display {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    border-top: 1px solid #e5e7eb;
 }
 
 /* .dropdown_list {

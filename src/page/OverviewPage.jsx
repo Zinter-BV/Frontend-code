@@ -30,6 +30,7 @@ import settingsIcon from "../Assets/settings.svg"
 import { useQuery } from "@tanstack/react-query";
 import { moversDashboardAnalytics } from "../api/agentApi";
 import Loader from "../components/loader";
+import AllJobs from "../components/AllJobs";
 
 
 
@@ -97,7 +98,7 @@ const OverviewPage = () => {
                             </div>
                             <div className="view_jobs_body">
                                 <div className="view_jobs_text">
-                                    <span>12 New Jobs</span>
+                                    <span>{incomingRequest} New Jobs</span>
                                     <span>Provide accurate quote</span>
                                 </div>
                                 <div>
@@ -231,28 +232,9 @@ const OverviewPage = () => {
                     </div>
                 </div>
                 <div className="table_container">
-                    <div className="table_header">
-                        <div className="left_table_head">
-                            <h1>All Jobs</h1>
-                        </div>
-                        <div className="right_table_head">
-                            <div className="search_icon">
-                                <input type="text" placeholder="Search" />
-                                <img src={searchIcon} alt="" />
-                            </div>
-                            <div className="filter_con">
-                                <span>
-                                    <img src={filterIcon} alt="" />
-                                </span>
-                                <span className="filter_con_text">Filter</span>
-                            </div>
-                            <div className="refresh">
-                                <img src={refreshIcon} alt="" />
-                            </div>
-                        </div>
-                    </div>
+        
                     <div className="table_container_all" >
-                        <table>
+                        {/* <table>
                             <thead>
                                 <tr>
                                     <th>
@@ -281,8 +263,7 @@ const OverviewPage = () => {
                                     </th>
                                     <th>
                                         <div className="view_more_thead">
-                                            {/* <span>View</span>
-                                            <img src={arrowDown} alt="" /> */}
+                                        
                                         </div>
                                     </th>
 
@@ -324,7 +305,8 @@ const OverviewPage = () => {
                                 ))}
 
                             </tbody>
-                        </table>
+                        </table> */}
+                        <AllJobs/>
                     </div>
                 </div>
             </div>
