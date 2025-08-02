@@ -18,7 +18,7 @@ const QuoteSuccess = ({ closeModal, serverResponse }) => {
           </h2>
           <p className="text-[16px] mb-3 font-light leading-[25.6px] text-[#525252] font-sans ">
             Your quotes are on their way to your email
-            {/* clear this whenn ready  */}
+            {/* clear this when ready  */}
             <p>code: {serverResponse?.result}</p>
           </p>
         </div>
