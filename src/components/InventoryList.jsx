@@ -8,7 +8,7 @@ const InventoryList = () => {
   const [isUploadImageModalOpen, setIsUploadImageModalOpen] = useState(false);
   const [isInventoryListModalOpen, setIsInventoryListModalModalOpen] =
     useState(false);
-  const [activeRoom, setActiveRoom] = useState(null); // ✅ added state for activeIcon text
+  const [activeRoom, setActiveRoom] = useState(null);
 
   // open inventory list modal with room name
   const openIsInventoryList = (roomName) => {
@@ -99,7 +99,7 @@ const InventoryList = () => {
       )}
       {isInventoryListModalOpen && (
         <InventoryListModal
-          activeRoom={activeRoom} // ✅ passed here
+          activeRoom={activeRoom}
           isInventoryListModalOpen={isInventoryListModalOpen}
           openUploadImageModal={openUploadImageModal}
           closeInventoryListModal={closeInventoryListModal}
