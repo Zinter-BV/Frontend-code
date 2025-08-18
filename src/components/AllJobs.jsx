@@ -38,6 +38,7 @@ const AllJobs = () => {
     const [numberOfRecords, setNumberOfRecords] = useState(5);
     // const [allCount, setAllCount] =
     const [allJobs, setAllJobs] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
     const navigate = useNavigate();
 
     const { data, isLoading, error } = useQuery({
@@ -49,11 +50,17 @@ const AllJobs = () => {
         refetchInterval: false,
     });
 
+    const filteredJobs = allJobs.filter((job) =>
+        job.fullName?.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     useEffect(() => {
         if (data?.result) {
+            sessionStorage.removeItem("totalAllJobs")
             setAllJobs(data.result.items);
             // setAllCount(data.result.totalCount) // Set actual job data here
             console.log("Fetched jobs:", data.result.items);
+            sessionStorage.setItem("totalAllJobs", data.result.totalCount)
         } else if (error) {
             console.log("Error fetching jobs:", error);
         }
@@ -79,7 +86,8 @@ const AllJobs = () => {
                     </div>
                     <div className="right_table_head">
                         <div className="search_icon">
-                            <input type="text" placeholder="Search" />
+                            <input value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)} type="text" placeholder="Search" />
                             <img src={searchIcon} alt="" />
                         </div>
                         <div className="filter_con">
@@ -182,7 +190,7 @@ const AllJobs = () => {
                                 </tr>
 
                             }
-                            {allJobs.map((job, index) => (
+                            {filteredJobs.map((job, index) => (
                                 <tr key={index}>
                                     <td>
                                         <div className="name_td td">
@@ -219,7 +227,7 @@ const AllJobs = () => {
                                     </td>
                                 </tr>
                             ))}
-        
+
 
                         </tbody>
                     </table>

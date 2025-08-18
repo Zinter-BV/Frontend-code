@@ -92,6 +92,7 @@ const NewJobs = () => {
     ];
     const [pageNumber, setPageNumber] = useState(1);
     const [numberOfRecords, setNumberOfRecords] = useState(5);
+    const [searchTerm, setSearchTerm] = useState("");
     const [newJobs, setNewJobs] = useState([]);
     const navigate = useNavigate();
 
@@ -105,24 +106,30 @@ const NewJobs = () => {
     });
     useEffect(() => {
         if (data?.result) {
+            sessionStorage.removeItem("totalNewJobs")
             setNewJobs(data.result.items); // Set actual job data here
             console.log("Fetched jobs:", data.result.items);
+            sessionStorage.setItem("totalNewJobs", data.result.totalCount)
         } else if (error) {
             console.log("Error fetching jobs:", error);
         }
     }, [data, error]);
 
+    const filteredJobs = allJobs.filter((job) =>
+        job.fullName?.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     useEffect(() => {
         console.log("Updated allJobs:", newJobs);
     }, [newJobs]);
 
-        const handleViewMore = (moveCode, moveId) => {
+    const handleViewMore = (moveCode, moveId) => {
         sessionStorage.setItem('moveCode', moveCode)
         sessionStorage.setItem('moveId', moveId)
         navigate("/view-new-jobs");
     };
 
-    
+
 
     return (
         <div>
@@ -133,7 +140,8 @@ const NewJobs = () => {
                     </div>
                     <div className="right_table_head">
                         <div className="search_icon">
-                            <input type="text" placeholder="Search" />
+                            <input value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)} type="text" placeholder="Search" />
                             <img src={searchIcon} alt="" />
                         </div>
                         <div className="filter_con">
@@ -236,7 +244,7 @@ const NewJobs = () => {
                                 </tr>
 
                             }
-                            {newJobs.map((job, index) => (
+                            {filteredJobs.map((job, index) => (
                                 <tr key={index}>
                                     <td>
                                         <div className="name_td td">

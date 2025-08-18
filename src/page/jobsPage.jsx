@@ -20,27 +20,27 @@ const JobsPage = () => {
                     <div className={activeTab === "all" ? "job_header_text_active" : "job_header_text"}
                         onClick={() => setActiveTab("all")}>
                         <span>All Jobs</span>
-                        <span>175</span>
+                        <span> {sessionStorage.getItem("totalAllJobs")} </span>
                     </div>
                     <div className={activeTab === "new" ? "job_header_text_active" : "job_header_text"}
                         onClick={() => setActiveTab("new")}>
                         <span>New Jobs</span>
-                        <span>18</span>
+                        <span> {sessionStorage.getItem("totalNewJobs")} </span>
                     </div>
                     <div className={activeTab === "transit" ? "job_header_text_active" : "job_header_text"}
                         onClick={() => setActiveTab("transit")}>
                         <span>In Transit Jobs</span>
-                        <span>0</span>
+                        <span> {sessionStorage.getItem("totalInTransit")} </span>
                     </div>
                     <div className={activeTab === "complete" ? "job_header_text_active" : "job_header_text"}
                         onClick={() => setActiveTab("complete")}>
                         <span>Completed Jobs</span>
-                        <span>0</span>
+                        <span> {sessionStorage.getItem("totalCompletedJobs")} </span>
                     </div>
                     <div className={activeTab === "cancel" ? "job_header_text_active" : "job_header_text"}
                         onClick={() => setActiveTab("cancel")}>
                         <span>Cancelled Jobs</span>
-                        <span>0</span>
+                        <span> {sessionStorage.getItem("totalCancelledJobs")} </span>
                     </div>
                 </div>
                 <div>

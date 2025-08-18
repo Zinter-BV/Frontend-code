@@ -114,8 +114,11 @@ const InTransitJobs = () => {
     });
     useEffect(() => {
         if (data?.result) {
+            sessionStorage.removeItem("totalInTransit")
             setInProgressJobs(data.result.items); // Set actual job data here
             console.log("Fetched jobs:", data.result.items);
+            sessionStorage.setItem("totalInTransit", data.result.totalCount)
+
         } else if (error) {
             console.log("Error fetching jobs:", error);
         }
