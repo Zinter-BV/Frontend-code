@@ -5,6 +5,10 @@ const Payment = () => {
   const [expiry, setExpiry] = useState("");
   const [cvv, setCvv] = useState("");
 
+  const handlePayment = () => {
+    
+  }
+
   // card number
   const formatCardNumber = (value) => {
     // Remove non-numeric characters
