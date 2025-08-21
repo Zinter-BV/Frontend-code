@@ -104,9 +104,11 @@ const CompletedJobs = () => {
     });
     useEffect(() => {
         if (data?.result) {
-            setCancelledJobs(data.result.items); 
+            sessionStorage.removeItem("totalCancelledJobs")
+            setCancelledJobs(data.result.items);
             // setAllCount(data.result.totalCount)// Set actual job data here
             console.log("Fetched jobs:", data.result.items);
+            sessionStorage.setItem("totalCancelledJobs", data.result.totalCount)
         } else if (error) {
             console.log("Error fetching jobs:", error);
         }
