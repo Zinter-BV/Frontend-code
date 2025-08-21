@@ -119,7 +119,11 @@ const Header = () => {
                 <p className="ml-[8px] font-sans text-[#373737] ">Track Move</p>
               </div>
             </Link>
+<<<<<<< HEAD
             <Link to="/get-started">
+=======
+            <Link>
+>>>>>>> 3a13f3528a98cd57025ea7702d883628bf0ec3ce
               <div className="p-[8px] hover:bg-[#f7f7f7] border-t-[1px] border-[#E4F2FB] flex items-center w-full ">
                 <TruckIcon />
                 <p className="ml-[8px] font-sans text-[#373737] ">

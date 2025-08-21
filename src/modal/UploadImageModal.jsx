@@ -108,7 +108,11 @@ const UploadImageModal = ({
           <div className="w-[90%] py-4 mx-auto h-full ">
             <div className="h-[42px] w-fit rounded-[1000px] border-[1px] p-[3px] border-[#E5E5E5] flex items-center ">
               <div
+<<<<<<< HEAD
                 onClick={() => openIsInventoryList("Living Room")}
+=======
+                onClick={openIsInventoryList}
+>>>>>>> 3a13f3528a98cd57025ea7702d883628bf0ec3ce
                 className={`h-[36px] mr-1 cursor-pointer {${!isUploadImageModalOpen} && border-[1px]}  rounded-[1000px] p-[10px] flex justify-center items-center border-[#E5E5E5] `}
               >
                 <p className="font-sans text-[16px] inventoryListModal leading-[25.6px] text-[#9e9e9e] ">
