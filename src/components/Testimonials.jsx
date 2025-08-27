@@ -6,14 +6,16 @@ import "./testimonials.css";
 import user from "../Assets/user.png";
 import user1 from "../Assets/4c1f020e665b93ab6ff1e8297abbedb1dda92198.jpg";
 import user2 from "../Assets/dcbfbd2b7302409e7e9d0a16dd17c2a75fb19840.png";
+import { useTranslation } from "react-i18next";
 
 const Testimonials = () => {
   const scrollContainerRef = useRef(null);
+  const { t } = useTranslation();
 
   const data = [
     {
       id: 1,
-      text: "”I uploaded five photos from my phone and had a quote in minutes. Movers showed up exactly when they said they would.”",
+      text: t("testimonials.testimonial1"),
       name: "Fatima Noor",
       moveType: "Studio Move",
       location: "Rotterham",
@@ -21,7 +23,7 @@ const Testimonials = () => {
     },
     {
       id: 2,
-      text: "“Honestly, it felt too easy. I expected forms and stress but it was all handled through the platform.”",
+      text: t("testimonials.testimonial2"),
       name: "Koen de Vries",
       moveType: "Family Move",
       location: "Eindhoven",
@@ -29,7 +31,7 @@ const Testimonials = () => {
     },
     {
       id: 3,
-      text: "“I hate moving. But this time? It was smooth, fast, and didn’t wreck my weekend.”",
+      text: t("testimonials.testimonial3"),
       name: "Fatima Noor",
       moveType: "2-Bedroom Apartment",
       location: "Utrecht",
@@ -65,11 +67,13 @@ const Testimonials = () => {
     <div className="bg-[#E8F5F5] w-full h-fit">
       <div className="w-[90vw] py-20 testimonialContainer max-w-[1500px] mx-auto">
         <div className="bg-white testimonialsSmall flex justify-center w-fit border-[#FFDA5B] border-2 items-center rounded-[100px] p-3">
-          <p className="text-[#4] font-sans text-[14px]">TESTIMONIALS</p>
+          <p className="text-[#4] font-sans text-[14px]">
+            {t("testimonials.main")}
+          </p>
         </div>
         <div className="flex testimonialHeader justify-between my-10">
           <h2 className="font-unbounded testimonialHeaderText text-[#121212] font-bold w-[80%] text-[48px]">
-            Real People. Real Moves. Real Peace of Mind.
+            {t("testimonials.title")}
           </h2>
           <div className="flex arrowsContainer self-end">
             <div

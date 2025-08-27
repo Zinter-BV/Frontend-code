@@ -4,28 +4,29 @@ import StarIcon from "../Assets/SVG/StarIcon";
 import HeroIcon from "../Assets/SVG/HeroIcon";
 import DiamondIcon from "../Assets/SVG/DiamondIcon";
 import PrimaryBtn from "./PrimaryBtn";
+import { useTranslation } from "react-i18next";
 
 const Process = () => {
+  const { t } = useTranslation();
   return (
     <div className="bg-[#FFF5DA] w-full h-fit">
       <div className="w-[90vw] py-12 max-w-[1500px] mx-auto">
         <h2 className="font-unbounded processText text-[#121212] mb-10 font-bold w-[95%] text-[56px]">
-          Your Move, in 60 Seconds.
+          {t("process.title")}
         </h2>
         <div className="relative mt-16 flex processSection justify-between w-full">
           <div className="w-[50%] processLeft ">
             {/* Step 1 */}
             <div className="flex mb-8 items-start">
               <div className="h-[40px] min-w-[40px] rounded-full bg-[#fff] flex justify-center items-center border-2 border-[#BCDFF6]">
-                <p className="font-unbounded text-[24px] text-[#136AB5]">1</p>
+                <p className="font-unbounded text-[24px] text-[#136AB5]">{1}</p>
               </div>
               <div className="ml-4">
                 <h3 className="font-unbounded processLeftText text-[#121212] mb-3 font-bold text-[24px]">
-                  Submit your move details
+                  {t("process.step1Title")}
                 </h3>
                 <p className="font-sans processLeftDesc text-[18px] w-[70%] text-[#373737]">
-                  Fill in our quick form with your move's start and end
-                  locations, and size of your move
+                  {t("process.step1Description")}
                 </p>
               </div>
             </div>
@@ -37,10 +38,10 @@ const Process = () => {
               </div>
               <div className="ml-4">
                 <h3 className="font-unbounded text-[#121212] mb-3 font-bold text-[24px] processLeftText">
-                  Snap your space
+                  {t("process.step2Title")}
                 </h3>
                 <p className="font-sans text-[18px] w-[70%] text-[#373737] processLeftDesc">
-                  Take a few quick photos of the rooms or items you’re moving.
+                  {t("process.step2Description")}
                 </p>
               </div>
             </div>
@@ -52,11 +53,10 @@ const Process = () => {
               </div>
               <div className="ml-4">
                 <h3 className="font-unbounded text-[#121212] mb-3 font-bold text-[24px] processLeftText">
-                  Get real-time quotes
+                  {t("process.step3Title")}
                 </h3>
                 <p className="font-sans text-[18px] w-[70%] text-[#373737] processLeftDesc">
-                  Our AI scans your inventory and returns accurate estimates
-                  from trusted pros.
+                  {t("process.step3Description")}
                 </p>
               </div>
             </div>
@@ -68,11 +68,10 @@ const Process = () => {
               </div>
               <div className="ml-4">
                 <h3 className="font-unbounded text-[#121212] mb-3 font-bold text-[24px] processLeftText">
-                  Pick your match
+                  {t("process.step4Title")}
                 </h3>
                 <p className="font-sans text-[18px] w-[70%] text-[#373737] processLeftDesc">
-                  Compare offers. Read reviews. Book the mover that fits your
-                  needs and budget.
+                  {t("process.step4Description")}
                 </p>
               </div>
             </div>

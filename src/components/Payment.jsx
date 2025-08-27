@@ -1,12 +1,11 @@
+import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
 const Payment = () => {
   const [cardNumber, setCardNumber] = useState("");
   const [expiry, setExpiry] = useState("");
   const [cvv, setCvv] = useState("");
-
-  const handlePayment = () => {};
-
   // card number
   const formatCardNumber = (value) => {
     // Remove non-numeric characters

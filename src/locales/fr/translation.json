@@ -1,0 +1,82 @@
+{
+  "navigation": {
+    "home": "Accueil",
+    "about": "À propos",
+    "faqs": "Questions Fréquentes"
+  },
+  "hero": {
+    "getStarted": "COMMENCER",
+    "headline": "Déménagement, Amélioré. Pas de stress. Pas de devinettes. Juste toucher, photographier et se détendre.",
+    "subheadline": "Notre plateforme utilise l'IA pour identifier instantanément vos objets, vous mettre en relation avec des déménageurs de confiance et rationaliser l'ensemble du processus. Une photo. Une minute. Un mal de tête en moins.",
+    "getQuote": "OBTENIR UN DEVIS",
+    "trackMove": "SUIVRE LE DÉMÉNAGEMENT",
+    "activeUsers": "utilisateurs actifs sont satisfaits de Zinter"
+  },
+  "features": {
+    "smarterTitle": "Plus Intelligent qu'un Formulaire. Plus Facile qu'un Appel",
+    "smarterDescription": "Téléchargez quelques photos de votre espace et notre IA scanne votre inventaire et récupère instantanément des devis compétitifs de notre réseau de déménageurs professionnels.",
+    "sellingPoint": "ARGUMENT DE VENTE",
+    "eliteTitle": "Déménageurs d'Élite. Entièrement Vérifiés. Toujours Fiables.",
+    "eliteDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+    "seamlessBooking": "Processus de réservation fluide et facile",
+    "trustedNetwork": "Réseau de confiance d'entreprises de déménagement",
+    "expertGuidance": "Conseils d'experts et support rapide à tout moment",
+    "getStartedBtn": "Commencer"
+  },
+  "process": {
+    "title": "Votre Déménagement, en 60 Secondes.",
+    "step1Title": "Soumettez les détails de votre déménagement",
+    "step1Description": "Remplissez notre formulaire rapide avec les lieux de départ et d'arrivée de votre déménagement, et la taille de votre déménagement",
+    "step2Title": "Photographiez votre espace",
+    "step2Description": "Prenez quelques photos rapides des pièces ou objets que vous déménagez.",
+    "step3Title": "Obtenez des devis en temps réel",
+    "step3Description": "Notre IA scanne votre inventaire et retourne des estimations précises de professionnels de confiance.",
+    "step4Title": "Choisissez votre partenaire",
+    "step4Description": "Comparez les offres. Lisez les avis. Réservez le déménageur qui correspond à vos besoins et votre budget.",
+    "letsGetMoving": "Mettons-nous en Mouvement"
+  },
+  "testimonials": {
+    "main": "Témoignages",
+    "title": "Vraies Personnes. Vrais Déménagements. Vraie Tranquillité d'Esprit.",
+    "testimonial1": "J'ai téléchargé cinq photos depuis mon téléphone et j'ai eu un devis en quelques minutes. Les déménageurs sont arrivés exactement quand ils avaient dit qu'ils le feraient.",
+    "testimonial1Type": "Déménagement de Studio",
+    "testimonial2": "Honnêtement, c'était trop facile. Je m'attendais à des formulaires et du stress mais tout a été géré via la plateforme.",
+    "testimonial2Type": "Déménagement Familial",
+    "testimonial3": "Je déteste déménager. Mais cette fois? C'était fluide, rapide et ça n'a pas gâché mon week-end.",
+    "testimonial3Type": "Appartement 2 Chambres"
+  },
+  "faq": {
+    "title": "Questions Fréquemment Posées",
+    "paymentMethods": "Quels modes de paiement sont pris en charge ?",
+    "howEarly": "À quelle avance dois-je réserver mon déménagement ?",
+    "packing": "Les déménageurs vont-ils aussi emballer mes affaires ?",
+    "whatsIncluded": "Qu'est-ce qui est inclus dans mon devis ?",
+    "packingExtra": "L'emballage fait-il partie de l'offre ou est-il en supplément ?",
+    "reschedule": "Puis-je reprogrammer si les plans changent ?",
+    "tracking": "Puis-je suivre mon déménagement en temps réel ?",
+    "storage": "Et si j'ai besoin de stockage, pouvez-vous aider ?",
+    "costCalculation": "Comment le coût du déménagement est-il calculé ?"
+  },
+  "newsletter": {
+    "header": "lettre d’information",
+    "title": "Ne Ratez Aucun Déménagement.",
+    "description": "Obtenez des conseils d'initiés, des offres limitées et des astuces de déménagement, directement dans votre boîte de réception."
+  },
+
+"contact": {
+  "title": "CONTACTEZ-NOUS",
+  "description": "Rejoignez-nous dans notre démarche visant à redéfinir la logistique avec innovation et excellence !",
+  "enquiry": "Pour des demandes, des partenariats ou des réservations de services, contactez-nous à 📧 support@zinter.nl"
+},
+  "footer": {
+    "quicklinks": "Liens Rapides",
+    "aboutUs": "À propos",
+    "reportIssue": "Signaler un problème",
+    "faq": "Questions Fréquentes",
+    "privacyPolicy": "Politique de Confidentialité",
+    "termsConditions": "Termes et Conditions",
+    "contact": "Contact",
+    "schedule": "Lun. - Ven.: 08:00 - 19:00\nSam.: 09:00 - 17:00",
+    "copyright": "© 2025 Tous droits réservés"
+  }
+}

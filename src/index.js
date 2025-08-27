@@ -7,19 +7,23 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "./redux/store";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import "./i18n";
+import { TranslationProvider } from "./context/TranslationContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const queryClient = new QueryClient({});
 root.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <Provider store={store}>
-        <PersistGate persistor={persistor}>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </PersistGate>
-      </Provider>
-    </QueryClientProvider>
+    <TranslationProvider>
+      <QueryClientProvider client={queryClient}>
+        <Provider store={store}>
+          <PersistGate persistor={persistor}>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </PersistGate>
+        </Provider>
+      </QueryClientProvider>
+    </TranslationProvider>
   </React.StrictMode>
 );

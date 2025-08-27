@@ -8,13 +8,58 @@ import PrimaryBtn from "./PrimaryBtn";
 import PaymentSuccess from "../modal/PaymentSuccess";
 import MoversMobileContainer from "./MoversMobileContainer";
 import "./MoversContainer.css";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 const MoversContainer = ({ trackingCode }) => {
   const [activeTab, setActiveTab] = useState(1);
+  const [isPaymentMade, setIsPaymentMade] = useState(false);
 
   const [isActive, setIsActive] = useState(false);
 
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
+
+  // for paymennt
+  const amount = 1000; // Example amount in cents
+  const createPaymentIntent = async (amount) => {
+    const response = await fetch(
+      `https://involved-birgit-zinter-cb767b47.koyeb.app/api/MoveRequest/CreatePaymentIntent?amount=${amount}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response.json();
+  };
+
+  const createPaymentIntentMutation = useMutation({
+    mutationFn: (amount) => createPaymentIntent(amount),
+    onSuccess: (data) => {
+      console.log("Payment intent created successfully:", data);
+      setIsPaymentMade(true);
+      setOpenSuccessModal(true);
+    },
+    onError: (error) => {
+      console.error("Failed to create payment intent:", error);
+      setIsPaymentMade(false);
+      // Handle error - show error message to user
+    },
+  });
+
+  // Function to handle button click
+  const handleCreatePaymentIntent = () => {
+    if (amount && amount > 0) {
+      createPaymentIntentMutation.mutate(amount);
+    } else {
+      console.error("Please provide a valid amount");
+    }
+  };
 
   useEffect(() => {
     if (trackingCode) setActiveTab(3);
@@ -52,8 +97,22 @@ const MoversContainer = ({ trackingCode }) => {
     // Code to be executed if expression doesn't match any case
   }
 
+  useEffect(() => {
+    if (isPaymentMade) {
+      setActiveTab(3);
+    }
+  }, [isPaymentMade]);
+
   // Function to handle moving forward in tabs
   const handleTabs = () => {
+    if (activeTab === 2) {
+      handleCreatePaymentIntent();
+      if (!isPaymentMade) {
+        setActiveTab(2);
+        console.log("Payment not made yet, staying on tab 2");
+        return;
+      }
+    }
     if (activeTab >= 3) return; // Ensure we don't go beyond the last tab
     setActiveTab((prevTab) => prevTab + 1);
     console.log("Next Tab:", activeTab + 1);
@@ -66,13 +125,8 @@ const MoversContainer = ({ trackingCode }) => {
     console.log("Previous Tab:", activeTab - 1);
   };
 
-  const handleSubmit = () => {
-    console.log("Helloo");
-  };
-
   const openModal = () => {
     handleTabs();
-    setOpenSuccessModal(true);
   };
 
   const closeSuccessModal = () => {

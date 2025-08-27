@@ -1,0 +1,81 @@
+{
+  "navigation": {
+    "home": "Home",
+    "about": "About Us",
+    "faqs": "FAQs"
+  },
+  "hero": {
+    "getStarted": "GET STARTED",
+    "headline": "Moving, Upgraded. No stress. No guesswork. Just tap, snap, and relax.",
+    "subheadline": "Our platform uses AI to instantly identify your items, match you with trusted movers, and streamline the entire process. One photo. One minute. One less headache.",
+    "getQuote": "GET A QUOTE",
+    "trackMove": "TRACK MOVE",
+    "activeUsers": "active users are happy with Zinter"
+  },
+  "features": {
+    "smarterTitle": "Smarter Than a Form. Easier Than a Call",
+    "smarterDescription": "Upload a few photos of your space and our AI scans your inventory and instantly pulls in competitive quotes from our network of professional movers.",
+    "sellingPoint": "SELLING POINT",
+    "eliteTitle": "Elite Movers. Fully Vetted. Always Reliable.",
+    "eliteDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+    "seamlessBooking": "Seamless and easy booking process",
+    "trustedNetwork": "Trusted network of moving companies",
+    "expertGuidance": "Expert guidance and swift support anytime",
+    "getStartedBtn": "Get Started"
+  },
+  "process": {
+    "title": "Your Move, in 60 Seconds.",
+    "step1Title": "Submit your move details",
+    "step1Description": "Fill in our quick form with your move's start and end locations, and size of your move",
+    "step2Title": "Snap your space",
+    "step2Description": "Take a few quick photos of the rooms or items you're moving.",
+    "step3Title": "Get real-time quotes",
+    "step3Description": "Our AI scans your inventory and returns accurate estimates from trusted pros.",
+    "step4Title": "Pick your match",
+    "step4Description": "Compare offers. Read reviews. Book the mover that fits your needs and budget.",
+    "letsGetMoving": "Let's Get You Moving"
+  },
+  "testimonials": {
+    "main": "Testimonial",
+    "title": "Real People. Real Moves. Real Peace of Mind.",
+    "testimonial1": "I uploaded five photos from my phone and had a quote in minutes. Movers showed up exactly when they said they would.",
+    "testimonial1Type": "Studio Move",
+    "testimonial2": "Honestly, it felt too easy. I expected forms and stress but it was all handled through the platform.",
+    "testimonial2Type": "Family Move",
+    "testimonial3": "I hate moving. But this time? It was smooth, fast, and didn't wreck my weekend.",
+    "testimonial3Type": "2-Bedroom Apartment"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "paymentMethods": "What payment methods are supported?",
+    "howEarly": "How early should I book my move?",
+    "packing": "Will the movers pack my stuff too?",
+    "whatsIncluded": "What's included in my quote?",
+    "packingExtra": "Is packing part of the deal or extra?",
+    "reschedule": "Can I reschedule if plans change?",
+    "tracking": "Can I track my move in real time?",
+    "storage": "What if I need storage, can you help?",
+    "costCalculation": "How is the cost of moving worked out?"
+  },
+  "newsletter": {
+    "header": "NEWS LETTER",
+    "title": "Don't Miss a Move.",
+    "description": "Get insider tips, limited deals, and moving hacks, straight to your inbox."
+  },
+  "contact": {
+    "title": "CONTACT US",
+    "description": "Join us on our journey to redefine logistics with innovation and excellence!",
+    "enquiry": "For inquiries, partnerships, or service bookings, reach out to us at 📧 support@zinter.nl"
+  },
+  "footer": {
+    "quicklinks": "Quicklinks",
+    "aboutUs": "About Us",
+    "reportIssue": "Report an issue",
+    "faq": "Frequently Asked Questions",
+    "privacyPolicy": "Privacy Policy",
+    "termsConditions": "Terms & Conditions",
+    "contact": "Contact",
+    "schedule": "Mon. - Fri.: 08:00 - 19:00\nSat.: 09:00 - 17:00",
+    "copyright": "© 2025 All rights Reserved"
+  }
+}
