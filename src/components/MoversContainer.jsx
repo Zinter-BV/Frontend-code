@@ -8,7 +8,9 @@ import PrimaryBtn from "./PrimaryBtn";
 import PaymentSuccess from "../modal/PaymentSuccess";
 import MoversMobileContainer from "./MoversMobileContainer";
 import "./MoversContainer.css";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
 const MoversContainer = ({ trackingCode }) => {
   const [activeTab, setActiveTab] = useState(1);
@@ -16,50 +18,11 @@ const MoversContainer = ({ trackingCode }) => {
 
   const [isActive, setIsActive] = useState(false);
 
+  const [err, setErr] = useState(false);
+
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
 
-  // for paymennt
-  const amount = 1000; // Example amount in cents
-  const createPaymentIntent = async (amount) => {
-    const response = await fetch(
-      `https://involved-birgit-zinter-cb767b47.koyeb.app/api/MoveRequest/CreatePaymentIntent?amount=${amount}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    return response.json();
-  };
-
-  const createPaymentIntentMutation = useMutation({
-    mutationFn: (amount) => createPaymentIntent(amount),
-    onSuccess: (data) => {
-      console.log("Payment intent created successfully:", data);
-      setIsPaymentMade(true);
-      setOpenSuccessModal(true);
-    },
-    onError: (error) => {
-      console.error("Failed to create payment intent:", error);
-      setIsPaymentMade(false);
-      // Handle error - show error message to user
-    },
-  });
-
-  // Function to handle button click
-  const handleCreatePaymentIntent = () => {
-    if (amount && amount > 0) {
-      createPaymentIntentMutation.mutate(amount);
-    } else {
-      console.error("Please provide a valid amount");
-    }
-  };
+  const moversData = useSelector((state) => state.user.moversData);
 
   useEffect(() => {
     if (trackingCode) setActiveTab(3);
@@ -69,23 +32,17 @@ const MoversContainer = ({ trackingCode }) => {
   let content = (
     <MoversHolder MoversHolder isActive={isActive} setIsActive={setIsActive} />
   );
-  // let btnText = CONTINUE
 
   switch (activeTab) {
     case 1:
       content = <MoversHolder isActive={isActive} setIsActive={setIsActive} />;
-      // Code to be executed if expression matches value1
       break;
     case 2:
       content = <Payment />;
-      // Code to be executed if expression matches value2
       break;
     case 3:
       content = <TrackMove />;
-      // Code to be executed if expression matches value2
       break;
-
-    // Add more cases as needed
     default:
       content = (
         <MoversHolder
@@ -94,7 +51,6 @@ const MoversContainer = ({ trackingCode }) => {
           setIsActive={setIsActive}
         />
       );
-    // Code to be executed if expression doesn't match any case
   }
 
   useEffect(() => {
@@ -102,11 +58,37 @@ const MoversContainer = ({ trackingCode }) => {
       setActiveTab(3);
     }
   }, [isPaymentMade]);
+  const sendQuoteData = async () => {
+    const response = await axios.get(
+      `https://involved-birgit-zinter-cb767b47.koyeb.app/api/Quote/AcceptQuote?id=${moversData?.quoteId}`
+    );
+    return response.data;
+  };
+
+  const mutation = useMutation({
+    mutationFn: sendQuoteData,
+    onSuccess: (data) => {
+      if (data.responseStatus) {
+        setOpenSuccessModal(true);
+        setErr(false);
+      } else {
+        alert("Not Cool");
+        setErr(true);
+      }
+    },
+    onError: (error) => {
+      console.error("Error creating user:", error);
+    },
+  });
+
+  const fetchData = () => {
+    mutation.mutate();
+  };
 
   // Function to handle moving forward in tabs
   const handleTabs = () => {
     if (activeTab === 2) {
-      handleCreatePaymentIntent();
+      console.log("Handling tab 2");
       if (!isPaymentMade) {
         setActiveTab(2);
         console.log("Payment not made yet, staying on tab 2");
@@ -114,19 +96,25 @@ const MoversContainer = ({ trackingCode }) => {
       }
     }
     if (activeTab >= 3) return; // Ensure we don't go beyond the last tab
-    setActiveTab((prevTab) => prevTab + 1);
-    console.log("Next Tab:", activeTab + 1);
+    if (err && activeTab === 2) {
+      return;
+    } else setActiveTab((prevTab) => prevTab + 1);
   };
 
   // Function to handle moving backward in tabs
   const handlePrevTabs = () => {
     if (activeTab <= 1) return; // Ensure we don't go below tab 1
     setActiveTab((prevTab) => prevTab - 1);
-    console.log("Previous Tab:", activeTab - 1);
   };
+
+  // const handleSubmit = () => {
+  //   console.log("Helloo");
+  // };
 
   const openModal = () => {
     handleTabs();
+    fetchData();
+    // ;
   };
 
   const closeSuccessModal = () => {

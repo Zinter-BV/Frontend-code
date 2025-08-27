@@ -3,75 +3,75 @@ import { useQuery } from "@tanstack/react-query";
 import MoversCard from "./MoversCard";
 import { nn } from "date-fns/locale";
 
+import axios from "axios";
+
+// API function to fetch quotes
+const fetchQuotes = async () => {
+  const response = await axios.get(
+    "https://involved-birgit-zinter-cb767b47.koyeb.app/api/Quote/GetAllQuotes?code=HSAMEI"
+  );
+
+  return response.data;
+};
+
 const RecommendedMoversList = ({ makeActive }) => {
   const {
     data: quotes,
     isLoading,
-    error,
     isError,
+    error,
+    refetch,
   } = useQuery({
     queryKey: ["quotes"],
-    queryFn: async () => {
-      const response = await fetch(
-        "https://involved-birgit-zinter-cb767b47.koyeb.app/api/Quote/GetAllQuotes?code=123456"
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch quotes");
-      }
-
-      return response.json();
-    },
-    staleTime: 5 * 60 * 1000, // 5 minutes
-    cacheTime: 10 * 60 * 1000, // 10 minutes
+    queryFn: fetchQuotes,
+    staleTime: 5 * 60 * 1000,
+    cacheTime: 10 * 60 * 1000,
   });
 
+  // Loading state
   if (isLoading) {
     return (
       <div className="ml-4 h-fit w-full recommendContainer">
-        <div className="flex items-center justify-center h-64">
-          <div className="text-lg text-gray-600">Loading movers...</div>
-        </div>
-      </div>
-    );
-  }
-
-  if (isError) {
-    return (
-      <div className="ml-4 h-fit w-full recommendContainer">
-        <div className="flex items-center justify-center h-64">
-          <div className="text-lg text-red-600">
-            Error loading movers: {error.message}
+        <div className="overflow-y-scroll h-[500px] pb-[70px] custom-scroll">
+          <div className="flex items-center justify-center h-full">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+              <p className="text-gray-600">Loading movers...</p>
+            </div>
           </div>
         </div>
       </div>
     );
   }
 
-  const quotesCount = quotes?.length || 0;
-
-  let content = null;
-  if (quotesCount === 0) {
-    content = (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-lg text-gray-600">
-          No recommended movers found.
+  // Error state
+  if (isError) {
+    return (
+      <div className="ml-4 h-fit w-full recommendContainer">
+        <div className="overflow-y-scroll h-[1200px] pb-[70px] custom-scroll">
+          <div className="flex items-center justify-center h-full">
+            <div className="text-center">
+              <p className="text-red-600 mb-4">
+                Error loading movers: {error.message}
+              </p>
+              <button
+                onClick={() => refetch()}
+                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+              >
+                Try Again
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     );
-  } else {
-    content = (
-      <div className="grid grid-cols-2 mb-[30px] moversCardContainer gap-[13px]">
-        {quotes?.map((quote, index) => (
-          <MoversCard
-            key={quote.id || index}
-            makeActive={makeActive}
-            quoteData={quote}
-          />
-        ))}
-      </div>
-    );
   }
+
+  console.log(quotes);
+
+  // Success state with data
+  const quotesCount = quotes?.result?.length || 0;
+
   return (
     <div className="ml-4 h-fit w-full recommendContainer">
       <div className="overflow-y-scroll h-[1200px] pb-[70px] custom-scroll">
@@ -85,7 +85,21 @@ const RecommendedMoversList = ({ makeActive }) => {
             </p>
           </div>
         </div>
-        {content}
+        <div className="grid grid-cols-2 mb-[30px] moversCardContainer gap-[13px]">
+          {quotes && quotes?.result?.length > 0 ? (
+            quotes?.result?.map((quote, index) => (
+              <MoversCard
+                key={quote.id || index}
+                makeActive={makeActive}
+                quoteData={quote}
+              />
+            ))
+          ) : (
+            <div className="col-span-2 text-center py-8">
+              <p className="text-gray-600">No movers found</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
