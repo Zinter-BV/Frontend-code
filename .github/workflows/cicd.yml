@@ -46,6 +46,7 @@ jobs:
           sed -i "s+zinterapp/zinter-app-frontend:.*+zinterapp/zinter-app-frontend:${{ github.run_number }}+g" deployment/deploy.yaml
           cat deployment/deploy.yaml
 
+          
       - name: Authenticate to Azure Cloud via Azure CLI
         run: |
           az login --service-principal \
