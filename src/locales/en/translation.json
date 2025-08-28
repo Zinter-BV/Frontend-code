@@ -77,5 +77,18 @@
     "contact": "Contact",
     "schedule": "Mon. - Fri.: 08:00 - 19:00\nSat.: 09:00 - 17:00",
     "copyright": "© 2025 All rights Reserved"
-  }
+  },
+  "aboutheader": {
+  "title": "About Zinter",
+  "description": "Our mission is to revolutionize the logistics industry."
+},
+"hasslefree": {
+  "title": "HASSLE FREE MOVE",
+  "description": "Our mission is to revolutionize the logistics industry by offering seamless, tech-driven solutions",
+  "more": "That simplify and optimize the moving experience for individuals and businesses alike. Zinter BV is committed to innovation, efficiency, and customer satisfaction.",
+  "founded": "Founded",
+  "founded_year": "2024",
+  "location": "Location",
+  "location_name": "Netherlands"
+}
 }

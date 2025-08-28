@@ -5,9 +5,11 @@ import HeroIcon from "../Assets/SVG/HeroIcon";
 import DiamondIcon from "../Assets/SVG/DiamondIcon";
 import PrimaryBtn from "./PrimaryBtn";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 const Process = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   return (
     <div className="bg-[#FFF5DA] w-full h-fit">
       <div className="w-[90vw] py-12 max-w-[1500px] mx-auto">
@@ -76,7 +78,10 @@ const Process = () => {
               </div>
             </div>
 
-            <PrimaryBtn className={"text-[20px]"}>
+            <PrimaryBtn
+              handlePress={() => navigate("/quote")}
+              className={"text-[20px]"}
+            >
               Let’s Get You Moving{" "}
             </PrimaryBtn>
           </div>

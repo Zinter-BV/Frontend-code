@@ -22,11 +22,19 @@ const HeroSection = () => {
             {t("hero.subheadline")}
           </p>
           <div className="flex heroBtnContainer items-center">
-            <PrimaryBtn dummy={true} className={"text-[20px]"}>
+            <PrimaryBtn
+              handlePress={() => navigate("/quote")}
+              dummy={true}
+              className={"text-[20px]"}
+            >
               {t("hero.getQuote")}
             </PrimaryBtn>
             <div className="ml-5 secoondaryBtnContaiiner">
-              <SecondaryBtn dummy={true} className={"text-[20px] "}>
+              <SecondaryBtn
+                handlePress={() => navigate("/track-code")}
+                dummy={true}
+                className={"text-[20px] "}
+              >
                 {t("hero.trackMove")}
               </SecondaryBtn>
             </div>

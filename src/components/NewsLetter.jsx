@@ -4,6 +4,7 @@ import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { ColorRing } from "react-loader-spinner";
 import { useTranslation } from "react-i18next";
+import Loader from "./loader";
 
 const NewsLetter = () => {
   const [email, setEmail] = useState("");

@@ -78,5 +78,18 @@
     "contact": "Contact",
     "schedule": "Lun. - Ven.: 08:00 - 19:00\nSam.: 09:00 - 17:00",
     "copyright": "© 2025 Tous droits réservés"
-  }
+  },
+  "aboutheader": {
+  "title": "À propos de Zinter",
+  "description": "Notre mission est de révolutionner l'industrie de la logistique."
+},
+"hasslefree": {
+  "title": "DÉMÉNAGEMENT SANS SOUCI",
+  "description": "Notre mission est de révolutionner l'industrie de la logistique en proposant des solutions fluides et axées sur la technologie",
+  "more": "Qui simplifient et optimisent l'expérience de déménagement pour les particuliers et les entreprises. Zinter BV s'engage à l'innovation, à l'efficacité et à la satisfaction client.", 
+  "founded": "Fondée",
+  "founded_year": "2024",
+  "location": "Emplacement",
+  "location_name": "Pays-Bas"
+}
 }

@@ -2,12 +2,14 @@ import React from "react";
 import stepIcon from "../Assets/_Step icon base.svg";
 import connectorIcon from "../Assets/Connector.svg";
 import "./ourMission.css";
+import { useTranslation } from "react-i18next";
 
-const ourMission = () => {
+const OurMission = () => {
+  const { t } = useTranslation();
   return (
     <div className="container">
       <div className="hassle_steps_container">
-        <p className="hassle_steps_text">HASSLE FREE MOVE</p>
+        <p className="hassle_steps_text">{t("hasslefree.title")}</p>
         <div className="steps">
           <img src={stepIcon} alt="" />
           <img className="connectorLine" src={connectorIcon} alt="" />
@@ -16,24 +18,17 @@ const ourMission = () => {
       </div>
       <div className="our_mission_text_container">
         <div className="our_mission_text">
-          <h2>
-            Our mission is to revolutionize the logistics industry by offering
-            seamless, tech-driven solutions
-          </h2>
-          <p>
-            That simplify and optimize the moving experience for individuals and
-            businesses alike. Zinter BV is committed to innovation, efficiency,
-            and customer satisfaction.
-          </p>
+          <h2>{t("hasslefree.description")}</h2>
+          <p>{t("hasslefree.more")}</p>
         </div>
         <div className="location_establish">
           <div className="location">
-            <span>Founded</span>
-            <h2>2024</h2>
+            <span>{t("hasslefree.founded")}</span>
+            <h2>{t("hasslefree.founded_year")}</h2>
           </div>
           <div className="ddd location">
-            <span>Location</span>
-            <h2>Netherlands</h2>
+            <span>{t("hasslefree.location")}</span>
+            <h2>{t("hasslefree.location_name")}</h2>
           </div>
         </div>
       </div>
@@ -41,4 +36,4 @@ const ourMission = () => {
   );
 };
 
-export default ourMission;
+export default OurMission;

@@ -3,17 +3,19 @@ import ZoomingCardAboutUs from "./ZoomingCardAboutUs";
 import smallImg from "../Assets/small-pictures.svg";
 import arrowDown from "../Assets/arrow-down-pictures.svg";
 import "./aboutZinter.css";
+import { useTranslation } from "react-i18next";
 
 const AboutZinter = () => {
+  const { t } = useTranslation();
   return (
     <div className="mx-auto w-full">
       <div className="about_zinter_container mx-auto w-[90vw] max-w-[1500px]">
         <div className="about_zinter_head">
-          <h1 className="text-[96px] leading-[69.44px] font-bold font-unbounded w-[90%]">
-            About Zinter
+          <h1 className="text-[96px] leading-[95.44px] font-bold font-unbounded w-[90%]">
+            {t("aboutheader.title")}
           </h1>
           <span className="about_zinter_text">
-            Our mission is to revolutionize the logistics industry
+            {t("aboutheader.description")}
           </span>
         </div>
 

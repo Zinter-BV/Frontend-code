@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import SelectImage from "../components/SelectImage";
 import UploadImageSuccess from "./UploadImageSuccess";
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
 
 const UploadImageModal = ({
   closeUploadImageModal,
@@ -18,61 +16,6 @@ const UploadImageModal = ({
   };
 
   const closeUploadSuccessModal = () => setIsUploadImageSuccess(false);
-
-  // Remove the wrapper object - send dataToSend directly
-  const uploadImages = async () => {
-    const formData = new FormData();
-    allImages.forEach((image, index) => {
-      formData.append("images", image);
-    });
-    console.log(allImages);
-    const response = await axios.post(
-      "https://involved-birgit-zinter-cb767b47.koyeb.app/api/MoveRequest/GetItemsByImage",
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          accept: "application/json",
-        },
-      }
-    );
-    return response.data;
-  };
-
-  const mutation = useMutation({
-    mutationFn: uploadImages,
-    onSuccess: (data) => {
-      console.log(data);
-    },
-    onError: (error) => {
-      console.error("Error creating user:", error);
-    },
-  });
-
-  const fetchData = () => {
-    mutation.mutate(); // Remove parameter since it's already in the function
-  };
-
-  const uploadImage = () => {
-    // if (allImages.length === 0) return;
-    console.log(allImages);
-    // setIsUploadImageSuccess(true);
-    fetchData();
-    // send image to API
-    // const formData = new FormData();
-    // allImages.forEach((file, index) => {
-    //   formData.append(`image_${index}`, file);
-    // });
-
-    // // Send formData to API
-    // fetch("https://your-api-endpoint.com/upload", {
-    //   method: "POST",
-    //   body: formData,
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => console.log("Upload successful", data))
-    //   .catch((error) => console.error("Upload error", error));
-  };
 
   return (
     <div className="fixed top-0 z-50 left-0 backdrop-blur-[3px] bg-[rgba(0,0,0,0.10)] h-full w-full flex justify-center items-center ">
@@ -154,27 +97,27 @@ const UploadImageModal = ({
             </div>
             <div className="my-3 grid grid-cols-3 uploadImageContainer gap-[18px] pb-4 w-full">
               <SelectImage
-                title="Living Room Images"
+                title="Living Room"
                 onImagesSelected={handleImagesSelected}
               />
               <SelectImage
-                title="Room 1 Images"
+                title="Bedroom"
                 onImagesSelected={handleImagesSelected}
               />
               <SelectImage
-                title="Dinning Room Images"
+                title="Dinning Room"
                 onImagesSelected={handleImagesSelected}
               />
               <SelectImage
-                title="Kitchen Images"
+                title="Kitchen"
                 onImagesSelected={handleImagesSelected}
               />
-              <SelectImage
-                title="Bathroom Images"
+              {/* <SelectImage
+                title="Bathroom"
                 onImagesSelected={handleImagesSelected}
-              />
+              /> */}
               <SelectImage
-                title="Toilet and bath Images"
+                title="Toilet and bath"
                 onImagesSelected={handleImagesSelected}
               />
             </div>
@@ -200,7 +143,7 @@ const UploadImageModal = ({
             </p>
           </div>
           <button
-            onClick={uploadImage}
+            // onClick={uploadImage}
             className="self-center bg-primary py-2 px-4 text-white rounded-[20px] cursor-pointer text-[12px] text-manrope font-light "
           >
             UPLOAD IMAGE

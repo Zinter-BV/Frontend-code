@@ -97,6 +97,20 @@ const enTranslations = {
     schedule: "Mon. - Fri.: 08:00 - 19:00\nSat.: 09:00 - 17:00",
     copyright: "© 2025 All rights Reserved",
   },
+  aboutheader: {
+    title: "About Zinter",
+    description: "Our mission is to revolutionize the logistics industry.",
+  },
+  hasslefree: {
+    title: "HASSLE FREE MOVE",
+    description:
+      "Our mission is to revolutionize the logistics industry by offering seamless, tech-driven solutions",
+    founded: "Founded",
+    more: "That simplify and optimize the moving experience for individuals and businesses alike. Zinter BV is committed to innovation, efficiency, and customer satisfaction.",
+    founded_year: "2024",
+    location: "Location",
+    location_name: "Netherlands",
+  },
 };
 
 const esTranslations = {
@@ -195,6 +209,20 @@ const esTranslations = {
     schedule: "Lun. - Vie.: 08:00 - 19:00\nSáb.: 09:00 - 17:00",
     copyright: "© 2025 Todos los derechos reservados",
   },
+  aboutheader: {
+    title: "Acerca de Zinter",
+    description: "Nuestra misión es revolucionar la industria logística.",
+  },
+  hasslefree: {
+    title: "MUDANZA SIN COMPLICACIONES",
+    description:
+      "Nuestra misión es revolucionar la industria logística ofreciendo soluciones fluidas e impulsadas por la tecnología",
+    more: "Que simplifican y optimizan la experiencia de mudanza tanto para particulares como para empresas. Zinter BV está comprometida con la innovación, la eficiencia y la satisfacción del cliente.",
+    founded: "Fundada",
+    founded_year: "2024",
+    location: "Ubicación",
+    location_name: "Países Bajos",
+  },
 };
 
 const deTranslations = {
@@ -291,6 +319,21 @@ const deTranslations = {
     contact: "Kontakt",
     schedule: "Mo. - Fr.: 08:00 - 19:00\nSa.: 09:00 - 17:00",
     copyright: "© 2025 Alle Rechte vorbehalten",
+  },
+  aboutheader: {
+    title: "Über Zinter",
+    description:
+      "Unsere Mission ist es, die Logistikbranche zu revolutionieren.",
+  },
+  hasslefree: {
+    title: "STRESSFREIER UMZUG",
+    description:
+      "Unsere Mission ist es, die Logistikbranche zu revolutionieren, indem wir nahtlose, technologiegetriebene Lösungen anbieten",
+    more: "Die das Umzugserlebnis für Einzelpersonen und Unternehmen gleichermaßen vereinfachen und optimieren. Zinter BV engagiert sich für Innovation, Effizienz und Kundenzufriedenheit.",
+    founded: "Gegründet",
+    founded_year: "2024",
+    location: "Standort",
+    location_name: "Niederlande",
   },
 };
 
@@ -389,6 +432,21 @@ const frTranslations = {
     contact: "Contact",
     schedule: "Lun. - Ven.: 08:00 - 19:00\nSam.: 09:00 - 17:00",
     copyright: "© 2025 Tous droits réservés",
+  },
+  aboutheader: {
+    title: "À propos de Zinter",
+    description:
+      "Notre mission est de révolutionner l'industrie de la logistique.",
+  },
+  hasslefree: {
+    title: "DÉMÉNAGEMENT SANS SOUCI",
+    description:
+      "Notre mission est de révolutionner l'industrie de la logistique en proposant des solutions fluides et axées sur la technologie",
+    more: "Qui simplifient et optimisent l'expérience de déménagement pour les particuliers et les entreprises. Zinter BV s'engage à l'innovation, à l'efficacité et à la satisfaction client.",
+    founded: "Fondée",
+    founded_year: "2024",
+    location: "Emplacement",
+    location_name: "Pays-Bas",
   },
 };
 

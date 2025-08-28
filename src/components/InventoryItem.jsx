@@ -47,29 +47,6 @@ const InventoryItem = ({
     });
   };
 
-  // const selectCard = () => {
-  //   const newSelectedState = !isCardSelected;
-  //   setIsCardSelected(newSelectedState);
-
-  //   if (newSelectedState) {
-  //     // When selecting, add item with current count
-  //     appendItemToArray({
-  //       itemName: title,
-  //       numberOfCount: count,
-  //       room: activeRoom,
-  //     });
-  //   } else {
-  //     // When deselecting, you might want to remove the item
-  //     // or set count to 0 - depends on your requirements
-  //     setCount(0);
-  //     appendItemToArray({
-  //       itemName: title,
-  //       numberOfCount: 0,
-  //       room: activeRoom,
-  //     });
-  //   }
-  // };
-
   return (
     <div
       className={`w-full group cursor-pointer h-[290px] rounded-[16px] border-[1px]
