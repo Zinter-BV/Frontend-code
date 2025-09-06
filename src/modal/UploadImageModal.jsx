@@ -143,7 +143,7 @@ const UploadImageModal = ({
             </p>
           </div>
           <button
-            // onClick={uploadImage}
+            onClick={() => closeUploadImageModal()}
             className="self-center bg-primary py-2 px-4 text-white rounded-[20px] cursor-pointer text-[12px] text-manrope font-light "
           >
             UPLOAD IMAGE
