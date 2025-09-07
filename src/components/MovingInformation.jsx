@@ -2,6 +2,10 @@ import React, { useRef, useEffect, useState } from "react";
 import "./movingInformation.css";
 
 const MovingInformation = ({
+  moveDate,
+  setMoveDate,
+  pickUpDate,
+  setPickUpDate,
   moveTime,
   setMoveTime,
   pickUpTime,
@@ -235,18 +239,6 @@ const MovingInformation = ({
             Date and Time
           </p>
           <div className="mt-[10px] mb-6 border-[#e3e3e3] border-b-[1px] pb-3 ">
-            <div className="flex mb-[15px] flex-col">
-              <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                Move Date
-              </label>
-              <input
-                placeholder="Select Move Date"
-                type="date"
-                value={moveTime}
-                onChange={(e) => setMoveTime(e.target.value)}
-                className="h-[45px] border-[#e3e3e3] w-full font-light border-[1px] outline-none p-[8px] rounded-[8px] "
-              />
-            </div>
             <div className="flex mb-[10px] flex-col">
               <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
                 Pickup Time
@@ -259,7 +251,46 @@ const MovingInformation = ({
                 className="h-[45px] border-[#e3e3e3] w-full font-light border-[1px] outline-none p-[8px] rounded-[8px] "
               />
             </div>
+            <div className="flex mb-[10px] flex-col">
+              <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
+                Pickup Date
+              </label>
+              <input
+                placeholder="Select Pickup Date"
+                type="date"
+                value={pickUpDate}
+                onChange={(e) => setPickUpDate(e.target.value)}
+                className="h-[45px] border-[#e3e3e3] w-full font-light border-[1px] outline-none p-[8px] rounded-[8px] "
+              />
+            </div>
           </div>
+          <div className="mt-[10px] mb-6 border-[#e3e3e3] border-b-[1px] pb-3 ">
+            <div className="flex mb-[15px] flex-col">
+              <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
+                Move Date
+              </label>
+              <input
+                placeholder="Select Move Date"
+                type="date"
+                value={moveDate}
+                onChange={(e) => setMoveDate(e.target.value)}
+                className="h-[45px] border-[#e3e3e3] w-full font-light border-[1px] outline-none p-[8px] rounded-[8px] "
+              />
+            </div>
+            <div className="flex mb-[15px] flex-col">
+              <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
+                Move Time
+              </label>
+              <input
+                placeholder="Select Move Date"
+                type="time"
+                value={moveTime}
+                onChange={(e) => setMoveTime(e.target.value)}
+                className="h-[45px] border-[#e3e3e3] w-full font-light border-[1px] outline-none p-[8px] rounded-[8px] "
+              />
+            </div>
+          </div>
+
           <p className="font-sans text-[#136AB5] text-[18px] font-bold ">
             Contact Info
           </p>

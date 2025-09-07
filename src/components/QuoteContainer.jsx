@@ -34,7 +34,9 @@ const QuoteContainer = ({ data }) => {
   const [isEditingTo, setIsEditingTo] = useState(false);
 
   //moving info
+  const [moveDate, setMoveDate] = useState("");
   const [moveTime, setMoveTime] = useState("");
+  const [pickUpDate, setPickUpDate] = useState("");
   const [pickUpTime, setPickupTime] = useState("");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -120,10 +122,13 @@ const QuoteContainer = ({ data }) => {
   };
 
   // Format the datetime when creating moreInfoData
-  const formattedMoveDateTime = formatToISODateTime(moveTime, pickUpTime);
+  const formattedMoveDateTime = formatToISODateTime(moveDate, moveTime);
+  const formattedPickUpDateTime = formatToISODateTime(pickUpDate, pickUpTime);
+  console.log(formattedMoveDateTime);
+  console.log(formattedPickUpDateTime);
   const moreInfoData = {
     moveTime: formattedMoveDateTime,
-    pickUpTime: formattedMoveDateTime,
+    pickUpTime: formattedPickUpDateTime,
     fullName,
     email,
     phoneNumber,
@@ -238,6 +243,10 @@ const QuoteContainer = ({ data }) => {
     case 3:
       content = (
         <MovingInformation
+          setMoveDate={setMoveDate}
+          moveDate={moveDate}
+          setPickUpDate={setPickUpDate}
+          pickUpDate={pickUpDate}
           moveTime={moveTime}
           setMoveTime={setMoveTime}
           pickUpTime={pickUpTime}

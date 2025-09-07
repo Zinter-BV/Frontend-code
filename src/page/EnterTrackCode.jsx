@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 import QuoteHeader from "../components/QuoteHeader";
 import { Link, useNavigate } from "react-router-dom";
 import PrimaryBtn from "../components/PrimaryBtn";
+import { useMutation } from "@tanstack/react-query";
 
 const EnterTrackCode = () => {
   const navigate = useNavigate();
@@ -13,20 +14,54 @@ const EnterTrackCode = () => {
 
   const inputRefs = useRef([]);
   const [focusedIndex, setFocusedIndex] = useState(null);
-  const [otp, setOtp] = useState(["", "", "", "", "", ""]); // 6-digit OTP
-  const [token, setToken] = useState(0);
+  const [otp, setOtp] = useState(["", "", "", "", "", ""]); // 6-character code
   const [err, setErr] = useState("");
+
+  // React Query mutation for tracking move
+  const trackMoveMutation = useMutation({
+    mutationFn: async (code) => {
+      const response = await fetch(
+        `https://involved-birgit-zinter-cb767b47.koyeb.app/api/MoveRequest/TrackMove?code=${code}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      return response.json();
+    },
+    onSuccess: (data) => {
+      if (!data?.responseStatus) {
+        setErr(data?.responseMessage || "Invalid tracking code");
+        return;
+      }
+      setErr("");
+      // Navigate with the API response data
+      navigate("/movers", { state: { data: data } });
+    },
+    onError: (error) => {
+      console.error("Error tracking move:", error);
+      setErr(
+        "Unable to track move. Please check your tracking code and try again."
+      );
+    },
+  });
 
   const handleInputChange = (e, index) => {
     const value = e.target.value;
 
-    // Only allow numbers
-    if (!/^\d?$/.test(value)) return;
+    // Allow alphanumeric characters only (letters and numbers)
+    if (!/^[a-zA-Z0-9]?$/.test(value)) return;
 
     const updatedOtp = [...otp];
-    updatedOtp[index] = value;
+    updatedOtp[index] = value; // Convert to uppercase for consistency
     setOtp(updatedOtp);
-    setToken(updatedOtp.join(""));
 
     // Move to next input if value exists
     if (value && index < inputRefs.current.length - 1) {
@@ -49,10 +84,13 @@ const EnterTrackCode = () => {
     if (fullCode.length < 6) {
       setErr("Please enter the correct tracking code");
       return;
-    } else {
-      setErr("");
-      navigate("/movers", { state: { data: fullCode } });
     }
+
+    // Clear any previous errors
+    setErr("");
+
+    // Make the API call
+    trackMoveMutation.mutate(fullCode);
   };
 
   return (
@@ -98,7 +136,7 @@ const EnterTrackCode = () => {
                           key={i}
                           ref={(el) => (inputRefs.current[i] = el)}
                           placeholder="0"
-                          type="number"
+                          type="text"
                           maxLength={1}
                           value={otp[i]}
                           onFocus={(e) => {
@@ -108,7 +146,8 @@ const EnterTrackCode = () => {
                           onBlur={() => setFocusedIndex(null)}
                           onChange={(e) => handleInputChange(e, i)}
                           onKeyDown={(e) => handleKeyDown(e, i)}
-                          className="[appearance:textfield] trackCodeBoxInput [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none outline-none text-[28px] h-[44px] text-center w-[44px] border-[1px] rounded-[8px] border-[#BCDFF6]"
+                          className="trackCodeBoxInput outline-none text-[28px] h-[44px] text-center w-[44px] border-[1px] rounded-[8px] border-[#BCDFF6]"
+                          disabled={trackMoveMutation.isPending}
                         />
                       ))}
                     </div>
@@ -121,7 +160,7 @@ const EnterTrackCode = () => {
                           key={i + 3}
                           ref={(el) => (inputRefs.current[i + 3] = el)}
                           placeholder="0"
-                          type="number"
+                          type="text"
                           onFocus={(e) => {
                             setFocusedIndex(i);
                             e.target.select(); // Selects the value so it gets replaced on typing
@@ -131,7 +170,8 @@ const EnterTrackCode = () => {
                           value={otp[i + 3]}
                           onChange={(e) => handleInputChange(e, i + 3)}
                           onKeyDown={(e) => handleKeyDown(e, i + 3)}
-                          className="[appearance:textfield] trackCodeBoxInput [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none outline-none text-[28px] h-[44px] text-center w-[44px] border-[1px] rounded-[8px] border-[#BCDFF6]"
+                          className="trackCodeBoxInput outline-none text-[28px] h-[44px] text-center w-[44px] border-[1px] rounded-[8px] border-[#BCDFF6]"
+                          disabled={trackMoveMutation.isPending}
                         />
                       ))}
                     </div>
@@ -140,9 +180,16 @@ const EnterTrackCode = () => {
                 <div className="border-[#e3e3e3] flex items-center justify-center p-[16px] border-t-[1px]">
                   <PrimaryBtn
                     handlePress={handlePress}
-                    className={"text-[14px] "}
+                    className={`text-[14px] ${
+                      trackMoveMutation.isPending
+                        ? "opacity-50 cursor-not-allowed"
+                        : ""
+                    }`}
+                    disabled={trackMoveMutation.isPending}
                   >
-                    START TRACKING MOVE
+                    {trackMoveMutation.isPending
+                      ? "TRACKING..."
+                      : "START TRACKING MOVE"}
                   </PrimaryBtn>
                 </div>
               </div>

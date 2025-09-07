@@ -9,7 +9,8 @@ const TrackMove = () => {
   // Function to fetch tracking data
   const fetchTrackingData = async () => {
     const response = await axios.get(
-      `https://involved-birgit-zinter-cb767b47.koyeb.app/api/MoveRequest/TrackMove?code=${moversData?.quoteId}`
+      // `https://involved-birgit-zinter-cb767b47.koyeb.app/api/MoveRequest/TrackMove?code=${moversData?.quoteId}`
+      `https://involved-birgit-zinter-cb767b47.koyeb.app/api/MoveRequest/TrackMove?code=ZmD5xI`
     );
     return response.data;
   };
@@ -58,16 +59,6 @@ const TrackMove = () => {
         </h3>
 
         {/* Display API data if available */}
-        {data && (
-          <div className="mb-4 p-4 bg-gray-50 rounded-lg">
-            <p className="text-sm text-gray-600">
-              Last updated: {new Date().toLocaleTimeString()}
-            </p>
-            <pre className="text-xs mt-2 overflow-x-auto">
-              {JSON.stringify(data, null, 2)}
-            </pre>
-          </div>
-        )}
 
         <div className="flex moversTrackInfoContainer items-center mb-4 bg-[#F0F9FD] w-fit rounded-[12px] p-[20px]  ">
           <div className="flex justify-center border-[1px] border-black items-center w-[24px] h-[24px] min-w-[24px] min-h-[24px] rounded-full mr-2">
@@ -96,7 +87,7 @@ const TrackMove = () => {
           <div className="mt-4 moveTimeLineInfo relative ">
             <div className="w-full h-[420px] moveTimeLineInfoOverlay absolute top-0 z-30 ">
               <div className="w-full h-[25%]"></div>
-              <div className="w-full h-[75%] bg-red-500 opacity-90 "></div>
+              <div className="w-full h-[75%] bg-white opacity-90 "></div>
             </div>
             <p className="font-sans text-[18px] mb-2 font-extralight text-[#121212] ">
               Move Timeline
