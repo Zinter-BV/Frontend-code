@@ -35,8 +35,8 @@ const MoversContainer = ({ trackingCode }) => {
 
   switch (activeTab) {
     case 1:
-      // content = <MoversHolder isActive={isActive} setIsActive={setIsActive} />;
-      content = <TrackMove />;
+      content = <MoversHolder isActive={isActive} setIsActive={setIsActive} />;
+      // content = <TrackMove />;
       break;
     case 2:
       content = <Payment />;
