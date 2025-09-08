@@ -108,7 +108,7 @@ const FirstStepCompanies = () => {
                 setShowErrorInvalid(false)
             }, 5000);
             return
-        } else if (showError  === true) {
+        } else if (showError === true) {
             setShowError(true)
             return
         } else if (showTick === true) {
@@ -119,6 +119,10 @@ const FirstStepCompanies = () => {
 
 
     };
+
+    const handleLogin = () => {
+        navigate("/vendor-login")
+    }
 
 
     return (
@@ -205,6 +209,9 @@ const FirstStepCompanies = () => {
                 <div className="company_policy">
                     <span>
                         By creating an account, you accept our <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>
+                    </span>
+                    <span>
+                        Already have an account? <a onClick={handleLogin} href="#">Login</a>
                     </span>
                 </div>
                 <div className="company_firststep_btn">

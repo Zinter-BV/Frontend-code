@@ -115,7 +115,7 @@ const NewJobs = () => {
         }
     }, [data, error]);
 
-    const filteredJobs = allJobs.filter((job) =>
+    const filteredJobs = newJobs.filter((job) =>
         job.fullName?.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
