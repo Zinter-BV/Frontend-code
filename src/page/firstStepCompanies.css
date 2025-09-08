@@ -232,6 +232,8 @@
 }
 
 .company_policy {
+    display: flex;
+    flex-direction: column;
     position: absolute;
     bottom: 65px;
     width: 100%;

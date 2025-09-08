@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./upcomingJobView.css"
 import ZinterHeaderPartner from "../components/ZinterHeaderPartner";
 import arrowBack from "../Assets/arrow-back-btn.svg"
@@ -32,10 +32,14 @@ import doubleCheckIcon from "../Assets/double-checked.svg"
 import clickedRadioIcon from "../Assets/clicked-radio-btn.svg"
 import dropdown from "../Assets/arrow-down-dropdown.svg"
 import sucessIcon from "../Assets/success-good-tick.svg"
+import { useQuery } from "@tanstack/react-query";
 import calendarBlackAndWhite from "../Assets/calendar-black-icon.svg"
 import checkedBoxIcon from "../Assets/Gb-Checkbox.svg"
 import movingTruckIcon from "../Assets/moving_truck_icon.svg"
 import { useNavigate } from "react-router-dom";
+import { moveDetails } from '../api/moveDetails';
+import Loader from '../components/loader';
+import { logArrival } from '../api/tracking';
 
 
 
@@ -45,8 +49,69 @@ const UpcomingJobView = () => {
     const [showMoveDetails, setShowMoveDetails] = useState(true)
     const [showMoveTimeline, setShowMoveTimeline] = useState(false)
     const [activeTab, setActiveTab] = useState('details');
+    const [moveCode, setMoveCode] = useState(() => sessionStorage.getItem("moveCodeSub") || "");
+    const [moveId, setMoveId] = useState(() => Number(sessionStorage.getItem("moveIdSub")) || "")
+    const [fullName, setFullName] = useState("")
+    const [email, setEmail] = useState("")
+    const [phoneNumber, setPhoneNumber] = useState("")
+    const [from, setFrom] = useState("")
+    const [to, setTo] = useState("")
+    const [moveDate, setMoveDate] = useState("")
+    const [moveDay, setMoveDay] = useState("")
+    const [moveTime, setMoveTime] = useState("")
+    const [numberOfRooms, setNumberOfRooms] = useState("")
+    const [amount, setAmount] = useState("")
+    const [date, setDate] = useState("");
+    const [time, setTime] = useState("");
+    const [moveDetailsArray, setMoveDetailsArray] = useState([])
+    const [itemsArray, setItemsArray] = useState([])
+    const { data, isLoading, error } = useQuery({
+        queryKey: ["moveDetails", moveCode],
+        queryFn: () => moveDetails(moveCode),
+        enabled: !!moveCode,
+    });
+    const { data: dataLoginArrival, isLoading: isLoadingLoginArrival, error: errorLoginArrival, refetch } = useQuery({
+        queryKey: ["logArrival", moveCode],
+        queryFn: () => logArrival(moveCode),
+        enabled: false,
+        onSuccess: (data) => {
+            console.log("Fresh success data:", data);
+            if (data?.responseStatus) {
+                setShowMoveChecklist(true);
+            }
+        },
+        onError: (error) => {
+            console.error(error);
+        }
+
+    })
+    useEffect(() => {
+        if (data && !data.responseStatus) {
+            console.log(error);
+        } else if (data) {
+            console.log(data);
+            setFullName(data.result.fullName)
+            setEmail(data.result.email)
+            setPhoneNumber(data.result.phoneNumber)
+            setFrom(data.result.from)
+            setTo(data.result.to)
+            setMoveDate(data.result.moveDate)
+            setMoveDay(data.result.moveDay)
+            setMoveTime(data.result.moveTime)
+            setNumberOfRooms(data.result.numberOfRooms)
+            setMoveDetailsArray(data.result.moveItemsDetails);
+            const allItems = moveDetailsArray.flatMap(detail => detail.items)
+            setItemsArray(allItems)
+        }
+    }, [data, error]);
     const openMoveChecklist = () => {
-        setShowMoveChecklist(true)
+        if (moveCode) {
+            debugger
+            refetch();
+            setShowMoveChecklist(true);
+
+        }
+
     }
     const openMoveSuccess = () => {
         setShowMoveSuccess(true)
@@ -106,15 +171,15 @@ const UpcomingJobView = () => {
                                     {/* <img src={displayPicture} alt="" /> */}
                                 </div>
                                 <div className="header_job_details_user">
-                                    <h2>Anna van Dijk</h2>
+                                    <h2>{fullName}</h2>
                                     <div className="">
                                         <div className="header_upcoming_detail_new">
                                             <span><img src={calendarIcon} alt="" /></span>
                                             <span>Upcoming</span>
                                         </div>
-                                        <span className="header_upcoming_date">8th May, 2023</span>
-                                        <span className="header_upcoming_time">08:00 AM</span>
-                                        <span className="header_user_job_email">Apartment - 3 Bedroom</span>
+                                        <span className="header_upcoming_date">{moveDate}</span>
+                                        <span className="header_upcoming_time">{moveTime}</span>
+                                        <span className="header_user_job_email">Apartment - {moveDetailsArray.numberOfRooms} Bedroom</span>
                                     </div>
                                 </div>
                             </div>
@@ -132,18 +197,18 @@ const UpcomingJobView = () => {
                             <div className="first_tab_job">
                                 <div className="move_tab_details">
                                     <span>Move Date</span>
-                                    <span> 22 March, 2025</span>
+                                    <span> {moveDate}</span>
                                 </div>
                                 <div className="move_tab_details">
                                     <span>Day</span>
-                                    <span> Tuesday</span>
+                                    <span> {moveDay}</span>
                                 </div>
                                 <div className="move_tab_details">
                                     <span>Move Time</span>
-                                    <span>10:00 AM</span>
+                                    <span>{moveDate}</span>
                                 </div>
                             </div>
-                            <div className="second_tab_job">
+                            {/* <div className="second_tab_job">
                                 <div className="move_tab_details">
                                     <span>Move SIze</span>
                                     <span>House - 3 Bedrooms</span>
@@ -156,8 +221,20 @@ const UpcomingJobView = () => {
                                     <span>Bedroom 1</span>
                                     <span>12 Items Selected</span>
                                 </div>
-                            </div>
-                            <div className="second_tab_job_sub">
+                            </div> */}
+                            {moveDetailsArray.map((item) => (
+                                <div className="second_tab_job">
+                                    <div className="move_tab_details">
+                                        <span>Move SIze</span>
+                                        <span>House - {numberOfRooms} Bedroom</span>
+                                    </div>
+                                    <div className="move_tab_details">
+                                        <span>{item.roomName}</span>
+                                        <span>{item.count} Items Selected</span>
+                                    </div>
+                                </div>
+                            ))}
+                            {/* <div className="second_tab_job_sub">
                                 <div className="move_tab_details">
                                     <span>Move SIze</span>
                                     <span>House - 3 Bedrooms</span>
@@ -184,7 +261,40 @@ const UpcomingJobView = () => {
                                     <span>Move Time</span>
                                     <span>10:00 AM</span>
                                 </div>
-                            </div>
+                            </div> */}
+                            {moveDetailsArray.map((room, index) => (
+                                <div key={index} className="inventory_tab_job">
+                                    <div className="inventory_tab_job_head">
+                                        <h3>{room.roomName} Inventory List</h3>
+                                    </div>
+                                    <div className="inventory_display">
+                                        {room.items.map((item, index) => (
+                                            <div key={index} className="inventory_tab_job_body"  >
+                                                <div className="move_tab_details">
+                                                    <span>{item}</span>
+                                                    {/* <span> <img src={sofaIcon} alt="" /> </span> */}
+                                                </div>
+                                                <div className="move_tab_details">
+                                                    {/* <span>{item}</span> */}
+                                                    {/* <span> <img src={floorLampIcon} alt="" /> </span> */}
+                                                </div>
+                                                <div className="move_tab_details">
+                                                    {/* <span>Vintage Clock</span> */}
+                                                    {/* <span> <img src={clockIcon} alt="" /> </span> */}
+                                                </div>
+                                                <div className="move_tab_details">
+                                                    {/* <span>Coffee Table</span> */}
+                                                    {/* <span> <img src={tableIcon} alt="" /> </span> */}
+                                                </div>
+                                                <div className="move_tab_details">
+                                                    {/* <span>Pool Table</span> */}
+                                                    {/* <span> <img src={poolTable} alt="" /> </span> */}
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
                             {/* <div className="inventory_tab_job">
                                 <div className="inventory_tab_job_head">
                                     <h3>Living Room Inventory List</h3>
@@ -593,6 +703,9 @@ const UpcomingJobView = () => {
                     </div>
                 </div>
             </div>}
+            {isLoading && <Loader />}
+            {isLoadingLoginArrival && <Loader />}
+
         </div>
     )
 }

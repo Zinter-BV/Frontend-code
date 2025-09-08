@@ -105,9 +105,6 @@ const ViewNewJobs = () => {
         },
     });
 
-
-
-
     const { data, isLoading, error } = useQuery({
         queryKey: ["moveDetails", moveCode],
         queryFn: () => moveDetails(moveCode),
@@ -178,7 +175,7 @@ const ViewNewJobs = () => {
     //     }
     // };
     const handleClose = () => {
-        debugger
+        // debugger
         if (!date || !time) {
             alert("Please select date and time");
             return;
@@ -265,7 +262,7 @@ const ViewNewJobs = () => {
                                 <div className="second_tab_job">
                                     <div className="move_tab_details">
                                         <span>Move SIze</span>
-                                        <span>House - {numberOfRooms} Bedrooms</span>
+                                        <span>House - {numberOfRooms} Bedroom</span>
                                     </div>
                                     <div className="move_tab_details">
                                         <span>{item.roomName}</span>
@@ -302,7 +299,7 @@ const ViewNewJobs = () => {
                                     <span> {moveTime} </span>
                                 </div>
                             </div> */}
-                            {itemsArray.items}
+                            {/* {itemsArray.items} */}
                             {moveDetailsArray.map((room, index) => (
                                 <div key={index} className="inventory_tab_job">
                                     <div className="inventory_tab_job_head">
