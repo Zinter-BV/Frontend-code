@@ -3,7 +3,7 @@ import QuoteSuccessIcon from "../Assets/SVG/QuoteSuccess";
 import PrimaryBtn from "../components/PrimaryBtn";
 import { useSelector } from "react-redux";
 
-const QuoteSuccess = ({ closeModal, serverResponse }) => {
+const QuoteSuccess = ({ closeModal }) => {
   const data = useSelector((state) => state.user);
   const firstName = data?.moreInfo?.fullName?.split(" ");
   return (
@@ -19,7 +19,7 @@ const QuoteSuccess = ({ closeModal, serverResponse }) => {
           <p className="text-[16px] mb-3 font-light leading-[25.6px] text-[#525252] font-sans ">
             Your quotes are on their way to your email
             {/* clear this when ready  */}
-            <p>code: {serverResponse?.result}</p>
+            {/* <p>code: {serverResponse?.result}</p> */}
           </p>
         </div>
         <div className="border-[#e3e3e3] flex items-center justify-center p-[16px] border-t-[1px]">

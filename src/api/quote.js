@@ -7,3 +7,8 @@ export const createQuote = async ({ moveId, amount, proposedTime, additonalInfor
     })
     return response.data
 }
+
+export const getCalendarByDateRange = async (startDate, endDate) => {
+    const response = await api.get(`Quote/GetCalenderByDateRange?startDate=${startDate}&endDate=${endDate}` )
+    return response.data
+}

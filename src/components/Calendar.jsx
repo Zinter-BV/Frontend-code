@@ -215,7 +215,7 @@
 // export default Calendar;
 
 // components/Calendar.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import searchIcon from "../Assets/search-01.svg";
 import {
@@ -225,15 +225,19 @@ import {
     addWeeks,
     subWeeks,
     isWeekend,
+    endOfWeek,
 } from 'date-fns';
+import { getCalendarByDateRange } from '../api/quote';
 
-const hours = Array.from({ length: 11 }, (_, i) => 7 + i); // 7AM to 5PM
+const hours = Array.from({ length: 11 }, (_, i) => 7 + i);
 
-const Calendar = ({ events = [] }) => {
+
+
+const Calendar = () => {
     const navigate = useNavigate();
-    const navigateToUpcomingJob = () => {
-        navigate('/upcoming-jobs-view');
-    };
+    // const navigateToUpcomingJob = () => {
+    //     navigate('/upcoming-jobs-view');
+    // };
     const [currentWeekStart, setCurrentWeekStart] = useState(startOfWeek(new Date(), { weekStartsOn: 0 }));
     const todayStr = format(new Date(), 'yyyy-MM-dd');
 
@@ -244,6 +248,45 @@ const Calendar = ({ events = [] }) => {
     const prevWeek = () => setCurrentWeekStart(subWeeks(currentWeekStart, 1));
 
     const weekDays = getWeekDays();
+    const [events, setEvents] = useState([]);
+    useEffect(() => {
+        const fetchCalendar = async () => {
+            const startDate = format(
+                startOfWeek(currentWeekStart, { weekStartsOn: 0 }),
+                "yyyy-MM-dd"
+            );
+            const endDate = format(
+                endOfWeek(currentWeekStart, { weekStartsOn: 0 }),
+                "yyyy-MM-dd"
+            );
+
+            const data = await getCalendarByDateRange(startDate, endDate);
+
+            if (data?.result) {
+                const mappedEvents = data.result.map(ev => {
+                    const evDate = new Date(ev.date);
+                    return {
+                        date: format(evDate, "yyyy-MM-dd"),   
+                        hour: evDate.getHours(),              
+                        name: ev.name,
+                        location: ev.address,
+                        moveId: ev.moveId,
+                        moveCode: ev.moveCode
+                    };
+                });
+                setEvents(mappedEvents);
+            }
+        };
+
+        fetchCalendar();
+    }, [currentWeekStart]);
+    const handleViewMore = (moveCode, moveId) => {
+        // debugger
+        sessionStorage.setItem('moveCodeSub', moveCode)
+        sessionStorage.setItem('moveIdSub', moveId)
+        navigate("/upcoming-jobs-view");
+    };
+
 
     return (
         <div className="overflow-x-auto">
@@ -251,7 +294,12 @@ const Calendar = ({ events = [] }) => {
             <div className="mb-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 {/* Navigation Controls */}
                 <div className="flex flex-wrap items-center justify-start gap-2">
-                    <button onClick={prevWeek} className="bg-gray-200 px-3 py-2 rounded">←</button>
+                    <button onClick={() => {
+                        const newDate = new Date(currentWeekStart);
+                        newDate.setDate(newDate.getDate() - 7);
+                        setCurrentWeekStart(newDate);
+                    }}
+                        className="bg-gray-200 px-3 py-2 rounded">←</button>
 
                     {/* Month Selector */}
                     <select
@@ -288,7 +336,11 @@ const Calendar = ({ events = [] }) => {
                         })}
                     </select>
 
-                    <button onClick={nextWeek} className="bg-gray-200 px-3 py-2 rounded">→</button>
+                    <button onClick={() => {
+                        const newDate = new Date(currentWeekStart);
+                        newDate.setDate(newDate.getDate() + 7);
+                        setCurrentWeekStart(newDate);
+                    }} className="bg-gray-200 px-3 py-2 rounded">→</button>
                 </div>
 
                 {/* Week Label */}
@@ -371,7 +423,7 @@ const Calendar = ({ events = [] }) => {
                                                     backgroundColor: 'rgba(228, 242, 251, 1)',
                                                     borderLeft: '4px solid rgba(75, 168, 233, 1)'
                                                 }}
-                                                onClick={navigateToUpcomingJob}
+                                                onClick={() => handleViewMore(event.moveCode, event.moveId)}
                                                 className="p-::contentReference[oaicite:9]{index=9}"
                                             // className="p-1 bg-blue-600 text-white rounded cursor-pointer hover:bg-blue-700 transition text-xs"
                                             >
@@ -387,7 +439,7 @@ const Calendar = ({ events = [] }) => {
                                                         whiteSpace: 'nowrap',
                                                         textOverflow: 'ellipsis',
                                                         overflow: 'auto',
-                                                        scrollbarWidth: 'none', 
+                                                        scrollbarWidth: 'none',
                                                         msOverflowStyle: 'none'
                                                     }} className="font-semibold">{event.name}</div>
                                                     <div style={{
@@ -395,7 +447,7 @@ const Calendar = ({ events = [] }) => {
                                                         whiteSpace: 'nowrap',
                                                         textOverflow: 'ellipsis',
                                                         overflow: 'auto',
-                                                        scrollbarWidth: 'none', 
+                                                        scrollbarWidth: 'none',
                                                         msOverflowStyle: 'none'
 
                                                     }} className="text-[13px] text-gray-700">{event.location}</div>

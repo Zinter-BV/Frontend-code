@@ -46,13 +46,13 @@ const Footer = () => {
                   {" "}
                   Report an issue
                 </p>
-                <Link
+                {/* <Link
                   to="/faq"
                   className="font-sora text-right font-regular footerDesc mt-2"
                 >
                   {" "}
                   Frequently Asked Questions
-                </Link>
+                </Link> */}
                 <Link
                   to="/privacy-policy"
                   className="font-sora text-right font-regular footerDesc mt-2"
@@ -81,21 +81,6 @@ const Footer = () => {
                   {" "}
                   support@zinter.nl
                 </a>
-                <a
-                  href="tel:+4930000000000"
-                  className="font-sora text-right font-regular footerDesc"
-                >
-                  {" "}
-                  +493 00 00000000
-                </a>
-                <p className="font-sora text-right font-regular footerDesc mt-2">
-                  {" "}
-                  Mon. - Fri.: 08:00 - 19:00
-                </p>
-                <p className="font-sora text-right font-regular footerDesc mt-2">
-                  {" "}
-                  Sat.: 09:00 - 17:00
-                </p>
               </div>
             </div>
           </div>

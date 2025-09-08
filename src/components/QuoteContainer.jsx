@@ -35,6 +35,8 @@ const QuoteContainer = ({ data }) => {
 
   //moving info
   const [moveDate, setMoveDate] = useState("");
+  const [moveTime, setMoveTime] = useState("");
+  const [pickUpDate, setPickUpDate] = useState("");
   const [pickUpTime, setPickupTime] = useState("");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -90,7 +92,7 @@ const QuoteContainer = ({ data }) => {
   // Function to validate move info data
   const validateMoveInfo = () => {
     const requiredFields = [
-      { field: moveDate, name: "Move Date" },
+      { field: moveTime, name: "Move Date" },
       { field: pickUpTime, name: "Pickup Time" },
       { field: fullName, name: "Full Name" },
       { field: email, name: "Email" },
@@ -120,10 +122,13 @@ const QuoteContainer = ({ data }) => {
   };
 
   // Format the datetime when creating moreInfoData
-  const formattedMoveDateTime = formatToISODateTime(moveDate, pickUpTime);
+  const formattedMoveDateTime = formatToISODateTime(moveDate, moveTime);
+  const formattedPickUpDateTime = formatToISODateTime(pickUpDate, pickUpTime);
+  console.log(formattedMoveDateTime);
+  console.log(formattedPickUpDateTime);
   const moreInfoData = {
-    moveDate: formattedMoveDateTime,
-    pickUpTime: formattedMoveDateTime,
+    moveTime: formattedMoveDateTime,
+    pickUpTime: formattedPickUpDateTime,
     fullName,
     email,
     phoneNumber,
@@ -176,8 +181,11 @@ const QuoteContainer = ({ data }) => {
     };
   }
   const dataToSend = mergeTwoObjects(user?.items, user?.moreInfo);
+
+  // responnnse from server
+  const [errMessage, setErrMessage] = useState("");
   // to display the code on the ui
-  const [serverResponse, setServerResponse] = useState({});
+
   // Remove the wrapper object - send dataToSend directly
   const addUserDetails = async () => {
     const response = await axios.post(
@@ -190,13 +198,21 @@ const QuoteContainer = ({ data }) => {
   const mutation = useMutation({
     mutationFn: addUserDetails,
     onSuccess: (data) => {
-      setServerResponse(data);
+      // console.log(data.responseTime, "Main Status");
       console.log(data);
-      setOpenSuccessModal(true);
-      setEmail("");
+      if (data.responseStatus) {
+        setOpenSuccessModal(true);
+        setEmail("");
+      }
+      if (!data.responseStatus) {
+        setErrMessage(
+          data.responseMessage || "An error occurred. Please try again."
+        );
+      }
     },
     onError: (error) => {
       console.error("Error creating user:", error);
+      setErrMessage("An error occurred. Please try again.");
     },
   });
 
@@ -227,8 +243,12 @@ const QuoteContainer = ({ data }) => {
     case 3:
       content = (
         <MovingInformation
-          moveDate={moveDate}
           setMoveDate={setMoveDate}
+          moveDate={moveDate}
+          setPickUpDate={setPickUpDate}
+          pickUpDate={pickUpDate}
+          moveTime={moveTime}
+          setMoveTime={setMoveTime}
           pickUpTime={pickUpTime}
           setPickupTime={setPickupTime}
           fullName={fullName}
@@ -296,13 +316,13 @@ const QuoteContainer = ({ data }) => {
       // Code to be executed if expression matches value2
       break;
     case 4:
-      content = <ViewSummary />;
+      content = <ViewSummary errMessage={errMessage} />;
       // Code to be executed if expression matches value2
       break;
-    case 5:
-      content = <p>Finish</p>;
-      // Code to be executed if expression matches value2
-      break;
+    // case 5:
+    //   content = <p>Finish</p>;
+    //   // Code to be executed if expression matches value2
+    //   break;
     // Add more cases as needed
     default:
       content = <Location />;
@@ -323,6 +343,11 @@ const QuoteContainer = ({ data }) => {
     }
     if (activeTab === 2) {
       console.log(activeTab, 2);
+      // if active tab is 2 and user has not added any items, stay on tab 2
+      if (user.items.length === 0) {
+        setActiveTab(2);
+        return;
+      }
     }
     if (activeTab === 3) {
       console.log(activeTab, 3);
@@ -444,12 +469,7 @@ const QuoteContainer = ({ data }) => {
           </PrimaryBtn>
         </div>
       </div>
-      {openSuccessModal && (
-        <QuoteSuccess
-          serverResponse={serverResponse}
-          closeModal={closeSuccessModal}
-        />
-      )}
+      {openSuccessModal && <QuoteSuccess closeModal={closeSuccessModal} />}
     </div>
   );
 };

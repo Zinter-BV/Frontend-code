@@ -12,7 +12,7 @@ const PrivacyPolicy = () => {
       <Header />
       <div className="  w-full  bg-gradient-to-b mt-[80px] from-[#E8F5F5] to-white">
         <div className="w-[90vw] heroSection pt-14 max-w-[1500px] items-center flex justify-between mx-auto">
-          <div className="w-[70%] mx-auto  ">
+          <div className="md:w-[70%] w-[90%] mx-auto  ">
             <h1 className="font-unbounded font-semibold text-[48px] text-black ">
               Privacy Policy
             </h1>

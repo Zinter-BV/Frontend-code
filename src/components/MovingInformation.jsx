@@ -1,9 +1,13 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import "./movingInformation.css";
 
 const MovingInformation = ({
   moveDate,
   setMoveDate,
+  pickUpDate,
+  setPickUpDate,
+  moveTime,
+  setMoveTime,
   pickUpTime,
   setPickupTime,
   fullName,
@@ -116,6 +120,107 @@ const MovingInformation = ({
       }
     }
   };
+  //FROM
+  // Change Background Color of selected option
+  const [fromElevatorYes, setFromElevatorYes] = useState(true);
+  const [fromElevatorNo, setFromElevatorNo] = useState(false);
+  const [fromNeedShuttleYes, setFromNeedShuttleYes] = useState(true);
+  const [fromNeedShuttleNo, setFromNeedShuttleNo] = useState(false);
+  const [fromBuildingInsuranceYes, setFromBuildingInsuranceYes] =
+    useState(true);
+  const [fromBuildingInsuranceNo, setFromBuildingInsuranceNo] = useState(false);
+  const [fromNeedHelpPackingYes, setFromNeedHelpPackingYes] = useState(true);
+  const [fromNeedHelpPackingNo, setFromNeedHelpPackingNo] = useState(false);
+
+  const handleFromElevator = (value) => {
+    if (value === "yes") {
+      setFromElevatorYes(true);
+      setFromElevatorNo(false);
+    } else {
+      setFromElevatorYes(false);
+      setFromElevatorNo(true);
+    }
+  };
+
+  const handleFromNeedShuttle = (value) => {
+    if (value === "yes") {
+      setFromNeedShuttleYes(true);
+      setFromNeedShuttleNo(false);
+    } else {
+      setFromNeedShuttleYes(false);
+      setFromNeedShuttleNo(true);
+    }
+  };
+
+  const handleFromBuildingInsurance = (value) => {
+    if (value === "yes") {
+      setFromBuildingInsuranceYes(true);
+      setFromBuildingInsuranceNo(false);
+    } else {
+      setFromBuildingInsuranceYes(false);
+      setFromBuildingInsuranceNo(true);
+    }
+  };
+
+  const handleFromNeedHelpPacking = (value) => {
+    if (value === "yes") {
+      setFromNeedHelpPackingYes(true);
+      setFromNeedHelpPackingNo(false);
+    } else {
+      setFromNeedHelpPackingYes(false);
+      setFromNeedHelpPackingNo(true);
+    }
+  };
+
+  // TO
+  const [toElevatorYes, setToElevatorYes] = useState(true);
+  const [toElevatorNo, setToElevatorNo] = useState(false);
+  const [toNeedShuttleYes, setToNeedShuttleYes] = useState(true);
+  const [toNeedShuttleNo, setToNeedShuttleNo] = useState(false);
+  const [toBuildingInsuranceYes, setToBuildingInsuranceYes] = useState(true);
+  const [toBuildingInsuranceNo, setToBuildingInsuranceNo] = useState(false);
+  const [toNeedHelpPackingYes, setToNeedHelpPackingYes] = useState(true);
+  const [toNeedHelpPackingNo, setToNeedHelpPackingNo] = useState(false);
+
+  const handleToElevator = (value) => {
+    if (value === "yes") {
+      setToElevatorYes(true);
+      setToElevatorNo(false);
+    } else {
+      setToElevatorYes(false);
+      setToElevatorNo(true);
+    }
+  };
+
+  const handleToNeedShuttle = (value) => {
+    if (value === "yes") {
+      setToNeedShuttleYes(true);
+      setToNeedShuttleNo(false);
+    } else {
+      setToNeedShuttleYes(false);
+      setToNeedShuttleNo(true);
+    }
+  };
+
+  const handleToBuildingInsurance = (value) => {
+    if (value === "yes") {
+      setToBuildingInsuranceYes(true);
+      setToBuildingInsuranceNo(false);
+    } else {
+      setToBuildingInsuranceYes(false);
+      setToBuildingInsuranceNo(true);
+    }
+  };
+
+  const handleToNeedHelpPacking = (value) => {
+    if (value === "yes") {
+      setToNeedHelpPackingYes(true);
+      setToNeedHelpPackingNo(false);
+    } else {
+      setToNeedHelpPackingYes(false);
+      setToNeedHelpPackingNo(true);
+    }
+  };
 
   return (
     <div className="ml-4 movingInfoBox w-full">
@@ -134,18 +239,6 @@ const MovingInformation = ({
             Date and Time
           </p>
           <div className="mt-[10px] mb-6 border-[#e3e3e3] border-b-[1px] pb-3 ">
-            <div className="flex mb-[15px] flex-col">
-              <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                Move Date
-              </label>
-              <input
-                placeholder="Select Move Date"
-                type="date"
-                value={moveDate}
-                onChange={(e) => setMoveDate(e.target.value)}
-                className="h-[45px] border-[#e3e3e3] w-full font-light border-[1px] outline-none p-[8px] rounded-[8px] "
-              />
-            </div>
             <div className="flex mb-[10px] flex-col">
               <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
                 Pickup Time
@@ -158,7 +251,46 @@ const MovingInformation = ({
                 className="h-[45px] border-[#e3e3e3] w-full font-light border-[1px] outline-none p-[8px] rounded-[8px] "
               />
             </div>
+            <div className="flex mb-[10px] flex-col">
+              <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
+                Pickup Date
+              </label>
+              <input
+                placeholder="Select Pickup Date"
+                type="date"
+                value={pickUpDate}
+                onChange={(e) => setPickUpDate(e.target.value)}
+                className="h-[45px] border-[#e3e3e3] w-full font-light border-[1px] outline-none p-[8px] rounded-[8px] "
+              />
+            </div>
           </div>
+          <div className="mt-[10px] mb-6 border-[#e3e3e3] border-b-[1px] pb-3 ">
+            <div className="flex mb-[15px] flex-col">
+              <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
+                Move Date
+              </label>
+              <input
+                placeholder="Select Move Date"
+                type="date"
+                value={moveDate}
+                onChange={(e) => setMoveDate(e.target.value)}
+                className="h-[45px] border-[#e3e3e3] w-full font-light border-[1px] outline-none p-[8px] rounded-[8px] "
+              />
+            </div>
+            <div className="flex mb-[15px] flex-col">
+              <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
+                Move Time
+              </label>
+              <input
+                placeholder="Select Move Date"
+                type="time"
+                value={moveTime}
+                onChange={(e) => setMoveTime(e.target.value)}
+                className="h-[45px] border-[#e3e3e3] w-full font-light border-[1px] outline-none p-[8px] rounded-[8px] "
+              />
+            </div>
+          </div>
+
           <p className="font-sans text-[#136AB5] text-[18px] font-bold ">
             Contact Info
           </p>
@@ -315,33 +447,48 @@ const MovingInformation = ({
                     Elevator?
                   </p>
                   <div className="flex w-[200px] elevatorQuestionBox h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
-                    <div className="flex w-[50%] bg-[#E4F0FC] rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center ">
-                      <input
-                        type="radio"
-                        name="elevator"
-                        id="yes"
-                        checked={fromHasElevator === true}
-                        onChange={() => setFromHasElevator(true)}
-                      />
-                      <label
-                        htmlFor="yes"
-                        className=" text-[#136AB5] font-sans ml-1"
+                    <label
+                      htmlFor="yes"
+                      className="w-[50%] cursor-pointer h-full"
+                      onClick={() => handleFromElevator("yes")}
+                    >
+                      <div
+                        className={`flex w-[100%] ${
+                          fromElevatorYes ? "bg-[#E4F0FC]" : ""
+                        } rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center `}
                       >
-                        Yes
-                      </label>
-                    </div>
-                    <div className="flex items-center justify-center h-full w-[50%]">
-                      <input
-                        type="radio"
-                        name="elevator"
-                        id="no"
-                        checked={fromHasElevator === false}
-                        onChange={() => setFromHasElevator(false)}
-                      />
-                      <label className="ml-1" htmlFor="no">
-                        No
-                      </label>
-                    </div>
+                        <input
+                          type="radio"
+                          name="elevator"
+                          id="yes"
+                          checked={fromHasElevator === true}
+                          onChange={() => setFromHasElevator(true)}
+                        />
+                        <span className=" text-[#136AB5] font-sans ml-1">
+                          Yes
+                        </span>
+                      </div>
+                    </label>
+                    <label
+                      onClick={() => handleFromElevator("no")}
+                      htmlFor="no"
+                      className="w-[50%] cursor-pointer h-full"
+                    >
+                      <div
+                        className={`flex items-center justify-center h-full w-[100%] ${
+                          fromElevatorNo ? "bg-[#E4F0FC]" : ""
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="elevator"
+                          id="no"
+                          checked={fromHasElevator === false}
+                          onChange={() => setFromHasElevator(false)}
+                        />
+                        <label className="ml-1">No</label>
+                      </div>
+                    </label>
                   </div>
                 </div>
                 <div className="flex mb-[10px] flex-col">
@@ -349,33 +496,48 @@ const MovingInformation = ({
                     Need Shuttle?
                   </p>
                   <div className="flex w-[200px] elevatorQuestionBox h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
-                    <div className="flex w-[50%] bg-[#E4F0FC] rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center ">
-                      <input
-                        type="radio"
-                        name="from_shuttle"
-                        id="needShuttle_yes"
-                        checked={fromNeedShuttle === true}
-                        onChange={() => setFromNeedShuttle(true)}
-                      />
-                      <label
-                        htmlFor="needShuttle_yes"
-                        className=" text-[#136AB5] font-sans ml-1"
+                    <label
+                      onClick={() => handleFromNeedShuttle("yes")}
+                      className="w-[50%] cursor-pointer h-full"
+                      htmlFor="needShuttle_yes"
+                    >
+                      <div
+                        className={`flex w-[100%] ${
+                          fromNeedShuttleYes ? "bg-[#E4F0FC]" : ""
+                        } rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center `}
                       >
-                        Yes
-                      </label>
-                    </div>
-                    <div className="flex items-center justify-center h-full w-[50%]">
-                      <input
-                        type="radio"
-                        name="from_shuttle"
-                        id="needShuttle_no"
-                        checked={fromNeedShuttle === false}
-                        onChange={() => setFromNeedShuttle(false)}
-                      />
-                      <label className="ml-1" htmlFor="needShuttle_no">
-                        No
-                      </label>
-                    </div>
+                        <input
+                          type="radio"
+                          name="from_shuttle"
+                          id="needShuttle_yes"
+                          checked={fromNeedShuttle === true}
+                          onChange={() => setFromNeedShuttle(true)}
+                        />
+                        <span className=" text-[#136AB5] font-sans ml-1">
+                          Yes
+                        </span>
+                      </div>
+                    </label>
+                    <label
+                      onClick={() => handleFromNeedShuttle("no")}
+                      className="w-[50%] cursor-pointer h-full"
+                      htmlFor="needShuttle_no"
+                    >
+                      <div
+                        className={`flex items-center justify-center h-full w-[100%] ${
+                          fromNeedShuttleNo ? "bg-[#E4F0FC]" : ""
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="from_shuttle"
+                          id="needShuttle_no"
+                          checked={fromNeedShuttle === false}
+                          onChange={() => setFromNeedShuttle(false)}
+                        />
+                        <span className="ml-1">No</span>
+                      </div>
+                    </label>
                   </div>
                 </div>
               </div>
@@ -385,33 +547,48 @@ const MovingInformation = ({
                     Building Insurance
                   </p>
                   <div className="flex w-[200px] elevatorQuestionBox h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
-                    <div className="flex w-[50%] bg-[#E4F0FC] rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center ">
-                      <input
-                        type="radio"
-                        name="insurance"
-                        id="insurance_yes"
-                        checked={fromHasBuildingInsurance === true}
-                        onChange={() => setFromHasBuildingInsurance(true)}
-                      />
-                      <label
-                        htmlFor="insurance_yes"
-                        className=" text-[#136AB5] font-sans ml-1"
+                    <label
+                      onClick={() => handleFromBuildingInsurance("yes")}
+                      htmlFor="insurance_yes"
+                      className="w-[50%] cursor-pointer h-full"
+                    >
+                      <div
+                        className={`flex w-[100%] ${
+                          fromBuildingInsuranceYes ? "bg-[#E4F0FC]" : ""
+                        } rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center `}
                       >
-                        Yes
-                      </label>
-                    </div>
-                    <div className="flex items-center justify-center h-full w-[50%]">
-                      <input
-                        type="radio"
-                        name="insurance"
-                        id="insurance_no"
-                        checked={fromHasBuildingInsurance === false}
-                        onChange={() => setFromHasBuildingInsurance(false)}
-                      />
-                      <label className="ml-1" htmlFor="insurance_no">
-                        No
-                      </label>
-                    </div>
+                        <input
+                          type="radio"
+                          name="insurance"
+                          id="insurance_yes"
+                          checked={fromHasBuildingInsurance === true}
+                          onChange={() => setFromHasBuildingInsurance(true)}
+                        />
+                        <span className=" text-[#136AB5] font-sans ml-1">
+                          Yes
+                        </span>
+                      </div>
+                    </label>
+                    <label
+                      htmlFor="insurance_no"
+                      onClick={() => handleFromBuildingInsurance("no")}
+                      className="w-[50%] cursor-pointer h-full"
+                    >
+                      <div
+                        className={`flex items-center justify-center h-full w-[100%] ${
+                          fromBuildingInsuranceNo ? "bg-[#E4F0FC]" : ""
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="insurance"
+                          id="insurance_no"
+                          checked={fromHasBuildingInsurance === false}
+                          onChange={() => setFromHasBuildingInsurance(false)}
+                        />
+                        <span className="ml-1">No</span>
+                      </div>
+                    </label>
                   </div>
                 </div>
                 <div className="flex mb-[10px] flex-col">
@@ -419,33 +596,48 @@ const MovingInformation = ({
                     Need help packing your items?
                   </p>
                   <div className="flex w-[200px] elevatorQuestionBox h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
-                    <div className="flex w-[50%] bg-[#E4F0FC] rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center ">
-                      <input
-                        type="radio"
-                        name="from_need_help"
-                        id="need_help_yes"
-                        checked={fromNeedHelpPacking === true}
-                        onChange={() => setFromNeedHelpPacking(true)}
-                      />
-                      <label
-                        htmlFor="need_help_yes"
-                        className=" text-[#136AB5] font-sans ml-1"
+                    <label
+                      onClick={() => handleFromNeedHelpPacking("yes")}
+                      htmlFor="need_help_yes"
+                      className="w-[50%] cursor-pointer h-full"
+                    >
+                      <div
+                        className={`flex w-[100%] ${
+                          fromNeedHelpPackingYes ? "bg-[#E4F0FC]" : ""
+                        } rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center `}
                       >
-                        Yes
-                      </label>
-                    </div>
-                    <div className="flex items-center justify-center h-full w-[50%]">
-                      <input
-                        type="radio"
-                        name="from_need_help"
-                        id="need_help_no"
-                        checked={fromNeedHelpPacking === false}
-                        onChange={() => setFromNeedHelpPacking(false)}
-                      />
-                      <label className="ml-1" htmlFor="need_help_no">
-                        No
-                      </label>
-                    </div>
+                        <input
+                          type="radio"
+                          name="from_need_help"
+                          id="need_help_yes"
+                          checked={fromNeedHelpPacking === true}
+                          onChange={() => setFromNeedHelpPacking(true)}
+                        />
+                        <span className=" text-[#136AB5] font-sans ml-1">
+                          Yes
+                        </span>
+                      </div>
+                    </label>
+                    <label
+                      onClick={() => handleFromNeedHelpPacking("no")}
+                      htmlFor="need_help_no"
+                      className="w-[50%] cursor-pointer h-full"
+                    >
+                      <div
+                        className={`flex items-center justify-center h-full w-[100%] ${
+                          fromNeedHelpPackingNo ? "bg-[#E4F0FC]" : ""
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="from_need_help"
+                          id="need_help_no"
+                          checked={fromNeedHelpPacking === false}
+                          onChange={() => setFromNeedHelpPacking(false)}
+                        />
+                        <span className="ml-1">No</span>
+                      </div>
+                    </label>
                   </div>
                 </div>
               </div>
@@ -561,35 +753,50 @@ const MovingInformation = ({
                     Elevator?
                   </p>
                   <div className="flex w-[200px] elevatorQuestionBox h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
-                    <div className="flex w-[50%] bg-[#E4F0FC] rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center ">
-                      <input
-                        placeholder="Enter Number"
-                        type="radio"
-                        name="to_elevator"
-                        id="elevator_yes"
-                        checked={toHasElevator === true}
-                        onChange={() => setToHasElevator(true)}
-                      />
-                      <label
-                        htmlFor="elevator_yes"
-                        className=" text-[#136AB5] font-sans ml-1"
+                    <label
+                      onClick={() => handleToElevator("yes")}
+                      htmlFor="elevator_yes"
+                      className="w-[50%] cursor-pointer h-full"
+                    >
+                      <div
+                        className={`flex w-[100%] ${
+                          toElevatorYes ? "bg-[#E4F0FC]" : ""
+                        } rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center `}
                       >
-                        Yes
-                      </label>
-                    </div>
-                    <div className="flex items-center justify-center h-full w-[50%]">
-                      <input
-                        placeholder="Enter Number"
-                        type="radio"
-                        name="to_elevator"
-                        id="elevator_no"
-                        checked={toHasElevator === false}
-                        onChange={() => setToHasElevator(false)}
-                      />
-                      <label className="ml-1" htmlFor="elevator_no">
-                        No
-                      </label>
-                    </div>
+                        <input
+                          placeholder="Enter Number"
+                          type="radio"
+                          name="to_elevator"
+                          id="elevator_yes"
+                          checked={toHasElevator === true}
+                          onChange={() => setToHasElevator(true)}
+                        />
+                        <span className=" text-[#136AB5] font-sans ml-1">
+                          Yes
+                        </span>
+                      </div>
+                    </label>
+                    <label
+                      onClick={() => handleToElevator("no")}
+                      htmlFor="elevator_no"
+                      className="w-[50%] cursor-pointer h-full"
+                    >
+                      <div
+                        className={`flex items-center justify-center h-full w-[100%] ${
+                          toElevatorNo ? "bg-[#E4F0FC]" : ""
+                        }`}
+                      >
+                        <input
+                          placeholder="Enter Number"
+                          type="radio"
+                          name="to_elevator"
+                          id="elevator_no"
+                          checked={toHasElevator === false}
+                          onChange={() => setToHasElevator(false)}
+                        />
+                        <span className="ml-1">No</span>
+                      </div>
+                    </label>
                   </div>
                 </div>
                 <div className="flex mb-[10px] flex-col">
@@ -597,35 +804,50 @@ const MovingInformation = ({
                     Need Shuttle?
                   </p>
                   <div className="flex w-[200px] elevatorQuestionBox h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
-                    <div className="flex w-[50%] bg-[#E4F0FC] rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center ">
-                      <input
-                        placeholder="Enter Number"
-                        type="radio"
-                        name="to_shuttle"
-                        id="need_to_Shuttle_yes"
-                        checked={toNeedShuttle === true}
-                        onChange={() => setToNeedShuttle(true)}
-                      />
-                      <label
-                        htmlFor="need_to_Shuttle_yes"
-                        className=" text-[#136AB5] font-sans ml-1"
+                    <label
+                      onClick={() => handleToNeedShuttle("yes")}
+                      htmlFor="need_to_Shuttle_yes"
+                      className="w-[50%] cursor-pointer h-full"
+                    >
+                      <div
+                        className={`flex w-[100%] ${
+                          toNeedShuttleYes ? "bg-[#E4F0FC]" : ""
+                        } rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center `}
                       >
-                        Yes
-                      </label>
-                    </div>
-                    <div className="flex items-center justify-center h-full w-[50%]">
-                      <input
-                        placeholder="Enter Number"
-                        type="radio"
-                        name="to_shuttle"
-                        id="need_to_Shuttle_no"
-                        checked={toNeedShuttle === false}
-                        onChange={() => setToNeedShuttle(false)}
-                      />
-                      <label className="ml-1" htmlFor="need_to_Shuttle_no">
-                        No
-                      </label>
-                    </div>
+                        <input
+                          placeholder="Enter Number"
+                          type="radio"
+                          name="to_shuttle"
+                          id="need_to_Shuttle_yes"
+                          checked={toNeedShuttle === true}
+                          onChange={() => setToNeedShuttle(true)}
+                        />
+                        <span className=" text-[#136AB5] font-sans ml-1">
+                          Yes
+                        </span>
+                      </div>
+                    </label>
+                    <label
+                      onClick={() => handleToNeedShuttle("no")}
+                      htmlFor="need_to_Shuttle_no"
+                      className="w-[50%] cursor-pointer h-full"
+                    >
+                      <div
+                        className={`flex items-center justify-center h-full w-[100%] ${
+                          toNeedShuttleNo ? "bg-[#E4F0FC]" : ""
+                        }`}
+                      >
+                        <input
+                          placeholder="Enter Number"
+                          type="radio"
+                          name="to_shuttle"
+                          id="need_to_Shuttle_no"
+                          checked={toNeedShuttle === false}
+                          onChange={() => setToNeedShuttle(false)}
+                        />
+                        <span className="ml-1">No</span>
+                      </div>
+                    </label>
                   </div>
                 </div>
               </div>
@@ -635,35 +857,50 @@ const MovingInformation = ({
                     Building Insurance
                   </p>
                   <div className="flex w-[200px] elevatorQuestionBox h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
-                    <div className="flex w-[50%] bg-[#E4F0FC] rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center ">
-                      <input
-                        placeholder="Enter Number"
-                        type="radio"
-                        name="to_insurance"
-                        id="to_insurance_yes"
-                        checked={toHasBuildingInsurance === true}
-                        onChange={() => setToHasBuildingInsurance(true)}
-                      />
-                      <label
-                        htmlFor="to_insurance_yes"
-                        className=" text-[#136AB5] font-sans ml-1"
+                    <label
+                      onClick={() => handleToBuildingInsurance("yes")}
+                      htmlFor="to_insurance_yes"
+                      className="w-[50%] cursor-pointer h-full"
+                    >
+                      <div
+                        className={`flex w-[100%] ${
+                          toBuildingInsuranceYes ? "bg-[#E4F0FC]" : ""
+                        } rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center `}
                       >
-                        Yes
-                      </label>
-                    </div>
-                    <div className="flex items-center justify-center h-full w-[50%]">
-                      <input
-                        placeholder="Enter Number"
-                        type="radio"
-                        name="to_insurance"
-                        id="to_insurance_no"
-                        checked={toHasBuildingInsurance === false}
-                        onChange={() => setToHasBuildingInsurance(false)}
-                      />
-                      <label className="ml-1" htmlFor="to_insurance_no">
-                        No
-                      </label>
-                    </div>
+                        <input
+                          placeholder="Enter Number"
+                          type="radio"
+                          name="to_insurance"
+                          id="to_insurance_yes"
+                          checked={toHasBuildingInsurance === true}
+                          onChange={() => setToHasBuildingInsurance(true)}
+                        />
+                        <span className=" text-[#136AB5] font-sans ml-1">
+                          Yes
+                        </span>
+                      </div>
+                    </label>
+                    <label
+                      onClick={() => handleToBuildingInsurance("no")}
+                      htmlFor="to_insurance_no"
+                      className="w-[50%] cursor-pointer h-full"
+                    >
+                      <div
+                        className={`flex items-center justify-center h-full w-[100%] ${
+                          toBuildingInsuranceNo ? "bg-[#E4F0FC]" : ""
+                        }`}
+                      >
+                        <input
+                          placeholder="Enter Number"
+                          type="radio"
+                          name="to_insurance"
+                          id="to_insurance_no"
+                          checked={toHasBuildingInsurance === false}
+                          onChange={() => setToHasBuildingInsurance(false)}
+                        />
+                        <span className="ml-1">No</span>
+                      </div>
+                    </label>
                   </div>
                 </div>
                 <div className="flex mb-[10px] flex-col">
@@ -671,35 +908,50 @@ const MovingInformation = ({
                     Need help packing your items?
                   </p>
                   <div className="flex w-[200px] elevatorQuestionBox h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
-                    <div className="flex w-[50%] bg-[#E4F0FC] rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center ">
-                      <input
-                        placeholder="Enter Number"
-                        type="radio"
-                        name="to_need_help"
-                        id="need_help_to_yes"
-                        checked={toNeedHelpPacking === true}
-                        onChange={() => setToNeedHelpPacking(true)}
-                      />
-                      <label
-                        htmlFor="need_help_to_yes"
-                        className=" text-[#136AB5] font-sans ml-1"
+                    <label
+                      htmlFor="need_help_to_yes"
+                      onClick={() => handleToNeedHelpPacking("yes")}
+                      className="w-[50%] cursor-pointer h-full"
+                    >
+                      <div
+                        className={`flex w-[100%] ${
+                          toNeedHelpPackingYes ? "bg-[#E4F0FC]" : ""
+                        } rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center `}
                       >
-                        Yes
-                      </label>
-                    </div>
-                    <div className="flex items-center justify-center h-full w-[50%]">
-                      <input
-                        placeholder="Enter Number"
-                        type="radio"
-                        name="to_need_help"
-                        id="need_help_to_no"
-                        checked={toNeedHelpPacking === false}
-                        onChange={() => setToNeedHelpPacking(false)}
-                      />
-                      <label className="ml-1" htmlFor="need_help_to_no">
-                        No
-                      </label>
-                    </div>
+                        <input
+                          placeholder="Enter Number"
+                          type="radio"
+                          name="to_need_help"
+                          id="need_help_to_yes"
+                          checked={toNeedHelpPacking === true}
+                          onChange={() => setToNeedHelpPacking(true)}
+                        />
+                        <span className=" text-[#136AB5] font-sans ml-1">
+                          Yes
+                        </span>
+                      </div>
+                    </label>
+                    <label
+                      onClick={() => handleToNeedHelpPacking("no")}
+                      htmlFor="need_help_to_no"
+                      className="w-[50%] cursor-pointer h-full"
+                    >
+                      <div
+                        className={`flex items-center justify-center h-full w-[100%] ${
+                          toNeedHelpPackingNo ? "bg-[#E4F0FC]" : ""
+                        }`}
+                      >
+                        <input
+                          placeholder="Enter Number"
+                          type="radio"
+                          name="to_need_help"
+                          id="need_help_to_no"
+                          checked={toNeedHelpPacking === false}
+                          onChange={() => setToNeedHelpPacking(false)}
+                        />
+                        <span className="ml-1">No</span>
+                      </div>
+                    </label>
                   </div>
                 </div>
               </div>

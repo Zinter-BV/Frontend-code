@@ -3,9 +3,11 @@ import "./ViewSummary.css";
 import { useSelector } from "react-redux";
 import { formatDate, getDayOfWeek, convertTo12Hour } from "../utils";
 
-const ViewSummary = () => {
+const ViewSummary = ({ errMessage }) => {
   const data = useSelector((state) => state.user);
   console.log(data);
+
+  console.log(errMessage, "Error Message");
 
   // Memoized room items and counts calculation
   const { roomCounts } = useMemo(() => {
@@ -40,6 +42,7 @@ const ViewSummary = () => {
             Move Summary
           </h3>
         </div>
+        {errMessage && <p className="text-red-500">{errMessage}</p>}
         <div className="p-[24px] w-full h-fit mb-20 summaryContainer rounded-[12px] ">
           <div className="relative mb-[20px]">
             <div className="absolute top-[65px] sideSide left-[15px] bg-[#E3E8EF] h-[65px] w-[2px] rounded-[2px]"></div>
@@ -251,7 +254,7 @@ const ViewSummary = () => {
                     Move Date
                   </p>
                   <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                    {formatDate(data?.moreInfo?.moveDate)}
+                    {formatDate(data?.moreInfo?.moveTime)}
                   </p>
                 </div>
                 <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
@@ -259,7 +262,7 @@ const ViewSummary = () => {
                     Day
                   </p>
                   <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                    {getDayOfWeek(data?.moreInfo?.moveDate)}
+                    {getDayOfWeek(data?.moreInfo?.moveTime)}
                   </p>
                 </div>
                 <div className="flex p-[16px] rounded-br-[12px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
