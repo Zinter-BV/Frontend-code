@@ -119,12 +119,12 @@ const CancelledJobs = () => {
                             <input type="text" placeholder="Search" />
                             <img src={searchIcon} alt="" />
                         </div>
-                        <div className="filter_con">
+                        {/* <div className="filter_con">
                             <span>
                                 <img src={filterIcon} alt="" />
                             </span>
                             <span>Filter</span>
-                        </div>
+                        </div> */}
                         <div className="refresh">
                             <img src={refreshIcon} alt="" />
                         </div>

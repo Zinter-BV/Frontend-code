@@ -39,7 +39,8 @@ import movingTruckIcon from "../Assets/moving_truck_icon.svg"
 import { useNavigate } from "react-router-dom";
 import { moveDetails } from '../api/moveDetails';
 import Loader from '../components/loader';
-import { logArrival } from '../api/tracking';
+import { endMove, logArrival } from '../api/tracking';
+import { startMove } from '../api/tracking';
 
 
 
@@ -60,11 +61,13 @@ const UpcomingJobView = () => {
     const [moveDay, setMoveDay] = useState("")
     const [moveTime, setMoveTime] = useState("")
     const [numberOfRooms, setNumberOfRooms] = useState("")
+    const [startMoveValue, setStartMoveValue] = useState("")
     const [amount, setAmount] = useState("")
     const [date, setDate] = useState("");
     const [time, setTime] = useState("");
     const [moveDetailsArray, setMoveDetailsArray] = useState([])
     const [itemsArray, setItemsArray] = useState([])
+    const [loading, setLoader] = useState(false)
     const { data, isLoading, error } = useQuery({
         queryKey: ["moveDetails", moveCode],
         queryFn: () => moveDetails(moveCode),
@@ -98,6 +101,8 @@ const UpcomingJobView = () => {
             setMoveDate(data.result.moveDate)
             setMoveDay(data.result.moveDay)
             setMoveTime(data.result.moveTime)
+            // setMoveFrom(data.result.from)
+            // setMoveTo(data.result.to)
             setNumberOfRooms(data.result.numberOfRooms)
             setMoveDetailsArray(data.result.moveItemsDetails);
             const allItems = moveDetailsArray.flatMap(detail => detail.items)
@@ -106,16 +111,40 @@ const UpcomingJobView = () => {
     }, [data, error]);
     const openMoveChecklist = () => {
         if (moveCode) {
-            debugger
+            // debugger
             refetch();
             setShowMoveChecklist(true);
 
         }
 
     }
-    const openMoveSuccess = () => {
+
+    const openMoveSuccess = async () => {
+        try {
+        isLoading(true)
+        const response = await endMove(startMoveValue)
+        isLoading(false)
+        console.log(response)
         setShowMoveSuccess(true)
         setShowMoveChecklist(false)
+        } 
+        catch (e) {
+
+        }
+        setShowMoveSuccess(true)
+        setShowMoveChecklist(false)
+    }
+
+     const startMoveBtn = async () => {
+        // debugger
+        try {
+            setLoader(true)
+            const response = await startMove(startMoveValue)
+            setLoader(false)
+            console.log(response)
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     const openMoveDetails = () => {
@@ -133,14 +162,16 @@ const UpcomingJobView = () => {
     const closeAllModal = () => {
         setShowMoveSuccess(false)
         setShowMoveChecklist(false)
-        setActiveTab('timeline');
-        setShowMoveDetails(false)
-        setShowMoveTimeline(true)
+        setActiveTab('details');
+        setShowMoveDetails(true)
+        setShowMoveTimeline(false)
     }
     const navigate = useNavigate()
     const handdleGoBack = () => {
         navigate("/calendar")
     }
+
+    // const 
 
 
     return (
@@ -163,7 +194,7 @@ const UpcomingJobView = () => {
                             <span className={activeTab === 'details' ? 'active' : ''}
                                 onClick={openMoveDetails}>Move Details</span>
                             <span className={activeTab === 'timeline' ? 'active' : ''}
-                                onClick={openMoveTimeline}>Move Timeline</span>
+                                >Move Timeline</span>
                         </div>
                         {showMoveDetails && <div className="header_upcoming_details">
                             <div className='upcoming_details_view'>
@@ -185,8 +216,8 @@ const UpcomingJobView = () => {
                             </div>
                             <div>
                                 <button className="msg_btn">
-                                    <span><img src={messageIcon} alt="" /></span>
-                                    <span className='msg_btn_text'>MESSAGE</span>
+                                    {/* <span><img src={messageIcon} alt="" /></span>
+                                    <span className='msg_btn_text'>MESSAGE</span> */}
                                 </button>
                             </div>
                         </div>}
@@ -514,7 +545,7 @@ const UpcomingJobView = () => {
                                         {/* <img src={displayPicture} alt="" /> */}
                                     </div>
                                     <div className="header_job_details_user">
-                                        <h2>Anna van Dijk</h2>
+                                        <h2>{fullName}</h2>
                                         <div className="header_upcoming">
                                             <div className="header_upcoming_detail_timeline">
                                                 <span><img src={dotCompleted} alt="" /></span>
@@ -526,9 +557,9 @@ const UpcomingJobView = () => {
                                                 </div>
                                                 <div>100%</div>
                                             </div>
-                                            <span className="header_upcoming_date">8th May, 2023</span>
-                                            <span className="header_upcoming_time">08:00 AM</span>
-                                            <span className="header_user_job_email">Apartment - 3 Bedroom</span>
+                                            <span className="header_upcoming_date">{moveDate}</span>
+                                            <span className="header_upcoming_time">{moveTime}</span>
+                                            <span className="header_user_job_email">Apartment - {numberOfRooms} Bedroom</span>
                                         </div>
                                     </div>
                                 </div>
@@ -613,10 +644,10 @@ const UpcomingJobView = () => {
                                     {/* <img src={displayPicture} alt="" /> */}
                                 </div>
                                 <div className="body_quote_details">
-                                    <h2>Anna van Dijk</h2>
+                                    <h2>{fullName}</h2>
                                     <div className="body_quote_details_sub">
-                                        <span className="">AnnaVanDijk@gmail.com</span>
-                                        <span>+123 456 7892</span>
+                                        <span className="">{email}</span>
+                                        <span>{phoneNumber}</span>
                                     </div>
                                 </div>
                             </div>
@@ -624,11 +655,11 @@ const UpcomingJobView = () => {
                                 <div className="body_quote_location_upcoming">
                                     <div className="body_quote_start">
                                         <img src={locationIcon} alt="" />
-                                        <span>Keizersgracht 123, 1015 CJ Amsterdam</span>
+                                        <span>{from}</span>
                                     </div>
                                     <div className="body_quote_start">
                                         <img src={destinationIcon} alt="" />
-                                        <span>Rozengracht 55, 1016 LZ Amsterdam</span>
+                                        <span>{to}</span>
                                     </div>
                                 </div>
                                 {/* <div className="body_quote_items">
@@ -650,9 +681,11 @@ const UpcomingJobView = () => {
                             <div className='body_checklist'>
                                 <input type="checkbox" name="" id="" />
                                 <span> <strong> Start Move</strong>  using customer tracking code</span>
+
                             </div>
                             <div className='body_checklist_input'>
-                                <input type="text" name="" placeholder='-----' id="" />
+                                <input type="text" name="" onChange={(e) => setStartMoveValue(e.target.value)} placeholder='-----' id="" />
+                                <button className='end_move_btn' onClick={startMoveBtn}>Start move</button>
                             </div>
                             <div className='body_checklist'>
                                 <input type="checkbox" name="" id="" />
@@ -689,10 +722,10 @@ const UpcomingJobView = () => {
                                 {/* <img src={displayPicture} alt="" /> */}
                             </div>
                             <div className="body_quote_details">
-                                <h2>Anna van Dijk</h2>
+                                <h2>{fullName}</h2>
                                 <div className="body_quote_details_sub">
-                                    <span className="">AnnaVanDijk@gmail.com</span>
-                                    <span>+123 456 7892</span>
+                                    <span className="">{email}</span>
+                                    <span>{phoneNumber}</span>
                                 </div>
                             </div>
                         </div>
@@ -705,6 +738,7 @@ const UpcomingJobView = () => {
             </div>}
             {isLoading && <Loader />}
             {isLoadingLoginArrival && <Loader />}
+            {loading && <Loader/>}
 
         </div>
     )

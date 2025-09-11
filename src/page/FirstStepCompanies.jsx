@@ -132,8 +132,10 @@ const FirstStepCompanies = () => {
             </div>
             <div className="first_company_card">
                 <div className="stepper_icon">
-                    <img className="mobile_only_stepper_icon" src={mobileStepperIcon} alt="" />
-                    <img className="laptop_only_stepper_icon" src={stepperIcon} alt="" />
+                    {/* <img className="mobile_only_stepper_icon" src={mobileStepperIcon} alt="" /> */}
+                    <img className="mobile_only_stepper_icon" src="/images/mobile-stepper-icon.svg" alt="" />
+                    {/* <img className="laptop_only_stepper_icon" src={stepperIcon} alt="" /> */}
+                    <img className="laptop_only_stepper_icon" src="/images/Progress minimal icons connected.svg" alt="" />
                 </div>
                 <div className="company_header">
                     <h1>Company Information</h1>
@@ -145,7 +147,7 @@ const FirstStepCompanies = () => {
                         value={regNumber}
                         onChange={handleInputChanges}
                         placeholder="Enter Registration Number" />
-                    {showTick && <img src={goodTick} alt="Valid" />}
+                    {showTick && <img src="/images/tick-01.svg" alt="Valid" />}
                 </div>
                 {showError && (
                     <div className="error_message_container">
@@ -173,7 +175,8 @@ const FirstStepCompanies = () => {
                     <div className="good_tick_container">
                         <div className="first_card_good_tick" >
                             <div>
-                                <img src={companyImage} alt="" />
+                                <img src="/images/Content.svg" alt="" />
+                                {/* <img src={companyImage} alt="" /> */}
                             </div>
                             <div className="movers_details">
                                 <div className="movers_details_text"> {companyName} </div>

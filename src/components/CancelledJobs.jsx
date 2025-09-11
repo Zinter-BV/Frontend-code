@@ -134,16 +134,19 @@ const CompletedJobs = () => {
                     <div className="right_table_head">
                         <div className="search_icon">
                             <input type="text" placeholder="Search" />
-                            <img src={searchIcon} alt="" />
+                            {/* <img src={searchIcon} alt="" /> */}
+                            <img src="/images/search-01.svg" alt="" />
                         </div>
                         <div className="filter_con">
                             <span>
-                                <img src={filterIcon} alt="" />
+                                <img src="/images/filter-horizontal.svg" alt="" />
+                                {/* <img src={filterIcon} alt="" /> */}
                             </span>
                             <span>Filter</span>
                         </div>
                         <div className="refresh">
-                            <img src={refreshIcon} alt="" />
+                            <img src="/images/refresh (1).svg" alt="" />
+                            {/* <img src={refreshIcon} alt="" /> */}
                         </div>
                     </div>
                 </div>
@@ -279,7 +282,8 @@ const CompletedJobs = () => {
                                     <td>
                                         <div className="name_td td">
                                             <div>
-                                                <img src={avatar} alt="user-initials" />
+                                                 <img src="/images/Gb-Avatar.svg" alt="" />
+                                                {/* <img src={avatar} alt="user-initials" /> */}
                                             </div>
                                             <div className="name_text">
                                                 <span>{job.fullName}</span>
@@ -296,7 +300,8 @@ const CompletedJobs = () => {
                                     <td>
                                         <div className="status_cancel td">
                                             <span>
-                                                <img src={dot} alt="" />
+                                                 <img src="/images/canceled_dot.svg" alt="" />
+                                                {/* <img src={dot} alt="" /> */}
                                             </span>
                                             <span>Cancelled</span>
                                         </div>
@@ -307,7 +312,8 @@ const CompletedJobs = () => {
                                         </div>
                                     </td>
                                     <td className="view" onClick={() => handleViewMore(job.moveCode, job.moveId)}>
-                                        <img src={viewMore} alt="view more" />
+                                        {/* <img src={viewMore} alt="view more" /> */}
+                                        <img src="/images/Eye.svg" alt="" />
                                     </td>
                                 </tr>
                             ))}

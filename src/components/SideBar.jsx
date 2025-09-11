@@ -96,18 +96,18 @@ import calendarIcon from "../Assets/calendar-icon.svg";
 import calenarIconActive from "../Assets/calendar-active-icon.svg"
 import jobsIcon from "../Assets/jobs-icon.svg";
 import jobsIconActive from "../Assets/jobs-active-icon.svg"
-import supportIcon from "../Assets/support-icon.svg";
-import sidebarIcon from "../Assets/sidebar-icon.svg";
+// import supportIcon from "../Assets/support-icon.svg";
+// import sidebarIcon from "../Assets/sidebar-icon.svg";
 import resolutionIcon from "../Assets/resolutionIcon.svg"
 import resolutionIconActive from "../Assets/resolutionIconActive.svg"
 import transactionIcon from "../Assets/credit-card.svg"
 import transactionIconActive from "../Assets/credit-card-active.svg"
-import logoAndText from "../Assets/logo-text.svg";
-import notificationLogo from "../Assets/notification-03.svg";
-import logoAndTextNew from "../Assets/new-logo-zinter-complete.svg"
-import helpLogo from "../Assets/help-circle.svg";
-import logoMobileScreen from "../Assets/logo_mobile_screen.svg"
-import hamburgerBtn from "../Assets/hamburger_btn.svg"
+// import logoAndText from "../Assets/logo-text.svg";
+// import notificationLogo from "../Assets/notification-03.svg";
+// import logoAndTextNew from "../Assets/new-logo-zinter-complete.svg"
+// import helpLogo from "../Assets/help-circle.svg";
+// import logoMobileScreen from "../Assets/logo_mobile_screen.svg"
+// import hamburgerBtn from "../Assets/hamburger_btn.svg"
 
 
 const SideBar = () => {
@@ -122,7 +122,7 @@ const SideBar = () => {
         { path: "/calendar", icon: calendarIcon, activeIcon: calenarIconActive, label: "Upcoming" },
         { path: "/jobs", icon: jobsIcon, activeIcon: jobsIconActive, label: "Jobs" },
         { path: "/payment", icon: transactionIcon, activeIcon: transactionIconActive, label: "Payment" },
-        { path: "/resolution", icon:resolutionIcon, activeIcon: resolutionIconActive, label: "Resolution" }
+        { path: "/resolution", icon: resolutionIcon, activeIcon: resolutionIconActive, label: "Resolution" }
     ];
 
     const navItemsMobile = [
@@ -145,7 +145,8 @@ const SideBar = () => {
 
                     <div className="side_bar_bottom">
                         <div>
-                            <img src={sidebarIcon} alt="" />
+                            <img src="/images/sidebar-icon.svg" alt="" />
+                            {/* <img src={sidebarIcon} alt="" /> */}
                         </div>
                         <div className="side_bar_bottom_text">
                             <span>Urban Movers</span>
@@ -155,12 +156,15 @@ const SideBar = () => {
                 </div>
                 <div className="header_container">
                     <div className="header_container_left">
-                        <img src={logoAndTextNew} alt="" />
+                        {/* <img src={logoAndTextNew} alt="" /> */}
+                        <img src="/images/new-logo-zinter-complete.svg" alt="" />
                         <span>{navItems.find(item => item.path === location.pathname)?.label || ""}</span>
                     </div>
                     <div className="header_container_right">
-                        <img src={helpLogo} alt="" />
-                        <img src={notificationLogo} alt="" />
+                        {/* <img src={helpLogo} alt="" /> */}
+                        <img src="/images/help-circle.svg" alt="" />
+                        {/* <img src={notificationLogo} alt="" /> */}
+                        <img src="/images/notification-03.svg" alt="" />
                     </div>
                 </div>
                 <div className="body_container"></div>
@@ -168,12 +172,13 @@ const SideBar = () => {
             <div className="side_bar_header_mobile">
                 <div className="side_bar_mobile">
                     <div onClick={toggleSidebar}>
-                        <img src={hamburgerBtn} alt="" />
+                        {/* <img src={hamburgerBtn} alt="" /> */}
+                        <img src="/images/hamburger_btn.svg" alt="" />
                     </div>
                     <div >
                         <span>{location.pathname === '/overview' ? 'Overview' : 'Upcoming'}</span>
                     </div>
-                      {/* {navItems.map(({ path, icon, activeIcon, label }) => (
+                    {/* {navItems.map(({ path, icon, activeIcon, label }) => (
                             <Link key={path} to={path}>
                                 <div className={`side_bar_child_mobile ${location.pathname === path ? "side_bar_child_active" : ""}`}>
                                     <img src={location.pathname === path ? activeIcon : icon} alt={label} />
@@ -182,14 +187,20 @@ const SideBar = () => {
                             </Link>
                         ))} */}
                     <div className="header_container_right">
-                        <img src={helpLogo} alt="" />
-                        <img src={notificationLogo} alt="" />
+                        {/* <img src={helpLogo} alt="" /> */}
+                        <img src="/images/help-circle.svg" alt="" />
+
+                        {/* <img src={notificationLogo} alt="" /> */}
+                        <img src="/images/notification-03.svg" alt="" />
+
                     </div>
                 </div>
                 <div className={`side_bar_mobile_all ${isOpen ? "open" : ""}`}>
                     <div className="side_bar_container_mobile">
                         <div onClick={toggleSidebar} className="side_bar_logo_mobile">
-                            <img src={logoMobileScreen} alt="" />
+                            {/* <img src={logoMobileScreen} alt="" /> */}
+                            <img src="/images/logo_mobile_screen.svg" alt="" />
+
                         </div>
                         {navItemsMobile.map(({ path, icon, activeIcon, label }) => (
                             <Link key={path} to={path}>
@@ -202,7 +213,8 @@ const SideBar = () => {
 
                         <div className="side_bar_bottom">
                             <div>
-                                <img src={sidebarIcon} alt="" />
+                                  <img src="/images/sidebar-icon.svg" alt="" />
+                                {/* <img src={sidebarIcon} alt="" /> */}
                             </div>
                             <div className="side_bar_bottom_text">
                                 <span>Urban Movers</span>

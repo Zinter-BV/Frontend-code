@@ -118,7 +118,7 @@ const CompletedJobs = () => {
             setCompleteJobs(data.result.items); // Set actual job data here
             console.log("Fetched jobs:", data.result.items);
             sessionStorage.setItem("totalCompletedJobs", data.result.totalCount)
-            
+
         } else if (error) {
             console.log("Error fetching jobs:", error);
         }
@@ -147,12 +147,12 @@ const CompletedJobs = () => {
                             <input type="text" placeholder="Search" />
                             <img src={searchIcon} alt="" />
                         </div>
-                        <div className="filter_con">
+                        {/* <div className="filter_con">
                             <span>
                                 <img src={filterIcon} alt="" />
                             </span>
                             <span>Filter</span>
-                        </div>
+                        </div> */}
                         <div className="refresh">
                             <img src={refreshIcon} alt="" />
                         </div>
@@ -289,7 +289,8 @@ const CompletedJobs = () => {
                                     <td>
                                         <div className="name_td td">
                                             <div>
-                                                <img src={avatar} alt="user-initials" />
+                                                <img src="/images/Gb-Avatar.svg" alt="" />
+                                                {/* <img src={avatar} alt="user-initials" /> */}
                                             </div>
                                             <div className="name_text">
                                                 <span>{job.fullName}</span>
@@ -305,7 +306,10 @@ const CompletedJobs = () => {
                                     </td>
                                     <td>
                                         <div className="status_completed td">
-                                            <span><img src={dot} alt="" /></span>
+                                            <span>
+                                                <img src="/images/completed_dot.svg" alt="" />
+                                                {/* <img src={dot} alt="" /> */}
+                                            </span>
                                             <span>Completed</span>
                                         </div>
                                     </td>
@@ -315,7 +319,8 @@ const CompletedJobs = () => {
                                         </div>
                                     </td>
                                     <td className="view" onClick={() => handleViewMore(job.moveCode, job.moveId)}>
-                                        <img src={viewMore} alt="view more" />
+                                        {/* <img src={viewMore} alt="view more" /> */}
+                                        <img src="/images/Eye.svg" alt="" />
                                     </td>
                                 </tr>
                             ))}

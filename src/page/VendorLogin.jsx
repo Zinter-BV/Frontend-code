@@ -68,6 +68,10 @@ const VendorLogin = () => {
        } 
     }
 
+    const handleSignUp = async () => {
+        navigate("/get-started")
+    }
+
 
 
     return (
@@ -88,6 +92,9 @@ const VendorLogin = () => {
                     <span className="admin_login_pass_btn" onClick={() => setShowPassword((prev) => !prev)}>
                         {showPassword ? "HIDE" : "SHOW"}
                     </span>
+                </div>
+                <div>
+                    Don't have an account? <a onClick={handleSignUp} href="">Sign up</a>
                 </div>
             </div>
 
