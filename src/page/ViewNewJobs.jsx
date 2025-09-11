@@ -203,7 +203,7 @@ const ViewNewJobs = () => {
                 <div className="new_jobs_header">
                     <button onClick={handdleGoBack}>
                         <span>New Jobs</span>
-                        <img src={arrowBack} alt="" />
+                        <img src="/images/arrow-back-btn.svg" alt="" />
                     </button>
                     <span className="new_jobs_head_text">View Job Details</span>
                 </div>
@@ -211,13 +211,15 @@ const ViewNewJobs = () => {
                     <div>
                         <div className="header_job_details">
                             <div>
-                                <img src={displayPicture} alt="" />
+                                <img src="/images/avatar-icon.svg" alt="" />
                             </div>
                             <div className="header_job_details_user">
                                 <h2>{fullName}</h2>
                                 <div>
                                     <div className="header_job_detail_new">
-                                        <span><img src={dot} alt="" /></span>
+                                        <span>
+                                            <img src="/images/Dot.svg" alt="" />
+                                            </span>
                                         <span>New Request</span>
                                     </div>
                                     <span className="header_user_job_email">{email}</span>
@@ -507,7 +509,7 @@ const ViewNewJobs = () => {
                 <div className="provide_quote_container">
                     <div className="provide_quote_body">
                         <div className="header_quote">
-                            <img onClick={handleAllClose} src={closeIcon} alt="" />
+                            <img onClick={handleAllClose} src="/images/close-modal-icon.svg" alt="" />
                             <span>Provide Quote</span>
                         </div>
                         <div className="body_quote_container">
@@ -516,7 +518,7 @@ const ViewNewJobs = () => {
                             <div className="body_quote">
                                 <div className="body_quote_first">
                                     <div>
-                                        <img src={displayPicture} alt="" />
+                                        <img src="/images/arrow-down-dropdown.svg" alt="" />
                                     </div>
                                     <div className="body_quote_details">
                                         <h2>{fullName}</h2>
@@ -529,11 +531,11 @@ const ViewNewJobs = () => {
                                 <div className="body_quote_location_items">
                                     <div className="body_quote_location">
                                         <div className="body_quote_start">
-                                            <img src={locationIcon} alt="" />
+                                            <img src="/images/location-icon.svg" alt="" />
                                             <span>{from}</span>
                                         </div>
                                         <div className="body_quote_start">
-                                            <img src={destinationIcon} alt="" />
+                                            <img src="/images/destination-icon.svg" alt="" />
                                             <span>{to}</span>
                                         </div>
                                     </div>
@@ -607,20 +609,20 @@ const ViewNewJobs = () => {
                 <div className="provide_quote_container">
                     <div className="provide_quote_body">
                         <div className="header_quote">
-                            <img onClick={handleAllClose} src={closeIcon} alt="" />
+                            <img onClick={handleAllClose} src="/images/close-modal-icon.svg" alt="" />
                             {/* <span>Provide Quote</span> */}
                         </div>
                         <div className="body_quote_container">
 
                             <div className="success_quote">
-                                <img src={sucessIcon} alt="" />
+                                <img src="/images/success-good-tick.svg" alt="" />
                                 <h1>Quote successfully provided</h1>
                                 <span>A notification will be sent to the customer’s email to make payment</span>
                             </div>
                             <div className="body_quote">
                                 <div className="body_quote_first">
                                     <div>
-                                        <img src={displayPicture} alt="" />
+                                        <img src="/images/avatar-icon.svg" alt="" />
                                     </div>
                                     <div className="body_quote_details">
                                         <h2>{fullName}</h2>

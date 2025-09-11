@@ -113,8 +113,10 @@ const SecondStepCompanies = () => {
             </div>
             <div className="first_company_card">
                 <div className="stepper_icon">
-                    <img className="mobile_only_stepper_icon" src={stepperMobileSecond} alt="" />
-                    <img className="laptop_only_stepper_icon" src={stepperIconSecond} alt="" />
+                    {/* <img className="mobile_only_stepper_icon" src={stepperMobileSecond} alt="" /> */}
+                    <img className="mobile_only_stepper_icon" src="/images/mobile-stepper-icon-second.svg" alt="" />
+                    {/* <img className="laptop_only_stepper_icon" src={stepperIconSecond} alt="" /> */}
+                    <img className="laptop_only_stepper_icon" src="/images/second-step.svg" alt="" />
                 </div>
                 <div className="company_header">
                     <h1>Email Verification</h1>

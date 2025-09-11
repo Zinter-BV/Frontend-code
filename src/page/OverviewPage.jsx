@@ -23,10 +23,10 @@ import dot from "../Assets/Dot.svg"
 import viewMore from "../Assets/Eye.svg"
 import "./overviewPage.css"
 import ViewLocationMap from "../components/GoogleMap";
-import revenueIcon from "../Assets/dashboard-revenue-logo.svg";
-import addServiceIcon from "../Assets/add-service.svg"
-import configureIcon from "../Assets/configure-icon.svg"
-import settingsIcon from "../Assets/settings.svg"
+// import revenueIcon from "../Assets/dashboard-revenue-logo.svg";
+// import addServiceIcon from "../Assets/add-service.svg"
+// import configureIcon from "../Assets/configure-icon.svg"
+// import settingsIcon from "../Assets/settings.svg"
 import { useQuery } from "@tanstack/react-query";
 import { moversDashboardAnalytics } from "../api/agentApi";
 import Loader from "../components/loader";
@@ -59,13 +59,13 @@ const OverviewPage = () => {
 
 
 
-    const {data, isLoading, error} = useQuery({
-        queryKey: ['statistics'], 
+    const { data, isLoading, error } = useQuery({
+        queryKey: ['statistics'],
         queryFn: moversDashboardAnalytics
     })
 
     useEffect(() => {
-        if(data?.result) {
+        if (data?.result) {
             setIncomingRequest(data.result.incoming)
             setApprovedRequest(data.result.approvedRequest)
             setPaymentMade(data.result.paymentMade)
@@ -86,8 +86,10 @@ const OverviewPage = () => {
                     <div className="container_new_jobs">
                         <div className="moving_truck">
                             <div className="notification_user">
-                                <img src={notificationBell} alt="" />
-                                <img src={userIcon} alt="" />
+                                {/* <img src={notificationBell} alt="" /> */}
+                                <img src="/images/Email-verification-icon.svg" alt="" />
+                                {/* <img src={userIcon} alt="" /> */}
+                                <img src="/images/users-icon.svg" alt="" />
                             </div>
 
 
@@ -102,7 +104,9 @@ const OverviewPage = () => {
                                     <span>Provide accurate quote</span>
                                 </div>
                                 <div>
-                                    <img src={viewJobs} alt="" />
+                                    {/* <img src={viewJobs} alt="" /> */}
+                                    <img src="/images/View Arrow.svg" alt="" />
+
                                 </div>
                             </div>
                         </div>
@@ -111,7 +115,8 @@ const OverviewPage = () => {
                         <div className="map_revenue">
                             <div className="revenue_container">
                                 <div>
-                                    <img src={revenueIcon} alt="" />
+                                    {/* <img src={revenueIcon} alt="" /> */}
+                                    <img src="/images/dashboard-revenue-logo.svg" alt="" />
                                 </div>
                                 <div className="revenue_text">
                                     <span>Total Revenue</span>
@@ -125,15 +130,15 @@ const OverviewPage = () => {
                         </div>
                         <div className="map_btn">
                             <button>
-                                <img src={addServiceIcon} alt="" />
+                                {/* <img src={addServiceIcon} alt="" /> */}
                                 <span>Add Your Services</span>
                             </button>
                             <button>
-                                <img src={configureIcon} alt="" />
+                                {/* <img src={configureIcon} alt="" /> */}
                                 <span>Configure Pricing</span>
                             </button>
                             <button>
-                                <img src={settingsIcon} alt="" />
+                                {/* <img src={settingsIcon} alt="" /> */}
                                 <span>Account Settings</span>
                             </button>
                         </div>
@@ -142,12 +147,14 @@ const OverviewPage = () => {
                 <div className="calendar_container">
                     <div className="first_step">
                         <div className="first_step_arrow">
-                            <img src={movingForwardIcon} alt="" />
+                            {/* <img src={movingForwardIcon} alt="" /> */}
+                            <img src="/images/Grade Icon.svg" alt="" />
                             {/* <span>--------------</span> */}
                         </div>
                         <div className="approved_number_text_container">
                             <div className="approved_icon">
-                                <img src={approvedRequestIcon} alt="" />
+                                {/* <img src={approvedRequestIcon} alt="" /> */}
+                                <img src="/images/approved-request-icon.svg" alt="" />
                             </div>
                             <div className="approved_number_text">
                                 <span>Approved Requests</span>
@@ -157,12 +164,14 @@ const OverviewPage = () => {
                     </div>
                     <div className="first_step">
                         <div className="first_step_arrow">
-                            <img src={movingForwardIcon} alt="" />
+                            <img src="/images/Grade Icon.svg" alt="" />
+                            {/* <img src={movingForwardIcon} alt="" /> */}
                             {/* <span>-----------</span> */}
                         </div>
                         <div className="approved_number_text_container">
                             <div className="approved_icon">
-                                <img src={paymentMadeIcon} alt="" />
+                                {/* <img src={paymentMadeIcon} alt="" /> */}
+                                <img src="/images/payment-made-icon.svg" alt="" />
                             </div>
                             <div className="approved_number_text">
                                 <span>Payments Made</span>
@@ -172,12 +181,12 @@ const OverviewPage = () => {
                     </div>
                     <div className="first_step">
                         <div className="first_step_arrow">
-                            <img src={movingForwardIcon} alt="" />
-                            {/* <span>----------------</span> */}
+                            <img src="/images/Grade Icon.svg" alt="" />
                         </div>
                         <div className="approved_number_text_container">
                             <div className="approved_icon">
-                                <img src={upcomingIcon} alt="" />
+                                {/* <img src={upcomingIcon} alt="" /> */}
+                                <img src="upcoming-event-icon.svg" alt="" />
                             </div>
                             <div className="approved_number_text">
                                 <span>Upcoming Pickups</span>
@@ -187,12 +196,14 @@ const OverviewPage = () => {
                     </div>
                     <div className="first_step">
                         <div className="first_step_arrow">
-                            <img src={movingForwardIcon} alt="" />
+                            <img src="/images/Grade Icon.svg" alt="" />
+                            {/* <img src={movingForwardIcon} alt="" /> */}
                             {/* <span>---------</span> */}
                         </div>
                         <div className="approved_number_text_container">
                             <div className="approved_icon">
-                                <img src={inTransit} alt="" />
+                                {/* <img src={inTransit} alt="" /> */}
+                                <img src="/images/in-transit-icon.svg" alt="" />
                             </div>
                             <div className="approved_number_text">
                                 <span>In Transit</span>
@@ -202,12 +213,14 @@ const OverviewPage = () => {
                     </div>
                     <div className="first_step">
                         <div className="first_step_arrow">
-                            <img src={completedSignal} alt="" />
+                            {/* <img src={completedSignal} alt="" /> */}
+                            <img src="/images/completed-signal.svg" alt="" />
 
                         </div>
                         <div className="approved_number_text_container">
                             <div className="approved_icon">
-                                <img src={completedIcon} alt="" />
+                                {/* <img src={completedIcon} alt="" /> */}
+                                <img src="/images/completed-icon.svg" alt="" />
                             </div>
                             <div className="approved_number_text">
                                 <span>Completed Moves</span>
@@ -217,12 +230,13 @@ const OverviewPage = () => {
                     </div>
                     <div className="first_step">
                         <div className="first_step_arrow">
-                            <img src={cancelledSignal} alt="" />
-
+                            {/* <img src={cancelledSignal} alt="" /> */}
+                            <img src="/images/cancelled-signal.svg" alt="" />
                         </div>
                         <div className="approved_number_text_container">
                             <div className="approved_icon"  >
-                                <img src={cancalledIcon} alt="" />
+                                <img src="/images/cancelled-icon.svg" alt="" />
+                                {/* <img src={cancalledIcon} alt="" /> */}
                             </div>
                             <div className="approved_number_text">
                                 <span>Cancelled Moves</span>
@@ -232,7 +246,7 @@ const OverviewPage = () => {
                     </div>
                 </div>
                 <div className="table_container">
-        
+
                     <div className="table_container_all" >
                         {/* <table>
                             <thead>
@@ -306,7 +320,7 @@ const OverviewPage = () => {
 
                             </tbody>
                         </table> */}
-                        <AllJobs/>
+                        <AllJobs />
                     </div>
                 </div>
             </div>

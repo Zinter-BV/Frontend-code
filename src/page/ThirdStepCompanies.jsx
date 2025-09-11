@@ -51,7 +51,7 @@ const ThirdStepCompanies = () => {
     const { data: dataReg, isLoading: isLoadingReg, error: errorReg, refetch } = useQuery({
         queryKey: ["register-agent", email, kvkNumber, companyName, password, image, provinces, companyOverView],
         queryFn: () => registerAgent({
-            email, 
+            email,
             kvkNumber,
             companyName,
             password,
@@ -209,8 +209,11 @@ const ThirdStepCompanies = () => {
                     ))}
                 </ul> */}
                 <div className="stepper_icon">
-                    <img className="mobile_only_stepper_icon" src={stepperMobileThird} alt="" />
-                    <img className="laptop_only_stepper_icon" src={stepperIconSecond} alt="" />
+                    {/* <img className="mobile_only_stepper_icon" src={stepperMobileThird} alt="" /> */}
+                    <img className="mobile_only_stepper_icon" src="/images/mobile-stepper-icon-third.svg" alt="" />
+                    {/* <img className="laptop_only_stepper_icon" src={stepperIconSecond} alt="" /> */}
+                    <img className="laptop_only_stepper_icon" src="/images/third-stepper-icon.svg" alt="" />
+
                 </div>
                 <div className="company_header">
                     <h1>Profile Setup</h1>
@@ -227,7 +230,8 @@ const ThirdStepCompanies = () => {
                             backgroundColor: coverPhoto ? 'transparent' : 'rgba(240, 249, 253, 1)',
                         }}>
                         {!coverPhoto && <button onClick={openMoreOptions}>
-                            <img src={imageUpload} alt="" />
+                            {/* <img src={imageUpload} alt="" /> */}
+                            <img src="/images/image-upload.svg" alt="" />
                             <span>Upload cover photo</span>
 
                         </button>}
@@ -235,11 +239,13 @@ const ThirdStepCompanies = () => {
                         {showMoreOptions &&
                             <div className="choose_photo_container">
                                 <div className="choose_photo_btn" onClick={openCoverPhoto}>
-                                    <img src={coverPhotoIcon} alt="" />
+                                    {/* <img src={coverPhotoIcon} alt="" /> */}
+                                    <img src="/images/album-02.svg" alt="" />
                                     <span>Choose cover photo</span>
                                 </div>
                                 <div className="choose_photo_btn" onClick={() => fileInputRef.current && fileInputRef.current.click()}>
-                                    <img src={imageUpload} alt="" />
+                                    {/* <img src={imageUpload} alt="" /> */}
+                                    <img src="/images/image-upload.svg" alt="" />
                                     <span>Upload from device</span>
                                     <input
                                         type="file"
@@ -252,7 +258,8 @@ const ThirdStepCompanies = () => {
                             </div>}
                         {coverPhoto && <div className="inner_upload_section">
                             <button onClick={openMoreOptions}>
-                                <img src={imageUpload} alt="" />
+                                <img src="/images/image-upload.svg" alt="" />
+                               
                                 <span>Change Image</span>
                             </button>
 
@@ -292,7 +299,7 @@ const ThirdStepCompanies = () => {
                         ))}
                     </div>
 
-                    <img className="dropdown_icon" src={dropdown} alt="" onClick={(e) => {
+                    <img className="dropdown_icon" src="/images/arrow-down-dropdown.svg" alt="" onClick={(e) => {
                         e.stopPropagation();
                         setShowDropdown((prev) => !prev);
                     }} />
@@ -331,26 +338,26 @@ const ThirdStepCompanies = () => {
                     <div className="cover_photo_container">
                         <div className="cover_photo_head">
                             <h2>Select cover photo</h2>
-                            <img onClick={hideCoverPhoto} src={cancelIcon} alt="" />
+                            <img onClick={hideCoverPhoto} src="/images/cancel-01.svg" alt="" />
                         </div>
                         <div className="cover_photo_body">
                             <div>
-                                <img src={firstPhoto} alt="" onClick={() => handleCover(firstPhoto)} />
+                                <img src="/images/cover-photo.svg" alt="" onClick={() => handleCover(firstPhoto)} />
                             </div>
                             <div>
-                                <img src={secondPhoto} alt="" onClick={() => handleCover(secondPhoto)} />
+                                <img src="/images/cover-photo-second.svg" alt="" onClick={() => handleCover(secondPhoto)} />
                             </div>
                             <div>
-                                <img src={thirdPhoto} alt="" onClick={() => handleCover(thirdPhoto)} />
+                                <img src="/images/cover-photo-third.svg" alt="" onClick={() => handleCover(thirdPhoto)} />
                             </div>
                             <div>
-                                <img src={fourthPhoto} alt="" onClick={() => handleCover(fourthPhoto)} />
+                                <img src="/images/cover-photo-four.svg" alt="" onClick={() => handleCover(fourthPhoto)} />
                             </div>
                             <div>
-                                <img src={fifthPhoto} alt="" onClick={() => handleCover(fifthPhoto)} />
+                                <img src="/images/cover-photo-five.svg" alt="" onClick={() => handleCover(fifthPhoto)} />
                             </div>
                             <div>
-                                <img src={sixthPhoto} alt="" onClick={() => handleCover(sixthPhoto)} />
+                                <img src="/images/cover-photo-six.svg" alt="" onClick={() => handleCover(sixthPhoto)} />
                             </div>
                         </div>
                     </div>

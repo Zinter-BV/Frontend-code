@@ -144,16 +144,18 @@ const NewJobs = () => {
                 type="text"
                 placeholder="Search"
               />
-              <img src={searchIcon} alt="" />
+              {/* <img src={searchIcon} alt="" /> */}
+              <img src="/images/search-01.svg" alt="" />
             </div>
-            <div className="filter_con">
-              <span>
-                <img src={filterIcon} alt="" />
-              </span>
-              <span>Filter</span>
-            </div>
+            {/* <div className="filter_con">
+                            <span>
+                                <img src="/images/filter-horizontal.svg" alt="" />
+                            </span>
+                            <span>Filter</span>
+                        </div> */}
             <div className="refresh">
-              <img src={refreshIcon} alt="" />
+              <img src="/images/refresh (1).svg" alt="" />
+              {/* <img src={refreshIcon} alt="" /> */}
             </div>
           </div>
         </div>
@@ -164,25 +166,29 @@ const NewJobs = () => {
                 <th>
                   <div>
                     <span>Name</span>
-                    <img src={arrowDown} alt="" />
+                    <img src="/images/arrow-down-02.svg" alt="" />
+                    {/* <img src={arrowDown} alt="" /> */}
                   </div>
                 </th>
                 <th>
                   <div>
                     <span>Move Summary</span>
-                    <img src={arrowDown} alt="" />
+                    <img src="/images/arrow-down-02.svg" alt="" />
+                    {/* <img src={arrowDown} alt="" /> */}
                   </div>
                 </th>
                 <th>
                   <div>
                     <span>Status</span>
-                    <img src={arrowDown} alt="" />
+                    <img src="/images/arrow-down-02.svg" alt="" />
+                    {/* <img src={arrowDown} alt="" /> */}
                   </div>
                 </th>
                 <th>
                   <div>
                     <span>Progress</span>
-                    <img src={arrowDown} alt="" />
+                    <img src="/images/arrow-down-02.svg" alt="" />
+                    {/* <img src={arrowDown} alt="" /> */}
                   </div>
                 </th>
                 <th></th>
@@ -242,7 +248,8 @@ const NewJobs = () => {
                   <td>
                     <div className="name_td td">
                       <div>
-                        <img src={avatar} alt="user-initials" />
+                        <img src="/images/Gb-Avatar.svg" alt="" />
+                        {/* <img src={avatar} alt="user-initials" /> */}
                       </div>
                       <div className="name_text">
                         <span>{job.fullName}</span>
@@ -259,7 +266,8 @@ const NewJobs = () => {
                   <td>
                     <div className="status td">
                       <span>
-                        <img src={dot} alt="" />
+                        <img src="/images/Dot.svg" alt="" />
+                        {/* <img src={dot} alt="" /> */}
                       </span>
                       <span>New Request</span>
                     </div>
@@ -273,7 +281,8 @@ const NewJobs = () => {
                     className="view"
                     onClick={() => handleViewMore(job.moveCode, job.moveId)}
                   >
-                    <img src={viewMore} alt="view more" />
+                    {/* <img src={viewMore} alt="view more" /> */}
+                    <img src="/images/Eye.svg" alt="" />
                   </td>
                 </tr>
               ))}

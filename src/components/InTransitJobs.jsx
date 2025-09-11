@@ -144,16 +144,19 @@ const InTransitJobs = () => {
                     <div className="right_table_head">
                         <div className="search_icon">
                             <input type="text" placeholder="Search" />
-                            <img src={searchIcon} alt="" />
+                            {/* <img src={searchIcon} alt="" /> */}
+                             <img src="/images/search-01.svg" alt="" />
                         </div>
                         <div className="filter_con">
                             <span>
-                                <img src={filterIcon} alt="" />
+                                {/* <img src={filterIcon} alt="" /> */}
+                                <img src="/images/filter-horizontal.svg" alt="" />
                             </span>
                             <span>Filter</span>
                         </div>
                         <div className="refresh">
-                            <img src={refreshIcon} alt="" />
+                            {/* <img src={refreshIcon} alt="" /> */}
+                            <img src="/images/refresh (1).svg" alt="" />
                         </div>
                     </div>
                 </div>
@@ -164,25 +167,29 @@ const InTransitJobs = () => {
                                 <th>
                                     <div>
                                         <span>Name</span>
-                                        <img src={arrowDown} alt="" />
+                                        <img src="/images/arrow-down-02.svg" alt="" />
+                                        {/* <img src={arrowDown} alt="" /> */}
                                     </div>
                                 </th>
                                 <th>
                                     <div>
                                         <span>Move Summary</span>
-                                        <img src={arrowDown} alt="" />
+                                        <img src="/images/arrow-down-02.svg" alt="" />
+                                        {/* <img src={arrowDown} alt="" /> */}
                                     </div>
                                 </th>
                                 <th>
                                     <div>
                                         <span>Status</span>
-                                        <img src={arrowDown} alt="" />
+                                        <img src="/images/arrow-down-02.svg" alt="" />
+                                        {/* <img src={arrowDown} alt="" /> */}
                                     </div>
                                 </th>
                                 <th>
                                     <div>
                                         <span>Progress</span>
-                                        <img src={arrowDown} alt="" />
+                                        <img src="/images/arrow-down-02.svg" alt="" />
+                                        {/* <img src={arrowDown} alt="" /> */}
                                     </div>
                                 </th>
                                 <th>
@@ -286,7 +293,7 @@ const InTransitJobs = () => {
                                     <td>
                                         <div className="name_td td">
                                             <div>
-                                                <img src={avatar} alt="user-initials" />
+                                            <img src="/images/Gb-Avatar.svg" alt="" />
                                             </div>
                                             <div className="name_text">
                                                 <span>{job.fullName}</span>
@@ -302,7 +309,10 @@ const InTransitJobs = () => {
                                     </td>
                                     <td>
                                         <div className="status_transit td">
-                                            <span><img src={dot} alt="" /></span>
+                                            <span>
+                                                 <img src="/images/intransit_dot.svg" alt="" />
+                                                {/* <img src={dot} alt="" /> */}
+                                            </span>
                                             <span>In Transit</span>
                                         </div>
                                     </td>
@@ -312,7 +322,8 @@ const InTransitJobs = () => {
                                         </div>
                                     </td>
                                     <td className="view" onClick={() => handleViewMore(job.moveCode, job.moveId)}>
-                                        <img src={viewMore} alt="view more" />
+                                        {/* <img src={viewMore} alt="view more" /> */}
+                                        <img src="/images/Eye.svg" alt="" />
                                     </td>
                                 </tr>
                             ))}

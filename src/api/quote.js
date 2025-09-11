@@ -12,3 +12,4 @@ export const getCalendarByDateRange = async (startDate, endDate) => {
     const response = await api.get(`Quote/GetCalenderByDateRange?startDate=${startDate}&endDate=${endDate}` )
     return response.data
 }
+
