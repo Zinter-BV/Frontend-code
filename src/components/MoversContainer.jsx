@@ -72,8 +72,9 @@ const MoversContainer = ({ trackingCode }) => {
       if (data.responseStatus) {
         setOpenSuccessModal(true);
         setErr(false);
+        setActiveTab(3);
       } else {
-        alert("Not Cool");
+        // alert("Not Cool");
         setErr(true);
       }
     },

@@ -1,14 +1,16 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import MoversCard from "./MoversCard";
-import { nn } from "date-fns/locale";
 
 import axios from "axios";
+
+const code = JSON.parse(localStorage.getItem("Code")) || null;
+console.log(code);
 
 // API function to fetch quotes
 const fetchQuotes = async () => {
   const response = await axios.get(
-    "https://involved-birgit-zinter-cb767b47.koyeb.app/api/Quote/GetAllQuotes?code=ZmD5xI"
+    `https://involved-birgit-zinter-cb767b47.koyeb.app/api/Quote/GetAllQuotes?code=${code.result}`
   );
 
   return response.data;

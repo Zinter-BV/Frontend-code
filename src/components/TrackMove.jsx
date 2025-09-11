@@ -6,11 +6,13 @@ import { useSelector } from "react-redux";
 
 const TrackMove = () => {
   const moversData = useSelector((state) => state.user.moversData);
+  const code = JSON.parse(localStorage.getItem("Code")) || null;
+  console.log(code);
   // Function to fetch tracking data
   const fetchTrackingData = async () => {
     const response = await axios.get(
       // `https://involved-birgit-zinter-cb767b47.koyeb.app/api/MoveRequest/TrackMove?code=${moversData?.quoteId}`
-      `https://involved-birgit-zinter-cb767b47.koyeb.app/api/MoveRequest/TrackMove?code=ZmD5xI`
+      `https://involved-birgit-zinter-cb767b47.koyeb.app/api/MoveRequest/TrackMove?code=${code.result}`
     );
     return response.data;
   };

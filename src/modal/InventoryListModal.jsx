@@ -364,7 +364,7 @@ const InventoryListModal = ({
             {isLoadingImages && (
               <div className="flex justify-center items-center py-8">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-                <p className="ml-2 text-[#9e9e9e]">Loading images...</p>
+                <p className="ml-2 text-[#9e9e9e]">Loading</p>
               </div>
             )}
 

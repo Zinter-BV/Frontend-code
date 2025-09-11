@@ -16,6 +16,7 @@ import {
 } from "../redux/action";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
+import Loader from "./loader";
 
 const QuoteContainer = ({ data }) => {
   const [activeTab, setActiveTab] = useState(1);
@@ -195,16 +196,49 @@ const QuoteContainer = ({ data }) => {
     return response.data;
   };
 
-  const mutation = useMutation({
+  // const mutation = useMutation({
+  // //   mutationFn: addUserDetails,
+
+  // //   onSuccess: (data) => {
+  // //     // console.log(data.responseTime, "Main Status");
+  // //     console.log(data);
+  // //     if (data.responseStatus) {
+  // //       setOpenSuccessModal(true);
+  // //       setEmail("");
+  // //       localStorage.setItem("Code", JSON.stringify(data));
+  // //       setErrMessage("");
+  // //     }
+  // //     if (!data.responseStatus) {
+  // //       setErrMessage(
+  // //         data.responseMessage || "An error occurred. Please try again."
+  // //       );
+  // //     }
+  // //   },
+  // //   onError: (error) => {
+  // //     console.error("Error creating user:", error);
+  // //     setErrMessage("An error occurred. Please try again.");
+  // //   },
+  // // });
+
+  // // const fetchData = () => {
+  // //   mutation.mutate(); // Remove parameter since it's already in the function
+  // // };
+
+  const {
+    mutate: fetchData,
+    isLoading, // true when the request is running
+    isError,
+    isSuccess,
+  } = useMutation({
     mutationFn: addUserDetails,
     onSuccess: (data) => {
-      // console.log(data.responseTime, "Main Status");
       console.log(data);
       if (data.responseStatus) {
         setOpenSuccessModal(true);
         setEmail("");
-      }
-      if (!data.responseStatus) {
+        localStorage.setItem("Code", JSON.stringify(data));
+        setErrMessage("");
+      } else {
         setErrMessage(
           data.responseMessage || "An error occurred. Please try again."
         );
@@ -215,10 +249,6 @@ const QuoteContainer = ({ data }) => {
       setErrMessage("An error occurred. Please try again.");
     },
   });
-
-  const fetchData = () => {
-    mutation.mutate(); // Remove parameter since it's already in the function
-  };
 
   switch (activeTab) {
     case 1:
@@ -381,6 +411,10 @@ const QuoteContainer = ({ data }) => {
     setOpenSuccessModal(false);
     dispatch(resetUserInfo());
   };
+
+  {
+    isLoading && <Loader />;
+  }
 
   return (
     <div className="relative">
