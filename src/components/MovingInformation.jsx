@@ -70,6 +70,7 @@ const MovingInformation = ({
   toLocation,
   setFromLocation,
   setToLocation,
+  errMessage,
 }) => {
   const fromInputRef = useRef(null);
   const toInputRef = useRef(null);
@@ -233,7 +234,7 @@ const MovingInformation = ({
             3 Bedroom Apartment
           </p>
         </div>
-
+        {errMessage && <p className="text-red-600 mb-4">{errMessage}</p>}
         <div className="p-[24px] movingInformationContainer w-[600px] h-fit mb-20 border-[#e3e3e3] border-[1px] rounded-[12px] ">
           <p className="font-sans text-[#136AB5] text-[18px] font-bold ">
             Date and Time
@@ -338,6 +339,12 @@ const MovingInformation = ({
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 placeholder="Enter Your Phone Number"
                 type="number"
+                // min={0}
+                // onKeyDown={(e) => {
+                //   if (e.key === "-" || e.key === "e" || e.key === "E") {
+                //     e.preventDefault();
+                //   }
+                // }}
                 className="h-[45px] appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none w-full border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
               />
             </div>
@@ -405,6 +412,12 @@ const MovingInformation = ({
                   onChange={(e) => setPickUpAddressNumber(e.target.value)}
                   placeholder="Apartment Number"
                   type="number"
+                  min={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "-" || e.key === "e" || e.key === "E") {
+                      e.preventDefault();
+                    }
+                  }}
                   className="h-[45px] appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none w-full border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
                 />
               </div>
@@ -435,6 +448,17 @@ const MovingInformation = ({
                     onChange={(e) => setFromNumberOfFloors(e.target.value)}
                     placeholder="How many floors"
                     type="number"
+                    min={0}
+                    onKeyDown={(e) => {
+                      if (
+                        e.key === "-" ||
+                        e.key === "e" ||
+                        e.key === "+" ||
+                        e.key === "E"
+                      ) {
+                        e.preventDefault();
+                      }
+                    }}
                     className="h-[45px] appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none w-full border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
                   />
                 </div>
@@ -447,6 +471,17 @@ const MovingInformation = ({
                     value={fromLongCarry}
                     onChange={(e) => setFromLongCarry(e.target.value)}
                     type="number"
+                    min={0}
+                    onKeyDown={(e) => {
+                      if (
+                        e.key === "-" ||
+                        e.key === "e" ||
+                        e.key === "+" ||
+                        e.key === "E"
+                      ) {
+                        e.preventDefault();
+                      }
+                    }}
                     className="h-[45px] appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none w-full border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
                   />
                 </div>
@@ -711,6 +746,17 @@ const MovingInformation = ({
                   onChange={(e) => setDropOffAddressNumber(e.target.value)}
                   placeholder="Apartment Number"
                   type="number"
+                  min={0}
+                  onKeyDown={(e) => {
+                    if (
+                      e.key === "-" ||
+                      e.key === "e" ||
+                      e.key === "+" ||
+                      e.key === "E"
+                    ) {
+                      e.preventDefault();
+                    }
+                  }}
                   className="h-[45px] appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none w-full border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
                 />
               </div>
@@ -741,6 +787,17 @@ const MovingInformation = ({
                     onChange={(e) => setToNumberOfFloors(e.target.value)}
                     placeholder="How many floors"
                     type="number"
+                    min={0}
+                    onKeyDown={(e) => {
+                      if (
+                        e.key === "-" ||
+                        e.key === "e" ||
+                        e.key === "+" ||
+                        e.key === "E"
+                      ) {
+                        e.preventDefault();
+                      }
+                    }}
                     className="h-[45px] appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none w-full border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
                   />
                 </div>
@@ -753,6 +810,17 @@ const MovingInformation = ({
                     onChange={(e) => setToLongCarry(e.target.value)}
                     placeholder="Enter Number"
                     type="number"
+                    min={0}
+                    onKeyDown={(e) => {
+                      if (
+                        e.key === "-" ||
+                        e.key === "e" ||
+                        e.key === "+" ||
+                        e.key === "E"
+                      ) {
+                        e.preventDefault();
+                      }
+                    }}
                     className="h-[45px] appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none w-full border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
                   />
                 </div>

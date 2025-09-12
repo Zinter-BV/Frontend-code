@@ -21,15 +21,17 @@ import Loader from "./loader";
 const QuoteContainer = ({ data }) => {
   const [activeTab, setActiveTab] = useState(1);
   const dispatch = useDispatch();
+  // gets the whole data needed and puts in one object
+  const user = useSelector((state) => state.user);
 
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
   const navigate = useNavigate();
   // location details
   const [fromLocation, setFromLocation] = useState(
-    "Keizersgracht 123, 1015 CJ Amsterdam"
+    user?.userDetails?.pickUpAddress || "Keizersgracht 123, 1015 CJ Amsterdam"
   );
   const [toLocation, setToLocation] = useState(
-    "Rozengracht 55, 1016 LZ Amsterdam"
+    user?.userDetails?.dropOffAddress || "Coolsingel 105, 3012 AG Rotterdam"
   );
   const [isEditingFrom, setIsEditingFrom] = useState(false);
   const [isEditingTo, setIsEditingTo] = useState(false);
@@ -67,6 +69,9 @@ const QuoteContainer = ({ data }) => {
     useState(null);
   const [fromNeedHelpPacking, setFromNeedHelpPacking] = useState(null);
 
+  // Error message state
+  const [errMessage, setErrMessage] = useState("");
+
   useEffect(() => {
     if (data) setActiveTab(2);
     else setActiveTab(1);
@@ -93,23 +98,74 @@ const QuoteContainer = ({ data }) => {
   // Function to validate move info data
   const validateMoveInfo = () => {
     const requiredFields = [
-      { field: moveTime, name: "Move Date" },
+      { field: moveTime, name: "Move Time" },
+      { field: pickUpDate, name: "Pickup Date" },
+      { field: moveDate, name: "Move Date" },
       { field: pickUpTime, name: "Pickup Time" },
       { field: fullName, name: "Full Name" },
       { field: email, name: "Email" },
       { field: phoneNumber, name: "Phone Number" },
       { field: pickUpAddress, name: "Pick Up Address" },
       { field: dropOffAddress, name: "Drop Off Address" },
+      { field: fromLocation, name: "From Location" },
+      { field: toLocation, name: "To Location" },
+      { field: provinceId, name: "Province" },
+      { field: pickUpAddressNumber, name: "Pick Up Address Number" },
+      { field: dropOffAddressNumber, name: "Drop Off Address Number" },
+      { field: pickUpLongitude, name: "Pick Up Longitude" },
+      { field: pickUpLatitude, name: "Pick Up Latitude" },
+      { field: dropOffLongitude, name: "Drop Off Longitude" },
+      { field: dropOffLatitude, name: "Drop Off Latitude" },
+      { field: toNumberOfFloors, name: "To Number of Floors" },
+      { field: toLongCarry, name: "To Long Carry" },
+      { field: toHasElevator, name: "To Has Elevator" },
+      { field: toNeedShuttle, name: "To Need Shuttle" },
+      { field: toHasBuildingInsurance, name: "To Has Building Insurance" },
+      { field: toNeedHelpPacking, name: "To Need Help Packing" },
+      { field: fromNumberOfFloors, name: "From Number of Floors" },
+      { field: fromLongCarry, name: "From Long Carry" },
+      { field: fromHasElevator, name: "From Has Elevator" },
+      { field: fromNeedShuttle, name: "From Need Shuttle" },
+      { field: fromHasBuildingInsurance, name: "From Has Building Insurance" },
+      { field: fromNeedHelpPacking, name: "From Need Help Packing" },
+      { field: fromRemark, name: "From Remark" },
+      { field: toRemark, name: "To Remark" },
     ];
 
-    const missingFields = requiredFields.filter(
-      ({ field }) => !field || field.trim() === ""
-    );
+    // const missingFields = requiredFields.filter(
+    //   ({ field }) => !field || field.trim() === ""
+    // );
+    const missingFields = requiredFields.filter(({ field }) => {
+      // Handle different data types properly
+      if (field === null || field === undefined) {
+        return true; // Field is missing
+      }
+
+      // For strings, check if empty or only whitespace
+      if (typeof field === "string") {
+        return field.trim() === "";
+      }
+
+      // For numbers, check if it's a valid number (not NaN or 0 if 0 is invalid)
+      if (typeof field === "number") {
+        return false; // Numbers are considered valid (adjust logic as needed)
+      }
+
+      // For booleans, they're valid (true/false are both acceptable)
+      if (typeof field === "boolean") {
+        return false;
+      }
+
+      return true; // Unknown type, consider missing
+    });
 
     if (missingFields.length > 0) {
-      const fieldNames = missingFields.map(({ name }) => name).join(", ");
-      alert(`Please fill in the following required fields: ${fieldNames}`);
-      return false;
+      // const fieldNames = missingFields.map(({ name }) => name).join(", ");
+      // setErrMessage(`Please fill in all required fields: ${fieldNames}`);
+      setErrMessage(`Please fill in all required fields.`);
+      return;
+    } else {
+      setErrMessage("");
     }
 
     // Additional validation for email format
@@ -134,8 +190,8 @@ const QuoteContainer = ({ data }) => {
     email,
     phoneNumber,
     provinceId,
-    pickUpAddress,
-    dropOffAddress,
+    pickUpAddress: user?.userDetails?.pickUpAddress || fromLocation,
+    dropOffAddress: user?.userDetails?.dropOffAddress || toLocation,
     pickUpAddressNumber,
     dropOffAddressNumber,
     pickUpLongitude,
@@ -171,9 +227,6 @@ const QuoteContainer = ({ data }) => {
     />
   );
 
-  // gets the whole data nneeded and puts in one object
-  const user = useSelector((state) => state.user);
-
   // Ensure your merge function creates the correct structure
   function mergeTwoObjects(items, moreInfo) {
     return {
@@ -184,8 +237,6 @@ const QuoteContainer = ({ data }) => {
   const dataToSend = mergeTwoObjects(user?.items, user?.moreInfo);
 
   // responnnse from server
-  const [errMessage, setErrMessage] = useState("");
-  // to display the code on the ui
 
   // Remove the wrapper object - send dataToSend directly
   const addUserDetails = async () => {
@@ -341,6 +392,7 @@ const QuoteContainer = ({ data }) => {
           toLocation={toLocation}
           setFromLocation={setFromLocation}
           setToLocation={setToLocation}
+          errMessage={errMessage}
         />
       );
       // Code to be executed if expression matches value2
@@ -349,11 +401,6 @@ const QuoteContainer = ({ data }) => {
       content = <ViewSummary errMessage={errMessage} />;
       // Code to be executed if expression matches value2
       break;
-    // case 5:
-    //   content = <p>Finish</p>;
-    //   // Code to be executed if expression matches value2
-    //   break;
-    // Add more cases as needed
     default:
       content = <Location />;
     // Code to be executed if expression doesn't match any case

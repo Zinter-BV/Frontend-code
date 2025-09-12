@@ -198,11 +198,6 @@ const InventoryListModal = ({
     console.log("Searching for:", searchQuery);
   };
 
-  // Clear search
-  const clearSearch = () => {
-    setSearchQuery("");
-  };
-
   const appendItemToArray = (newItem) => {
     setItems((prevArray) => {
       // Find if item already exists
@@ -268,8 +263,6 @@ const InventoryListModal = ({
     dispatch(setUserItems(items));
     closeInventoryListModal();
   };
-
-  const currentRoomData = getCurrentRoomData();
 
   return (
     <div className="fixed top-0 z-50 left-0 backdrop-blur-[3px] bg-[rgba(0,0,0,0.10)] h-full w-full flex justify-center items-center ">
@@ -349,22 +342,10 @@ const InventoryListModal = ({
               </div>
             </div>
 
-            {/* Search results info */}
-            {searchQuery && (
-              <div className="my-2 text-sm text-[#9e9e9e]">
-                {filteredItems.length > 0
-                  ? `Found ${filteredItems.length} item${
-                      filteredItems.length !== 1 ? "s" : ""
-                    } matching "${searchQuery}"`
-                  : `No items found matching "${searchQuery}"`}
-              </div>
-            )}
-
             {/* Loading indicator */}
             {isLoadingImages && (
               <div className="flex justify-center items-center py-8">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-                <p className="ml-2 text-[#9e9e9e]">Loading</p>
               </div>
             )}
 
@@ -391,15 +372,6 @@ const InventoryListModal = ({
                 <div className="text-[#9e9e9e] text-lg mb-2">
                   No items found
                 </div>
-                <div className="text-[#9e9e9e] text-sm mb-4">
-                  Try searching with different keywords
-                </div>
-                <button
-                  onClick={clearSearch}
-                  className="bg-primary text-white px-4 py-2 rounded-lg text-sm hover:bg-opacity-90 transition-colors"
-                >
-                  Clear Search
-                </button>
               </div>
             )}
           </div>

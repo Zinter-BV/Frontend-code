@@ -7,8 +7,6 @@ const ViewSummary = ({ errMessage }) => {
   const data = useSelector((state) => state.user);
   console.log(data);
 
-  console.log(errMessage, "Error Message");
-
   // Memoized room items and counts calculation
   const { roomCounts } = useMemo(() => {
     return data?.items?.reduce(
@@ -16,13 +14,6 @@ const ViewSummary = ({ errMessage }) => {
         // Count items per room
         acc.roomCounts[item.room] =
           (acc.roomCounts[item.room] || 0) + (item.numberOfCount || 1);
-
-        // Collect items for the current room
-        // if (item.room === activeIcon) {
-        //   // Use item.name or item.itemName or whatever property contains the display name
-        //   const itemName = item.name || item.itemName || "Unnamed Item";
-        //   acc.roomItems.push(itemName);
-        // }
         return acc;
       },
       { roomCounts: {}, roomItems: [] }
@@ -33,6 +24,12 @@ const ViewSummary = ({ errMessage }) => {
   const getRoomCount = (roomName) => {
     return roomCounts[roomName] ?? 0;
   };
+
+  // Get unique room names from inventory
+  function getUniqueRooms(items) {
+    return [...new Set(items.map((item) => item.room))];
+  }
+  const uniqueRooms = getUniqueRooms(data?.items || []);
 
   return (
     <div className="ml-4 summaryBox w-full">
@@ -140,7 +137,7 @@ const ViewSummary = ({ errMessage }) => {
                       Move Size
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      House - 3 Bedrooms
+                      House - {uniqueRooms?.length} Rooms
                     </p>
                   </div>
 
@@ -197,7 +194,7 @@ const ViewSummary = ({ errMessage }) => {
                       Move Size
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      House - 3 Bedrooms
+                      House - {uniqueRooms?.length} Rooms
                     </p>
                   </div>
 
