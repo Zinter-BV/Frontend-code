@@ -2,11 +2,13 @@ import React, { useEffect } from "react";
 import Header from "../components/Header";
 import ContactUs from "../components/ContactUs";
 import Footer from "../components/Footer";
+import { useTranslation } from "react-i18next";
 
 const TermsAndCondition = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  const { t } = useTranslation();
   return (
     <>
       <Header />
@@ -14,251 +16,214 @@ const TermsAndCondition = () => {
         <div className="w-[90vw] heroSection pt-14 max-w-[1500px] items-center flex justify-between mx-auto">
           <div className="w-[70%] mx-auto  ">
             <h1 className="font-unbounded font-semibold text-[48px] text-black ">
-              Terms & Conditions
+              {t("terms.title")}
             </h1>
             <hr className="my-5" />
             <div className="mb-6">
               <h3 className="font-bold mb-3 font-sans text-[#121212] text-[32px] ">
-                1. INTRODUCTION
+                {t("terms.infoOne")}
               </h3>
               <p className="w-full text-[#707070] leading-[160%] text-[16px] font-sans  ">
-                Welcome to Zinter BV! These Terms & Conditions govern your use
-                of our services, including our website, logistics, and moving
-                solutions. By using our services, you agree to comply with these
-                terms. If you do not agree, please refrain from using our
-                services.
+                {t("terms.oneDesc")}
               </p>
             </div>
             <div className="mb-6">
               <h3 className="font-bold mb-3 font-sans text-[#121212] text-[32px] ">
-                2. DEFINITIONS
+                {t("terms.infoTwo")}
               </h3>
               <ul className="w-full gap-3 flex flex-col ">
                 <li className="list-disc list-inside marker:text-[#707070] ">
                   <span className="text-[#707070] leading-[160%] text-[16px] font-sans ">
-                    "Company," "we," "us," "our" refers to Zinter BV, registered
-                    in the Netherlands.
+                    {t("terms.infoTwoDesc1")}
                   </span>
                 </li>
                 <li className="list-disc list-inside marker:text-[#707070] ">
                   <span className="text-[#707070] leading-[160%] text-[16px] font-sans ">
-                    "Customer," "you" refers to any individual or business using
-                    our services.
+                    {t("terms.infoTwoDesc2")}
                   </span>
                 </li>
                 <li className="list-disc list-inside marker:text-[#707070] ">
                   <span className="text-[#707070] leading-[160%] text-[16px] font-sans ">
-                    "Services" refers to our logistics, moving, and related
-                    solutions.
+                    {t("terms.infoTwoDesc3")}
                   </span>
                 </li>
               </ul>
             </div>
             <div className="mb-6">
               <h3 className="font-bold mb-3 font-sans text-[#121212] text-[32px] ">
-                3. USE OF SERVICE
+                {t("terms.infoThree")}
               </h3>
               <ul className="w-full gap-3 flex flex-col ">
                 <li className="list-disc list-inside marker:text-[#707070] ">
                   <span className="text-[#707070] leading-[160%] text-[16px] font-sans ">
-                    You must be at least 18 years old or have legal authority to
-                    enter into agreements on behalf of an entity.
+                    {t("terms.infoThreeDesc1")}
                   </span>
                 </li>
                 <li className="list-disc list-inside marker:text-[#707070] ">
                   <span className="text-[#707070] leading-[160%] text-[16px] font-sans ">
-                    You agree to provide accurate and complete information when
-                    using our services.
+                    {t("terms.infoThreeDesc2")}
                   </span>
                 </li>
                 <li className="list-disc list-inside marker:text-[#707070] ">
                   <span className="text-[#707070] leading-[160%] text-[16px] font-sans ">
-                    You are responsible for securing any necessary permits or
-                    approvals required for your move.
+                    {t("terms.infoThreeDesc3")}
                   </span>
                 </li>
               </ul>
             </div>
             <div className="mb-6">
               <h3 className="font-bold mb-3 font-sans text-[#121212] text-[32px] ">
-                4. BOOKINGS AND PAYMENTS
+                {t("terms.infoFour")}
               </h3>
               <ul className="w-full gap-3 flex flex-col ">
                 <li className="list-disc list-inside marker:text-[#707070] ">
                   <span className="text-[#707070] leading-[160%] text-[16px] font-sans ">
-                    All bookings are subject to availability and confirmation.
+                    {t("terms.infoFourDesc1")}
                   </span>
                 </li>
                 <li className="list-disc list-inside marker:text-[#707070] ">
                   <span className="text-[#707070] leading-[160%] text-[16px] font-sans ">
-                    Payments must be made in full before service commencement
-                    unless otherwise agreed.
+                    {t("terms.infoFourDesc2")}
                   </span>
                 </li>
                 <li className="list-disc list-inside marker:text-[#707070] ">
                   <span className="text-[#707070] leading-[160%] text-[16px] font-sans ">
-                    Cancellation fees may apply if you cancel a booking within a
-                    specified period before the scheduled service.
+                    {t("terms.infoFourDesc3")}
                   </span>
                 </li>
               </ul>
             </div>
             <div className="mb-6">
               <h3 className="font-bold mb-3 font-sans text-[#121212] text-[32px] ">
-                5. LIABILITY AND INSURANCE
+                {t("terms.infoFive")}
               </h3>
               <ul className="w-full gap-3 flex flex-col ">
                 <li className="list-disc list-inside marker:text-[#707070] ">
                   <span className="text-[#707070] leading-[160%] text-[16px] font-sans ">
-                    Zinter BV acts as a logistics platform and does not directly
-                    carry out the moving services. We connect customers with
-                    third-party moving service providers. As such, Zinter BV is
-                    not liable for any damages, delays, or losses incurred
-                    during the move.
+                    {t("terms.infoFiveDesc1")}
                   </span>
                 </li>
                 <li className="list-disc list-inside marker:text-[#707070] ">
                   <span className="text-[#707070] leading-[160%] text-[16px] font-sans ">
-                    Any claims regarding damage, loss, or service issues should
-                    be directed to the third-party moving provider responsible
-                    for executing the move.
+                    {t("terms.infoFiveDesc2")}
                   </span>
                 </li>
                 <li className="list-disc list-inside marker:text-[#707070] ">
                   <span className="text-[#707070] leading-[160%] text-[16px] font-sans ">
-                    We encourage customers to review the terms and insurance
-                    policies of the assigned moving service provider.
+                    {t("terms.infoFiveDesc3")}
                   </span>
                 </li>
                 <li className="list-disc list-inside marker:text-[#707070] ">
                   <span className="text-[#707070] leading-[160%] text-[16px] font-sans ">
-                    Zinter BV may offer insurance options, and customers are
-                    encouraged to purchase additional coverage for high-value
-                    items.
+                    {t("terms.infoFiveDesc4")}
                   </span>
                 </li>
               </ul>
             </div>
             <div className="mb-6">
               <h3 className="font-bold mb-3 font-sans text-[#121212] text-[32px] ">
-                6. PROHIBITED ITEMS
+                {t("terms.infoSix")}
               </h3>
               <ul className="w-full gap-3 flex flex-col ">
                 <p className="w-full text-[#707070] leading-[160%] mb-3 text-[16px] font-sans  ">
-                  Customers must not include hazardous, illegal, or perishable
-                  items in their moving inventory. Prohibited items include but
-                  are not limited to
+                  {t("terms.infoSixDescHeader")}
                 </p>
                 <li className="list-disc list-inside marker:text-[#707070] ">
                   <span className="text-[#707070] leading-[160%] text-[16px] font-sans ">
-                    Flammable materials, explosives, or chemicals.
+                    {t("terms.infoSixDesc1")}
                   </span>
                 </li>
                 <li className="list-disc list-inside marker:text-[#707070] ">
                   <span className="text-[#707070] leading-[160%] text-[16px] font-sans ">
-                    Illegal substances or contraband.
+                    {t("terms.infoSixDesc2")}
                   </span>
                 </li>
                 <li className="list-disc list-inside marker:text-[#707070] ">
                   <span className="text-[#707070] leading-[160%] text-[16px] font-sans ">
-                    Perishable food items that could spoil during
-                    transportation.
+                    {t("terms.infoSixDesc3")}
                   </span>
                 </li>
               </ul>
             </div>
             <div className="mb-6">
               <h3 className="font-bold mb-3 font-sans text-[#121212] text-[32px] ">
-                7. SERVICE LIMITATIONS
+                {t("terms.infoSeven")}
               </h3>
               <ul className="w-full gap-3 flex flex-col ">
                 <li className="list-disc list-inside marker:text-[#707070] ">
                   <span className="text-[#707070] leading-[160%] text-[16px] font-sans ">
-                    Zinter BV reserves the right to refuse service in cases
-                    where the requested move is unsafe, unlawful, or
-                    logistically unfeasible.
+                    {t("terms.infoSevenDesc1")}
                   </span>
                 </li>
                 <li className="list-disc list-inside marker:text-[#707070] ">
                   <span className="text-[#707070] leading-[160%] text-[16px] font-sans ">
-                    We are not responsible for delays caused by factors beyond
-                    our control, including but not limited to weather
-                    conditions, traffic, or regulatory restrictions.
+                    {t("terms.infoSevenDesc2")}
                   </span>
                 </li>
               </ul>
             </div>
             <div className="mb-6">
               <h3 className="font-bold mb-3 font-sans text-[#121212] text-[32px] ">
-                8. INTELLECTUAL PROPERTY
+                {t("terms.infoEight")}
               </h3>
               <ul className="w-full gap-3 flex flex-col ">
                 <li className="list-disc list-inside marker:text-[#707070] ">
                   <span className="text-[#707070] leading-[160%] text-[16px] font-sans ">
-                    All content on our website and materials related to our
-                    services are owned by Zinter BV.
+                    {t("terms.infoEightDesc1")}
                   </span>
                 </li>
                 <li className="list-disc list-inside marker:text-[#707070] ">
                   <span className="text-[#707070] leading-[160%] text-[16px] font-sans ">
-                    Unauthorized use, reproduction, or distribution of our
-                    materials is prohibited.
+                    {t("terms.infoEightDesc2")}
                   </span>
                 </li>
               </ul>
             </div>
             <div className="mb-6">
               <h3 className="font-bold mb-3 font-sans text-[#121212] text-[32px] ">
-                9. AMENDMENTS AND TERMINATION
+                {t("terms.infoNine")}
               </h3>
               <ul className="w-full gap-3 flex flex-col ">
                 <li className="list-disc list-inside marker:text-[#707070] ">
                   <span className="text-[#707070] leading-[160%] text-[16px] font-sans ">
-                    We reserve the right to update these Terms & Conditions at
-                    any time.
+                    {t("terms.infoNineDesc1")}
                   </span>
                 </li>
                 <li className="list-disc list-inside marker:text-[#707070] ">
                   <span className="text-[#707070] leading-[160%] text-[16px] font-sans ">
-                    Continued use of our services after changes are made
-                    constitutes acceptance of the new terms.
+                    {t("terms.infoNineDesc2")}
                   </span>
                 </li>
                 <li className="list-disc list-inside marker:text-[#707070] ">
                   <span className="text-[#707070] leading-[160%] text-[16px] font-sans ">
-                    Zinter BV may terminate services if a customer violates
-                    these terms.
+                    {t("terms.infoNineDesc3")}
                   </span>
                 </li>
               </ul>
             </div>
             <div className="mb-6">
               <h3 className="font-bold mb-3 font-sans text-[#121212] text-[32px] ">
-                10. GOVERNING LAW & DISPUTE RESOLUTION
+                {t("terms.infoTen")}
               </h3>
               <ul className="w-full gap-3 flex flex-col ">
                 <li className="list-disc list-inside marker:text-[#707070] ">
                   <span className="text-[#707070] leading-[160%] text-[16px] font-sans ">
-                    These Terms & Conditions are governed by the laws of the
-                    Netherlands.
+                    {t("terms.infoTenDesc1")}
                   </span>
                 </li>
                 <li className="list-disc list-inside marker:text-[#707070] ">
                   <span className="text-[#707070] leading-[160%] text-[16px] font-sans ">
-                    Any disputes shall first be attempted to be resolved
-                    amicably. If unresolved, disputes will be handled through
-                    the appropriate legal channels in the Netherlands.
+                    {t("terms.infoTenDesc2")}
                   </span>
                 </li>
               </ul>
             </div>
             <div className="mb-6">
               <h3 className="font-bold mb-3 font-sans text-[#121212] text-[32px] ">
-                11. CONTACT INFORMATION
+                {t("terms.infoEleven")}
               </h3>
               <p className="w-full text-[#707070] leading-[160%] text-[16px] font-sans  ">
-                For any inquiries regarding these Terms & Conditions, please
-                contact us: 📧 support@zinter.nl
+                {t("terms.infoElevenDesc")}
               </p>
             </div>
           </div>

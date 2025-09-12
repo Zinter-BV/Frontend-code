@@ -190,6 +190,73 @@ const enTranslations = {
     infoTenDesc:
       "For any inquiries regarding these Terms & Conditions, please contact us: 📧 support@zinter.nl",
   },
+  terms: {
+    title: "Terms & Conditions",
+    infoOne: "1. INTRODUCTION",
+    oneDesc:
+      "Welcome to Zinter BV! These Terms & Conditions govern your use of our services, including our website, logistics, and moving solutions. By using our services, you agree to comply with these terms. If you do not agree, please refrain from using our services.",
+    infoTwo: "2. DEFINITIONS",
+    infoTwoDesc1:
+      '"Company," "we," "us," "our" refers to Zinter BV, registered in the Netherlands.',
+    infoTwoDesc2:
+      '"Customer," "you" refers to any individual or business using our services.',
+    infoTwoDesc3:
+      '"Services" refers to our logistics, moving, and related solutions.',
+    infoThree: "3. USE OF SERVICE",
+    infoThreeDesc1:
+      "You must be at least 18 years old or have legal authority to enter into agreements on behalf of an entity.",
+    infoThreeDesc2:
+      "You agree to provide accurate and complete information when using our services.",
+    infoThreeDesc3:
+      "You are responsible for securing any necessary permits or approvals required for your move.",
+    infoFour: "4. BOOKINGS AND PAYMENTS",
+    infoFourDesc1: "All bookings are subject to availability and confirmation.",
+    infoFourDesc2:
+      "Payments must be made in full before service commencement unless otherwise agreed.",
+    infoFourDesc3:
+      "Cancellation fees may apply if you cancel a booking within a specified period before the scheduled service.",
+    infoFive: "5. LIABILITY AND INSURANCE",
+    infoFiveDesc1:
+      "Zinter BV acts as a logistics platform and does not directly carry out the moving services. We connect customers with third-party moving service providers. As such, Zinter BV is not liable for any damages, delays, or losses incurred during the move.",
+    infoFiveDesc2:
+      "Any claims regarding damage, loss, or service issues should be directed to the third-party moving provider responsible for executing the move.",
+    infoFiveDesc3:
+      "We encourage customers to review the terms and insurance policies of the assigned moving service provider.",
+    infoFiveDesc4:
+      "Zinter BV may offer insurance options, and customers are encouraged to purchase additional coverage for high-value items.",
+    infoSix: "6. PROHIBITED ITEMS",
+    infoSixDescHeader:
+      "Customers must not include hazardous, illegal, or perishable items in their moving inventory. Prohibited items include but are not limited to",
+    infoSixDesc1: "Flammable materials, explosives, or chemicals.",
+    infoSixDesc2: "Illegal substances or contraband.",
+    infoSixDesc3:
+      "Perishable food items that could spoil during transportation.",
+    infoSeven: "7. SERVICE LIMITATIONS",
+    infoSevenDesc1:
+      "Zinter BV reserves the right to refuse service in cases where the requested move is unsafe, unlawful, or logistically unfeasible.",
+    infoSevenDesc2:
+      "We are not responsible for delays caused by factors beyond our control, including but not limited to weather conditions, traffic, or regulatory restrictions.",
+    infoEight: "8. INTELLECTUAL PROPERTY",
+    infoEightDesc1:
+      "All content on our website and materials related to our services are owned by Zinter BV.",
+    infoEightDesc2:
+      "Unauthorized use, reproduction, or distribution of our materials is prohibited.",
+    infoNine: "9. AMENDMENTS AND TERMINATION",
+    infoNineDesc1:
+      "We reserve the right to update these Terms & Conditions at any time.",
+    infoNineDesc2:
+      "Continued use of our services after changes are made constitutes acceptance of the new terms.",
+    infoNineDesc3:
+      "Zinter BV may terminate services if a customer violates these terms.",
+    infoTen: "10. GOVERNING LAW & DISPUTE RESOLUTION",
+    infoTenDesc1:
+      "These Terms & Conditions are governed by the laws of the Netherlands.",
+    infoTenDesc2:
+      "Any disputes shall first be attempted to be resolved amicably. If unresolved, disputes will be handled through the appropriate legal channels in the Netherlands.",
+    infoEleven: "11. CONTACT INFORMATION",
+    infoElevenDesc:
+      "For any inquiries regarding these Terms & Conditions, please contact us: 📧 support@zinter.nl",
+  },
 };
 
 const esTranslations = {
@@ -388,6 +455,74 @@ const esTranslations = {
     infoTen: "10. INFORMACIÓN DE CONTACTO",
     infoTenDesc:
       "Para cualquier consulta sobre estos Términos y Condiciones, contáctenos: 📧 support@zinter.nl",
+  },
+  terms: {
+    title: "Términos y Condiciones",
+    infoOne: "1. INTRODUCCIÓN",
+    oneDesc:
+      "¡Bienvenido a Zinter BV! Estos Términos y Condiciones rigen el uso de nuestros servicios, incluido nuestro sitio web, logística y soluciones de mudanza. Al utilizar nuestros servicios, usted acepta cumplir con estos términos. Si no está de acuerdo, le pedimos que se abstenga de usar nuestros servicios.",
+    infoTwo: "2. DEFINICIONES",
+    infoTwoDesc1:
+      '"Compañía," "nosotros," "nuestro" se refiere a Zinter BV, registrada en los Países Bajos.',
+    infoTwoDesc2:
+      '"Cliente," "usted" se refiere a cualquier individuo o empresa que utilice nuestros servicios.',
+    infoTwoDesc3:
+      '"Servicios" se refiere a nuestra logística, mudanzas y soluciones relacionadas.',
+    infoThree: "3. USO DEL SERVICIO",
+    infoThreeDesc1:
+      "Debe tener al menos 18 años o la autoridad legal para celebrar acuerdos en nombre de una entidad.",
+    infoThreeDesc2:
+      "Usted se compromete a proporcionar información precisa y completa al utilizar nuestros servicios.",
+    infoThreeDesc3:
+      "Es su responsabilidad obtener los permisos o autorizaciones necesarios requeridos para su mudanza.",
+    infoFour: "4. RESERVAS Y PAGOS",
+    infoFourDesc1:
+      "Todas las reservas están sujetas a disponibilidad y confirmación.",
+    infoFourDesc2:
+      "Los pagos deben realizarse en su totalidad antes del inicio del servicio, salvo acuerdo en contrario.",
+    infoFourDesc3:
+      "Se pueden aplicar tarifas de cancelación si cancela una reserva dentro de un período específico antes del servicio programado.",
+    infoFive: "5. RESPONSABILIDAD Y SEGUROS",
+    infoFiveDesc1:
+      "Zinter BV actúa como una plataforma logística y no realiza directamente los servicios de mudanza. Conectamos a los clientes con proveedores de servicios de mudanza externos. Por lo tanto, Zinter BV no se hace responsable de daños, retrasos o pérdidas incurridos durante la mudanza.",
+    infoFiveDesc2:
+      "Cualquier reclamación relacionada con daños, pérdidas o problemas del servicio debe dirigirse al proveedor de mudanzas responsable de ejecutar la mudanza.",
+    infoFiveDesc3:
+      "Recomendamos a los clientes revisar los términos y pólizas de seguros del proveedor de mudanza asignado.",
+    infoFiveDesc4:
+      "Zinter BV puede ofrecer opciones de seguro y se recomienda a los clientes adquirir cobertura adicional para artículos de alto valor.",
+    infoSix: "6. ARTÍCULOS PROHIBIDOS",
+    infoSixDescHeader:
+      "Los clientes no deben incluir en su inventario de mudanza artículos peligrosos, ilegales o perecederos. Los artículos prohibidos incluyen, entre otros:",
+    infoSixDesc1: "Materiales inflamables, explosivos o químicos.",
+    infoSixDesc2: "Sustancias ilegales o contrabando.",
+    infoSixDesc3:
+      "Alimentos perecederos que puedan estropearse durante el transporte.",
+    infoSeven: "7. LIMITACIONES DEL SERVICIO",
+    infoSevenDesc1:
+      "Zinter BV se reserva el derecho de rechazar el servicio en casos en los que la mudanza solicitada sea insegura, ilegal o logísticamente inviable.",
+    infoSevenDesc2:
+      "No somos responsables de los retrasos causados por factores fuera de nuestro control, incluidos, entre otros, las condiciones meteorológicas, el tráfico o las restricciones regulatorias.",
+    infoEight: "8. PROPIEDAD INTELECTUAL",
+    infoEightDesc1:
+      "Todo el contenido de nuestro sitio web y materiales relacionados con nuestros servicios son propiedad de Zinter BV.",
+    infoEightDesc2:
+      "El uso, reproducción o distribución no autorizada de nuestros materiales está prohibido.",
+    infoNine: "9. MODIFICACIONES Y TERMINACIÓN",
+    infoNineDesc1:
+      "Nos reservamos el derecho de actualizar estos Términos y Condiciones en cualquier momento.",
+    infoNineDesc2:
+      "El uso continuado de nuestros servicios después de que se realicen cambios constituye la aceptación de los nuevos términos.",
+    infoNineDesc3:
+      "Zinter BV puede dar por terminados los servicios si un cliente viola estos términos.",
+    infoTen: "10. LEY APLICABLE Y RESOLUCIÓN DE DISPUTAS",
+    infoTenDesc1:
+      "Estos Términos y Condiciones se rigen por las leyes de los Países Bajos.",
+    infoTenDesc2:
+      "Cualquier disputa debe intentarse resolver de manera amistosa primero. Si no se resuelve, se tratará a través de los canales legales correspondientes en los Países Bajos.",
+    infoEleven: "11. INFORMACIÓN DE CONTACTO",
+    infoElevenDesc:
+      "Para cualquier consulta relacionada con estos Términos y Condiciones, contáctenos: 📧 support@zinter.nl",
   },
 };
 
@@ -700,6 +835,74 @@ const frTranslations = {
     infoTen: "10. INFORMATIONS DE CONTACT",
     infoTenDesc:
       "Pour toute question concernant ces Termes et Conditions, contactez-nous : 📧 support@zinter.nl",
+  },
+  terms: {
+    title: "Conditions Générales",
+    infoOne: "1. INTRODUCTION",
+    oneDesc:
+      "Bienvenue chez Zinter BV ! Ces Conditions Générales régissent votre utilisation de nos services, y compris notre site web, nos solutions logistiques et de déménagement. En utilisant nos services, vous acceptez de respecter ces conditions. Si vous n’êtes pas d’accord, veuillez ne pas utiliser nos services.",
+    infoTwo: "2. DÉFINITIONS",
+    infoTwoDesc1:
+      '"Société," "nous," "notre" désigne Zinter BV, enregistrée aux Pays-Bas.',
+    infoTwoDesc2:
+      '"Client," "vous" désigne tout individu ou entreprise utilisant nos services.',
+    infoTwoDesc3:
+      '"Services" désigne nos solutions logistiques, de déménagement et services associés.',
+    infoThree: "3. UTILISATION DU SERVICE",
+    infoThreeDesc1:
+      "Vous devez avoir au moins 18 ans ou l’autorité légale pour conclure des accords au nom d’une entité.",
+    infoThreeDesc2:
+      "Vous acceptez de fournir des informations exactes et complètes lors de l’utilisation de nos services.",
+    infoThreeDesc3:
+      "Vous êtes responsable d’obtenir les autorisations ou permis nécessaires pour votre déménagement.",
+    infoFour: "4. RÉSERVATIONS ET PAIEMENTS",
+    infoFourDesc1:
+      "Toutes les réservations sont soumises à disponibilité et confirmation.",
+    infoFourDesc2:
+      "Les paiements doivent être effectués en totalité avant le début du service, sauf accord contraire.",
+    infoFourDesc3:
+      "Des frais d’annulation peuvent s’appliquer si vous annulez une réservation dans un délai déterminé avant la date prévue du service.",
+    infoFive: "5. RESPONSABILITÉ ET ASSURANCE",
+    infoFiveDesc1:
+      "Zinter BV agit comme une plateforme logistique et n’exécute pas directement les services de déménagement. Nous connectons les clients avec des prestataires de services de déménagement tiers. En conséquence, Zinter BV n’est pas responsable des dommages, retards ou pertes survenus pendant le déménagement.",
+    infoFiveDesc2:
+      "Toute réclamation concernant des dommages, pertes ou problèmes de service doit être adressée au prestataire de déménagement tiers responsable de l’exécution du service.",
+    infoFiveDesc3:
+      "Nous encourageons les clients à examiner les conditions et polices d’assurance du prestataire de déménagement assigné.",
+    infoFiveDesc4:
+      "Zinter BV peut proposer des options d’assurance, et les clients sont encouragés à souscrire une couverture supplémentaire pour les articles de grande valeur.",
+    infoSix: "6. OBJETS INTERDITS",
+    infoSixDescHeader:
+      "Les clients ne doivent pas inclure dans leur inventaire de déménagement des articles dangereux, illégaux ou périssables. Les articles interdits incluent, sans s’y limiter :",
+    infoSixDesc1: "Matériaux inflammables, explosifs ou chimiques.",
+    infoSixDesc2: "Substances illégales ou contrebande.",
+    infoSixDesc3:
+      "Produits alimentaires périssables susceptibles de se détériorer pendant le transport.",
+    infoSeven: "7. LIMITATIONS DU SERVICE",
+    infoSevenDesc1:
+      "Zinter BV se réserve le droit de refuser un service dans les cas où le déménagement demandé est dangereux, illégal ou logistiquement irréalisable.",
+    infoSevenDesc2:
+      "Nous ne sommes pas responsables des retards causés par des facteurs indépendants de notre volonté, y compris mais sans s’y limiter aux conditions météorologiques, à la circulation ou aux restrictions réglementaires.",
+    infoEight: "8. PROPRIÉTÉ INTELLECTUELLE",
+    infoEightDesc1:
+      "Tout le contenu de notre site web et les documents liés à nos services appartiennent à Zinter BV.",
+    infoEightDesc2:
+      "L’utilisation, la reproduction ou la distribution non autorisée de nos documents est interdite.",
+    infoNine: "9. MODIFICATIONS ET RÉSILIATION",
+    infoNineDesc1:
+      "Nous nous réservons le droit de mettre à jour ces Conditions Générales à tout moment.",
+    infoNineDesc2:
+      "La poursuite de l’utilisation de nos services après modifications constitue une acceptation des nouvelles conditions.",
+    infoNineDesc3:
+      "Zinter BV peut mettre fin aux services si un client viole ces conditions.",
+    infoTen: "10. LOI APPLICABLE ET RÉSOLUTION DES LITIGES",
+    infoTenDesc1:
+      "Ces Conditions Générales sont régies par les lois des Pays-Bas.",
+    infoTenDesc2:
+      "Tout litige doit d’abord être tenté d’être résolu à l’amiable. S’il n’est pas résolu, il sera traité par les juridictions compétentes aux Pays-Bas.",
+    infoEleven: "11. INFORMATIONS DE CONTACT",
+    infoElevenDesc:
+      "Pour toute question concernant ces Conditions Générales, veuillez nous contacter : 📧 support@zinter.nl",
   },
 };
 
