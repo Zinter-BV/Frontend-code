@@ -54,7 +54,7 @@ const MoversCard = ({ makeActive, quoteData }) => {
         <div className="flex items-center mt-2 justify-between">
           <p className="font-sans text-[32px] cardCompanyAmount leading-[38.5px] font-normal ">
             {" "}
-            ${quoteData?.amount}
+            €{quoteData?.amount}
           </p>
 
           <p className="text-[#9e9e9e] cardCompanyFeatures font-normal text-[16px] leading-[25.6px] font-sans  ">

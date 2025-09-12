@@ -198,7 +198,7 @@ const Payment = () => {
                 </p>
                 <p className="font-unbounded text-[36px] leading-[38.5px] text-[#136AB5] font-semibold ">
                   {" "}
-                  ${moversData?.amount}
+                  €{moversData?.amount}
                 </p>
                 <p className="text-[16px] leading-[25.6px] font-light text-[#373737] font-sans ">
                   Pickup & delivery included
@@ -207,7 +207,7 @@ const Payment = () => {
               <div className="mobileOptionsContainer">
                 <p className="font-unbounded mobileOptionsContainerAmount text-[36px] leading-[38.5px] text-[#136AB5] font-semibold ">
                   {" "}
-                  ${moversData?.amount}
+                  €{moversData?.amount}
                 </p>
                 <div>
                   <p className="text-[#9e9e9e] mobileOptionsContainerDistance font-normal text-[16px] leading-[25.6px] font-sans ">
