@@ -111,6 +111,85 @@ const enTranslations = {
     location: "Location",
     location_name: "Netherlands",
   },
+  vision: {
+    title: "Our Vision",
+    main: "At Zinter, we envision a world where logistics is streamlined, intelligent, and effortless.",
+    description:
+      "By leveraging cutting-edge technology, we aim to provide a hassle-free experience that eliminates common challenges associated with moving and transportation services. Our goal is to create an all-encompassing logistics infrastructure that caters to diverse needs, from residential relocations to commercial moves.",
+  },
+  services: {
+    title: "Our Services",
+    description: "Zinter BV does not carry out moves directly",
+    more: "Instead, we connect customers with trusted and professional third-party moving service providers. We ensure a seamless booking and logistics experience by leveraging technology to match users with the best available movers. Our services include",
+    service1Title: "Residential Moving",
+    service1Desc:
+      "Tailored solutions for individuals and families moving to new homes",
+    service2Title: "Commercial Moving",
+    service2Desc:
+      "Efficient and reliable business relocations with minimal downtime",
+    service3Title: "Customized Solutions",
+    service3Desc: "Personalized services to meet unique transportation needs",
+    service4Title: "Technology-Driven Logistics",
+    service4Desc:
+      "As a logistics tech company, Zinter BV integrates advanced technology to optimize processes and enhance the customer experience",
+    service5Title: "AI Image Recognition for Inventory",
+    service5Desc:
+      "Enhancing inventory management by leveraging AI to accurately recognize, categorize, and track items, making moves more efficient and organized.",
+  },
+  privacy: {
+    title: "Privacy Policy",
+    infoOne: "1. INTRODUCTION",
+    oneDesc:
+      'Zinter BV ("we," "us," or "our") is a logistics tech company specializing in moving services. Zinter BV is registered in the Netherlands. We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy & Cookies Statement explains how we collect, use, and protect your data when you use our services, including our website and any associated platforms.',
+    infoTwo: "2. INFORMATION WE COLLECT",
+    infoTwoDesc1:
+      "a. Personal Data: When you use our moving services or interact with our platform, we may collect the following information: Identity & Contact Data: Name, phone number, email address, home/office address.",
+    infoTwoDesc2:
+      "Moving Details: Pick-up and drop-off locations, type and volume of goods, preferred moving dates. Billing & Payment Data: Payment method details, transaction history. Customer Support Data: Communications and queries related to your bookings or service requests.",
+    infoTwoDesc3:
+      "b. Technical & Usage Data: Device Information: IP address, browser type, operating system. Usage Data: Interactions with our platform, page visits, service preferences. Cookies & Tracking Technologies: Information collected via cookies and analytics tools.",
+    infoThree: "3. HOW WE USE YOUR INFORMATION",
+    infoThreeHeader: "We use your data to:",
+    infoThreeDesc1: "Process and fulfill moving service requests.",
+    infoThreeDesc2: "Communicate updates regarding your bookings.",
+    infoThreeDesc3: "Improve our services through analytics and feedback.",
+    infoThreeDesc4: "Ensure the security and functionality of our platform.",
+    infoThreeDesc5: "Comply with legal and regulatory requirements.",
+    infoFour: "4. HOW WE SHARE YOUR INFORMATION",
+    infoFourHeader:
+      "We do not sell your personal data. However, we may share it with:",
+    infoFourDesc1:
+      "Service Providers: Third-party logistics partners and moving contractors.",
+    infoFourDesc2: "Payment Processors: To facilitate transactions securely.",
+    infoFourDesc3:
+      "Legal Authorities: If required by law or in response to legal requests.",
+    infoFive: "5. DATA SECURITY AND RETENTION",
+    infoFiveDesc:
+      "We implement security measures to protect your data from unauthorized access and breaches. Your data is retained only for as long as necessary to fulfill the purpose of collection or comply with legal obligations.",
+    infoSix: "6. YOUR RIGHT & CHOICES",
+    infoSixHeader: "You have the right to:",
+    infoSixDesc1: "Access, update, or delete your personal data.",
+    infoSixDesc2: "Object to processing or request data portability.",
+    infoSixDesc3: "Withdraw consent for marketing communications.",
+    infoSixDesc4: "Adjust cookie settings via your browser.",
+    infoSixDesc5: "To exercise your rights, contact us at privacy@zinter.nl.",
+    infoSeven: "7. COOKIES POLICY",
+    infoSevenDesc:
+      "Zinter BV uses cookies to enhance user experience and analyze platform performance. You can manage your cookie preferences through your browser settings.",
+    infoEight: "8. CHANGES TO THIS POLICY",
+    infoEight1Header: "Essential Cookies:",
+    infoEight1Desc: "Necessary for website functionality.",
+    infoEight2Header: "Analytics Cookies:",
+    infoEight2Desc: "Help us understand user behavior.",
+    infoEight3Header: "Marketing Cookies:",
+    infoEight3Desc: "Personalize ads and offers.",
+    infoNine: "9. UPDATES TO THIS STATEMENT",
+    infoNineDesc:
+      "We may update this policy from time to time. Any changes will be communicated on our website.",
+    infoTen: "10. CONTACT INFORMATION",
+    infoTenDesc:
+      "For any inquiries regarding these Terms & Conditions, please contact us: 📧 support@zinter.nl",
+  },
 };
 
 const esTranslations = {
@@ -222,6 +301,93 @@ const esTranslations = {
     founded_year: "2024",
     location: "Ubicación",
     location_name: "Países Bajos",
+  },
+  vision: {
+    title: "Nuestra Visión",
+    main: "En Zinter, imaginamos un mundo donde la logística sea fluida, inteligente y sin esfuerzo.",
+    description:
+      "Al aprovechar la tecnología de punta, nuestro objetivo es brindar una experiencia sin complicaciones que elimine los desafíos comunes asociados con los servicios de mudanza y transporte. Nuestra meta es crear una infraestructura logística integral que atienda diversas necesidades, desde mudanzas residenciales hasta mudanzas comerciales.",
+  },
+  services: {
+    title: "Nuestros Servicios",
+    description: "Zinter BV no realiza mudanzas directamente",
+    more: "En cambio, conectamos a los clientes con proveedores de servicios de mudanza de terceros confiables y profesionales. Garantizamos una experiencia de reserva y logística sin inconvenientes mediante el uso de la tecnología para emparejar a los usuarios con los mejores mudanceros disponibles. Nuestros servicios incluyen",
+    service1Title: "Mudanzas Residenciales",
+    service1Desc:
+      "Soluciones personalizadas para individuos y familias que se mudan a nuevos hogares",
+    service2Title: "Mudanzas Comerciales",
+    service2Desc:
+      "Traslados empresariales eficientes y confiables con mínima interrupción",
+    service3Title: "Soluciones Personalizadas",
+    service3Desc:
+      "Servicios personalizados para satisfacer necesidades únicas de transporte",
+    service4Title: "Logística Impulsada por Tecnología",
+    service4Desc:
+      "Como empresa tecnológica de logística, Zinter BV integra tecnología avanzada para optimizar procesos y mejorar la experiencia del cliente",
+    service5Title: "Reconocimiento de Imágenes con IA para Inventario",
+    service5Desc:
+      "Mejorando la gestión de inventarios mediante el uso de IA para reconocer, categorizar y rastrear artículos con precisión, haciendo las mudanzas más eficientes y organizadas.",
+  },
+  privacy: {
+    title: "Política de Privacidad",
+    infoOne: "1. INTRODUCCIÓN",
+    oneDesc:
+      'Zinter BV ("nosotros", "nos", o "nuestro") es una empresa tecnológica de logística especializada en servicios de mudanza. Zinter BV está registrada en los Países Bajos. Nos comprometemos a proteger su privacidad y garantizar la seguridad de su información personal. Esta Declaración de Privacidad y Cookies explica cómo recopilamos, usamos y protegemos sus datos cuando utiliza nuestros servicios, incluyendo nuestro sitio web y cualquier plataforma asociada.',
+    infoTwo: "2. INFORMACIÓN QUE RECOPILAMOS",
+    infoTwoDesc1:
+      "a. Datos Personales: Cuando utiliza nuestros servicios de mudanza o interactúa con nuestra plataforma, podemos recopilar la siguiente información: Datos de Identidad y Contacto: Nombre, número de teléfono, dirección de correo electrónico, dirección de domicilio/oficina.",
+    infoTwoDesc2:
+      "Detalles de la Mudanza: Ubicaciones de recogida y entrega, tipo y volumen de bienes, fechas de mudanza preferidas. Datos de Facturación y Pago: Detalles del método de pago, historial de transacciones. Datos de Atención al Cliente: Comunicaciones y consultas relacionadas con sus reservas o solicitudes de servicio.",
+    infoTwoDesc3:
+      "b. Datos Técnicos y de Uso: Información del Dispositivo: Dirección IP, tipo de navegador, sistema operativo. Datos de Uso: Interacciones con nuestra plataforma, visitas a páginas, preferencias de servicio. Cookies y Tecnologías de Seguimiento: Información recopilada mediante cookies y herramientas analíticas.",
+    infoThree: "3. CÓMO USAMOS SU INFORMACIÓN",
+    infoThreeHeader: "Usamos sus datos para:",
+    infoThreeDesc1:
+      "Procesar y cumplir las solicitudes de servicios de mudanza.",
+    infoThreeDesc2: "Comunicar actualizaciones sobre sus reservas.",
+    infoThreeDesc3:
+      "Mejorar nuestros servicios mediante análisis y comentarios.",
+    infoThreeDesc4:
+      "Garantizar la seguridad y funcionalidad de nuestra plataforma.",
+    infoThreeDesc5: "Cumplir con requisitos legales y normativos.",
+    infoFour: "4. CÓMO COMPARTIMOS SU INFORMACIÓN",
+    infoFourHeader:
+      "No vendemos sus datos personales. Sin embargo, podemos compartirlos con:",
+    infoFourDesc1:
+      "Proveedores de Servicios: Socios logísticos y contratistas de mudanza terceros.",
+    infoFourDesc2:
+      "Procesadores de Pagos: Para facilitar transacciones de manera segura.",
+    infoFourDesc3:
+      "Autoridades Legales: Si lo exige la ley o en respuesta a solicitudes legales.",
+    infoFive: "5. SEGURIDAD Y RETENCIÓN DE DATOS",
+    infoFiveDesc:
+      "Implementamos medidas de seguridad para proteger sus datos contra accesos no autorizados y violaciones. Sus datos se conservan solo mientras sea necesario para cumplir con el propósito de la recopilación o cumplir obligaciones legales.",
+    infoSix: "6. SUS DERECHOS Y ELECCIONES",
+    infoSixHeader: "Usted tiene derecho a:",
+    infoSixDesc1: "Acceder, actualizar o eliminar sus datos personales.",
+    infoSixDesc2:
+      "Oponerse al procesamiento o solicitar la portabilidad de datos.",
+    infoSixDesc3: "Retirar el consentimiento para comunicaciones de marketing.",
+    infoSixDesc4:
+      "Ajustar la configuración de cookies a través de su navegador.",
+    infoSixDesc5:
+      "Para ejercer sus derechos, contáctenos en privacy@zinter.nl.",
+    infoSeven: "7. POLÍTICA DE COOKIES",
+    infoSevenDesc:
+      "Zinter BV utiliza cookies para mejorar la experiencia del usuario y analizar el rendimiento de la plataforma. Puede gestionar sus preferencias de cookies a través de la configuración de su navegador.",
+    infoEight: "8. CAMBIOS EN ESTA POLÍTICA",
+    infoEight1Header: "Cookies Esenciales:",
+    infoEight1Desc: "Necesarias para la funcionalidad del sitio web.",
+    infoEight2Header: "Cookies Analíticas:",
+    infoEight2Desc: "Nos ayudan a comprender el comportamiento del usuario.",
+    infoEight3Header: "Cookies de Marketing:",
+    infoEight3Desc: "Personalizan anuncios y ofertas.",
+    infoNine: "9. ACTUALIZACIONES DE ESTA DECLARACIÓN",
+    infoNineDesc:
+      "Podemos actualizar esta política de vez en cuando. Cualquier cambio se comunicará en nuestro sitio web.",
+    infoTen: "10. INFORMACIÓN DE CONTACTO",
+    infoTenDesc:
+      "Para cualquier consulta sobre estos Términos y Condiciones, contáctenos: 📧 support@zinter.nl",
   },
 };
 
@@ -447,6 +613,93 @@ const frTranslations = {
     founded_year: "2024",
     location: "Emplacement",
     location_name: "Pays-Bas",
+  },
+  vision: {
+    title: "Notre Vision",
+    main: "Chez Zinter, nous imaginons un monde où la logistique est rationalisée, intelligente et sans effort.",
+    description:
+      "En tirant parti des technologies de pointe, nous visons à offrir une expérience sans tracas qui élimine les défis courants associés aux services de déménagement et de transport. Notre objectif est de créer une infrastructure logistique globale qui répond à des besoins divers, des déménagements résidentiels aux déménagements commerciaux.",
+  },
+  services: {
+    title: "Nos Services",
+    description: "Zinter BV n'effectue pas les déménagements directement",
+    more: "À la place, nous connectons les clients avec des prestataires de services de déménagement tiers fiables et professionnels. Nous garantissons une expérience de réservation et de logistique fluide en utilisant la technologie pour mettre en relation les utilisateurs avec les meilleurs déménageurs disponibles. Nos services incluent",
+    service1Title: "Déménagement Résidentiel",
+    service1Desc:
+      "Solutions sur mesure pour les particuliers et les familles déménageant vers de nouveaux logements",
+    service2Title: "Déménagement Commercial",
+    service2Desc:
+      "Relocalisations d'entreprises efficaces et fiables avec un minimum d'interruption",
+    service3Title: "Solutions Personnalisées",
+    service3Desc:
+      "Services personnalisés pour répondre aux besoins uniques de transport",
+    service4Title: "Logistique Axée sur la Technologie",
+    service4Desc:
+      "En tant qu'entreprise technologique de logistique, Zinter BV intègre des technologies avancées pour optimiser les processus et améliorer l'expérience client",
+    service5Title: "Reconnaissance d'Images par IA pour l'Inventaire",
+    service5Desc:
+      "Amélioration de la gestion des inventaires en utilisant l'IA pour reconnaître, catégoriser et suivre les articles avec précision, rendant les déménagements plus efficaces et organisés.",
+  },
+  privacy: {
+    title: "Politique de Confidentialité",
+    infoOne: "1. INTRODUCTION",
+    oneDesc:
+      'Zinter BV ("nous", "notre" ou "nos") est une entreprise technologique de logistique spécialisée dans les services de déménagement. Zinter BV est enregistrée aux Pays-Bas. Nous nous engageons à protéger votre vie privée et à garantir la sécurité de vos informations personnelles. Cette Déclaration de Confidentialité et de Cookies explique comment nous collectons, utilisons et protégeons vos données lorsque vous utilisez nos services, y compris notre site Web et toutes les plateformes associées.',
+    infoTwo: "2. INFORMATIONS QUE NOUS COLLECTONS",
+    infoTwoDesc1:
+      "a. Données Personnelles: Lorsque vous utilisez nos services de déménagement ou interagissez avec notre plateforme, nous pouvons collecter les informations suivantes : Données d'identité et de contact : Nom, numéro de téléphone, adresse e-mail, adresse domicile/bureau.",
+    infoTwoDesc2:
+      "Détails du Déménagement : Lieux de prise en charge et de livraison, type et volume des biens, dates de déménagement préférées. Données de Facturation et de Paiement : Détails du mode de paiement, historique des transactions. Données du Support Client : Communications et demandes liées à vos réservations ou demandes de service.",
+    infoTwoDesc3:
+      "b. Données Techniques et d’Utilisation: Informations sur l’appareil : adresse IP, type de navigateur, système d’exploitation. Données d’utilisation : Interactions avec notre plateforme, visites de pages, préférences de service. Cookies et Technologies de Suivi : Informations collectées via des cookies et des outils d’analyse.",
+    infoThree: "3. COMMENT NOUS UTILISONS VOS INFORMATIONS",
+    infoThreeHeader: "Nous utilisons vos données pour :",
+    infoThreeDesc1:
+      "Traiter et exécuter les demandes de services de déménagement.",
+    infoThreeDesc2: "Communiquer les mises à jour concernant vos réservations.",
+    infoThreeDesc3: "Améliorer nos services grâce à l’analyse et aux retours.",
+    infoThreeDesc4:
+      "Assurer la sécurité et la fonctionnalité de notre plateforme.",
+    infoThreeDesc5: "Se conformer aux exigences légales et réglementaires.",
+    infoFour: "4. COMMENT NOUS PARTAGEONS VOS INFORMATIONS",
+    infoFourHeader:
+      "Nous ne vendons pas vos données personnelles. Cependant, nous pouvons les partager avec :",
+    infoFourDesc1:
+      "Fournisseurs de services : Partenaires logistiques tiers et entrepreneurs de déménagement.",
+    infoFourDesc2:
+      "Processeurs de paiement : Pour faciliter les transactions en toute sécurité.",
+    infoFourDesc3:
+      "Autorités légales : Si la loi l’exige ou en réponse à des demandes légales.",
+    infoFive: "5. SÉCURITÉ ET CONSERVATION DES DONNÉES",
+    infoFiveDesc:
+      "Nous mettons en œuvre des mesures de sécurité pour protéger vos données contre tout accès non autorisé et toute violation. Vos données sont conservées uniquement aussi longtemps que nécessaire pour atteindre l’objectif de la collecte ou respecter les obligations légales.",
+    infoSix: "6. VOS DROITS ET CHOIX",
+    infoSixHeader: "Vous avez le droit de :",
+    infoSixDesc1:
+      "Accéder, mettre à jour ou supprimer vos données personnelles.",
+    infoSixDesc2:
+      "Vous opposer au traitement ou demander la portabilité des données.",
+    infoSixDesc3:
+      "Retirer votre consentement pour les communications marketing.",
+    infoSixDesc4: "Ajuster les paramètres des cookies via votre navigateur.",
+    infoSixDesc5:
+      "Pour exercer vos droits, contactez-nous à privacy@zinter.nl.",
+    infoSeven: "7. POLITIQUE DE COOKIES",
+    infoSevenDesc:
+      "Zinter BV utilise des cookies pour améliorer l’expérience utilisateur et analyser les performances de la plateforme. Vous pouvez gérer vos préférences de cookies via les paramètres de votre navigateur.",
+    infoEight: "8. MODIFICATIONS DE CETTE POLITIQUE",
+    infoEight1Header: "Cookies Essentiels :",
+    infoEight1Desc: "Nécessaires pour le fonctionnement du site Web.",
+    infoEight2Header: "Cookies d’Analyse :",
+    infoEight2Desc: "Aident à comprendre le comportement des utilisateurs.",
+    infoEight3Header: "Cookies Marketing :",
+    infoEight3Desc: "Personnalisent les publicités et offres.",
+    infoNine: "9. MISES À JOUR DE CETTE DÉCLARATION",
+    infoNineDesc:
+      "Nous pouvons mettre à jour cette politique de temps à autre. Tout changement sera communiqué sur notre site Web.",
+    infoTen: "10. INFORMATIONS DE CONTACT",
+    infoTenDesc:
+      "Pour toute question concernant ces Termes et Conditions, contactez-nous : 📧 support@zinter.nl",
   },
 };
 

@@ -2,14 +2,19 @@ import React from "react";
 import userSatisfaction from "../Assets/user-satisfaction.svg";
 import innovation from "../Assets/innovation.svg";
 import simplicity from "../Assets/simplicity.svg";
+import { useNavigate } from "react-router-dom";
 import "./ourVision.css";
+import { useTranslation } from "react-i18next";
 
-const ourVision = () => {
+const OurVision = () => {
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+
   return (
     <div className="mx-auto bg-[#121212] w-full ">
       <div className="container_our_vision mx-auto w-[90vw] max-w-[1500px]">
         <div className="first_container_vision">
-          <h2>Our Vision</h2>
+          <h2>{t("vision.title")}</h2>
           <div>
             <div className="card_our_vision">
               <div className="first_card">
@@ -46,22 +51,18 @@ const ourVision = () => {
           </div>
         </div>
         <div className="second_container_vision">
-          <h2>
-            At Zinter, we envision a world where logistics is streamlined,
-            intelligent, and effortless.
-          </h2>
-          <span>
-            By leveraging cutting-edge technology, aim to provide a hassle-free
-            experience that eliminates common challenges associated with moving
-            and transportation services. Our goal is to create an
-            all-encompassing logistics infrastructure that caters to diverse
-            needs, from residential relocations to commercial moves.
-          </span>
-          <button className="get_started_btn">GET STARTED</button>
+          <h2>{t("vision.main")}</h2>
+          <span>{t("vision.description")}</span>
+          <button
+            onClick={() => navigate("/quote")}
+            className="get_started_btn"
+          >
+            GET STARTED
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
-export default ourVision;
+export default OurVision;

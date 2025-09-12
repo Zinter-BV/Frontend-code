@@ -46,7 +46,7 @@ const FAQ = ({ showBackgroundColor }) => {
       ),
     },
     {
-      question: t("tracking"),
+      question: t("faq.tracking"),
       answer: t(
         "Absolutely! Each mentorship program includes personalized financial advice tailored to your specific situation, goals, and risk tolerance. Our mentors work closely with you to develop customized strategies for wealth building and financial success."
       ),
