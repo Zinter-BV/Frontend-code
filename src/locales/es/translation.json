@@ -1,0 +1,158 @@
+{
+  "navigation": {
+    "home": "Inicio",
+    "about": "Acerca de",
+    "faqs": "Preguntas Frecuentes"
+  },
+  "hero": {
+    "getStarted": "COMENZAR",
+    "headline": "Mudanza, Mejorada. Sin estrés. Sin conjeturas. Solo toca, fotografía y relájate.",
+    "subheadline": "Nuestra plataforma usa IA para identificar instantáneamente tus artículos, conectarte con mudanceros confiables y agilizar todo el proceso. Una foto. Un minuto. Un dolor de cabeza menos.",
+    "getQuote": "OBTENER COTIZACIÓN",
+    "trackMove": "RASTREAR MUDANZA",
+    "activeUsers": "usuarios activos están felices con Zinter"
+  },
+  "features": {
+    "smarterTitle": "Más Inteligente que un Formulario. Más Fácil que una Llamada",
+    "smarterDescription": "Sube unas fotos de tu espacio y nuestra IA escanea tu inventario e instantáneamente obtiene cotizaciones competitivas de nuestra red de mudanceros profesionales.",
+    "sellingPoint": "PUNTO DE VENTA",
+    "eliteTitle": "Mudanceros Elite. Completamente Verificados. Siempre Confiables.",
+    "eliteDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+    "seamlessBooking": "Proceso de reserva fluido y fácil",
+    "trustedNetwork": "Red confiable de empresas de mudanzas",
+    "expertGuidance": "Orientación experta y soporte rápido en cualquier momento",
+    "getStartedBtn": "Comenzar"
+  },
+  "process": {
+    "title": "Tu Mudanza, en 60 Segundos.",
+    "step1Title": "Envía los detalles de tu mudanza",
+    "step1Description": "Completa nuestro formulario rápido con las ubicaciones de inicio y destino de tu mudanza, y el tamaño de tu mudanza",
+    "step2Title": "Fotografía tu espacio",
+    "step2Description": "Toma unas fotos rápidas de las habitaciones o artículos que vas a mudar.",
+    "step3Title": "Obtén cotizaciones en tiempo real",
+    "step3Description": "Nuestra IA escanea tu inventario y devuelve estimaciones precisas de profesionales confiables.",
+    "step4Title": "Elige tu pareja perfecta",
+    "step4Description": "Compara ofertas. Lee reseñas. Reserva el mudancero que se ajuste a tus necesidades y presupuesto.",
+    "letsGetMoving": "Pongámonos en Marcha"
+  },
+  "testimonials": {
+    "main": "Testimonios",
+    "title": "Personas Reales. Mudanzas Reales. Tranquilidad Real.",
+    "testimonial1": "Subí cinco fotos desde mi teléfono y tuve una cotización en minutos. Los mudanceros llegaron exactamente cuando dijeron que lo harían.",
+    "testimonial1Type": "Mudanza de Estudio",
+    "testimonial2": "Honestamente, se sintió demasiado fácil. Esperaba formularios y estrés pero todo se manejó a través de la plataforma.",
+    "testimonial2Type": "Mudanza Familiar",
+    "testimonial3": "Odio mudarme. Pero esta vez? Fue suave, rápido y no arruinó mi fin de semana.",
+    "testimonial3Type": "Apartamento de 2 Habitaciones"
+  },
+  "faq": {
+    "title": "Preguntas Frecuentes",
+    "paymentMethods": "¿Qué métodos de pago son compatibles?",
+    "howEarly": "¿Con qué anticipación debo reservar mi mudanza?",
+    "packing": "¿Los mudanceros también empaquetarán mis cosas?",
+    "whatsIncluded": "¿Qué está incluido en mi cotización?",
+    "packingExtra": "¿El empaque es parte del trato o es extra?",
+    "reschedule": "¿Puedo reprogramar si cambian los planes?",
+    "tracking": "¿Puedo rastrear mi mudanza en tiempo real?",
+    "storage": "¿Qué pasa si necesito almacenamiento, pueden ayudar?",
+    "costCalculation": "¿Cómo se calcula el costo de la mudanza?"
+  },
+  "newsletter": {
+    "title": "No te Pierdas una Mudanza.",
+    "header": "boletín informativo",
+    "description": "Obtén consejos internos, ofertas limitadas y trucos de mudanza, directamente en tu bandeja de entrada."
+  },
+  "contact": {
+  "title": "CONTÁCTENOS",
+  "description": "Únase a nosotros en nuestro viaje para redefinir la logística con innovación y excelencia.",
+  "enquiry": "Para consultas, asociaciones o reservas de servicios, contáctenos en 📧 support@zinter.nl"
+},
+  "footer": {
+    "quicklinks": "Enlaces Rápidos",
+    "aboutUs": "Acerca de",
+    "reportIssue": "Reportar un problema",
+    "faq": "Preguntas Frecuentes",
+    "privacyPolicy": "Política de Privacidad",
+    "termsConditions": "Términos y Condiciones",
+    "contact": "Contacto",
+    "schedule": "Lun. - Vie.: 08:00 - 19:00\nSáb.: 09:00 - 17:00",
+    "copyright": "© 2025 Todos los derechos reservados"
+  },
+  "aboutheader": {
+  "title": "Acerca de Zinter",
+  "description": "Nuestra misión es revolucionar la industria logística."
+},
+"hasslefree": {
+  "title": "MUDANZA SIN COMPLICACIONES",
+  "description": "Nuestra misión es revolucionar la industria logística ofreciendo soluciones fluidas e impulsadas por la tecnología",
+  "more": "Que simplifican y optimizan la experiencia de mudanza tanto para particulares como para empresas. Zinter BV está comprometida con la innovación, la eficiencia y la satisfacción del cliente.",
+  "founded": "Fundada",
+  "founded_year": "2024",
+  "location": "Ubicación",
+  "location_name": "Países Bajos"
+},
+"vision": {
+      "title": "Nuestra Visión",
+      "main": "En Zinter, imaginamos un mundo donde la logística sea fluida, inteligente y sin esfuerzo.",
+      "description": "Al aprovechar la tecnología de punta, nuestro objetivo es proporcionar una experiencia sin complicaciones que elimine los desafíos comunes asociados con los servicios de mudanza y transporte. Nuestro objetivo es crear una infraestructura logística integral que atienda diversas necesidades, desde reubicaciones residenciales hasta mudanzas comerciales."
+      
+    },
+    "services": {
+      "title": "Nuestros Servicios",
+      "description": "Zinter BV no realiza mudanzas directamente",
+      "more": "En cambio, conectamos a los clientes con proveedores de servicios de mudanza de terceros confiables y profesionales. Garantizamos una experiencia de reserva y logística sin inconvenientes mediante el uso de la tecnología para emparejar a los usuarios con los mejores mudanceros disponibles. Nuestros servicios incluyen",
+      "service1Title": "Mudanzas Residenciales",
+      "service1Desc": "Soluciones personalizadas para individuos y familias que se mudan a nuevos hogares",
+      "service2Title": "Mudanzas Comerciales",
+      "service2Desc": "Traslados empresariales eficientes y confiables con mínima interrupción",
+      "service3Title": "Soluciones Personalizadas",
+      "service3Desc": "Servicios personalizados para satisfacer necesidades únicas de transporte",
+      "service4Title": "Logística Impulsada por Tecnología",
+      "service4Desc": "Como empresa tecnológica de logística, Zinter BV integra tecnología avanzada para optimizar procesos y mejorar la experiencia del cliente",
+      "service5Title": "Reconocimiento de Imágenes con IA para Inventario",
+      "service5Desc": "Mejorando la gestión de inventarios mediante el uso de IA para reconocer, categorizar y rastrear artículos con precisión, haciendo las mudanzas más eficientes y organizadas."
+    },
+    "privacy": {
+      "title": "Política de Privacidad",
+      "infoOne": "1. INTRODUCCIÓN",
+      "oneDesc": "Zinter BV (\"nosotros\", \"nos\", o \"nuestro\") es una empresa tecnológica de logística especializada en servicios de mudanza. Zinter BV está registrada en los Países Bajos. Nos comprometemos a proteger su privacidad y garantizar la seguridad de su información personal. Esta Declaración de Privacidad y Cookies explica cómo recopilamos, usamos y protegemos sus datos cuando utiliza nuestros servicios, incluyendo nuestro sitio web y cualquier plataforma asociada.",
+      "infoTwo": "2. INFORMACIÓN QUE RECOPILAMOS",
+      "infoTwoDesc1": "a. Datos Personales: Cuando utiliza nuestros servicios de mudanza o interactúa con nuestra plataforma, podemos recopilar la siguiente información: Datos de Identidad y Contacto: Nombre, número de teléfono, dirección de correo electrónico, dirección de domicilio/oficina.",
+      "infoTwoDesc2": "Detalles de la Mudanza: Ubicaciones de recogida y entrega, tipo y volumen de bienes, fechas de mudanza preferidas. Datos de Facturación y Pago: Detalles del método de pago, historial de transacciones. Datos de Atención al Cliente: Comunicaciones y consultas relacionadas con sus reservas o solicitudes de servicio.",
+      "infoTwoDesc3": "b. Datos Técnicos y de Uso: Información del Dispositivo: Dirección IP, tipo de navegador, sistema operativo. Datos de Uso: Interacciones con nuestra plataforma, visitas a páginas, preferencias de servicio. Cookies y Tecnologías de Seguimiento: Información recopilada mediante cookies y herramientas analíticas.",
+      "infoThree": "3. CÓMO USAMOS SU INFORMACIÓN",
+      "infoThreeHeader": "Usamos sus datos para:",
+      "infoThreeDesc1": "Procesar y cumplir las solicitudes de servicios de mudanza.",
+      "infoThreeDesc2": "Comunicar actualizaciones sobre sus reservas.",
+      "infoThreeDesc3": "Mejorar nuestros servicios mediante análisis y comentarios.",
+      "infoThreeDesc4": "Garantizar la seguridad y funcionalidad de nuestra plataforma.",
+      "infoThreeDesc5": "Cumplir con requisitos legales y normativos.",
+      "infoFour": "4. CÓMO COMPARTIMOS SU INFORMACIÓN",
+      "infoFourHeader": "No vendemos sus datos personales. Sin embargo, podemos compartirlos con:",
+      "infoFourDesc1": "Proveedores de Servicios: Socios logísticos y contratistas de mudanza terceros.",
+      "infoFourDesc2": "Procesadores de Pagos: Para facilitar transacciones de manera segura.",
+      "infoFourDesc3": "Autoridades Legales: Si lo exige la ley o en respuesta a solicitudes legales.",
+      "infoFive": "5. SEGURIDAD Y RETENCIÓN DE DATOS",
+      "infoFiveDesc": "Implementamos medidas de seguridad para proteger sus datos contra accesos no autorizados y violaciones. Sus datos se conservan solo mientras sea necesario para cumplir con el propósito de la recopilación o cumplir obligaciones legales.",
+      "infoSix": "6. SUS DERECHOS Y ELECCIONES",
+      "infoSixHeader": "Usted tiene derecho a:",
+      "infoSixDesc1": "Acceder, actualizar o eliminar sus datos personales.",
+      "infoSixDesc2": "Oponerse al procesamiento o solicitar la portabilidad de datos.",
+      "infoSixDesc3": "Retirar el consentimiento para comunicaciones de marketing.",
+      "infoSixDesc4": "Ajustar la configuración de cookies a través de su navegador.",
+      "infoSixDesc5": "Para ejercer sus derechos, contáctenos en privacy@zinter.nl.",
+      "infoSeven": "7. POLÍTICA DE COOKIES",
+      "infoSevenDesc": "Zinter BV utiliza cookies para mejorar la experiencia del usuario y analizar el rendimiento de la plataforma. Puede gestionar sus preferencias de cookies a través de la configuración de su navegador.",
+      "infoEight": "8. CAMBIOS EN ESTA POLÍTICA",
+      "infoEight1Header": "Cookies Esenciales:",
+      "infoEight1Desc": "Necesarias para la funcionalidad del sitio web.",
+      "infoEight2Header": "Cookies Analíticas:",
+      "infoEight2Desc": "Nos ayudan a comprender el comportamiento del usuario.",
+      "infoEight3Header": "Cookies de Marketing:",
+      "infoEight3Desc": "Personalizan anuncios y ofertas.",
+      "infoNine": "9. ACTUALIZACIONES DE ESTA DECLARACIÓN",
+      "infoNineDesc": "Podemos actualizar esta política de vez en cuando. Cualquier cambio se comunicará en nuestro sitio web.",
+      "infoTen": "10. INFORMACIÓN DE CONTACTO",
+      "infoTenDesc": "Para cualquier consulta sobre estos Términos y Condiciones, contáctenos: 📧 support@zinter.nl"
+    }
+}

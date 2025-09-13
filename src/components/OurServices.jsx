@@ -5,65 +5,46 @@ import customerSolution from "../Assets/customer-solution.svg";
 import technologyLogistics from "../Assets/technology-logistics.svg";
 import imageRecognition from "../Assets/image-recognition.svg";
 import "./ourServices.css";
+import { useTranslation } from "react-i18next";
 
-const ourServices = () => {
+const OurServices = () => {
+  const { t } = useTranslation();
   return (
     <div className="mx-auto w-full">
       <div className="services_container mx-auto w-[90vw] max-w-[1500px]">
         <div className="our_services_container w-full mb-3">
-          <div>Our Services</div>
-          <div>Zinter BV does not carry out moves directly</div>
-          <div>
-            Instead, we connect customers with trusted and professional
-            third-party moving service providers. We ensure a seamless booking
-            and logistics experience by leveraging technology to match users
-            with the best available movers. Our services include
-          </div>
+          <div className="w-fit">{t("services.title")}</div>
+          <div>{t("services.description")}</div>
+          <div>{t("services.more")}</div>
         </div>
         <div>
           <div className="our_services_card_container">
             <div className="our_services_card">
               <img src={residentalMoving} alt="" />
-              <h3>Residential Moving</h3>
-              <span>
-                Tailored solutions for individuals and families moving to new
-                homes
-              </span>
+              <h3>{t("services.service1Title")}</h3>
+              <span>{t("services.service1Desc")}</span>
             </div>
             <div className="our_services_card">
               <img src={customizeMoving} alt="" />
-              <h3>Commercial Moving</h3>
-              <span>
-                Efficient and reliable business relocations with minimal
-                downtime
-              </span>
+              <h3>{t("services.service2Title")}</h3>
+              <span>{t("services.service2Desc")}</span>
             </div>
             <div className="our_services_card">
               <img src={customerSolution} alt="" />
-              <h3>Customized Solutions</h3>
-              <span>
-                Personalized services to meet unique transportation needs
-              </span>
+              <h3>{t("services.service3Title")}</h3>
+              <span>{t("services.service3Desc")}</span>
             </div>
           </div>
           <div className="our_services_card_sub_container">
             <div className="our_services_card_sub">
               <img src={technologyLogistics} alt="" />
-              <h3>Technology-Driven Logistics</h3>
-              <span>
-                As a logistics tech company, Zinter BV integrates advanced
-                technology to optimize processes and enhance the customer
-                experience
-              </span>
+              <h3>{t("services.service4Title")}</h3>
+              <span>{t("services.service4Desc")}</span>
             </div>
             <div className="our_services_card_sub">
               <img src={imageRecognition} alt="" />
-              <h3>AI Image Recognition for Inventory</h3>
-              <span>
-                Enhancing inventory management by leveraging AI to accurately
-                recognize, categorize, and track items, making moves more
-                efficient and organized.
-              </span>
+              <h3>{t("services.service5Title")}</h3>
+              <span>{t("services.service5Desc")}</span>
             </div>
           </div>
         </div>
@@ -72,4 +53,4 @@ const ourServices = () => {
   );
 };
 
-export default ourServices;
+export default OurServices;

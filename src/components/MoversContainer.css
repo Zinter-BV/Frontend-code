@@ -60,7 +60,8 @@
     }
     .mobileOptionsContainer{
         display: flex;
-        align-items: center;
+        /* align-items: center; */
+        flex-direction: column;
     }
     .mobileOptionsContainerAmount {
         margin-right: 1rem;

@@ -17,27 +17,6 @@ const UploadImageModal = ({
 
   const closeUploadSuccessModal = () => setIsUploadImageSuccess(false);
 
-  const uploadImage = () => {
-    if (allImages.length === 0) return;
-    console.log(allImages);
-    setIsUploadImageSuccess(true);
-
-    // send image to API
-    // const formData = new FormData();
-    // allImages.forEach((file, index) => {
-    //   formData.append(`image_${index}`, file);
-    // });
-
-    // // Send formData to API
-    // fetch("https://your-api-endpoint.com/upload", {
-    //   method: "POST",
-    //   body: formData,
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => console.log("Upload successful", data))
-    //   .catch((error) => console.error("Upload error", error));
-  };
-
   return (
     <div className="fixed top-0 z-50 left-0 backdrop-blur-[3px] bg-[rgba(0,0,0,0.10)] h-full w-full flex justify-center items-center ">
       <div className="bg-white flex flex-col relative justify-between w-[80%] rounded-[16px] h-[90%]">
@@ -72,7 +51,7 @@ const UploadImageModal = ({
           <div className="w-[90%] py-4 mx-auto h-full ">
             <div className="h-[42px] w-fit rounded-[1000px] border-[1px] p-[3px] border-[#E5E5E5] flex items-center ">
               <div
-                onClick={openIsInventoryList}
+                onClick={() => openIsInventoryList("Living Room")}
                 className={`h-[36px] mr-1 cursor-pointer {${!isUploadImageModalOpen} && border-[1px]}  rounded-[1000px] p-[10px] flex justify-center items-center border-[#E5E5E5] `}
               >
                 <p className="font-sans text-[16px] inventoryListModal leading-[25.6px] text-[#9e9e9e] ">
@@ -118,27 +97,27 @@ const UploadImageModal = ({
             </div>
             <div className="my-3 grid grid-cols-3 uploadImageContainer gap-[18px] pb-4 w-full">
               <SelectImage
-                title="Living Room Images"
+                title="Living Room"
                 onImagesSelected={handleImagesSelected}
               />
               <SelectImage
-                title="Room 1 Images"
+                title="Bedroom"
                 onImagesSelected={handleImagesSelected}
               />
               <SelectImage
-                title="Dinning Room Images"
+                title="Dinning Room"
                 onImagesSelected={handleImagesSelected}
               />
               <SelectImage
-                title="Kitchen Images"
+                title="Kitchen"
                 onImagesSelected={handleImagesSelected}
               />
-              <SelectImage
-                title="Bathroom Images"
+              {/* <SelectImage
+                title="Bathroom"
                 onImagesSelected={handleImagesSelected}
-              />
+              /> */}
               <SelectImage
-                title="Toilet Images"
+                title="Toilet and bath"
                 onImagesSelected={handleImagesSelected}
               />
             </div>
@@ -164,7 +143,7 @@ const UploadImageModal = ({
             </p>
           </div>
           <button
-            onClick={uploadImage}
+            onClick={() => closeUploadImageModal()}
             className="self-center bg-primary py-2 px-4 text-white rounded-[20px] cursor-pointer text-[12px] text-manrope font-light "
           >
             UPLOAD IMAGE

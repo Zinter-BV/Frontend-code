@@ -1,0 +1,94 @@
+{
+  "navigation": {
+    "home": "Startseite",
+    "about": "Über uns",
+    "faqs": "Häufig gestellte Fragen"
+  },
+  "hero": {
+    "getStarted": "LOSLEGEN",
+    "headline": "Umzug, Verbessert. Kein Stress. Kein Rätselraten. Einfach tippen, fotografieren und entspannen.",
+    "subheadline": "Unsere Plattform nutzt KI, um Ihre Gegenstände sofort zu identifizieren, Sie mit vertrauenswürdigen Umzugsunternehmen zu verbinden und den gesamten Prozess zu optimieren. Ein Foto. Eine Minute. Ein Kopfschmerz weniger.",
+    "getQuote": "ANGEBOT ERHALTEN",
+    "trackMove": "UMZUG VERFOLGEN",
+    "activeUsers": "aktive Nutzer sind zufrieden mit Zinter"
+  },
+  "features": {
+    "smarterTitle": "Intelligenter als ein Formular. Einfacher als ein Anruf",
+    "smarterDescription": "Laden Sie ein paar Fotos Ihres Raums hoch und unsere KI scannt Ihr Inventar und holt sofort wettbewerbsfähige Angebote aus unserem Netzwerk professioneller Umzugsunternehmen.",
+    "sellingPoint": "VERKAUFSARGUMENT",
+    "eliteTitle": "Elite-Umzugsunternehmen. Vollständig Geprüft. Immer Zuverlässig.",
+    "eliteDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+    "seamlessBooking": "Nahtloser und einfacher Buchungsprozess",
+    "trustedNetwork": "Vertrauensvolles Netzwerk von Umzugsunternehmen",
+    "expertGuidance": "Expertenhilfe und schneller Support jederzeit",
+    "getStartedBtn": "Loslegen"
+  },
+  "process": {
+    "title": "Ihr Umzug, in 60 Sekunden.",
+    "step1Title": "Geben Sie Ihre Umzugsdetails ein",
+    "step1Description": "Füllen Sie unser schnelles Formular mit den Start- und Zielorten Ihres Umzugs und der Größe Ihres Umzugs aus",
+    "step2Title": "Fotografieren Sie Ihren Raum",
+    "step2Description": "Machen Sie ein paar schnelle Fotos von den Räumen oder Gegenständen, die Sie umziehen möchten.",
+    "step3Title": "Erhalten Sie Echtzeitangebote",
+    "step3Description": "Unsere KI scannt Ihr Inventar und liefert genaue Schätzungen von vertrauenswürdigen Profis.",
+    "step4Title": "Wählen Sie Ihren Partner",
+    "step4Description": "Vergleichen Sie Angebote. Lesen Sie Bewertungen. Buchen Sie das Umzugsunternehmen, das Ihren Bedürfnissen und Ihrem Budget entspricht.",
+    "letsGetMoving": "Lassen Sie uns loslegen"
+  },
+  "testimonials": {
+    "main": "Erfahrungsberichte",
+    "title": "Echte Menschen. Echte Umzüge. Echte Seelenruhe.",
+    "testimonial1": "Ich habe fünf Fotos von meinem Handy hochgeladen und hatte in Minuten ein Angebot. Die Umzugsunternehmen kamen genau dann, wann sie gesagt hatten.",
+    "testimonial1Type": "Studio-Umzug",
+    "testimonial2": "Ehrlich gesagt fühlte es sich zu einfach an. Ich erwartete Formulare und Stress, aber alles wurde über die Plattform abgewickelt.",
+    "testimonial2Type": "Familienumzug",
+    "testimonial3": "Ich hasse Umzüge. Aber diesmal? Es war reibungslos, schnell und hat mein Wochenende nicht ruiniert.",
+    "testimonial3Type": "2-Zimmer-Wohnung"
+  },
+  "faq": {
+    "title": "Häufig gestellte Fragen",
+    "paymentMethods": "Welche Zahlungsmethoden werden unterstützt?",
+    "howEarly": "Wie früh sollte ich meinen Umzug buchen?",
+    "packing": "Packen die Umzugsunternehmen auch meine Sachen?",
+    "whatsIncluded": "Was ist in meinem Angebot enthalten?",
+    "packingExtra": "Ist das Packen Teil des Deals oder extra?",
+    "reschedule": "Kann ich umplanen, wenn sich Pläne ändern?",
+    "tracking": "Kann ich meinen Umzug in Echtzeit verfolgen?",
+    "storage": "Was ist, wenn ich Lagerung brauche, können Sie helfen?",
+    "costCalculation": "Wie werden die Umzugskosten berechnet?"
+  },
+  "newsletter": {
+    "title": "Verpassen Sie keinen Umzug.",
+    "header": "Rundschreiben",
+    "description": "Erhalten Sie Insider-Tipps, begrenzte Angebote und Umzugstricks direkt in Ihren Posteingang."
+  },
+  "contact": {
+  "title": "KONTAKTIEREN SIE UNS",
+  "description": "Begleiten Sie uns auf unserer Reise, die Logistik mit Innovation und Exzellenz neu zu definieren!",
+  "enquiry": "Für Anfragen, Partnerschaften oder Servicebuchungen erreichen Sie uns unter 📧 support@zinter.nl"
+},
+  "footer": {
+    "quicklinks": "Schnelllinks",
+    "aboutUs": "Über uns",
+    "reportIssue": "Problem melden",
+    "faq": "Häufig gestellte Fragen",
+    "privacyPolicy": "Datenschutzrichtlinie",
+    "termsConditions": "Geschäftsbedingungen",
+    "contact": "Kontakt",
+    "schedule": "Mo. - Fr.: 08:00 - 19:00\nSa.: 09:00 - 17:00",
+    "copyright": "© 2025 Alle Rechte vorbehalten"
+  },
+  "aboutheader": {
+  "title": "Über Zinter",
+  "description": "Unsere Mission ist es, die Logistikbranche zu revolutionieren."
+},
+"hasslefree": {
+  "title": "STRESSFREIER UMZUG",
+  "description": "Unsere Mission ist es, die Logistikbranche zu revolutionieren, indem wir nahtlose, technologiegetriebene Lösungen anbieten",
+  "more": "Die das Umzugserlebnis für Privatpersonen und Unternehmen gleichermaßen vereinfachen und optimieren. Zinter BV verpflichtet sich zu Innovation, Effizienz und Kundenzufriedenheit.",
+  "founded": "Gegründet",
+  "founded_year": "2024",
+  "location": "Standort",
+  "location_name": "Niederlande"
+}
+}

@@ -14,14 +14,14 @@ import React, { useEffect, useState } from "react";
 // import cancalledIcon from "../Assets/cancelled-icon.svg"
 // import completedSignal from "../Assets/completed-signal.svg"
 // import cancelledSignal from "../Assets/cancelled-signal.svg"
-import searchIcon from "../Assets/search-01.svg"
-import filterIcon from "../Assets/filter-horizontal.svg"
-import refreshIcon from "../Assets/refresh (1).svg"
-import arrowDown from "../Assets/arrow-down-02.svg"
-import avatar from "../Assets/Gb-Avatar.svg"
-import dot from "../Assets/Dot.svg"
-import viewMore from "../Assets/Eye.svg"
-import "./newJobs.css"
+import searchIcon from "../Assets/search-01.svg";
+import filterIcon from "../Assets/filter-horizontal.svg";
+import refreshIcon from "../Assets/refresh (1).svg";
+import arrowDown from "../Assets/arrow-down-02.svg";
+import avatar from "../Assets/Gb-Avatar.svg";
+import dot from "../Assets/Dot.svg";
+import viewMore from "../Assets/Eye.svg";
+import "./newJobs.css";
 import { useNavigate } from "react-router-dom";
 import { getNewRequestJobs } from "../api/province";
 import SkeletonLine from "./SkeletonLineLoader";
@@ -129,33 +129,35 @@ const NewJobs = () => {
         }
     }, [isLoading]);
 
-    useEffect(() => {
-        console.log("Updated allJobs:", newJobs);
-    }, [newJobs]);
+  useEffect(() => {
+    console.log("Updated allJobs:", newJobs);
+  }, [newJobs]);
 
-    const handleViewMore = (moveCode, moveId) => {
-        sessionStorage.setItem('moveCode', moveCode)
-        sessionStorage.setItem('moveId', moveId)
-        navigate("/view-new-jobs");
-    };
+  const handleViewMore = (moveCode, moveId) => {
+    sessionStorage.setItem("moveCode", moveCode);
+    sessionStorage.setItem("moveId", moveId);
+    navigate("/view-new-jobs");
+  };
 
-
-
-    return (
-        <div>
-            <div className="table_container">
-                <div className="table_header">
-                    <div className="left_table_head">
-                        <h1>New Jobs</h1>
-                    </div>
-                    <div className="right_table_head">
-                        <div className="search_icon">
-                            <input value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)} type="text" placeholder="Search" />
-                            {/* <img src={searchIcon} alt="" /> */}
-                            <img src="/images/search-01.svg" alt="" />
-                        </div>
-                        {/* <div className="filter_con">
+  return (
+    <div>
+      <div className="table_container">
+        <div className="table_header">
+          <div className="left_table_head">
+            <h1>New Jobs</h1>
+          </div>
+          <div className="right_table_head">
+            <div className="search_icon">
+              <input
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                type="text"
+                placeholder="Search"
+              />
+              {/* <img src={searchIcon} alt="" /> */}
+              <img src="/images/search-01.svg" alt="" />
+            </div>
+            {/* <div className="filter_con">
                             <span>
                                 <img src="/images/filter-horizontal.svg" alt="" />
                             </span>
@@ -321,4 +323,4 @@ const NewJobs = () => {
     )
 }
 
-export default NewJobs
+export default NewJobs;

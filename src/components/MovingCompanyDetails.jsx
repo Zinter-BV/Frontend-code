@@ -1,13 +1,185 @@
-import React from "react";
+import React, { useMemo } from "react";
 import img from "../Assets/Rectangle 4562.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { convertTo12Hour, formatDate } from "../utils";
+import { resetMoversInfo } from "../redux/action";
 
 const MovingCompanyDetails = ({ makeInActive }) => {
+  const mover = useSelector((state) => state.user.moversData);
+  const dispatch = useDispatch();
+
+  const goBack = () => {
+    dispatch(resetMoversInfo());
+    makeInActive();
+  };
+
+  // // Memoized room items and counts calculation
+  // const { roomCounts } = useMemo(() => {
+  //   return mover?.moveDetails?.moveItemsDetails?.reduce(
+  //     (acc, item) => {
+  //       // Count items per room
+  //       acc.roomCounts[item.room] =
+  //         (acc.roomCounts[item.room] || 0) + (item.numberOfCount || 1);
+  //       return acc;
+  //     },
+  //     { roomCounts: {}, roomItems: [] }
+  //   );
+  // }, [mover?.moveDetails?.moveItemsDetails]);
+
+  // // Safe function to get room count
+  // const getRoomCount = (roomName) => {
+  //   return roomCounts[roomName] ?? 0;
+  // };
+  // Memoized room items and counts calculation
+  const { roomCounts, roomItems, totalItems } = useMemo(() => {
+    // Handle both old and new data structures
+    const moveItemsData = mover?.moveDetails?.moveItemsDetails;
+
+    if (!moveItemsData || !Array.isArray(moveItemsData)) {
+      return { roomCounts: {}, roomItems: [], totalItems: 0 };
+    }
+
+    // Check if it's the new structure (array of objects with roomName, count, items)
+    const isNewStructure =
+      moveItemsData.length > 0 &&
+      moveItemsData[0].hasOwnProperty("roomName") &&
+      moveItemsData[0].hasOwnProperty("count") &&
+      moveItemsData[0].hasOwnProperty("items");
+
+    if (isNewStructure) {
+      // Handle new structure
+      const roomCounts = {};
+      const roomItems = [];
+      let totalItems = 0;
+
+      moveItemsData.forEach((room) => {
+        const roomName = room.roomName;
+        const count = room.count || 0;
+        const items = room.items || [];
+
+        // Store room count
+        roomCounts[roomName] = count;
+
+        // Store room items with details
+        roomItems.push({
+          roomName,
+          count,
+          items: items.map((item) => ({
+            name: item,
+            room: roomName,
+          })),
+        });
+
+        // Add to total
+        totalItems += count;
+      });
+
+      return { roomCounts, roomItems, totalItems };
+    } else {
+      // Handle old structure (backwards compatibility)
+      return moveItemsData.reduce(
+        (acc, item) => {
+          const roomName = item.room;
+          const itemCount = item.numberOfCount || 1;
+
+          // Count items per room
+          acc.roomCounts[roomName] =
+            (acc.roomCounts[roomName] || 0) + itemCount;
+
+          // Store room items
+          const existingRoom = acc.roomItems.find(
+            (r) => r.roomName === roomName
+          );
+          if (existingRoom) {
+            existingRoom.items.push({
+              name: item.name || item.itemName,
+              count: itemCount,
+              room: roomName,
+            });
+            existingRoom.count += itemCount;
+          } else {
+            acc.roomItems.push({
+              roomName,
+              count: itemCount,
+              items: [
+                {
+                  name: item.name || item.itemName,
+                  count: itemCount,
+                  room: roomName,
+                },
+              ],
+            });
+          }
+
+          acc.totalItems += itemCount;
+          return acc;
+        },
+        { roomCounts: {}, roomItems: [], totalItems: 0 }
+      );
+    }
+  }, [mover?.moveDetails?.moveItemsDetails]);
+
+  // Safe function to get room count - handles exact and fuzzy matching
+  const getRoomCount = (roomName) => {
+    if (!roomName || !roomCounts) return 0;
+
+    // First try exact match
+    if (roomCounts[roomName] !== undefined) {
+      return roomCounts[roomName];
+    }
+
+    // Try case-insensitive match
+    const lowerRoomName = roomName.toLowerCase();
+    const exactMatch = Object.keys(roomCounts).find(
+      (key) => key.toLowerCase() === lowerRoomName
+    );
+
+    if (exactMatch) {
+      return roomCounts[exactMatch];
+    }
+
+    // Try partial/fuzzy matching for common variations
+    const fuzzyMatch = Object.keys(roomCounts).find((key) => {
+      const keyLower = key.toLowerCase();
+      const searchLower = lowerRoomName;
+
+      // Handle common variations
+      const variations = {
+        "toilet and bath": [
+          "bathroom",
+          "toilet",
+          "bath",
+          "restroom",
+          "washroom",
+        ],
+        bathroom: ["toilet and bath", "toilet", "bath", "restroom", "washroom"],
+        "living room": ["lounge", "sitting room", "family room"],
+        bedroom: ["bed room", "master bedroom", "guest room"],
+        kitchen: ["cooking area", "kitchenette"],
+        "dining room": ["dining area", "dining"],
+      };
+
+      // Check if either matches the other's variations
+      const searchVariations = variations[searchLower] || [];
+      const keyVariations = variations[keyLower] || [];
+
+      return (
+        searchVariations.includes(keyLower) ||
+        keyVariations.includes(searchLower) ||
+        keyLower.includes(searchLower) ||
+        searchLower.includes(keyLower)
+      );
+    });
+
+    return fuzzyMatch ? roomCounts[fuzzyMatch] : 0;
+  };
+
   return (
     <div className="ml-4 mb-[40px] movingCompanyDetailBox h-fit ">
       <div className="overflow-y-scroll pb-[70px] custom-scroll ">
         <div className="flex mb-3 items-center">
           <p
-            onClick={makeInActive}
+            onClick={goBack}
             className="text-[#9e9e9e] cursor-pointer text-[14px] font-sans leading-[19.6px]"
           >
             Quotes
@@ -62,7 +234,7 @@ const MovingCompanyDetails = ({ makeInActive }) => {
               </div>
               <div className="bg-[#d9d9d9] flex items-center movingCompanyNameContainer w-fit rounded-tr-[10px] py-[10px] bg-opacity-70 backdrop-blur-sm rounded-b-[10px] pl-[14px] ">
                 <span className="mr-1 font-unbounded movingCompanyName text-[24px] text-[#121212] font-bold leading-[25.6px] ">
-                  Independent Movers
+                  {mover?.companyName}
                 </span>
                 <div className="bg-[#DCFAE6] mx-3 rounded-[4px] px-[8px] py-[4px] ">
                   <p className="text-[#079455] movingCompanyNameAvailable text-[14px] font-sans leading-[18.2px] ">
@@ -136,7 +308,7 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                       -
                     </p>
                     <p className="text-[#707070] ml-2 movingContainerFromLocation font-sans text-[16px] leading-[25.6px]">
-                      Keizersgracht 123, 1015 CJ Amsterdam
+                      {mover?.moveDetails?.from}
                     </p>
                   </div>
                 </div>
@@ -197,7 +369,7 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                       -
                     </p>
                     <p className="text-[#707070] movingContainerFromLocation ml-2 font-sans text-[16px] leading-[25.6px]">
-                      Rozengracht 55, 1016 LZ Amsterdam
+                      {mover?.moveDetails?.to}
                     </p>
                   </div>
                 </div>
@@ -210,7 +382,7 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                 </p>
                 <p className="font-unbounded text-[36px] leading-[38.5px] text-[#136AB5] font-semibold ">
                   {" "}
-                  $921
+                  ${mover?.amount}
                 </p>
                 <p className="text-[16px] leading-[25.6px] font-light text-[#373737] font-sans ">
                   Pickup & delivery included
@@ -219,7 +391,7 @@ const MovingCompanyDetails = ({ makeInActive }) => {
               <div className="mobileOptionsContainer">
                 <p className="font-unbounded mobileOptionsContainerAmount text-[36px] leading-[38.5px] text-[#136AB5] font-semibold ">
                   {" "}
-                  $921
+                  ${mover?.amount}
                 </p>
                 <div>
                   <p className="text-[#9e9e9e] mobileOptionsContainerDistance font-normal text-[16px] leading-[25.6px] font-sans ">
@@ -241,7 +413,7 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                   Move Size
                 </p>
                 <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  House - 3 Bedrooms
+                  House - {mover?.moveDetails?.numberOfRooms} rooms
                 </p>
               </div>
 
@@ -250,25 +422,25 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                   Living Room
                 </p>
                 <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  20 items selected
+                  {getRoomCount("Living Room")} items selected
                 </p>
               </div>
               <div className="flex p-[16px] rounded-tr-[12px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
                 <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                  Bedroom 1
+                  Bedroom
                 </p>
                 <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  12 items selected
+                  {getRoomCount("Bedroom")} items selected
                 </p>
               </div>
             </div>
             <div className="w-full h-[50%] flex items-center justify-between ">
               <div className="flex rounded-bl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full justify-between">
                 <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                  Bedroom 2
+                  Toilet and bath
                 </p>
                 <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  7 items selected
+                  {getRoomCount("Toilet and bath")} items selected
                 </p>
               </div>
               <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
@@ -276,7 +448,7 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                   Dinning Room
                 </p>
                 <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  6 items selected
+                  {getRoomCount("Dinning Room")} items selected
                 </p>
               </div>
               <div className="flex p-[16px] rounded-br-[12px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
@@ -284,7 +456,7 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                   Kitchen
                 </p>
                 <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  18 items selected
+                  {getRoomCount("Kitchen")} items selected
                 </p>
               </div>
             </div>
@@ -298,7 +470,7 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                   Move Size
                 </p>
                 <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  House - 3 Bedrooms
+                  House - {mover?.moveDetails?.numberOfRooms} rooms
                 </p>
               </div>
 
@@ -307,17 +479,17 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                   Living Room
                 </p>
                 <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  20 items selected
+                  {getRoomCount("Living Room")} items selected
                 </p>
               </div>
             </div>
             <div className="w-full h-[50%] flex items-center border-[#e3e3e3] border-b-[1px] justify-between ">
               <div className="flex rounded-bl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7] w-[50%] h-full justify-between">
                 <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                  Bedroom 2
+                  Bedroom
                 </p>
                 <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  7 items selected
+                  {getRoomCount("Bedroom")} items selected
                 </p>
               </div>
               <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[50%] h-full  justify-between">
@@ -325,25 +497,25 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                   Dinning Room
                 </p>
                 <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  6 items selected
+                  {getRoomCount("Dinning Room")} items selected
                 </p>
               </div>
             </div>
             <div className="w-full h-[50%] flex items-center justify-between ">
               <div className="flex rounded-bl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7] w-[50%] h-full justify-between">
                 <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                  Bedroom 2
+                  Bath / Toilet
                 </p>
                 <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  7 items selected
+                  {getRoomCount("Toilet and bath")} items selected
                 </p>
               </div>
               <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[50%] h-full  justify-between">
                 <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                  Dinning Room
+                  Kitchen
                 </p>
                 <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  6 items selected
+                  {getRoomCount("Kitchen")} items selected
                 </p>
               </div>
             </div>
@@ -355,7 +527,7 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                 Move Date
               </p>
               <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                22 March, 2025
+                {formatDate(mover?.moveDetails?.moveDate)}
               </p>
             </div>
             <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
@@ -363,7 +535,7 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                 Day
               </p>
               <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                Tuesday
+                {mover?.moveDetails?.moveDay}
               </p>
             </div>
             <div className="flex p-[16px] rounded-br-[12px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
@@ -371,7 +543,7 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                 Move Time
               </p>
               <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                10:00 AM
+                {convertTo12Hour(mover?.moveDetails?.moveTime)}
               </p>
             </div>
           </div>
@@ -381,7 +553,7 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                 Movers phone
               </p>
               <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                08148705378
+                {mover?.moveDetails?.phoneNumber}
               </p>
             </div>
             <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
@@ -389,7 +561,7 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                 Movers email
               </p>
               <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                dasola_awoye@gmail.com
+                {mover?.moveDetails?.email}
               </p>
             </div>
             <div className="flex p-[16px] rounded-br-[12px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
@@ -397,7 +569,7 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                 Address
               </p>
               <p className="text-[16px] overflow-hidden text-ellipsis whitespace-nowrap leading-[25.6px] font-light text-[#121212] font-sans ">
-                utrechtsestraat 30 1017 va amsterdam
+                {mover?.moveDetails?.from}
               </p>
             </div>
           </div>
@@ -410,7 +582,7 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                   Move Date
                 </p>
                 <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  22 March, 2025
+                  {formatDate(mover?.moveDetails?.moveDate)}
                 </p>
               </div>
 
@@ -419,7 +591,7 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                   Day
                 </p>
                 <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  Tuesday
+                  {mover?.moveDetails?.moveDay}
                 </p>
               </div>
             </div>
@@ -429,7 +601,7 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                   Move Time
                 </p>
                 <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  10:00 AM
+                  {convertTo12Hour(mover?.moveDetails?.moveTime)}
                 </p>
               </div>
               <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[50%] h-full  justify-between">
@@ -437,7 +609,7 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                   Movers phone
                 </p>
                 <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  08148705378
+                  {mover?.moveDetails?.phoneNumber}
                 </p>
               </div>
             </div>
@@ -447,7 +619,7 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                   Movers email
                 </p>
                 <p className="text-[16px] tableText leading-[25.6px] font-light text-[#121212] font-sans ">
-                  dasola_awoye@gmail.com
+                  {mover?.moveDetails?.email}
                 </p>
               </div>
               <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[50%] h-full  justify-between">
@@ -455,7 +627,7 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                   Address
                 </p>
                 <p className="text-[16px] tableText overflow-hidden text-ellipsis whitespace-nowrap leading-[25.6px] font-light text-[#121212] font-sans ">
-                  utrechtsestraat 30 1017 va amsterdam
+                  {mover?.moveDetails?.from}
                 </p>
               </div>
             </div>

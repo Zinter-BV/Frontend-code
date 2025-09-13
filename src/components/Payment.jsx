@@ -1,9 +1,14 @@
+import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 const Payment = () => {
   const [cardNumber, setCardNumber] = useState("");
   const [expiry, setExpiry] = useState("");
   const [cvv, setCvv] = useState("");
+
+  const moversData = useSelector((state) => state.user.moversData);
+  console.log(moversData);
 
   // card number
   const formatCardNumber = (value) => {
@@ -119,7 +124,7 @@ const Payment = () => {
                       -
                     </p>
                     <p className="text-[#707070] ml-2 movingContainerFromLocation font-sans text-[16px] leading-[25.6px]">
-                      Keizersgracht 123, 1015 CJ Amsterdam
+                      {moversData?.moveDetails?.from}
                     </p>
                   </div>
                 </div>
@@ -180,7 +185,7 @@ const Payment = () => {
                       -
                     </p>
                     <p className="text-[#707070] movingContainerFromLocation ml-2 font-sans text-[16px] leading-[25.6px]">
-                      Rozengracht 55, 1016 LZ Amsterdam
+                      {moversData?.moveDetails?.to}
                     </p>
                   </div>
                 </div>
@@ -193,7 +198,7 @@ const Payment = () => {
                 </p>
                 <p className="font-unbounded text-[36px] leading-[38.5px] text-[#136AB5] font-semibold ">
                   {" "}
-                  $921
+                  ${moversData?.amount}
                 </p>
                 <p className="text-[16px] leading-[25.6px] font-light text-[#373737] font-sans ">
                   Pickup & delivery included
@@ -202,7 +207,7 @@ const Payment = () => {
               <div className="mobileOptionsContainer">
                 <p className="font-unbounded mobileOptionsContainerAmount text-[36px] leading-[38.5px] text-[#136AB5] font-semibold ">
                   {" "}
-                  $921
+                  ${moversData?.amount}
                 </p>
                 <div>
                   <p className="text-[#9e9e9e] mobileOptionsContainerDistance font-normal text-[16px] leading-[25.6px] font-sans ">

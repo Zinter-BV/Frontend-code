@@ -1,22 +1,25 @@
-import React from "react";
-import user from "../Assets/user.png";
-
-const TestimonialCard = () => {
+const TestimonialCard = ({ card }) => {
   return (
-    <div className="w-[500px] testimonialCardContainer h-fit rounded-[20px] p-7 bg-white border-2 flex justify-between flex-col border-[#D1D1D1] ">
+    <div className="w-[500px] testimonialCardContainer h-[250px] rounded-[20px] p-7 bg-white border-2 flex justify-between flex-col border-[#D1D1D1] ">
       <p className="font-sans testimonialText text-[18px] text-[#232323] ">
-        Lorem ipsum dolor sit amet, consecte elit, sed do eiusmod tempor
-        incididunt abore et dolore magna aliqua. Ut enim ad min.
+        {card?.text}
       </p>
       <div className="flex cardImageContainer mt-10 ">
         <img
-          src={user}
+          src={card?.img}
           alt="user"
           className="w-[48px] mr-4 h-[48px] rounded-full border-2 border-[#C4C4C4] "
         />
         <div>
-          <p className="font-manrope text-[18px] ">Chidozie Usman</p>
-          <p className="font-manrope text-[14px] ">Zaanstad</p>
+          <p className="font-manrope text-[18px] ">{card?.name}</p>
+          <div className="flex items-center gap-x-2">
+            <p className="font-manrope font-thin text-[#7D7D7D] text-[14px] ">
+              {card?.moveType}
+            </p>
+            <p className="font-manrope font-bold text-[#7D7D7D] text-[14px] ">
+              {card?.location}
+            </p>
+          </div>
         </div>
       </div>
     </div>

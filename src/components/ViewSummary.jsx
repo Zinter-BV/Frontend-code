@@ -1,10 +1,35 @@
-import React from "react";
+import React, { useMemo } from "react";
 import "./ViewSummary.css";
 import { useSelector } from "react-redux";
 import { formatDate, getDayOfWeek, convertTo12Hour } from "../utils";
 
-const ViewSummary = () => {
+const ViewSummary = ({ errMessage }) => {
   const data = useSelector((state) => state.user);
+  console.log(data);
+
+  // Memoized room items and counts calculation
+  const { roomCounts } = useMemo(() => {
+    return data?.items?.reduce(
+      (acc, item) => {
+        // Count items per room
+        acc.roomCounts[item.room] =
+          (acc.roomCounts[item.room] || 0) + (item.numberOfCount || 1);
+        return acc;
+      },
+      { roomCounts: {}, roomItems: [] }
+    );
+  }, [data.items]);
+
+  // Safe function to get room count
+  const getRoomCount = (roomName) => {
+    return roomCounts[roomName] ?? 0;
+  };
+
+  // Get unique room names from inventory
+  function getUniqueRooms(items) {
+    return [...new Set(items.map((item) => item.room))];
+  }
+  const uniqueRooms = getUniqueRooms(data?.items || []);
 
   return (
     <div className="ml-4 summaryBox w-full">
@@ -14,6 +39,7 @@ const ViewSummary = () => {
             Move Summary
           </h3>
         </div>
+        {errMessage && <p className="text-red-500">{errMessage}</p>}
         <div className="p-[24px] w-full h-fit mb-20 summaryContainer rounded-[12px] ">
           <div className="relative mb-[20px]">
             <div className="absolute top-[65px] sideSide left-[15px] bg-[#E3E8EF] h-[65px] w-[2px] rounded-[2px]"></div>
@@ -111,7 +137,7 @@ const ViewSummary = () => {
                       Move Size
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      House - 3 Bedrooms
+                      House - {uniqueRooms?.length} Rooms
                     </p>
                   </div>
 
@@ -120,25 +146,25 @@ const ViewSummary = () => {
                       Living Room
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      20 items selected
+                      {getRoomCount("Living Room")} items selected
                     </p>
                   </div>
                   <div className="flex p-[16px] rounded-tr-[12px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
                     <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      Bedroom 1
+                      Toilet and Bath
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      12 items selected
+                      {getRoomCount("Toilet and bath")} items selected
                     </p>
                   </div>
                 </div>
                 <div className="w-full h-[50%] flex items-center justify-between ">
                   <div className="flex rounded-bl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full justify-between">
                     <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      Bedroom 2
+                      Kitchen
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      7 items selected
+                      {getRoomCount("Kitchen")} items selected
                     </p>
                   </div>
                   <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
@@ -146,15 +172,15 @@ const ViewSummary = () => {
                       Dinning Room
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      6 items selected
+                      {getRoomCount("Dinning Room")} items selected
                     </p>
                   </div>
                   <div className="flex p-[16px] rounded-br-[12px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
                     <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      Kitchen
+                      Bedroom
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      18 items selected
+                      {getRoomCount("Bedroom")} items selected
                     </p>
                   </div>
                 </div>
@@ -168,7 +194,7 @@ const ViewSummary = () => {
                       Move Size
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      House - 3 Bedrooms
+                      House - {uniqueRooms?.length} Rooms
                     </p>
                   </div>
 
@@ -225,7 +251,7 @@ const ViewSummary = () => {
                     Move Date
                   </p>
                   <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                    {formatDate(data?.moreInfo?.moveDate)}
+                    {formatDate(data?.moreInfo?.moveTime)}
                   </p>
                 </div>
                 <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
@@ -233,7 +259,7 @@ const ViewSummary = () => {
                     Day
                   </p>
                   <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                    {getDayOfWeek(data?.moreInfo?.moveDate)}
+                    {getDayOfWeek(data?.moreInfo?.moveTime)}
                   </p>
                 </div>
                 <div className="flex p-[16px] rounded-br-[12px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
@@ -241,8 +267,9 @@ const ViewSummary = () => {
                     Move Time
                   </p>
                   <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                    {/* {convertTo12Hour(data?.moreInfo?.pickupTime)} */}
                     {convertTo12Hour(data?.moreInfo?.pickUpTime)}
+                    {/* {convertTo12Hour(data?.moreInfo?.pickUpTime)} */}
+                    {/* {data?.moreInfo?.pickUpTime} */}
                   </p>
                 </div>
               </div>
@@ -300,7 +327,6 @@ const ViewSummary = () => {
                       Move Time
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      {/* {convertTo12Hour(data?.moreInfo?.pickupTime)} */}
                       {convertTo12Hour(data?.moreInfo?.pickUpTime)}
                     </p>
                   </div>

@@ -4,9 +4,12 @@ import DownIcon from "../Assets/SVG/DownIcon";
 import MoveSize from "../Assets/SVG/MoveSize";
 import PrimaryBtn from "./PrimaryBtn";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const MoveDetails = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
   // State management for both inputs
   const [fromLocation, setFromLocation] = useState("");
   const [toLocation, setToLocation] = useState("");
@@ -53,77 +56,77 @@ const MoveDetails = () => {
 
   const houses = [
     {
-      text: "Few Items",
+      text: t("moveSize.fewItems"),
       desc: '(10" Truck)',
     },
     {
-      text: "1 Bedrooom",
+      text: t("moveSize.oneBedroom"),
       desc: '(17" Truck)',
     },
     {
-      text: "2 Bedrooms",
+      text: t("moveSize.twoBedrooms"),
       desc: '(20" Truck)',
     },
     {
-      text: "3 Bedrooms",
+      text: t("moveSize.threeBedrooms"),
       desc: '(26" Truck)',
     },
     {
-      text: "4 Bedrooms",
+      text: t("moveSize.fourBedrooms"),
       desc: '(28" Truck)',
     },
     {
-      text: "5 Bedrooms",
+      text: t("moveSize.fiveBedrooms"),
       desc: '(32" Truck)',
     },
     {
-      text: "6 Bedrooms",
+      text: t("moveSize.sixBedrooms"),
       desc: '(36" Truck)',
     },
   ];
 
   const apartments = [
     {
-      text: "Few Items",
+      text: t("moveSize.fewItems"),
       desc: '(10" Truck)',
     },
     {
-      text: "Studio",
+      text: t("moveSize.studio"),
       desc: '(15" Truck)',
     },
     {
-      text: "1 Bedrooom",
+      text: t("moveSize.oneBedroom"),
       desc: '(17" Truck)',
     },
     {
-      text: "2 Bedrooms",
+      text: t("moveSize.twoBedrooms"),
       desc: '(20" Truck)',
     },
     {
-      text: "3 Bedrooms",
+      text: t("moveSize.threeBedrooms"),
       desc: '(26" Truck)',
     },
     {
-      text: "4 Bedrooms",
+      text: t("moveSize.fourBedrooms"),
       desc: '(28" Truck)',
     },
     {
-      text: "5 Bedrooms",
+      text: t("moveSize.fiveBedrooms"),
       desc: '(32" Truck)',
     },
     {
-      text: "6 Bedrooms",
+      text: t("moveSize.sixBedrooms"),
       desc: '(36" Truck)',
     },
   ];
 
   const storages = [
-    "Small 2” x 4”",
-    "Small 5” x 5”",
-    "Small 5” x 10”",
-    "Small 5” x 15”",
-    "Small 10” x 20”",
-    "Small 10” x 30”",
+    "Small 2 x 4",
+    "Small 5 x 5",
+    "Small 5 x 10",
+    "Small 5 x 15",
+    "Small 10 x 20",
+    "Small 10 x 30",
   ];
 
   const [activeMoveSizeTab, setActiveMoveSizeTab] = useState("house");
@@ -133,7 +136,7 @@ const MoveDetails = () => {
     switch (activeMoveSizeTab) {
       case "house":
         return (
-          <div className="p-3  overflow-y-auto h-[300px]">
+          <div className="p-3 overflow-y-auto h-[300px]">
             {houses.map((house, index) => (
               <div
                 key={`house-${index}`}
@@ -155,7 +158,7 @@ const MoveDetails = () => {
         );
       case "apartment":
         return (
-          <div className="p-3  overflow-y-auto h-[300px]">
+          <div className="p-3 overflow-y-auto h-[300px]">
             {apartments.map((apartment, index) => (
               <div
                 key={`apartment-${index}`}
@@ -177,7 +180,7 @@ const MoveDetails = () => {
         );
       case "storage":
         return (
-          <div className="p-3  overflow-y-auto h-[300px]">
+          <div className="p-3 overflow-y-auto h-[300px]">
             {storages.map((store, index) => (
               <div
                 key={`storage-${index}`}
@@ -312,7 +315,7 @@ const MoveDetails = () => {
           className="w-[400px] max-h-[300px] fromAndToContainer overflow-y-auto bg-white absolute top-[80px] border border-gray-200 rounded-[12px] left-0 shadow-lg z-50"
         >
           <p className="text-[#3C82F6] px-3 mb-1 pt-3 font-sans text-[12px]">
-            Suggested Destinations
+            {t("moveDetails.suggestedDestinations")}
           </p>
           {locations.length > 0 ? (
             locations.map((location, index) => (
@@ -328,12 +331,14 @@ const MoveDetails = () => {
                   {location}
                 </p>
                 <p className="text-[12px] font-sans text-[#9e9e9e]">
-                  200 km from your location
+                  {t("moveDetails.distanceFromLocation")}
                 </p>
               </div>
             ))
           ) : (
-            <div className="p-3 text-gray-500">No locations found</div>
+            <div className="p-3 text-gray-500">
+              {t("moveDetails.noLocationsFound")}
+            </div>
           )}
         </div>
       )
@@ -360,13 +365,15 @@ const MoveDetails = () => {
     <div className="w-[90vw] mt-16 moveDetails bg-gradient-to-br rounded-[20px] flex justify-center items-center p-8 from-[#1A7BC6] to-[#054D96] max-w-[1500px] mx-auto h-fit">
       <div className="w-[90%]">
         <div className="bg-[#136AB5] flex justify-center w-fit mx-auto items-center rounded-[100px] p-3">
-          <p className="text-white font-sans text-[14px]">GET A QUOTE</p>
+          <p className="text-white font-sans text-[14px]">
+            {t("hero.getQuote")}
+          </p>
         </div>
-        <h2 className="font-unbounded moveDetailsText text-white text-center font-bold my-2 text-[36px]">
-          Submit your move details
+        <h2 className="font-unbounded moveDetailsText text-white text-center font-bold my-2 text-[32px]">
+          {t("features.smarterTitle")}
         </h2>
-        <p className="font-sans moveDetailsDesc text-center text-[18px] text-[#BCDFF6]">
-          Professional movers for you, It only takes a minute
+        <p className="font-sans moveDetailsDesc w-[60%] mx-auto text-center text-[18px] text-[#BCDFF6]">
+          {t("features.smarterDescription")}
         </p>
 
         <div className="w-full bg-white my-4 h-[80px] moveDetailsCtaContainer rounded-[10px] flex">
@@ -556,7 +563,7 @@ const MoveDetails = () => {
           {/* Get Quote Button */}
           <div className="w-[16%] flex justify-center p-3 moversBtnContainer items-center">
             <PrimaryBtn
-              handlePress={handlePress}
+              // handlePress={handlePress}
               className="text-[14px] moversBtn"
             >
               GET A QUOTE

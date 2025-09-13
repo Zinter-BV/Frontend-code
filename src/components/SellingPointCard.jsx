@@ -13,7 +13,7 @@ const SellingPointCard = ({ card }) => {
       <p className="font-unbounded text-[#121212] sellingCardText font-bold my-2 text-[20px]">
         {card?.text}
       </p>
-      <Link to="/">
+      <Link to="/quote">
         <div className="flex my-2 items-center">
           <p className="font-sans font-bold text-[#3C82F6] mr-2 ">
             Get Started

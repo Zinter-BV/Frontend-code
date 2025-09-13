@@ -3,9 +3,41 @@ import BackwardArrow from "../Assets/SVG/BackwardArrow";
 import ForwardArrow from "../Assets/SVG/ForwardArrow";
 import TestimonialCard from "./TestimonialCard";
 import "./testimonials.css";
+import user from "../Assets/user.png";
+import user1 from "../Assets/4c1f020e665b93ab6ff1e8297abbedb1dda92198.jpg";
+import user2 from "../Assets/dcbfbd2b7302409e7e9d0a16dd17c2a75fb19840.png";
+import { useTranslation } from "react-i18next";
 
 const Testimonials = () => {
   const scrollContainerRef = useRef(null);
+  const { t } = useTranslation();
+
+  const data = [
+    {
+      id: 1,
+      text: t("testimonials.testimonial1"),
+      name: "Fatima Noor",
+      moveType: "Studio Move",
+      location: "Rotterham",
+      img: user,
+    },
+    {
+      id: 2,
+      text: t("testimonials.testimonial2"),
+      name: "Koen de Vries",
+      moveType: "Family Move",
+      location: "Eindhoven",
+      img: user1,
+    },
+    {
+      id: 3,
+      text: t("testimonials.testimonial3"),
+      name: "Fatima Noor",
+      moveType: "2-Bedroom Apartment",
+      location: "Utrecht",
+      img: user2,
+    },
+  ];
 
   // Function to scroll backward
   const scrollBackward = () => {
@@ -35,11 +67,13 @@ const Testimonials = () => {
     <div className="bg-[#E8F5F5] w-full h-fit">
       <div className="w-[90vw] py-20 testimonialContainer max-w-[1500px] mx-auto">
         <div className="bg-white testimonialsSmall flex justify-center w-fit border-[#FFDA5B] border-2 items-center rounded-[100px] p-3">
-          <p className="text-[#4] font-sans text-[14px]">TESTIMONIALS</p>
+          <p className="text-[#4] font-sans text-[14px]">
+            {t("testimonials.main")}
+          </p>
         </div>
         <div className="flex testimonialHeader justify-between my-10">
           <h2 className="font-unbounded testimonialHeaderText text-[#121212] font-bold w-[80%] text-[48px]">
-            Don't just take our word for it, Here is what our users are saying
+            {t("testimonials.title")}
           </h2>
           <div className="flex arrowsContainer self-end">
             <div
@@ -72,14 +106,9 @@ const Testimonials = () => {
             style={{ msOverflowStyle: "none" }}
             className="flex gap-4 min-w-min"
           >
-            <TestimonialCard />
-            <TestimonialCard />
-            <TestimonialCard />
-            <TestimonialCard />
-            <TestimonialCard />
-            <TestimonialCard />
-            <TestimonialCard />
-            <TestimonialCard />
+            {data?.map((card) => {
+              return <TestimonialCard key={card?.id} card={card} />;
+            })}
           </div>
         </div>
       </div>

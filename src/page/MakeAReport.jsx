@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import QuoteHeader from "../components/QuoteHeader";
 import { Link, useNavigate } from "react-router-dom";
 import SelectImage from "../components/SelectImage";
 import PrimaryBtn from "../components/PrimaryBtn";
 import ReportSuccess from "../modal/ReportSuccess";
+import ReportCard from "../components/ReportCard";
 
 const MakeAReport = () => {
   const [isDamagedActive, setIsDamagedActive] = useState(true);
@@ -20,6 +21,12 @@ const MakeAReport = () => {
     navigate(-1);
   };
 
+  const data = [1, 2, 3];
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const makeDamagedTabActive = () => setIsDamagedActive(false);
   const makeMissingTabActive = () => setIsDamagedActive(true);
   return (
@@ -27,7 +34,7 @@ const MakeAReport = () => {
       <div className="w-[90vw] relative max-w-[1500px] mx-auto mt-24">
         <div className="w-full mt-4 ">
           <QuoteHeader />
-          <div className="w-full h-[70vh] bg-white">
+          <div className="w-full h-[1200px] bg-white">
             <div className="flex items-center">
               <Link to="/">
                 <p className="text-[#9e9e9e] text-[14px] font-sans leading-[19.6px]">
@@ -107,6 +114,7 @@ const MakeAReport = () => {
                     />
                   </div>
                 </div>
+                <div className="w-full border-[1px] border-[#e3e3e3] my-7 " />
                 <div className="flex w-full mb-5 justify-between items-center">
                   <div className="flex w-[48%] mb-[15px] flex-col">
                     <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
@@ -160,13 +168,18 @@ const MakeAReport = () => {
                     </div>
                   </div>
                 </div>
-                <div className=" mt-4 w-full ">
+                <div className=" mt-4 border-t-[#B8B8B8] border-t-[1px] pt-5 w-full ">
                   <p className=" font-sans font-[18px] text-black ">
                     Recent Moves
                   </p>
                   <p className="text-[14px] text-[#9e9e9e] font-sans my-3 ">
                     Select a move you are making report on
                   </p>
+                  <div className="grid grid-cols-3 gap-4">
+                    {data?.map((report, id) => {
+                      return <ReportCard report={report} key={id} />;
+                    })}
+                  </div>
                 </div>
               </div>
             </div>

@@ -12,6 +12,11 @@
     width: 350px;
   }
 
+@media screen and (max-width:1400px){
+.moveDetailsDesc{
+  width: 70%;
+}
+}
 @media screen and (max-width: 1380px) {
   .heroDesc{
     width: 80%;
@@ -71,6 +76,12 @@
   }
 }
 
+@media screen and (max-width:1213px){
+.moveDetailsDesc{
+  width: 80%;
+}
+}
+
 @media screen and (max-width: 1132px) {
   .sellingCardText{
     font-size: 16px;
@@ -125,10 +136,19 @@
   }
 }
 
+@media screen and (max-width:1036px){
+.moveDetailsDesc{
+  width: 90%;
+}
+}
+
 @media screen and (max-width: 943px) {
   .sellingCardText{
     font-size: 14px;
   }
+  .moveDetailsDesc{
+  width: 100%;
+}
   .newsLetterText{
     width: 90%;
   }
@@ -206,10 +226,10 @@
     bottom: 80px;
   }
   .newsLetterStyle{
-    margin: 0;
+    margin-top: 0;
   }
   .newsLetterText{
-    text-align: left;
+    /* text-align: left; */
     width: 100%;
     font-size: 32px;
   }
@@ -406,6 +426,9 @@
   }
   .newsLetterText{
     font-size: 28px;
+  }
+  .newsLetterDesc{
+    font-size: 15px;
   }
 }
 

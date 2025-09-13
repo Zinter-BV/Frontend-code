@@ -6,6 +6,7 @@ import TrackingIcon from "../Assets/SVG/TrackingIcon";
 import TruckIcon from "../Assets/SVG/TruckIcon";
 import Logo from "./Logo";
 import { IoCloseSharp } from "react-icons/io5";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const Header = () => {
   const [menuOptionsOpen, setMenuOptionsOpen] = useState(false);
@@ -94,7 +95,9 @@ const Header = () => {
             </NavLink>
           </li>
         </ul>
+
         <div>
+          <LanguageSwitcher />
           <SecondaryBtn
             handlePress={openMenuOptions}
             className={"text-[14px] "}

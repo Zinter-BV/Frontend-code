@@ -9,28 +9,37 @@ import ViewSummary from "./ViewSummary";
 import QuoteSuccess from "../modal/QuoteSuccess";
 import MobileQuoteProgress from "./MobileQuoteProgress";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserDetails, setUserMoreInfo } from "../redux/action";
+import {
+  resetUserInfo,
+  setUserDetails,
+  setUserMoreInfo,
+} from "../redux/action";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
+import Loader from "./loader";
 
 const QuoteContainer = ({ data }) => {
   const [activeTab, setActiveTab] = useState(1);
   const dispatch = useDispatch();
+  // gets the whole data needed and puts in one object
+  const user = useSelector((state) => state.user);
 
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
   const navigate = useNavigate();
   // location details
   const [fromLocation, setFromLocation] = useState(
-    "Keizersgracht 123, 1015 CJ Amsterdam"
+    user?.userDetails?.pickUpAddress || "Keizersgracht 123, 1015 CJ Amsterdam"
   );
   const [toLocation, setToLocation] = useState(
-    "Rozengracht 55, 1016 LZ Amsterdam"
+    user?.userDetails?.dropOffAddress || "Coolsingel 105, 3012 AG Rotterdam"
   );
   const [isEditingFrom, setIsEditingFrom] = useState(false);
   const [isEditingTo, setIsEditingTo] = useState(false);
 
   //moving info
   const [moveDate, setMoveDate] = useState("");
+  const [moveTime, setMoveTime] = useState("");
+  const [pickUpDate, setPickUpDate] = useState("");
   const [pickUpTime, setPickupTime] = useState("");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -40,10 +49,10 @@ const QuoteContainer = ({ data }) => {
   const [dropOffAddress, setDropOffAddress] = useState(toLocation);
   const [pickUpAddressNumber, setPickUpAddressNumber] = useState("");
   const [dropOffAddressNumber, setDropOffAddressNumber] = useState("");
-  const [pickUpLongitude, setPickUpLongitude] = useState("");
-  const [pickUpLatitude, setPickUpLatitude] = useState("");
-  const [dropOffLongitude, setDropOffLongitude] = useState("");
-  const [dropOffLatitude, setDropOffLatitude] = useState("");
+  const [pickUpLongitude, setPickUpLongitude] = useState("4.478618");
+  const [pickUpLatitude, setPickUpLatitude] = useState("51.924419");
+  const [dropOffLongitude, setDropOffLongitude] = useState("6.093440");
+  const [dropOffLatitude, setDropOffLatitude] = useState("52.010199");
   const [toNumberOfFloors, setToNumberOfFloors] = useState("");
   const [toLongCarry, setToLongCarry] = useState("");
   const [toRemark, setToRemark] = useState("");
@@ -60,14 +69,37 @@ const QuoteContainer = ({ data }) => {
     useState(null);
   const [fromNeedHelpPacking, setFromNeedHelpPacking] = useState(null);
 
+  // Error message state
+  const [errMessage, setErrMessage] = useState("");
+
   useEffect(() => {
     if (data) setActiveTab(2);
     else setActiveTab(1);
   }, [data]);
 
+  // Function to format datetime to ISO 8601 format
+  const formatToISODateTime = (dateStr, timeStr) => {
+    if (!dateStr || !timeStr) return "";
+
+    // Combine date and time
+    const combinedDateTime = `${dateStr}T${timeStr}:00`;
+
+    // Create a Date object and convert to ISO string
+    const date = new Date(combinedDateTime);
+
+    // Check if date is valid
+    if (isNaN(date.getTime())) {
+      return "";
+    }
+
+    return date.toISOString();
+  };
+
   // Function to validate move info data
   const validateMoveInfo = () => {
     const requiredFields = [
+      { field: moveTime, name: "Move Time" },
+      { field: pickUpDate, name: "Pickup Date" },
       { field: moveDate, name: "Move Date" },
       { field: pickUpTime, name: "Pickup Time" },
       { field: fullName, name: "Full Name" },
@@ -75,16 +107,65 @@ const QuoteContainer = ({ data }) => {
       { field: phoneNumber, name: "Phone Number" },
       { field: pickUpAddress, name: "Pick Up Address" },
       { field: dropOffAddress, name: "Drop Off Address" },
+      { field: fromLocation, name: "From Location" },
+      { field: toLocation, name: "To Location" },
+      { field: provinceId, name: "Province" },
+      { field: pickUpAddressNumber, name: "Pick Up Address Number" },
+      { field: dropOffAddressNumber, name: "Drop Off Address Number" },
+      { field: pickUpLongitude, name: "Pick Up Longitude" },
+      { field: pickUpLatitude, name: "Pick Up Latitude" },
+      { field: dropOffLongitude, name: "Drop Off Longitude" },
+      { field: dropOffLatitude, name: "Drop Off Latitude" },
+      { field: toNumberOfFloors, name: "To Number of Floors" },
+      { field: toLongCarry, name: "To Long Carry" },
+      { field: toHasElevator, name: "To Has Elevator" },
+      { field: toNeedShuttle, name: "To Need Shuttle" },
+      { field: toHasBuildingInsurance, name: "To Has Building Insurance" },
+      { field: toNeedHelpPacking, name: "To Need Help Packing" },
+      { field: fromNumberOfFloors, name: "From Number of Floors" },
+      { field: fromLongCarry, name: "From Long Carry" },
+      { field: fromHasElevator, name: "From Has Elevator" },
+      { field: fromNeedShuttle, name: "From Need Shuttle" },
+      { field: fromHasBuildingInsurance, name: "From Has Building Insurance" },
+      { field: fromNeedHelpPacking, name: "From Need Help Packing" },
+      { field: fromRemark, name: "From Remark" },
+      { field: toRemark, name: "To Remark" },
     ];
 
-    const missingFields = requiredFields.filter(
-      ({ field }) => !field || field.trim() === ""
-    );
+    // const missingFields = requiredFields.filter(
+    //   ({ field }) => !field || field.trim() === ""
+    // );
+    const missingFields = requiredFields.filter(({ field }) => {
+      // Handle different data types properly
+      if (field === null || field === undefined) {
+        return true; // Field is missing
+      }
+
+      // For strings, check if empty or only whitespace
+      if (typeof field === "string") {
+        return field.trim() === "";
+      }
+
+      // For numbers, check if it's a valid number (not NaN or 0 if 0 is invalid)
+      if (typeof field === "number") {
+        return false; // Numbers are considered valid (adjust logic as needed)
+      }
+
+      // For booleans, they're valid (true/false are both acceptable)
+      if (typeof field === "boolean") {
+        return false;
+      }
+
+      return true; // Unknown type, consider missing
+    });
 
     if (missingFields.length > 0) {
-      const fieldNames = missingFields.map(({ name }) => name).join(", ");
-      alert(`Please fill in the following required fields: ${fieldNames}`);
-      return false;
+      // const fieldNames = missingFields.map(({ name }) => name).join(", ");
+      // setErrMessage(`Please fill in all required fields: ${fieldNames}`);
+      setErrMessage(`Please fill in all required fields.`);
+      return;
+    } else {
+      setErrMessage("");
     }
 
     // Additional validation for email format
@@ -97,15 +178,20 @@ const QuoteContainer = ({ data }) => {
     return true;
   };
 
+  // Format the datetime when creating moreInfoData
+  const formattedMoveDateTime = formatToISODateTime(moveDate, moveTime);
+  const formattedPickUpDateTime = formatToISODateTime(pickUpDate, pickUpTime);
+  console.log(formattedMoveDateTime);
+  console.log(formattedPickUpDateTime);
   const moreInfoData = {
-    moveDate,
-    pickUpTime,
+    moveTime: formattedMoveDateTime,
+    pickUpTime: formattedPickUpDateTime,
     fullName,
     email,
     phoneNumber,
     provinceId,
-    pickUpAddress,
-    dropOffAddress,
+    pickUpAddress: user?.userDetails?.pickUpAddress || fromLocation,
+    dropOffAddress: user?.userDetails?.dropOffAddress || toLocation,
     pickUpAddressNumber,
     dropOffAddressNumber,
     pickUpLongitude,
@@ -141,8 +227,16 @@ const QuoteContainer = ({ data }) => {
     />
   );
 
-  // gets the whole data nneeded and puts in one object
-  const user = useSelector((state) => state.user);
+  // Ensure your merge function creates the correct structure
+  function mergeTwoObjects(items, moreInfo) {
+    return {
+      items: items, // Should be array of {room, itemName, numberOfItems}
+      ...moreInfo, // Should contain all other required fields
+    };
+  }
+  const dataToSend = mergeTwoObjects(user?.items, user?.moreInfo);
+
+  // responnnse from server
 
   // Remove the wrapper object - send dataToSend directly
   const addUserDetails = async () => {
@@ -153,30 +247,59 @@ const QuoteContainer = ({ data }) => {
     return response.data;
   };
 
-  // Ensure your merge function creates the correct structure
-  function mergeTwoObjects(items, moreInfo) {
-    return {
-      items: items, // Should be array of {room, itemName, numberOfItems}
-      ...moreInfo, // Should contain all other required fields
-    };
-  }
+  // const mutation = useMutation({
+  // //   mutationFn: addUserDetails,
 
-  const dataToSend = mergeTwoObjects(user?.items, user?.moreInfo);
+  // //   onSuccess: (data) => {
+  // //     // console.log(data.responseTime, "Main Status");
+  // //     console.log(data);
+  // //     if (data.responseStatus) {
+  // //       setOpenSuccessModal(true);
+  // //       setEmail("");
+  // //       localStorage.setItem("Code", JSON.stringify(data));
+  // //       setErrMessage("");
+  // //     }
+  // //     if (!data.responseStatus) {
+  // //       setErrMessage(
+  // //         data.responseMessage || "An error occurred. Please try again."
+  // //       );
+  // //     }
+  // //   },
+  // //   onError: (error) => {
+  // //     console.error("Error creating user:", error);
+  // //     setErrMessage("An error occurred. Please try again.");
+  // //   },
+  // // });
 
-  const mutation = useMutation({
+  // // const fetchData = () => {
+  // //   mutation.mutate(); // Remove parameter since it's already in the function
+  // // };
+
+  const {
+    mutate: fetchData,
+    isLoading, // true when the request is running
+    isError,
+    isSuccess,
+  } = useMutation({
     mutationFn: addUserDetails,
     onSuccess: (data) => {
       console.log(data);
-      setEmail("");
+      if (data.responseStatus) {
+        setOpenSuccessModal(true);
+        setEmail("");
+        localStorage.setItem("Code", JSON.stringify(data));
+        setErrMessage("");
+      } else {
+        setErrMessage(
+          data.responseMessage || "An error occurred. Please try again."
+        );
+      }
     },
     onError: (error) => {
       console.error("Error creating user:", error);
+      setErrMessage("An error occurred. Please try again.");
     },
   });
-
-  const fetchData = () => {
-    mutation.mutate(); // Remove parameter since it's already in the function
-  };
 
   switch (activeTab) {
     case 1:
@@ -201,8 +324,12 @@ const QuoteContainer = ({ data }) => {
     case 3:
       content = (
         <MovingInformation
-          moveDate={moveDate}
           setMoveDate={setMoveDate}
+          moveDate={moveDate}
+          setPickUpDate={setPickUpDate}
+          pickUpDate={pickUpDate}
+          moveTime={moveTime}
+          setMoveTime={setMoveTime}
           pickUpTime={pickUpTime}
           setPickupTime={setPickupTime}
           fullName={fullName}
@@ -265,19 +392,15 @@ const QuoteContainer = ({ data }) => {
           toLocation={toLocation}
           setFromLocation={setFromLocation}
           setToLocation={setToLocation}
+          errMessage={errMessage}
         />
       );
       // Code to be executed if expression matches value2
       break;
     case 4:
-      content = <ViewSummary />;
+      content = <ViewSummary errMessage={errMessage} />;
       // Code to be executed if expression matches value2
       break;
-    case 5:
-      content = <p>Finish</p>;
-      // Code to be executed if expression matches value2
-      break;
-    // Add more cases as needed
     default:
       content = <Location />;
     // Code to be executed if expression doesn't match any case
@@ -297,6 +420,11 @@ const QuoteContainer = ({ data }) => {
     }
     if (activeTab === 2) {
       console.log(activeTab, 2);
+      // if active tab is 2 and user has not added any items, stay on tab 2
+      if (user.items.length === 0) {
+        setActiveTab(2);
+        return;
+      }
     }
     if (activeTab === 3) {
       console.log(activeTab, 3);
@@ -328,7 +456,12 @@ const QuoteContainer = ({ data }) => {
   const closeSuccessModal = () => {
     navigate("/");
     setOpenSuccessModal(false);
+    dispatch(resetUserInfo());
   };
+
+  {
+    isLoading && <Loader />;
+  }
 
   return (
     <div className="relative">

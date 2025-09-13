@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../components/Header";
 import HeroSection from "../components/HeroSection";
 import MoveDetails from "../components/MoveDetails";
@@ -11,12 +11,15 @@ import Footer from "../components/Footer";
 import FAQ from "../components/FAQ";
 
 const Home = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="relative">
       <Header />
       <HeroSection />
       <MoveDetails />
-      <TrustedBy />
+      {/* <TrustedBy /> */}
       <SellingPoint />
       <Process />
       <Testimonials />
