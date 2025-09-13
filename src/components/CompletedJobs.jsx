@@ -26,6 +26,7 @@ import { getCompletedJobs } from "../api/province";
 import SkeletonLine from "./SkeletonLineLoader";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import EmptyState from "./EmptyState";
 
 const CompletedJobs = () => {
     const completedRequests = [
@@ -158,7 +159,7 @@ const CompletedJobs = () => {
                         </div>
                     </div>
                 </div>
-                <div >
+                <div className="table_wrapper" >
                     <table>
                         <thead>
                             <tr>
@@ -327,6 +328,12 @@ const CompletedJobs = () => {
 
                         </tbody>
                     </table>
+                    {!isLoading && completeJobs.length === 0 && (
+                        <div className="empty_state_overlay">
+                            <EmptyState />
+                            <p>No Completed jobs right now</p>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

@@ -6,7 +6,9 @@ import SuccessMessageAdmin from "../components/SucessModalAdmin";
 import { useQuery } from "@tanstack/react-query";
 import { loginAgent } from "../api/agentApi";
 import { useNavigate } from "react-router-dom";
+import Toast from "../components/toast";
 import Loader from "../components/loader";
+// import "../components/toast.css"
 
 const VendorLogin = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -14,11 +16,12 @@ const VendorLogin = () => {
     const [user, setEmail] = useState("")
     const [showVerifyEmail, setShowVerifyEmail] = useState(false)
     const [showSucessModal, setSuccessModal] = useState(false)
+    const [toast, setToast] = useState(null);
     const navigate = useNavigate()
     const { data, isLoading, error, refetch } = useQuery({
         queryKey: ["loginVendor", user, password],
-        queryFn: () => loginAgent({user, password}), 
-        enabled: false, 
+        queryFn: () => loginAgent({ user, password }),
+        enabled: false,
         refetchOnWindowFocus: false,
     });
 
@@ -31,14 +34,14 @@ const VendorLogin = () => {
     // })
 
     useEffect(() => {
-        if(error) {
+        if (error) {
             console.error('Couldn\'t login', error)
         }
         // if(data.responseStatus === false ) {
         //     console.log(data.responseMessage)
         // } else {
         //     console.log(data.responseMessage)
-            
+
         // }
     })
 
@@ -53,19 +56,29 @@ const VendorLogin = () => {
 
     const handleContinue = async () => {
         // debugger
-       if(user && password) {
-        const result = await refetch()
-        const data = result?.data
-        if(data?.responseStatus === false) {
-            console.log(data.responseMessage)
+
+        if (user && password) {
+            const result = await refetch()
+            const data = result?.data
+            if (data?.responseStatus === false) {
+                console.log(data.responseMessage)
+                setToast({
+                    message: data.responseMessage || "Something went wrong",
+                    type: "error"
+                });
+            } else {
+                console.log(data.responseMessage)
+                console.log(data.result)
+                sessionStorage.setItem('token', data.result.jwtToken)
+                sessionStorage.setItem('name', data.result.name)
+                navigate("/overview")
+            }
         } else {
-            console.log(data.responseMessage)
-            console.log(data.result)
-            sessionStorage.setItem('token', data.result.jwtToken)
-            sessionStorage.setItem('name', data.result.name)
-            navigate("/overview")
+            setToast({
+                message: "Please enter username and password",
+                type: "warning"
+            });
         }
-       } 
     }
 
     const handleSignUp = async () => {
@@ -93,8 +106,8 @@ const VendorLogin = () => {
                         {showPassword ? "HIDE" : "SHOW"}
                     </span>
                 </div>
-                <div>
-                    Don't have an account? <a onClick={handleSignUp} href="">Sign up</a>
+                <div className="no_account_section">
+                    <span>Don't have an account?</span>   <a onClick={handleSignUp} href="">Sign up</a>
                 </div>
             </div>
 
@@ -102,7 +115,17 @@ const VendorLogin = () => {
                 <button onClick={() => handleContinue()}>CONTINUE</button>
             </div>
 
-        {isLoading && <Loader/>}
+            {isLoading && <Loader />}
+
+            {toast && (
+                <Toast
+                    className="toast-container"
+                    message={toast.message}
+                    type={toast.type}
+                    duration={5000}
+                    onClose={() => setToast(null)}
+                />
+            )}
 
         </div>
     )

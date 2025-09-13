@@ -30,12 +30,12 @@
 .admin_login_input {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
     gap: 8px;
     margin-top: 48px;
 }
 
-.admin_login_email  {
+.admin_login_email {
     display: flex;
     flex-direction: column;
 }
@@ -82,7 +82,7 @@
 
 .admin_login_pass_btn {
     position: absolute;
-    top: 35%;
+    top: 45%;
     right: 10px;
     font-family: "DM Sans", sans-serif;
     font-weight: 600;
@@ -102,13 +102,16 @@
 .admin_footer_btn {
     position: absolute;
     bottom: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .admin_footer_btn button {
     background-color: rgba(5, 77, 150, 1);
     color: #fff;
     padding: 5px 15px;
-    border-radius: 1000px; 
+    border-radius: 1000px;
     width: 351px;
 
 }
@@ -119,4 +122,122 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 10;
+}
+
+.no_account_section span {
+    color: rgba(44, 44, 44, 1);
+    font-size: 14px;
+    font-weight: 400;
+    font-family: "DM Sans", sans-serif;
+}
+
+a {
+    color: rgba(5, 77, 150, 1);
+    font-size: 14px;
+    font-weight: 400;
+    font-family: "DM Sans", sans-serif;
+}
+
+.toast-container {
+    position: relative;
+}
+
+@media (max-width: 600px) {
+    .admin_login_password input {
+        width: auto;
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: 1px solid rgba(227, 227, 227, 1);
+        outline: none;
+        font-weight: 400;
+        font-family: "DM Sans", sans-serif;
+    }
+
+    .admin_login_email input {
+        width: auto;
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: 1px solid rgba(227, 227, 227, 1);
+        outline: none;
+        font-weight: 400;
+        font-family: "DM Sans", sans-serif;
+    }
+
+    .admin_login_email {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .admin_login_input {
+        display: flex;
+        flex-direction: column;
+        /* align-items: center; */
+        gap: 8px;
+        margin-top: 48px;
+        width: 80%;
+    }
+
+    .admin_login_password {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        width: 100%;
+    }
+
+
+}
+
+@media (max-width: 450px) {
+    .admin_login_password input {
+        width: auto;
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: 1px solid rgba(227, 227, 227, 1);
+        outline: none;
+        font-weight: 400;
+        font-family: "DM Sans", sans-serif;
+    }
+
+    .admin_login_email input {
+        width: auto;
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: 1px solid rgba(227, 227, 227, 1);
+        outline: none;
+        font-weight: 400;
+        font-family: "DM Sans", sans-serif;
+    }
+
+    .admin_login_email {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .admin_login_input {
+        display: flex;
+        flex-direction: column;
+        /* align-items: center; */
+        gap: 8px;
+        margin-top: 48px;
+        width: 80%;
+    }
+
+    .admin_login_password {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        width: 100%;
+    }
+
+    .admin_footer_btn button {
+        background-color: rgba(5, 77, 150, 1);
+        color: #fff;
+        padding: 5px 15px;
+        border-radius: 1000px;
+        width: 300px;
+    }
+
+
 }

@@ -26,6 +26,7 @@ import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import SkeletonLine from "./SkeletonLineLoader";
 import { getCancelledJobs } from "../api/province";
+import EmptyState from "./EmptyState";
 
 const CompletedJobs = () => {
     const netherlandsMoves = [
@@ -128,6 +129,7 @@ const CompletedJobs = () => {
         <div>
             <div className="table_container">
                 <div className="table_header">
+
                     <div className="left_table_head">
                         <h1>Cancelled Jobs</h1>
                     </div>
@@ -150,7 +152,7 @@ const CompletedJobs = () => {
                         </div>
                     </div>
                 </div>
-                <div >
+                <div className="table_wrapper" >
                     <table>
                         <thead>
                             <tr>
@@ -185,43 +187,7 @@ const CompletedJobs = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {/* {netherlandsMoves.map((move, index) => (
-                                <tr key={index}>
-                                    <td>
-                                        <div className="name_td td">
-                                            <div>
-                                                <img src={avatar} alt="user-initials" />
-                                            </div>
-                                            <div className="name_text">
-                                                <span>{move.name}</span>
-                                                <span>{move.email}</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="move_summary td">
-                                            <span>{move.moveType}</span>
-                                            <span>{move.route}</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="status_cancel td">
-                                            <span>
-                                                <img src={dot} alt="" />
-                                            </span>
-                                            <span>Cancelled</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="progress_bar_cancel">
-                                            <div className="progress_bar_moving_cancel"></div>
-                                        </div>
-                                    </td>
-                                    <td className="view">
-                                        <img src={viewMore} alt="view more" />
-                                    </td>
-                                </tr>
-                            ))} */}
+                            {/* <EmptyState /> */}
 
                             {isLoading &&
                                 <tr>
@@ -277,12 +243,13 @@ const CompletedJobs = () => {
                                 </tr>
 
                             }
+
                             {cancelledJobs.map((job, index) => (
                                 <tr key={index}>
                                     <td>
                                         <div className="name_td td">
                                             <div>
-                                                 <img src="/images/Gb-Avatar.svg" alt="" />
+                                                <img src="/images/Gb-Avatar.svg" alt="" />
                                                 {/* <img src={avatar} alt="user-initials" /> */}
                                             </div>
                                             <div className="name_text">
@@ -300,7 +267,7 @@ const CompletedJobs = () => {
                                     <td>
                                         <div className="status_cancel td">
                                             <span>
-                                                 <img src="/images/canceled_dot.svg" alt="" />
+                                                <img src="/images/canceled_dot.svg" alt="" />
                                                 {/* <img src={dot} alt="" /> */}
                                             </span>
                                             <span>Cancelled</span>
@@ -319,6 +286,12 @@ const CompletedJobs = () => {
                             ))}
                         </tbody>
                     </table>
+                    {!isLoading && cancelledJobs.length === 0 && (
+                        <div className="empty_state_overlay">
+                            <EmptyState />
+                            <p>No Cancelled jobs right now</p>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

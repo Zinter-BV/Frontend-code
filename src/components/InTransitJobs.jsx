@@ -26,6 +26,7 @@ import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getInProgressJobs } from "../api/province";
 import SkeletonLine from "./SkeletonLineLoader";
+import EmptyState from "./EmptyState";
 
 const InTransitJobs = () => {
     const inTransitRequests = [
@@ -145,7 +146,7 @@ const InTransitJobs = () => {
                         <div className="search_icon">
                             <input type="text" placeholder="Search" />
                             {/* <img src={searchIcon} alt="" /> */}
-                             <img src="/images/search-01.svg" alt="" />
+                            <img src="/images/search-01.svg" alt="" />
                         </div>
                         <div className="filter_con">
                             <span>
@@ -160,7 +161,7 @@ const InTransitJobs = () => {
                         </div>
                     </div>
                 </div>
-                <div >
+                <div className="table_wrapper" >
                     <table>
                         <thead>
                             <tr>
@@ -293,7 +294,7 @@ const InTransitJobs = () => {
                                     <td>
                                         <div className="name_td td">
                                             <div>
-                                            <img src="/images/Gb-Avatar.svg" alt="" />
+                                                <img src="/images/Gb-Avatar.svg" alt="" />
                                             </div>
                                             <div className="name_text">
                                                 <span>{job.fullName}</span>
@@ -310,7 +311,7 @@ const InTransitJobs = () => {
                                     <td>
                                         <div className="status_transit td">
                                             <span>
-                                                 <img src="/images/intransit_dot.svg" alt="" />
+                                                <img src="/images/intransit_dot.svg" alt="" />
                                                 {/* <img src={dot} alt="" /> */}
                                             </span>
                                             <span>In Transit</span>
@@ -330,6 +331,12 @@ const InTransitJobs = () => {
 
                         </tbody>
                     </table>
+                    {!isLoading && inProgressJobs.length === 0 && (
+                        <div className="empty_state_overlay">
+                            <EmptyState />
+                            <p>No in transit jobs right now</p>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

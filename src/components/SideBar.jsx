@@ -89,7 +89,7 @@
 
 import React, { useState } from "react";
 import "./sideBar.css";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import overviewIcon from "../Assets/dasboard-icon.svg";
 import overviewIconActive from "../Assets/overview-active-icon.svg"
 import calendarIcon from "../Assets/calendar-icon.svg";
@@ -102,6 +102,7 @@ import resolutionIcon from "../Assets/resolutionIcon.svg"
 import resolutionIconActive from "../Assets/resolutionIconActive.svg"
 import transactionIcon from "../Assets/credit-card.svg"
 import transactionIconActive from "../Assets/credit-card-active.svg"
+import LogoutModal from "./Logout";
 // import logoAndText from "../Assets/logo-text.svg";
 // import notificationLogo from "../Assets/notification-03.svg";
 // import logoAndTextNew from "../Assets/new-logo-zinter-complete.svg"
@@ -112,10 +113,12 @@ import transactionIconActive from "../Assets/credit-card-active.svg"
 
 const SideBar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [showLogout, setShowLogout] = useState(false);
     const toggleSidebar = () => {
         setIsOpen(!isOpen);
     };
     const location = useLocation();
+    const navigate = useNavigate()
 
     const navItems = [
         { path: "/overview", icon: overviewIcon, activeIcon: overviewIconActive, label: "Overview" },
@@ -129,6 +132,20 @@ const SideBar = () => {
         { path: "/overview", icon: overviewIcon, activeIcon: overviewIconActive, label: "Overview" },
         { path: "/calendar", icon: calendarIcon, activeIcon: calenarIconActive, label: "Upcoming" },
     ];
+
+    const showLogoutFunc = () => {
+        setShowLogout(true)
+    }
+
+    const handleCancel = () => {
+        setShowLogout(false);
+    };
+
+    const handleDeactivate = () => {
+        setShowLogout(false);
+        navigate('/vendor-login')
+
+    };
 
     return (
         <div>
@@ -165,6 +182,7 @@ const SideBar = () => {
                         <img src="/images/help-circle.svg" alt="" />
                         {/* <img src={notificationLogo} alt="" /> */}
                         <img src="/images/notification-03.svg" alt="" />
+                        <img className="logout" onClick={showLogoutFunc} src="/images/logout-03.svg" alt="" />
                     </div>
                 </div>
                 <div className="body_container"></div>
@@ -188,10 +206,12 @@ const SideBar = () => {
                         ))} */}
                     <div className="header_container_right">
                         {/* <img src={helpLogo} alt="" /> */}
-                        <img src="/images/help-circle.svg" alt="" />
+                        {/* <img src="/images/help-circle.svg" alt="" /> */}
 
                         {/* <img src={notificationLogo} alt="" /> */}
-                        <img src="/images/notification-03.svg" alt="" />
+                        {/* <img src="/images/notification-03.svg" alt="" /> */}
+                        <img className="logout" onClick={showLogoutFunc} src="/images/logout-03.svg" alt="" />
+
 
                     </div>
                 </div>
@@ -213,7 +233,7 @@ const SideBar = () => {
 
                         <div className="side_bar_bottom">
                             <div>
-                                  <img src="/images/sidebar-icon.svg" alt="" />
+                                <img src="/images/sidebar-icon.svg" alt="" />
                                 {/* <img src={sidebarIcon} alt="" /> */}
                             </div>
                             <div className="side_bar_bottom_text">
@@ -225,6 +245,11 @@ const SideBar = () => {
                 </div>
 
             </div>
+            <LogoutModal
+                showLogout={showLogout}
+                onCancel={handleCancel}
+                onDeactivate={handleDeactivate}
+            />
         </div>
     );
 };

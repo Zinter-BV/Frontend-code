@@ -41,6 +41,7 @@ import { moveDetails } from '../api/moveDetails';
 import Loader from '../components/loader';
 import { endMove, logArrival } from '../api/tracking';
 import { startMove } from '../api/tracking';
+import Toast from '../components/toast';
 
 
 
@@ -62,11 +63,14 @@ const UpcomingJobView = () => {
     const [moveTime, setMoveTime] = useState("")
     const [numberOfRooms, setNumberOfRooms] = useState("")
     const [startMoveValue, setStartMoveValue] = useState("")
+    const [endMoveValue, setEndMoveValue] = useState("")
     const [amount, setAmount] = useState("")
     const [date, setDate] = useState("");
     const [time, setTime] = useState("");
     const [moveDetailsArray, setMoveDetailsArray] = useState([])
     const [itemsArray, setItemsArray] = useState([])
+    const [toast, setToast] = useState(null)
+
     const [loading, setLoader] = useState(false)
     const { data, isLoading, error } = useQuery({
         queryKey: ["moveDetails", moveCode],
@@ -121,27 +125,52 @@ const UpcomingJobView = () => {
 
     const openMoveSuccess = async () => {
         try {
-        isLoading(true)
-        const response = await endMove(startMoveValue)
-        isLoading(false)
-        console.log(response)
-        setShowMoveSuccess(true)
-        setShowMoveChecklist(false)
-        } 
-        catch (e) {
+            setLoader(true)
+            const response = await endMove(startMoveValue)
+            setLoader(false)
+            if (response.responseStatus === false) {
+                setToast({
+                    message: response.responseMessage || "Something went wrong",
+                    type: "error"
+                });
+                setShowMoveSuccess(true)
+                setShowMoveChecklist(false)
+            } else {
+                setToast({
+                    message: response.responseMessage,
+                    type: "success"
+                });
+                setShowMoveSuccess(true)
+                setShowMoveChecklist(false)
+            }
+
 
         }
-        setShowMoveSuccess(true)
-        setShowMoveChecklist(false)
+        catch (e) {
+            console.log(e)
+        }
+
     }
 
-     const startMoveBtn = async () => {
+    const startMoveBtn = async () => {
         // debugger
         try {
             setLoader(true)
             const response = await startMove(startMoveValue)
             setLoader(false)
             console.log(response)
+            if (response.responseStatus === false) {
+                setToast({
+                    message: response.responseMessage || "Something went wrong",
+                    type: "error"
+                });
+            } else {
+                setToast({
+                    message: response.responseMessage || "Sucessful",
+                    type: "success"
+                });
+            }
+
         } catch (e) {
             console.log(e)
         }
@@ -165,6 +194,10 @@ const UpcomingJobView = () => {
         setActiveTab('details');
         setShowMoveDetails(true)
         setShowMoveTimeline(false)
+    }
+
+    const okGotIt = () => {
+        navigate("/calendar")
     }
     const navigate = useNavigate()
     const handdleGoBack = () => {
@@ -194,7 +227,7 @@ const UpcomingJobView = () => {
                             <span className={activeTab === 'details' ? 'active' : ''}
                                 onClick={openMoveDetails}>Move Details</span>
                             <span className={activeTab === 'timeline' ? 'active' : ''}
-                                >Move Timeline</span>
+                            >Move Timeline</span>
                         </div>
                         {showMoveDetails && <div className="header_upcoming_details">
                             <div className='upcoming_details_view'>
@@ -208,7 +241,7 @@ const UpcomingJobView = () => {
                                             <span><img src={calendarIcon} alt="" /></span>
                                             <span>Upcoming</span>
                                         </div>
-                                        <span className="header_upcoming_date">{moveDate}</span>
+                                        <span className="header_upcoming_date">  {moveDate.split("T")[0]}</span>
                                         <span className="header_upcoming_time">{moveTime}</span>
                                         <span className="header_user_job_email">Apartment - {moveDetailsArray.numberOfRooms} Bedroom</span>
                                     </div>
@@ -228,7 +261,7 @@ const UpcomingJobView = () => {
                             <div className="first_tab_job">
                                 <div className="move_tab_details">
                                     <span>Move Date</span>
-                                    <span> {moveDate}</span>
+                                    <span>   {moveDate.split("T")[0]}</span>
                                 </div>
                                 <div className="move_tab_details">
                                     <span>Day</span>
@@ -236,7 +269,7 @@ const UpcomingJobView = () => {
                                 </div>
                                 <div className="move_tab_details">
                                     <span>Move Time</span>
-                                    <span>{moveDate}</span>
+                                    <span>  {moveDate.split("T")[1]}</span>
                                 </div>
                             </div>
                             {/* <div className="second_tab_job">
@@ -595,7 +628,7 @@ const UpcomingJobView = () => {
                                     <span><span className="bolder_text" > Move Started </span >using customer tracking code</span>
                                 </div>
                                 <div className='body_timeline_code'>
-                                    472-918
+                                    {startMoveValue}
                                 </div>
                             </div>
                             <div className='body_timeline_first'>
@@ -616,7 +649,7 @@ const UpcomingJobView = () => {
                                     <span><span className='bolder_text' > Move Completed </span >Move Confirmed with tracking code</span>
                                 </div>
                                 <div className='body_timeline_code'>
-                                    472-918
+                                    {startMoveValue}
                                 </div>
                             </div>
                         </div>}
@@ -696,7 +729,7 @@ const UpcomingJobView = () => {
                                 <span> <strong> End Move</strong>  using customer tracking code</span>
                             </div>
                             <div className='body_checklist_input'>
-                                <input type="text" name="" placeholder='-----' id="" />
+                                <input type="text" name="" onChange={(e) => setEndMoveValue(e.target.value)} placeholder='-----' id="" />
                                 <button className='end_move_btn' onClick={openMoveSuccess}>End move</button>
                             </div>
                         </div>
@@ -732,13 +765,31 @@ const UpcomingJobView = () => {
                     </div>
                     <div className="body_quote_success_footer">
                         {/* <button>REJECT</button> */}
-                        <button onClick={closeAllModal}>OK, Got It</button>
+                        <button onClick={okGotIt}>OK, Got It</button>
                     </div>
                 </div>
             </div>}
             {isLoading && <Loader />}
             {isLoadingLoginArrival && <Loader />}
-            {loading && <Loader/>}
+            {loading && <Loader />}
+            {toast && (
+                <div className='toast_move'>
+                    <Toast
+                        style={{
+                            position: "fixed",
+                            top: "20px",
+                            left: "50%",
+                            transform: "translateX(-50%)",
+                            zIndex: 99999,
+                        }}
+
+                        message={toast.message}
+                        type={toast.type}
+                        duration={5000}
+                        onClose={() => setToast(null)}
+                    />
+                </div>
+            )}
 
         </div>
     )

@@ -440,7 +440,7 @@
 }
 
 .body_quote_sub_text {
-    margin: 20px 0 30px; 
+    margin: 20px 0 30px;
 }
 
 .body_quote_footer {
@@ -523,6 +523,18 @@
     flex-wrap: wrap;
     gap: 2rem;
     border-top: 1px solid #e5e7eb;
+}
+
+@media (max-width: 700px) {
+    .header_job_details_user :last-child {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 289px;
+    }
 }
 
 /* .dropdown_list {

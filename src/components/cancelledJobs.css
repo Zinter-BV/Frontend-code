@@ -185,3 +185,33 @@ tbody tr td .td {
 .view {
     cursor: pointer;
 }
+
+tbody {
+  transition: height 0.3s ease;
+}
+
+tbody[style*="300px"] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.table_wrapper {
+  position: relative;
+  min-height: 300px; /* space for overlay */
+}
+
+
+
+.empty_state_overlay {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 1;
+}

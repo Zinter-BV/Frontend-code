@@ -26,6 +26,8 @@ import { useNavigate } from "react-router-dom";
 import { getNewRequestJobs } from "../api/province";
 import SkeletonLine from "./SkeletonLineLoader";
 import { useQuery } from "@tanstack/react-query";
+import PaginationComponent from "./Pagination";
+import EmptyState from "./EmptyState";
 
 const NewJobs = () => {
     const moveRequests = [
@@ -91,6 +93,7 @@ const NewJobs = () => {
         },
     ];
     const [pageNumber, setPageNumber] = useState(1);
+    const [totalCount, setTotalCount] = useState(0);
     const [numberOfRecords, setNumberOfRecords] = useState(5);
     const [searchTerm, setSearchTerm] = useState("");
     const [newJobs, setNewJobs] = useState([]);
@@ -110,6 +113,7 @@ const NewJobs = () => {
             setNewJobs(data.result.items); // Set actual job data here
             console.log("Fetched jobs:", data.result.items);
             sessionStorage.setItem("totalNewJobs", data.result.totalCount)
+            setTotalCount(data.result.totalCount);
         } else if (error) {
             console.log("Error fetching jobs:", error);
         }
@@ -118,6 +122,12 @@ const NewJobs = () => {
     const filteredJobs = newJobs.filter((job) =>
         job.fullName?.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    useEffect(() => {
+        if (isLoading) {
+            setNewJobs([]);
+        }
+    }, [isLoading]);
 
     useEffect(() => {
         console.log("Updated allJobs:", newJobs);
@@ -157,7 +167,7 @@ const NewJobs = () => {
                         </div>
                     </div>
                 </div>
-                <div >
+                <div className="table_wrapper">
                     <table>
                         <thead>
                             <tr>
@@ -293,6 +303,18 @@ const NewJobs = () => {
 
                         </tbody>
                     </table>
+                    <PaginationComponent
+                        totalCount={totalCount}
+                        pageSize={numberOfRecords}
+                        currentPage={pageNumber}
+                        onPageChange={(page) => setPageNumber(page)}
+                    />
+                    {!isLoading && filteredJobs.length === 0 && (
+                        <div className="empty_state_overlay">
+                            <EmptyState />
+                            <p>No new jobs right now</p>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
