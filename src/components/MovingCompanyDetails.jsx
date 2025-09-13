@@ -382,7 +382,7 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                 </p>
                 <p className="font-unbounded text-[36px] leading-[38.5px] text-[#136AB5] font-semibold ">
                   {" "}
-                  ${mover?.amount}
+                  €{mover?.amount}
                 </p>
                 <p className="text-[16px] leading-[25.6px] font-light text-[#373737] font-sans ">
                   Pickup & delivery included
@@ -391,7 +391,7 @@ const MovingCompanyDetails = ({ makeInActive }) => {
               <div className="mobileOptionsContainer">
                 <p className="font-unbounded mobileOptionsContainerAmount text-[36px] leading-[38.5px] text-[#136AB5] font-semibold ">
                   {" "}
-                  ${mover?.amount}
+                  €{mover?.amount}
                 </p>
                 <div>
                   <p className="text-[#9e9e9e] mobileOptionsContainerDistance font-normal text-[16px] leading-[25.6px] font-sans ">
@@ -413,7 +413,8 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                   Move Size
                 </p>
                 <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  House - {mover?.moveDetails?.numberOfRooms} rooms
+                  House - {mover?.moveDetails?.numberOfRooms}{" "}
+                  {mover?.moveDetails?.numberOfRooms > 1 ? "Rooms" : "Room"}
                 </p>
               </div>
 
@@ -470,7 +471,8 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                   Move Size
                 </p>
                 <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  House - {mover?.moveDetails?.numberOfRooms} rooms
+                  House - {mover?.moveDetails?.numberOfRooms}{" "}
+                  {mover?.moveDetails?.numberOfRooms > 1 ? "Rooms" : "Room"}
                 </p>
               </div>
 
