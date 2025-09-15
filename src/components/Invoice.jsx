@@ -31,7 +31,7 @@ const Invoice = () => {
             <div className="mt-20">
               <p className="font-unbounded text-right">Rate</p>
               <div className="border-t-[1px] py-5">
-                <p className="font-unbounded text-right">$345.00</p>
+                <p className="font-unbounded text-right">€345.00</p>
               </div>
             </div>
           </div>
@@ -59,7 +59,7 @@ const Invoice = () => {
                 Payment method: Debit Card
               </p>
               <p className="text-white font-unbounded text-[36px] font-bold ">
-                $345.00
+                €345.00
               </p>
             </div>
           </div>
@@ -70,7 +70,7 @@ const Invoice = () => {
                 Thank you! — zinter.co
               </p>
             </div>
-            <p className="text-white text-[12px] font-sora ">$USD</p>
+            <p className="text-white text-[12px] font-sora ">€EUR</p>
           </div>
         </div>
       </div>

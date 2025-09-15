@@ -137,7 +137,8 @@ const ViewSummary = ({ errMessage }) => {
                       Move Size
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      House - {uniqueRooms?.length} Rooms
+                      House - {uniqueRooms?.length}{" "}
+                      {uniqueRooms?.length > 1 ? "Rooms" : "Room"}
                     </p>
                   </div>
 
@@ -194,7 +195,8 @@ const ViewSummary = ({ errMessage }) => {
                       Move Size
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      House - {uniqueRooms?.length} Rooms
+                      House - {uniqueRooms?.length}{" "}
+                      {uniqueRooms?.length > 1 ? "Rooms" : "Room"}
                     </p>
                   </div>
 
