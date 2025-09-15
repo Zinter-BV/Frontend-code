@@ -125,12 +125,12 @@ const FirstStepCompanies = () => {
     }
 
     const handlePrivacyPolicy = () => {
-        navigate("/privacy-policy")
-    }
+        window.open("/privacy-policy", "_blank");
+    };
 
     const handleTermsAndCondition = () => {
-        navigate("/terms")
-    }
+        window.open("/terms", "_blank");
+    };
 
 
     return (
