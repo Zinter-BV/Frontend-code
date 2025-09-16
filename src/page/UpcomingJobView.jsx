@@ -42,6 +42,7 @@ import Loader from '../components/loader';
 import { endMove, logArrival } from '../api/tracking';
 import { startMove } from '../api/tracking';
 import Toast from '../components/toast';
+import { trackMove } from '../api/moveDetails';
 
 
 
@@ -50,6 +51,8 @@ const UpcomingJobView = () => {
     const [showMoveSuccess, setShowMoveSuccess] = useState(false)
     const [showMoveDetails, setShowMoveDetails] = useState(true)
     const [showMoveTimeline, setShowMoveTimeline] = useState(false)
+    const [currentStep, setCurrentStep] = useState(0);
+
     const [activeTab, setActiveTab] = useState('details');
     const [moveCode, setMoveCode] = useState(() => sessionStorage.getItem("moveCodeSub") || "");
     const [moveId, setMoveId] = useState(() => Number(sessionStorage.getItem("moveIdSub")) || "")
@@ -84,7 +87,17 @@ const UpcomingJobView = () => {
         onSuccess: (data) => {
             console.log("Fresh success data:", data);
             if (data?.responseStatus) {
+                setCurrentStep((prev) => prev + 1);
+                setToast({
+                    message: data.responseMessage,
+                    type: "success"
+                });
                 setShowMoveChecklist(true);
+            } else {
+                setToast({
+                    message: data.responseMessage || "Something went wrong",
+                    type: "error"
+                });
             }
         },
         onError: (error) => {
@@ -113,11 +126,23 @@ const UpcomingJobView = () => {
             setItemsArray(allItems)
         }
     }, [data, error]);
-    const openMoveChecklist = () => {
+
+    // const openMoveCheckList = () => {
+    //     setShowMoveChecklist(true);
+    // }
+
+    const handleStepComplete = (stepIndex) => {
+        if (stepIndex === currentStep) {
+            setCurrentStep(stepIndex + 1);
+        }
+    };
+
+
+    const logArrivalBtn = () => {
         if (moveCode) {
             // debugger
             refetch();
-            setShowMoveChecklist(true);
+
 
         }
 
@@ -126,7 +151,7 @@ const UpcomingJobView = () => {
     const openMoveSuccess = async () => {
         try {
             setLoader(true)
-            const response = await endMove(startMoveValue)
+            const response = await endMove(endMoveValue)
             setLoader(false)
             if (response.responseStatus === false) {
                 setToast({
@@ -169,6 +194,51 @@ const UpcomingJobView = () => {
                     message: response.responseMessage || "Sucessful",
                     type: "success"
                 });
+                setCurrentStep((prev) => prev + 1);
+            }
+
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    const openMoveCheckList = async () => {
+        try {
+            setLoader(true)
+            const response = await trackMove(moveCode)
+            setLoader(false)
+            if (response.responseStatus === false) {
+                setToast({
+                    message: response.responseMessage || "Something went wrong",
+                    type: "error"
+                });
+            } else {
+                // debugger
+                setToast({
+                    message: response.responseMessage || "Sucessful",
+                    type: "success"
+                });
+                if (response?.result) {
+                    const { hasArrived, inTransit, isCompleted } = response.result;
+
+                    if (hasArrived && inTransit && isCompleted) {
+                        setCurrentStep(4);
+                        setStartMoveValue('*******')
+                        setEndMoveValue('*******')
+                    } else if (hasArrived && inTransit) {
+                        setCurrentStep(3);
+                    } else if (hasArrived) {
+                        setCurrentStep(2);
+                    } else {
+                        setCurrentStep(0); // fallback
+                    }
+                } else {
+                    setCurrentStep(0);
+                }
+
+
+                setShowMoveChecklist(true);
+
             }
 
         } catch (e) {
@@ -658,7 +728,7 @@ const UpcomingJobView = () => {
                 </div>
                 {showMoveDetails && <div className="footer_upcoming_jobs">
                     {/* <button>REJECT</button> */}
-                    <button onClick={openMoveChecklist}>START QUOTE</button>
+                    <button onClick={openMoveCheckList} >START QUOTE</button>
                 </div>}
 
             </div>
@@ -703,36 +773,104 @@ const UpcomingJobView = () => {
                             </div>
                         </div>
                         <div className="body_checklist_container">
-                            <div className='body_checklist'>
-                                <input type="checkbox" name="" id="" />
-                                <span>Arrived at pickup location</span>
+                            {/* Step 0 */}
+                            <div className="body_checklist">
+                                <input
+                                    type="checkbox"
+                                    checked={currentStep >= 0}
+                                    disabled={currentStep !== 0 || currentStep === 4}
+                                    onChange={() => handleStepComplete(0)}
+                                    onClick={logArrivalBtn}
+                                />
+                                <span className={currentStep !== 0 ? "disabled-text" : ""}>
+                                    Arrived at pickup location
+                                </span>
                             </div>
-                            <div className='body_checklist'>
-                                <input type="checkbox" name="" id="" />
-                                <span>Loaded Inventory into truck</span>
-                            </div>
-                            <div className='body_checklist'>
-                                <input type="checkbox" name="" id="" />
-                                <span> <strong> Start Move</strong>  using customer tracking code</span>
 
+                            {/* Step 1 */}
+                            <div className="body_checklist">
+                                <input
+                                    type="checkbox"
+                                    checked={currentStep >= 1}
+                                    disabled={currentStep !== 1 || currentStep === 4}
+                                    onChange={() => handleStepComplete(1)}
+                                />
+                                <span className={currentStep !== 1 ? "disabled-text" : ""}>
+                                    Loaded Inventory into truck
+                                </span>
                             </div>
-                            <div className='body_checklist_input'>
-                                <input type="text" name="" onChange={(e) => setStartMoveValue(e.target.value)} placeholder='-----' id="" />
-                                <button className='end_move_btn' onClick={startMoveBtn}>Start move</button>
+
+                            {/* Step 2 – Start Move */}
+                            <div className="body_checklist">
+                                <input
+                                    type="checkbox"
+                                    checked={currentStep >= 2}
+                                    disabled={currentStep !== 2 || currentStep === 4}
+                                />
+                                <span className={currentStep !== 2 ? "disabled-text" : ""}>
+                                    <strong>Start Move</strong> using customer tracking code
+                                </span>
                             </div>
-                            <div className='body_checklist'>
-                                <input type="checkbox" name="" id="" />
-                                <span>Arrived Drop-off Location</span>
+                            <div className="body_checklist_input">
+                                <input
+                                    type="text"
+                                    disabled={currentStep !== 2 || currentStep === 4}
+                                    onChange={(e) => setStartMoveValue(e.target.value)}
+                                    placeholder="-----"
+                                    value={startMoveValue}
+                                />
+                                <button
+                                    className="end_move_btn"
+                                    onClick={startMoveBtn}
+                                    disabled={currentStep !== 2 || currentStep === 4}
+                                >
+                                    Start move
+                                </button>
                             </div>
-                            <div className='body_checklist'>
-                                <input type="checkbox" name="" id="" />
-                                <span> <strong> End Move</strong>  using customer tracking code</span>
+
+                            {/* Step 3 */}
+                            <div className="body_checklist">
+                                <input
+                                    type="checkbox"
+                                    checked={currentStep >= 3}
+                                    disabled={currentStep !== 3 || currentStep === 4}
+                                    onChange={() => handleStepComplete(3)}
+                                />
+                                <span className={currentStep !== 3 ? "disabled-text" : ""}>
+                                    Arrived Drop-off Location
+                                </span>
                             </div>
-                            <div className='body_checklist_input'>
-                                <input type="text" name="" onChange={(e) => setEndMoveValue(e.target.value)} placeholder='-----' id="" />
-                                <button className='end_move_btn' onClick={openMoveSuccess}>End move</button>
+
+                            {/* Step 4 – End Move */}
+                            <div className="body_checklist">
+                                <input
+                                    type="checkbox"
+                                    checked={currentStep >= 4}
+                                    disabled={currentStep !== 4 || currentStep === 4}
+                                />
+                                <span className={currentStep !== 4 ? "disabled-text" : ""}>
+                                    <strong>End Move</strong> using customer tracking code
+                                </span>
                             </div>
+                            <div className="body_checklist_input">
+                                <input
+                                    type="text"
+                                    disabled={currentStep !== 4 || currentStep === 4}
+                                    onChange={(e) => setEndMoveValue(e.target.value)}
+                                    placeholder="-----"
+                                    value={endMoveValue}
+                                />
+                                <button
+                                    className="end_move_btn"
+                                    onClick={openMoveSuccess}
+                                    disabled={currentStep !== 4 || currentStep === 4}
+                                >
+                                    End move
+                                </button>
+                            </div>
+
                         </div>
+
                     </div>
                 </div>
             </div>}

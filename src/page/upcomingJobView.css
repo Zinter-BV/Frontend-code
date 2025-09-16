@@ -280,6 +280,11 @@
     letter-spacing: 30px;
 }
 
+.disabled-text {
+    color: #aaa;
+    pointer-events: none;
+}
+
 .end_move_btn {
     background-color: rgba(5, 77, 150, 1);
     color: rgba(255, 255, 255, 1);

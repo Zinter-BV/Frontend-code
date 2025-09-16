@@ -417,9 +417,11 @@ const Calendar = () => {
                                                     position: 'absolute',
                                                     top: '0',
                                                     left: '0',
-                                                    height: '97%',
+                                                    height: '100%',
+                                                    width: '100%',
                                                     cursor: 'pointer',
-                                                    paddingTop: '5px',
+                                                    paddingTop: '10px',
+                                                    paddingLeft: '10px',
                                                     backgroundColor: 'rgba(228, 242, 251, 1)',
                                                     borderLeft: '4px solid rgba(75, 168, 233, 1)'
                                                 }}
