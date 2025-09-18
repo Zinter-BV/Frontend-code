@@ -124,6 +124,14 @@ const FirstStepCompanies = () => {
         navigate("/vendor-login")
     }
 
+    const handlePrivacyPolicy = () => {
+        window.open("/privacy-policy", "_blank");
+    };
+
+    const handleTermsAndCondition = () => {
+        window.open("/terms", "_blank");
+    };
+
 
     return (
         <div className="container_firstStep">
@@ -211,7 +219,7 @@ const FirstStepCompanies = () => {
                 )}
                 <div className="company_policy">
                     <span>
-                        By creating an account, you accept our <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>
+                        By creating an account, you accept our <a onClick={handleTermsAndCondition} href="#">Terms of Use</a> and <a onClick={handlePrivacyPolicy} href="#">Privacy Policy</a>
                     </span>
                     <span>
                         Already have an account? <a onClick={handleLogin} href="#">Login</a>
