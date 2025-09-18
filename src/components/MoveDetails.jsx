@@ -5,6 +5,8 @@ import MoveSize from "../Assets/SVG/MoveSize";
 import PrimaryBtn from "./PrimaryBtn";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import { setUserDetails } from "../redux/action";
 
 const MoveDetails = () => {
   const navigate = useNavigate();
@@ -315,7 +317,7 @@ const MoveDetails = () => {
           className="w-[400px] max-h-[300px] fromAndToContainer overflow-y-auto bg-white absolute top-[80px] border border-gray-200 rounded-[12px] left-0 shadow-lg z-50"
         >
           <p className="text-[#3C82F6] px-3 mb-1 pt-3 font-sans text-[12px]">
-            {t("moveDetails.suggestedDestinations")}
+            {t("hero.suggestedDestinations")}
           </p>
           {locations.length > 0 ? (
             locations.map((location, index) => (
@@ -331,13 +333,13 @@ const MoveDetails = () => {
                   {location}
                 </p>
                 <p className="text-[12px] font-sans text-[#9e9e9e]">
-                  {t("moveDetails.distanceFromLocation")}
+                  {/* {t("moveDetails.distanceFromLocation")} */}
                 </p>
               </div>
             ))
           ) : (
             <div className="p-3 text-gray-500">
-              {t("moveDetails.noLocationsFound")}
+              {/* {t("moveDetails.noLocationsFound")} */}
             </div>
           )}
         </div>
@@ -351,14 +353,19 @@ const MoveDetails = () => {
     moveSize,
   };
 
+  const dispatch = useDispatch();
+
   const handlePress = () => {
-    if (
-      data.fromLocation === "" ||
-      data.toLocation === "" ||
-      data.moveSize === ""
-    )
-      return;
-    navigate("/quote", { state: { data } });
+    if (data.fromLocation === "" || data.toLocation === "") return;
+    else {
+      dispatch(
+        setUserDetails({
+          pickUpAddress: data.fromLocation,
+          dropOffAddress: data.toLocation,
+        })
+      );
+      navigate("/quote");
+    }
   };
 
   return (
@@ -378,7 +385,7 @@ const MoveDetails = () => {
 
         <div className="w-full bg-white my-4 h-[80px] moveDetailsCtaContainer rounded-[10px] flex">
           {/* Moving From Input */}
-          <div className="w-[28%] moveDetailsBtnBox relative flex justify-between border-r-2 border-[#E3E2E0] p-3 items-center">
+          <div className="w-[42%] moveDetailsBtnBox relative flex justify-between border-r-2 border-[#E3E2E0] p-3 items-center">
             <div className="flex w-[90%] items-center">
               <div className="mr-[8px]">
                 <LocationIcon color="#12B981" />
@@ -400,7 +407,7 @@ const MoveDetails = () => {
           </div>
 
           {/* Moving To Input */}
-          <div className="w-[28%] moveDetailsBtnBox relative flex justify-between border-r-2 border-[#E3E2E0] p-3 items-center">
+          <div className="w-[42%] moveDetailsBtnBox relative flex justify-between border-r-2 border-[#E3E2E0] p-3 items-center">
             <div className="flex w-[90%] items-center">
               <div className="mr-[8px]">
                 <LocationIcon color="#DE2527" />
@@ -422,7 +429,7 @@ const MoveDetails = () => {
           </div>
 
           {/* Moving Size Input */}
-          <div className="w-[28%] moveDetailsBtnBox relative flex justify-between border-r-2 border-[#E3E2E0] p-3 items-center">
+          {/* <div className="w-[28%] moveDetailsBtnBox relative flex justify-between border-r-2 border-[#E3E2E0] p-3 items-center">
             <div className="flex w-[90%] items-center">
               <div className="mr-[8px]">
                 <MoveSize />
@@ -558,12 +565,12 @@ const MoveDetails = () => {
                 {renderTabContent()}
               </div>
             )}
-          </div>
+          </div> */}
 
           {/* Get Quote Button */}
           <div className="w-[16%] flex justify-center p-3 moversBtnContainer items-center">
             <PrimaryBtn
-              // handlePress={handlePress}
+              handlePress={handlePress}
               className="text-[14px] moversBtn"
             >
               GET A QUOTE

@@ -10,7 +10,8 @@
     "subheadline": "Nuestra plataforma usa IA para identificar instantáneamente tus artículos, conectarte con mudanceros confiables y agilizar todo el proceso. Una foto. Un minuto. Un dolor de cabeza menos.",
     "getQuote": "OBTENER COTIZACIÓN",
     "trackMove": "RASTREAR MUDANZA",
-    "activeUsers": "usuarios activos están felices con Zinter"
+    "activeUsers": "usuarios activos están felices con Zinter",
+    "suggestedDestinations": "sugerencias"
   },
   "features": {
     "smarterTitle": "Más Inteligente que un Formulario. Más Fácil que una Llamada",
@@ -196,6 +197,91 @@
   "infoTenDesc2": "Cualquier disputa deberá resolverse primero de manera amistosa. Si no se resuelve, se manejará a través de los canales legales correspondientes en los Países Bajos.",
   "infoEleven": "11. INFORMACIÓN DE CONTACTO",
   "infoElevenDesc": "Para cualquier consulta relacionada con estos Términos y Condiciones, por favor contáctanos: 📧 support@zinter.nl"
-}
+},
+"quoteProgress": {
+  "one": "Detalles de la ubicación",
+  "oneDesc": "Detalles de dónde te mudas",
+  "two": "Configurar lista de inventario",
+  "twoDesc": "Lista detallada de los artículos a trasladar",
+  "three": "Información de la mudanza",
+  "threeDesc": "Fecha, contactos, restricciones, etc.",
+  "four": "Ver resumen",
+  "fourDesc": "Resumen completo de tu mudanza"
+},
+"location": {
+      "title": "Detalles de la ubicación",
+      "from": "desde",
+      "to": "hasta",
+      "btn": "cambiar"
+    },
+     "quoteContainer": {
+      "home": "Inicio",
+      "desc": "Obtén una cotización para una mudanza",
+      "back": "VOLVER",
+      "getQuotes": "OBTENER COTIZACIONES",
+      "continue": "CONTINUAR"
+    },
+    "inventoryList": {
+      "title": "Agrega artículos a tu",
+      "house": "Apartamento",
+      "room": "+ HABITACIÓN ADICIONAL"
+    },
+     "uploadContainer": {
+      "title": "Reconocimiento de imágenes",
+      "desc": "Toma fotos de cada habitación y deja que la IA cree una lista personalizada para tu mudanza o traslado",
+      "btn": "TOMAR FOTO",
+      "secure": "SEGURO Y CONFIDENCIAL"
+    },
+    "roomItemContainer": {
+      "selected": "Artículos seleccionados",
+      "add": "+ AGREGAR ARTÍCULOS",
+      "more": "más"
+    },
+    "uploadModal": {
+      "title1": "Subir imagen",
+      "title2": " Para reconocimiento de imágenes",
+      "btn1": "Lista de inventario",
+      "btn2": " Subir imagen",
+      "desc": "Las imágenes deben ser de muy buena calidad, el tamaño del archivo no debe superar los 2 MB.",
+      "upload":"SUBIR IMAGEN"
+    },
+    "selectImage": {
+      "images": "Imágenes agregadas",
+      "uploading": "Subiendo...",
+      "failed": "Error al subir. Inténtalo de nuevo.",
+      "success": "Subido correctamente",
+      "drop": "Suelta un archivo",
+      "or": "o",
+      "browse": "Buscar"
+    },
+    "moveInformation": {
+      "title1": "Información de la mudanza",
+      "title2": "Habitaciones",
+      "dateTime": "Fecha y hora",
+      "pickupTime": "Hora de recogida",
+      "pickupDate": "Fecha de recogida",
+      "moveTime": "Hora de la mudanza",
+      "moveDate": "Fecha de la mudanza",
+      "contactInfo": "Información de contacto",
+      "fullName": "Nombre completo",
+      "email": "Correo electrónico",
+      "phone": "Número de teléfono",
+      "pickup": "Detalles de recogida",
+      "from": "Desde",
+      "btn": "CAMBIAR",
+      "apartment1": "Número de apartamento",
+      "remark1": "Observaciones sobre la ubicación",
+      "restrictions": "Restricciones",
+      "floors1": "Número de pisos",
+      "longCarry1": "Transporte largo",
+      "elevator1": "¿Ascensor?",
+      "yes": "Sí",
+      "no": "No",
+      "insurance1": "Seguro del edificio",
+      "shuttle1": "¿Necesita transporte?",
+      "needHelp1": "¿Necesita ayuda para empacar sus artículos?",
+      "to": "Hasta"
+    }
+
 
 }

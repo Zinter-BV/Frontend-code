@@ -10,7 +10,8 @@
     "subheadline": "Notre plateforme utilise l'IA pour identifier instantanément vos objets, vous mettre en relation avec des déménageurs de confiance et rationaliser l'ensemble du processus. Une photo. Une minute. Un mal de tête en moins.",
     "getQuote": "OBTENIR UN DEVIS",
     "trackMove": "SUIVRE LE DÉMÉNAGEMENT",
-    "activeUsers": "utilisateurs actifs sont satisfaits de Zinter"
+    "activeUsers": "utilisateurs actifs sont satisfaits de Zinter",
+    "suggestedDestinations": "suggestions"
   },
   "features": {
     "smarterTitle": "Plus Intelligent qu'un Formulaire. Plus Facile qu'un Appel",
@@ -196,6 +197,91 @@
   "infoTenDesc2": "Tout différend doit d'abord être tenté de résoudre à l'amiable. En cas d'échec, il sera traité par les voies légales compétentes aux Pays-Bas.",
   "infoEleven": "11. INFORMATIONS DE CONTACT",
   "infoElevenDesc": "Pour toute question concernant ces Conditions Générales, veuillez nous contacter : 📧 support@zinter.nl"
-}
+},
+"quoteProgress": {
+  "one": "Détails de l’emplacement",
+  "oneDesc": "Détails de l’endroit d’où vous déménagez",
+  "two": "Configurer la liste d’inventaire",
+  "twoDesc": "Liste détaillée des articles à déplacer",
+  "three": "Informations sur le déménagement",
+  "threeDesc": "Date, contacts, restrictions, etc.",
+  "four": "Voir le résumé",
+  "fourDesc": "Résumé complet de votre déménagement"
+},
+ "location": {
+      "title": "Détails de l’emplacement",
+      "from": "de",
+      "to": "à",
+      "btn": "modifier"
+  },
+   "quoteContainer": {
+      "home": "Accueil",
+      "desc": "Obtenez un devis pour un déménagement",
+      "back": "RETOUR",
+      "getQuotes": "OBTENIR DES DEVIS",
+      "continue": "CONTINUER"
+    },
+    "inventoryList": {
+      "title": "Ajoutez des articles à votre",
+      "house": "Appartement",
+      "room": "+ PIÈCE SUPPLÉMENTAIRE"
+    },
+    "uploadContainer": {
+      "title": "Reconnaissance d’images",
+      "desc": "Prenez des photos de chaque pièce et laissez l’IA créer une checklist personnalisée pour votre déménagement",
+      "btn": "PRENDRE PHOTO",
+      "secure": "SÉCURISÉ ET CONFIDENTIEL"
+    },
+    "roomItemContainer": {
+      "selected": "Articles sélectionnés",
+      "add": "+ AJOUTER DES ARTICLES",
+      "more": "plus"
+    },
+     "uploadModal": {
+      "title1": "Téléverser l’image",
+      "title2": " Pour la reconnaissance d’images",
+      "btn1": "Liste d’inventaire",
+      "btn2": " Téléverser l’image",
+      "desc": "Les images doivent être de très bonne qualité, la taille du fichier ne doit pas dépasser 2 Mo.",
+      "upload":"TÉLÉVERSER L’IMAGE"
+    },
+    "selectImage": {
+      "images": "Images ajoutées",
+      "uploading": "Téléversement...",
+      "failed": "Échec du téléversement. Réessayez.",
+      "success": "Téléversé avec succès",
+      "drop": "Déposez un fichier",
+      "or": "ou",
+      "browse": "Parcourir"
+    },
+    "moveInformation": {
+      "title1": "Informations sur le déménagement",
+      "title2": "Pièces",
+      "dateTime": "Date et heure",
+      "pickupTime": "Heure de prise en charge",
+      "pickupDate": "Date de prise en charge",
+      "moveTime": "Heure du déménagement",
+      "moveDate": "Date du déménagement",
+      "contactInfo": "Informations de contact",
+      "fullName": "Nom complet",
+      "email": "Adresse e-mail",
+      "phone": "Numéro de téléphone",
+      "pickup": "Détails de la prise en charge",
+      "from": "De",
+      "btn": "MODIFIER",
+      "apartment1": "Numéro d’appartement",
+      "remark1": "Remarques sur l’emplacement",
+      "restrictions": "Restrictions",
+      "floors1": "Nombre d’étages",
+      "longCarry1": "Transport long",
+      "elevator1": "Ascenseur ?",
+      "yes": "Oui",
+      "no": "Non",
+      "insurance1": "Assurance du bâtiment",
+      "shuttle1": "Besoin de navette ?",
+      "needHelp1": "Besoin d’aide pour emballer vos articles ?",
+      "to": "À"
+    }
+
 
 }

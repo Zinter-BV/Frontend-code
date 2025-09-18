@@ -17,6 +17,7 @@ import {
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import Loader from "./loader";
+import { useTranslation } from "react-i18next";
 
 const QuoteContainer = ({ data }) => {
   const [activeTab, setActiveTab] = useState(1);
@@ -24,14 +25,16 @@ const QuoteContainer = ({ data }) => {
   // gets the whole data needed and puts in one object
   const user = useSelector((state) => state.user);
 
+  const { t } = useTranslation();
+
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
   const navigate = useNavigate();
   // location details
   const [fromLocation, setFromLocation] = useState(
-    user?.userDetails?.pickUpAddress || "Keizersgracht 123, 1015 CJ Amsterdam"
+    user?.userMoveInfo?.pickUpAddress || "Keizersgracht 123, 1015 CJ Amsterdam"
   );
   const [toLocation, setToLocation] = useState(
-    user?.userDetails?.dropOffAddress || "Coolsingel 105, 3012 AG Rotterdam"
+    user?.userMoveInfo?.dropOffAddress || "Coolsingel 105, 3012 AG Rotterdam"
   );
   const [isEditingFrom, setIsEditingFrom] = useState(false);
   const [isEditingTo, setIsEditingTo] = useState(false);
@@ -181,8 +184,7 @@ const QuoteContainer = ({ data }) => {
   // Format the datetime when creating moreInfoData
   const formattedMoveDateTime = formatToISODateTime(moveDate, moveTime);
   const formattedPickUpDateTime = formatToISODateTime(pickUpDate, pickUpTime);
-  console.log(formattedMoveDateTime);
-  console.log(formattedPickUpDateTime);
+
   const moreInfoData = {
     moveTime: formattedMoveDateTime,
     pickUpTime: formattedPickUpDateTime,
@@ -190,8 +192,8 @@ const QuoteContainer = ({ data }) => {
     email,
     phoneNumber,
     provinceId,
-    pickUpAddress: user?.userDetails?.pickUpAddress || fromLocation,
-    dropOffAddress: user?.userDetails?.dropOffAddress || toLocation,
+    pickUpAddress: user?.userMoveInfo?.pickUpAddress || fromLocation,
+    dropOffAddress: user?.userMoveInfo?.dropOffAddress || toLocation,
     pickUpAddressNumber,
     dropOffAddressNumber,
     pickUpLongitude,
@@ -236,8 +238,6 @@ const QuoteContainer = ({ data }) => {
   }
   const dataToSend = mergeTwoObjects(user?.items, user?.moreInfo);
 
-  // responnnse from server
-
   // Remove the wrapper object - send dataToSend directly
   const addUserDetails = async () => {
     const response = await axios.post(
@@ -247,39 +247,9 @@ const QuoteContainer = ({ data }) => {
     return response.data;
   };
 
-  // const mutation = useMutation({
-  // //   mutationFn: addUserDetails,
-
-  // //   onSuccess: (data) => {
-  // //     // console.log(data.responseTime, "Main Status");
-  // //     console.log(data);
-  // //     if (data.responseStatus) {
-  // //       setOpenSuccessModal(true);
-  // //       setEmail("");
-  // //       localStorage.setItem("Code", JSON.stringify(data));
-  // //       setErrMessage("");
-  // //     }
-  // //     if (!data.responseStatus) {
-  // //       setErrMessage(
-  // //         data.responseMessage || "An error occurred. Please try again."
-  // //       );
-  // //     }
-  // //   },
-  // //   onError: (error) => {
-  // //     console.error("Error creating user:", error);
-  // //     setErrMessage("An error occurred. Please try again.");
-  // //   },
-  // // });
-
-  // // const fetchData = () => {
-  // //   mutation.mutate(); // Remove parameter since it's already in the function
-  // // };
-
   const {
     mutate: fetchData,
     isLoading, // true when the request is running
-    isError,
-    isSuccess,
   } = useMutation({
     mutationFn: addUserDetails,
     onSuccess: (data) => {
@@ -315,11 +285,9 @@ const QuoteContainer = ({ data }) => {
           setIsEditingTo={setIsEditingTo}
         />
       );
-      // Code to be executed if expression matches value1
       break;
     case 2:
       content = <InventoryList />;
-      // Code to be executed if expression matches value2
       break;
     case 3:
       content = (
@@ -395,22 +363,17 @@ const QuoteContainer = ({ data }) => {
           errMessage={errMessage}
         />
       );
-      // Code to be executed if expression matches value2
       break;
     case 4:
       content = <ViewSummary errMessage={errMessage} />;
-      // Code to be executed if expression matches value2
       break;
     default:
       content = <Location />;
-    // Code to be executed if expression doesn't match any case
   }
 
   // Function to handle moving forward in tabs
   const handleTabs = () => {
-    console.log(activeTab, "activeTab");
     if (activeTab === 1) {
-      console.log(activeTab, 1);
       dispatch(
         setUserDetails({
           pickUpAddress: fromLocation,
@@ -437,20 +400,17 @@ const QuoteContainer = ({ data }) => {
 
     if (activeTab >= 5) return; // Ensure we don't go beyond the last tab
     setActiveTab((prevTab) => prevTab + 1);
-    console.log("Next Tab:", activeTab + 1);
   };
 
   // Function to handle moving backward in tabs
   const handlePrevTabs = () => {
     if (activeTab <= 1) return; // Ensure we don't go below tab 1
     setActiveTab((prevTab) => prevTab - 1);
-    console.log("Previous Tab:", activeTab - 1);
   };
 
   const handleSubmit = () => {
     console.log(openSuccessModal);
     fetchData();
-    // setOpenSuccessModal(true);
   };
 
   const closeSuccessModal = () => {
@@ -470,7 +430,7 @@ const QuoteContainer = ({ data }) => {
           <div className="flex items-center">
             <Link to="/">
               <p className="text-[#9e9e9e] text-[14px] font-sans leading-[19.6px]">
-                Home
+                {t("quoteContainer.home")}
               </p>{" "}
             </Link>
             <div className="mx-2">
@@ -488,7 +448,7 @@ const QuoteContainer = ({ data }) => {
               </svg>
             </div>
             <p className="text-[#525252] text-[16px] font-bold font-sans  ">
-              Get a quote for a move
+              {t("quoteContainer.desc")}
             </p>
           </div>
           <div className="mt-4  quoteContainer flex ">
@@ -501,14 +461,14 @@ const QuoteContainer = ({ data }) => {
           <div className="w-full flex items-center justify-between">
             {activeTab === 1 ? (
               <p className="text-[#88b5fe]  py-1 px-2 rounded-[20px]  text-[14px] text-manrope font-light ">
-                GO BACK
+                {t("quoteContainer.back")}
               </p>
             ) : (
               <button
                 onClick={() => handlePrevTabs(activeTab)}
                 className="text-[#3C82F6] hover:bg-primary py-1 px-2 hover:text-white rounded-[20px] cursor-pointer text-[14px] text-manrope font-light "
               >
-                GO BACK
+                {t("quoteContainer.back")}
               </button>
             )}
             <div>
@@ -517,14 +477,14 @@ const QuoteContainer = ({ data }) => {
                   handlePress={handleSubmit}
                   className={"text-[14px] "}
                 >
-                  GET QUOTES
+                  {t("quoteContainer.getQuotes")}
                 </PrimaryBtn>
               ) : (
                 <PrimaryBtn
                   handlePress={() => handleTabs(activeTab)}
                   className={"text-[14px] "}
                 >
-                  CONTINUE
+                  {t("quoteContainer.continue")}
                 </PrimaryBtn>
               )}
             </div>
@@ -536,7 +496,7 @@ const QuoteContainer = ({ data }) => {
               onClick={() => handlePrevTabs(activeTab)}
               className="text-[#3C82F6] w-full quoteContainerPrimaryBtn  py-1 px-2 rounded-[20px] cursor-pointer text-[14px] text-manrope font-light "
             >
-              GO BACK
+              {t("quoteContainer.back")}
             </button>
           )}
 
@@ -546,7 +506,7 @@ const QuoteContainer = ({ data }) => {
               "text-[14px] quoteContainerPrimaryBtn hidden my-3 w-full "
             }
           >
-            CONTINUE
+            {t("quoteContainer.continue")}
           </PrimaryBtn>
         </div>
       </div>

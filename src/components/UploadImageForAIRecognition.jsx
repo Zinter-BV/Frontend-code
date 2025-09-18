@@ -1,7 +1,9 @@
 import React from "react";
 import "./UploadImageForAIRecognition.css";
+import { useTranslation } from "react-i18next";
 
 const UploadImageForAIRecognition = ({ openUploadImageModal }) => {
+  const { t } = useTranslation();
   return (
     <div
       onClick={openUploadImageModal}
@@ -33,14 +35,13 @@ const UploadImageForAIRecognition = ({ openUploadImageModal }) => {
               />
             </svg>
             <p className="font-sans imageRecogText text-[20px] my-2 text-[#121212] ">
-              Image Recognition
+              {t("uploadContainer.title")}
             </p>
             <p className=" font-sans text-[14px] imageRecogDesc text-center text-[#121212] mb-2">
-              Take photos of each room and let the AI create a personalized
-              checklist for your move or relocation
+              {t("uploadContainer.desc")}
             </p>
             <button className="self-center bg-primary py-1 px-2 text-white rounded-[20px] cursor-pointer text-[12px] text-manrope font-light ">
-              TAKE PHOTO
+              {t("uploadContainer.btn")}
             </button>
           </div>
         </div>
@@ -76,7 +77,7 @@ const UploadImageForAIRecognition = ({ openUploadImageModal }) => {
           </defs>
         </svg>
         <p className="text-[#054D96] ml-1 textSecure font-sans tetxt-[14px] font-bold  ">
-          SECURE & CONFIDENTIAL
+          {t("uploadContainer.secure")}
         </p>
       </div>
     </div>

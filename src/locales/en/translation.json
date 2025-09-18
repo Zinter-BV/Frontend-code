@@ -10,7 +10,8 @@
     "subheadline": "Our platform uses AI to instantly identify your items, match you with trusted movers, and streamline the entire process. One photo. One minute. One less headache.",
     "getQuote": "GET A QUOTE",
     "trackMove": "TRACK MOVE",
-    "activeUsers": "active users are happy with Zinter"
+    "activeUsers": "active users are happy with Zinter",
+    "suggestedDestinations": "suggestions"
   },
   "features": {
     "smarterTitle": "Smarter Than a Form. Easier Than a Call",
@@ -195,6 +196,91 @@
 "infoTenDesc2":"Any disputes shall first be attempted to be resolved amicably. If unresolved, disputes will be handled through the appropriate legal channels in the Netherlands.",
 "infoEleven":"11. CONTACT INFORMATION",
 "infoElevenDesc":"For any inquiries regarding these Terms & Conditions, please contact us: 📧 support@zinter.nl"
+},
+"quoteProgress":{
+  "one":"Location Details",
+  "oneDesc":"Details of you are moving from",
+  "two":"Setup Inventory List",
+  "twoDesc":"Detailed list of items to be moved",
+  "three":"Moving Information",
+  "threeDesc":"Date, contacts, restrictions, etc...",
+  "four":"View Summary",
+  "fourDesc":"Full summary of your move"
+},
+"location":{
+  "title":"Location Details",
+  "from":"from",
+  "to":"to",
+  "btn":"change"
+},
+"quoteContainer":{
+  "home":"Home",
+  "desc":"Get a quote for a move",
+  "back":"GO BACK",
+  "getQuotes":"GET QUOTES",
+  "continue":"CONTINUE"
+},
+"inventoryList":{
+  "title":"Add items to your",
+  "house":"Apartment",
+  "room":"+ ADDITIONAL ROOM"
+},
+"uploadContainer":{
+  "title":"Image Recognition",
+  "desc":"Take photos of each room and let the AI create a personalized checklist for your move or relocation",
+  "btn":"TAKE PHOTO",
+  "secure":"SECURE & CONFIDENTIAL"
+},
+"roomItemContainer":{
+  "selected":"Items Selected",
+  "add":"+ ADD ITEMS",
+  "more":"more"
+},
+"uploadModal":{
+  "title1":"Upload Image",
+  "title2":" For Image Recognition",
+  "btn1":"Inventory List",
+  "btn2":" Upload Image",
+  "desc":"The images should be of a very good quality, file Size should not be more than 2MB.",
+  "upload":"UPLOAD IMAGE"
+},
+"selectImage":{
+  "images":"Images Added",
+  "uploading":"Uploading...",
+  "failed":"Upload failed. Try again.",
+  "success":"Uploaded successfully",
+  "drop":"Drop a file",
+  "or":"or",
+  "browse":"Browse"
+},
+"moveInformation":{
+  "title1":"Moving Information",
+  "title2":"Rooms",
+  "dateTime":"Date and Time",
+  "pickupTime":"Pickup Time",
+  "pickupDate":"Pickup Date",
+  "moveTime":"Move Time",
+  "moveDate":"Move Date",
+  "contactInfo":"Contact Info",
+  "fullName":"Full Name",
+  "email":"Email Address",
+  "phone":"Phone Number",
+  "pickup":"Pickup Details",
+  "from":"From",
+  "btn":"CHANGE",
+  "apartment1":"Apartment Number",
+  "remark1":"Remarks for the location",
+  "restrictions":"Restrictions",
+  "floors1":"Number of floors",
+  "longCarry1":"Long Carry",
+  "elevator1":"Elevator?",
+  "yes":"Yes",
+  "no":"No",
+  "insurance1":"Building Insurance",
+  "shuttle1":"Need Shuttle?",
+  "needHelp1":"Need help packing your items?",
+  "to":"To"
 }
+
 
 }

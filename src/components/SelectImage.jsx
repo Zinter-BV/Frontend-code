@@ -4,12 +4,14 @@ import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useDispatch } from "react-redux";
 import { setUserItems } from "../redux/action";
+import { useTranslation } from "react-i18next";
 
 const SelectImage = ({ title, onImagesSelected }) => {
   const [preview, setPreview] = useState(null);
   const [fileLength, setFileLength] = useState(0);
   const [allImages, setAllImages] = useState([]);
 
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   // Move uploadImages function outside of useCallback to avoid dependency issues
@@ -156,7 +158,7 @@ const SelectImage = ({ title, onImagesSelected }) => {
                     />
                   </svg>
                   <p className="font-sans text-[14px] text-[#3C82F6] ml-2 leading-[25.6px]">
-                    {fileLength} Images Added
+                    {fileLength} {t("selectImage.images")}
                   </p>
                 </div>
               </div>
@@ -165,25 +167,25 @@ const SelectImage = ({ title, onImagesSelected }) => {
             {/* Upload status indicators */}
             {mutation.isPending && (
               <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-[8px]">
-                <p className="text-white">Uploading...</p>
+                <p className="text-white"> {t("selectImage.uploading")}</p>
               </div>
             )}
 
             {mutation.isError && (
               <div className="absolute inset-0 bg-red-500 bg-opacity-75 flex items-center justify-center rounded-[8px]">
-                <p className="text-white">Upload failed. Try again.</p>
+                <p className="text-white"> {t("selectImage.failed")}</p>
               </div>
             )}
 
             {mutation.isSuccess && (
               <div className="absolute top-2 right-2 bg-green-500 text-white px-2 py-1 rounded text-sm">
-                ✓ Uploaded successfully
+                ✓ {t("selectImage.success")}
               </div>
             )}
           </div>
         ) : (
-          <div className="w-full border-[1px] mt-3 h-[200px] flex justify-center items-center border-dashed rounded-[8px] border-[#c4c4c4]">
-            <div>
+          <div className="w-full border-[1px] mt-3 h-[200px]  flex justify-center items-center border-dashed rounded-[8px] border-[#c4c4c4]">
+            <div className="flex flex-col items-center ">
               <svg
                 className="mx-auto"
                 xmlns="http://www.w3.org/2000/svg"
@@ -210,7 +212,7 @@ const SelectImage = ({ title, onImagesSelected }) => {
                 </defs>
               </svg>
               <p className="text-[#7B7B7B] text-center font-sans text-[16px] leading-[25.6px] my-3">
-                Drop a file
+                {t("selectImage.drop")}
               </p>
               <div className="flex mb-3 items-center">
                 <svg
@@ -226,7 +228,7 @@ const SelectImage = ({ title, onImagesSelected }) => {
                   />
                 </svg>
                 <p className="mx-2 font-sora text-[12px] leading-[14.261px]">
-                  or
+                  {t("selectImage.or")}
                 </p>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -242,7 +244,7 @@ const SelectImage = ({ title, onImagesSelected }) => {
                 </svg>
               </div>
               <button className="self-center border-[1px] border-primary py-2 px-4 text-[#054D96] rounded-[25px] cursor-pointer text-[12px] text-manrope font-light">
-                Browse
+                {t("selectImage.browse")}
               </button>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import Map from "../Assets/Map.svg";
-import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const Location = ({
   fromLocation,
@@ -15,7 +15,7 @@ const Location = ({
   const fromInputRef = useRef(null);
   const toInputRef = useRef(null);
 
-  const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   // Focus input when editing starts
   useEffect(() => {
@@ -69,7 +69,7 @@ const Location = ({
       <div className="justify-between locationDetailsContainer flex ">
         <div className="w-[69%] locationContainer ">
           <h2 className="font-sans text-[20px] mb-4 text-[#121212] font-bold ">
-            Location Details
+            {t("location.title")}
           </h2>
           <div className="w-full  flex flex-col gap-[16px] ">
             <div className="w-full h-[68px] locationFrom rounded-[8px] border-[1px] px-[16px] flex items-center justify-between border-[#e3e3e3] ">
@@ -90,7 +90,7 @@ const Location = ({
                     />
                   </svg>
                   <p className="text-[#b8b8b8] ml-2 font-light font-sans text-[16px] leading-[25.6px] ">
-                    From
+                    {t("location.from")}
                   </p>
                 </div>
                 <div className="flex flex-1">
@@ -118,7 +118,7 @@ const Location = ({
                 onClick={handleFromChange}
                 className="text-[#3C82F6] hover:bg-primary py-1 px-2 hover:text-white rounded-[20px] cursor-pointer text-[10px] text-manrope font-light ml-2"
               >
-                CHANGE
+                {t("location.btn")}
               </button>
             </div>
             <div className="w-full h-[68px] rounded-[8px] locationFrom border-[1px] px-[16px] flex items-center justify-between border-[#e3e3e3] ">
@@ -139,7 +139,7 @@ const Location = ({
                     />
                   </svg>
                   <p className="text-[#b8b8b8] ml-2 font-light font-sans text-[16px] leading-[25.6px] ">
-                    To
+                    {t("location.to")}
                   </p>
                 </div>
                 <div className="flex flex-1">
@@ -167,7 +167,7 @@ const Location = ({
                 onClick={handleToChange}
                 className="text-[#3C82F6] hover:bg-primary py-1 px-2 hover:text-white rounded-[20px] cursor-pointer text-[10px] text-manrope font-light ml-2"
               >
-                CHANGE
+                {t("location.btn")}
               </button>
             </div>
           </div>

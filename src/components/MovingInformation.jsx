@@ -1,5 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import "./movingInformation.css";
+import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const MovingInformation = ({
   moveDate,
@@ -74,6 +76,8 @@ const MovingInformation = ({
 }) => {
   const fromInputRef = useRef(null);
   const toInputRef = useRef(null);
+
+  const { t } = useTranslation();
 
   // Focus input when editing starts
   useEffect(() => {
@@ -223,26 +227,33 @@ const MovingInformation = ({
     }
   };
 
+  // Get unique room names from inventory
+  const data = useSelector((state) => state.user);
+  function getUniqueRooms(items) {
+    return [...new Set(items.map((item) => item.room))];
+  }
+  const uniqueRooms = getUniqueRooms(data?.items || []);
+
   return (
     <div className="ml-4 movingInfoBox w-full">
       <div className="overflow-y-scroll pb-[40px] h-[700px] moveBox custom-scroll w-fit">
         <div className="flex movingInformationHeader mb-4 items-center">
           <h3 className="mr-2 font-sans text-[20px] font-bold text-[#121212] ">
-            Moving Information
+            {t("moveInformation.title1")}
           </h3>
           <p className="font-sans text-[20px] font-semibold italic text-[#9e9e9e]">
-            3 Bedroom Apartment
+            {uniqueRooms?.length} {t("moveInformation.title2")}
           </p>
         </div>
         {errMessage && <p className="text-red-600 mb-4">{errMessage}</p>}
         <div className="p-[24px] movingInformationContainer w-[600px] h-fit mb-20 border-[#e3e3e3] border-[1px] rounded-[12px] ">
           <p className="font-sans text-[#136AB5] text-[18px] font-bold ">
-            Date and Time
+            {t("moveInformation.dateTime")}
           </p>
           <div className="mt-[10px] mb-6 border-[#e3e3e3] border-b-[1px] pb-3 ">
             <div className="flex mb-[10px] flex-col">
               <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                Pickup Time
+                {t("moveInformation.pickupTime")}
               </label>
               <input
                 placeholder="Select Pickup Time"
@@ -254,7 +265,7 @@ const MovingInformation = ({
             </div>
             <div className="flex mb-[10px] flex-col">
               <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                Pickup Date
+                {t("moveInformation.pickupDate")}
               </label>
               <input
                 placeholder="Select Pickup Date"
@@ -269,7 +280,7 @@ const MovingInformation = ({
           <div className="mt-[10px] mb-6 border-[#e3e3e3] border-b-[1px] pb-3 ">
             <div className="flex mb-[15px] flex-col">
               <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                Move Time
+                {t("moveInformation.moveTime")}
               </label>
               <input
                 placeholder="Select Move Time"
@@ -281,7 +292,7 @@ const MovingInformation = ({
             </div>
             <div className="flex mb-[15px] flex-col">
               <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                Move Date
+                {t("moveInformation.moveDate")}
               </label>
               <input
                 placeholder="Select Move Date"
@@ -303,12 +314,12 @@ const MovingInformation = ({
           </div>
 
           <p className="font-sans text-[#136AB5] text-[18px] font-bold ">
-            Contact Info
+            {t("moveInformation.contactInfo")}
           </p>
           <div className="mt-[10px] mb-6 border-[#e3e3e3] border-b-[1px] pb-3 ">
             <div className="flex mb-[15px] flex-col">
               <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                Full Name
+                {t("moveInformation.fullName")}
               </label>
               <input
                 value={fullName}
@@ -320,7 +331,7 @@ const MovingInformation = ({
             </div>
             <div className="flex mb-[10px] flex-col">
               <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                Email Address
+                {t("moveInformation.email")}
               </label>
               <input
                 value={email}
@@ -332,26 +343,20 @@ const MovingInformation = ({
             </div>
             <div className="flex mb-[10px] flex-col">
               <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                Phone Number
+                {t("moveInformation.number")}
               </label>
               <input
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 placeholder="Enter Your Phone Number"
                 type="number"
-                // min={0}
-                // onKeyDown={(e) => {
-                //   if (e.key === "-" || e.key === "e" || e.key === "E") {
-                //     e.preventDefault();
-                //   }
-                // }}
                 className="h-[45px] appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none w-full border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
               />
             </div>
           </div>
           <div>
             <p className="font-sans mb-2 text-[#136AB5] text-[18px] font-bold ">
-              Pickup Details
+              {t("moveInformation.pickup")}
             </p>
             <div className="w-full h-[68px] locationFrom rounded-[8px] border-[1px] px-[16px] flex items-center justify-between border-[#e3e3e3] ">
               <div className="flex items-center flex-1">
@@ -371,7 +376,7 @@ const MovingInformation = ({
                     />
                   </svg>
                   <p className="text-[#b8b8b8] ml-2 font-light font-sans text-[16px] leading-[25.6px] ">
-                    From
+                    {t("moveInformation.from")}
                   </p>
                 </div>
                 <div className="flex flex-1">
@@ -399,18 +404,18 @@ const MovingInformation = ({
                 onClick={handleFromChange}
                 className="text-[#3C82F6] hover:bg-primary py-1 px-2 hover:text-white rounded-[20px] cursor-pointer text-[10px] text-manrope font-light ml-2"
               >
-                CHANGE
+                {t("moveInformation.btn")}
               </button>
             </div>
             <div className="flex mt-4 mb-5 justify-between  items-center apartmentNumberContainer ">
               <div className="flex  w-[35%] mb-[10px] flex-col">
                 <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                  Apartment Number
+                  {t("moveInformation.apartment1")}
                 </label>
                 <input
                   value={pickUpAddressNumber}
                   onChange={(e) => setPickUpAddressNumber(e.target.value)}
-                  placeholder="Apartment Number"
+                  placeholder={t("moveInformation.apartment1")}
                   type="number"
                   min={0}
                   onKeyDown={(e) => {
@@ -423,12 +428,12 @@ const MovingInformation = ({
               </div>
               <div className="flex w-[60%] mb-[10px] flex-col">
                 <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                  Remarks for the location
+                  {t("moveInformation.remark1")}
                 </label>
                 <input
                   value={fromRemark}
                   onChange={(e) => setFromRemark(e.target.value)}
-                  placeholder="Enter Remarks for this location"
+                  placeholder={t("moveInformation.remark1")}
                   type="text"
                   className="h-[45px]  border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
                 />
@@ -436,17 +441,17 @@ const MovingInformation = ({
             </div>
             <div>
               <p className="font-sans mb-2 text-[#136AB5] text-[16px] ">
-                Restrictions
+                {t("moveInformation.restrictions1")}
               </p>
               <div className="flex mt-4 mb-1 justify-between  items-center apartmentNumberContainer">
                 <div className="flex  w-[48%] mb-[10px] flex-col">
                   <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                    Number of floors
+                    {t("moveInformation.floors1")}
                   </label>
                   <input
                     value={fromNumberOfFloors}
                     onChange={(e) => setFromNumberOfFloors(e.target.value)}
-                    placeholder="How many floors"
+                    placeholder={t("moveInformation.floors1")}
                     type="number"
                     min={0}
                     onKeyDown={(e) => {
@@ -464,10 +469,10 @@ const MovingInformation = ({
                 </div>
                 <div className="flex w-[48%] mb-[10px] flex-col">
                   <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                    Long Carry
+                    {t("moveInformation.longCarry1")}
                   </label>
                   <input
-                    placeholder="Enter Number"
+                    placeholder={t("moveInformation.longCarry1")}
                     value={fromLongCarry}
                     onChange={(e) => setFromLongCarry(e.target.value)}
                     type="number"
@@ -489,7 +494,7 @@ const MovingInformation = ({
               <div className="mb-2 elevatorContainer flex">
                 <div className="flex eleInnerBox mb-[10px] mr-4 flex-col">
                   <p className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                    Elevator?
+                    {t("moveInformation.elevator1")}
                   </p>
                   <div className="flex w-[200px] elevatorQuestionBox h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
                     <label
@@ -510,7 +515,7 @@ const MovingInformation = ({
                           onChange={() => setFromHasElevator(true)}
                         />
                         <span className=" text-[#136AB5] font-sans ml-1">
-                          Yes
+                          {t("moveInformation.yes")}
                         </span>
                       </div>
                     </label>
@@ -531,14 +536,16 @@ const MovingInformation = ({
                           checked={fromHasElevator === false}
                           onChange={() => setFromHasElevator(false)}
                         />
-                        <label className="ml-1">No</label>
+                        <label className="ml-1">
+                          {t("moveInformation.no")}
+                        </label>
                       </div>
                     </label>
                   </div>
                 </div>
                 <div className="flex mb-[10px] flex-col">
                   <p className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                    Need Shuttle?
+                    {t("moveInformation.shuttle1")}
                   </p>
                   <div className="flex w-[200px] elevatorQuestionBox h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
                     <label
@@ -559,7 +566,7 @@ const MovingInformation = ({
                           onChange={() => setFromNeedShuttle(true)}
                         />
                         <span className=" text-[#136AB5] font-sans ml-1">
-                          Yes
+                          {t("moveInformation.yes")}
                         </span>
                       </div>
                     </label>
@@ -580,7 +587,7 @@ const MovingInformation = ({
                           checked={fromNeedShuttle === false}
                           onChange={() => setFromNeedShuttle(false)}
                         />
-                        <span className="ml-1">No</span>
+                        <span className="ml-1">{t("moveInformation.no")}</span>
                       </div>
                     </label>
                   </div>
@@ -589,7 +596,7 @@ const MovingInformation = ({
               <div className="mb-3 elevatorContainer flex">
                 <div className="flex eleInnerBox mb-[10px] mr-4 flex-col">
                   <p className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                    Building Insurance
+                    {t("moveInformation.insurance1")}
                   </p>
                   <div className="flex w-[200px] elevatorQuestionBox h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
                     <label
@@ -610,7 +617,7 @@ const MovingInformation = ({
                           onChange={() => setFromHasBuildingInsurance(true)}
                         />
                         <span className=" text-[#136AB5] font-sans ml-1">
-                          Yes
+                          {t("moveInformation.yes")}
                         </span>
                       </div>
                     </label>
@@ -631,14 +638,14 @@ const MovingInformation = ({
                           checked={fromHasBuildingInsurance === false}
                           onChange={() => setFromHasBuildingInsurance(false)}
                         />
-                        <span className="ml-1">No</span>
+                        <span className="ml-1">{t("moveInformation.no")}</span>
                       </div>
                     </label>
                   </div>
                 </div>
                 <div className="flex mb-[10px] flex-col">
                   <p className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                    Need help packing your items?
+                    {t("moveInformation.needHelp1")}
                   </p>
                   <div className="flex w-[200px] elevatorQuestionBox h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
                     <label
@@ -659,7 +666,7 @@ const MovingInformation = ({
                           onChange={() => setFromNeedHelpPacking(true)}
                         />
                         <span className=" text-[#136AB5] font-sans ml-1">
-                          Yes
+                          {t("moveInformation.yes")}
                         </span>
                       </div>
                     </label>
@@ -680,7 +687,7 @@ const MovingInformation = ({
                           checked={fromNeedHelpPacking === false}
                           onChange={() => setFromNeedHelpPacking(false)}
                         />
-                        <span className="ml-1">No</span>
+                        <span className="ml-1">{t("moveInformation.no")}</span>
                       </div>
                     </label>
                   </div>
@@ -705,7 +712,7 @@ const MovingInformation = ({
                     />
                   </svg>
                   <p className="text-[#b8b8b8] ml-2 font-light font-sans text-[16px] leading-[25.6px] ">
-                    To
+                    {t("moveInformation.to")}
                   </p>
                 </div>
                 <div className="flex flex-1">
@@ -733,18 +740,18 @@ const MovingInformation = ({
                 onClick={handleToChange}
                 className="text-[#3C82F6] hover:bg-primary py-1 px-2 hover:text-white rounded-[20px] cursor-pointer text-[10px] text-manrope font-light ml-2"
               >
-                CHANGE
+                {t("moveInformation.btn")}
               </button>
             </div>
             <div className="flex mt-4 mb-5 justify-between  items-center apartmentNumberContainer ">
               <div className="flex  w-[35%] mb-[10px] flex-col">
                 <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                  Apartment Number
+                  {t("moveInformation.apartment1")}
                 </label>
                 <input
                   value={dropOffAddressNumber}
                   onChange={(e) => setDropOffAddressNumber(e.target.value)}
-                  placeholder="Apartment Number"
+                  placeholder={t("moveInformation.apartment1")}
                   type="number"
                   min={0}
                   onKeyDown={(e) => {
@@ -762,12 +769,12 @@ const MovingInformation = ({
               </div>
               <div className="flex w-[60%] mb-[10px] flex-col">
                 <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                  Remarks for the location
+                  {t("moveInformation.remark1")}
                 </label>
                 <input
                   value={toRemark}
                   onChange={(e) => setToRemark(e.target.value)}
-                  placeholder="Enter Remarks for this location"
+                  placeholder={t("moveInformation.remark1")}
                   type="text"
                   className="h-[45px]  border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
                 />
@@ -775,17 +782,17 @@ const MovingInformation = ({
             </div>
             <div>
               <p className="font-sans mb-2 text-[#136AB5] text-[16px] ">
-                Restrictions
+                {t("moveInformation.restrictions1")}
               </p>
               <div className="flex mt-4 mb-1 justify-between  items-center apartmentNumberContainer">
                 <div className="flex  w-[48%] mb-[10px] flex-col">
                   <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                    Number of floors
+                    {t("moveInformation.floors1")}
                   </label>
                   <input
                     value={toNumberOfFloors}
                     onChange={(e) => setToNumberOfFloors(e.target.value)}
-                    placeholder="How many floors"
+                    placeholder={t("moveInformation.floors1")}
                     type="number"
                     min={0}
                     onKeyDown={(e) => {
@@ -803,12 +810,12 @@ const MovingInformation = ({
                 </div>
                 <div className="flex w-[48%] mb-[10px] flex-col">
                   <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                    Long Carry
+                    {t("moveInformation.longCarry1")}
                   </label>
                   <input
                     value={toLongCarry}
                     onChange={(e) => setToLongCarry(e.target.value)}
-                    placeholder="Enter Number"
+                    placeholder={t("moveInformation.longCarry1")}
                     type="number"
                     min={0}
                     onKeyDown={(e) => {
@@ -828,7 +835,7 @@ const MovingInformation = ({
               <div className="mb-2 elevatorContainer flex">
                 <div className="flex eleInnerBox mb-[10px] mr-4 flex-col">
                   <p className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                    Elevator?
+                    {t("moveInformation.elevator1")}
                   </p>
                   <div className="flex w-[200px] elevatorQuestionBox h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
                     <label
@@ -842,7 +849,6 @@ const MovingInformation = ({
                         } rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center `}
                       >
                         <input
-                          placeholder="Enter Number"
                           type="radio"
                           name="to_elevator"
                           id="elevator_yes"
@@ -850,7 +856,7 @@ const MovingInformation = ({
                           onChange={() => setToHasElevator(true)}
                         />
                         <span className=" text-[#136AB5] font-sans ml-1">
-                          Yes
+                          {t("moveInformation.yes")}
                         </span>
                       </div>
                     </label>
@@ -865,21 +871,20 @@ const MovingInformation = ({
                         }`}
                       >
                         <input
-                          placeholder="Enter Number"
                           type="radio"
                           name="to_elevator"
                           id="elevator_no"
                           checked={toHasElevator === false}
                           onChange={() => setToHasElevator(false)}
                         />
-                        <span className="ml-1">No</span>
+                        <span className="ml-1">{t("moveInformation.no")}</span>
                       </div>
                     </label>
                   </div>
                 </div>
                 <div className="flex mb-[10px] flex-col">
                   <p className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                    Need Shuttle?
+                    {t("moveInformation.shuttle1")}
                   </p>
                   <div className="flex w-[200px] elevatorQuestionBox h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
                     <label
@@ -893,7 +898,6 @@ const MovingInformation = ({
                         } rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center `}
                       >
                         <input
-                          placeholder="Enter Number"
                           type="radio"
                           name="to_shuttle"
                           id="need_to_Shuttle_yes"
@@ -901,7 +905,7 @@ const MovingInformation = ({
                           onChange={() => setToNeedShuttle(true)}
                         />
                         <span className=" text-[#136AB5] font-sans ml-1">
-                          Yes
+                          {t("moveInformation.yes")}
                         </span>
                       </div>
                     </label>
@@ -916,14 +920,13 @@ const MovingInformation = ({
                         }`}
                       >
                         <input
-                          placeholder="Enter Number"
                           type="radio"
                           name="to_shuttle"
                           id="need_to_Shuttle_no"
                           checked={toNeedShuttle === false}
                           onChange={() => setToNeedShuttle(false)}
                         />
-                        <span className="ml-1">No</span>
+                        <span className="ml-1">{t("moveInformation.no")}</span>
                       </div>
                     </label>
                   </div>
@@ -932,7 +935,7 @@ const MovingInformation = ({
               <div className="mb-3 elevatorContainer flex">
                 <div className="flex eleInnerBox mb-[10px] mr-4 flex-col">
                   <p className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                    Building Insurance
+                    {t("moveInformation.insurance1")}
                   </p>
                   <div className="flex w-[200px] elevatorQuestionBox h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
                     <label
@@ -946,7 +949,6 @@ const MovingInformation = ({
                         } rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center `}
                       >
                         <input
-                          placeholder="Enter Number"
                           type="radio"
                           name="to_insurance"
                           id="to_insurance_yes"
@@ -954,7 +956,7 @@ const MovingInformation = ({
                           onChange={() => setToHasBuildingInsurance(true)}
                         />
                         <span className=" text-[#136AB5] font-sans ml-1">
-                          Yes
+                          {t("moveInformation.yes")}
                         </span>
                       </div>
                     </label>
@@ -969,21 +971,20 @@ const MovingInformation = ({
                         }`}
                       >
                         <input
-                          placeholder="Enter Number"
                           type="radio"
                           name="to_insurance"
                           id="to_insurance_no"
                           checked={toHasBuildingInsurance === false}
                           onChange={() => setToHasBuildingInsurance(false)}
                         />
-                        <span className="ml-1">No</span>
+                        <span className="ml-1">{t("moveInformation.no")}</span>
                       </div>
                     </label>
                   </div>
                 </div>
                 <div className="flex mb-[10px] flex-col">
                   <p className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                    Need help packing your items?
+                    {t("moveInformation.needHelp1")}
                   </p>
                   <div className="flex w-[200px] elevatorQuestionBox h-[45px] border-[1px] rounded-[8px] border-[#e3e3e3] items-center">
                     <label
@@ -997,7 +998,6 @@ const MovingInformation = ({
                         } rounded-tl-[8px] rounded-bl-[8px] h-full border-r-[1px] justify-center border-[#e3e3e3] items-center `}
                       >
                         <input
-                          placeholder="Enter Number"
                           type="radio"
                           name="to_need_help"
                           id="need_help_to_yes"
@@ -1005,7 +1005,7 @@ const MovingInformation = ({
                           onChange={() => setToNeedHelpPacking(true)}
                         />
                         <span className=" text-[#136AB5] font-sans ml-1">
-                          Yes
+                          {t("moveInformation.yes")}
                         </span>
                       </div>
                     </label>
@@ -1020,14 +1020,13 @@ const MovingInformation = ({
                         }`}
                       >
                         <input
-                          placeholder="Enter Number"
                           type="radio"
                           name="to_need_help"
                           id="need_help_to_no"
                           checked={toNeedHelpPacking === false}
                           onChange={() => setToNeedHelpPacking(false)}
                         />
-                        <span className="ml-1">No</span>
+                        <span className="ml-1">{t("moveInformation.no")}</span>
                       </div>
                     </label>
                   </div>
