@@ -234,7 +234,9 @@
 "roomItemContainer":{
   "selected":"Items Selected",
   "add":"+ ADD ITEMS",
-  "more":"more"
+  "more":"more",
+  "addItems":"ADD ITEMS"
+
 },
 "uploadModal":{
   "title1":"Upload Image",
@@ -280,7 +282,86 @@
   "shuttle1":"Need Shuttle?",
   "needHelp1":"Need help packing your items?",
   "to":"To"
-}
+},
+
+  "summary":{
+    "title":"Move Summary",
+    "movingFrom":"Moving From",
+    "movingTo":"Moving To",
+    "moveSize":"Move Size",
+    "house":"House",
+    "rooms":"Rooms",
+    "livingRoom":"Living Room",
+    "toilet":"Toilet and Bath",
+    "kitchen":"Kitchen",
+    "items":"items selected",
+    "dinning":"Dinning Room",
+    "bed":"Bedroom",
+    "moveDate":"Move Date",
+    "day":"Day",
+    "moveTime":"Move Time",
+    "moverPhone":"Movers phone",
+     "moverEmail":"Movers Email",
+    "address":"Address"
+}, 
+"quoteSuccess":{
+  "thanks":"Thank you for requesting a quote",
+  "sentToEmail":"Your quotes are on their way to your email",
+  "btn":"OK, GOT IT"
+},
+"moversProgress": {
+    "location": "Location Details",
+    "setup": "Setup Inventory List",
+    "moving": "Moving Information",
+    "view": "View Summary",
+    "recommended": "Recommended Movers",
+    "list": "List of moving companies & quotes",
+    "payment": "Make Payment",
+    "easy": "Make your payment easily",
+    "track": "Track Move",
+    "start": "Start Tracking your move"
+  },
+  "moversContainer": {
+    "back": "GO BACK",
+    "payment": "COMPLETE PAYMENT",
+    "make": "MAKE PAYMENT"
+  },
+  "recommendedList": {
+    "loading": "Loading Movers",
+    "error": "Error loading movers",
+    "btn": "Try Again",
+    "showing": "Showing",
+    "movers": "Recommended Movers",
+    "found": "No movers found"
+  },
+  "payment": {
+    "complete": "Complete Payment",
+    "from": "From",
+    "to": "To",
+    "miles": "miles away",
+    "card": "New credit or debit card",
+    "cardNumber": "Card Number",
+    "expire": "Expiration",
+    "cvv": "CVV",
+    "postal": "Postal Code",
+    "save": "Save this credit card for future use",
+     "available": "Available"
+  },
+  "trackMove": {
+    "title": "Track Move",
+    "desc": "Make sure you get in touch with moving company to confirm any needed information",
+    "timeline": "Move Timeline",
+    "paymentMade": "Payment Made",
+    "paymentConfirmed": "Payment confirmed and tracking code generated",
+    "pickupStart": "Pickup & Move Start",
+    "mover": "Mover navigates to pickup location on schedule.",
+    "transit": "Mover In Transit",
+    "belongings": "Belongings securely loaded; transit begins immediately.",
+    "unload": "Unloading Move",
+    "moverUnload": "Mover unloads inventory at delivery location."
+  }
+
+
 
 
 }

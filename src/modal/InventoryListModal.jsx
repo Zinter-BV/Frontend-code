@@ -5,6 +5,7 @@ import "./InventoryListModal.css";
 import { useDispatch } from "react-redux";
 import { setUserItems } from "../redux/action";
 import SearchIcon from "../Assets/SVG/SearchIcon";
+import { useTranslation } from "react-i18next";
 
 const InventoryListModal = ({
   activeRoom,
@@ -18,6 +19,8 @@ const InventoryListModal = ({
   const [isLoadingImages, setIsLoadingImages] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredItems, setFilteredItems] = useState([]);
+
+  const { t } = useTranslation();
 
   // Centralized room data configuration with dynamic imports
   const ROOM_DATA = {
@@ -270,7 +273,7 @@ const InventoryListModal = ({
         <div className="flex items-center w-full justify-between p-[28px] border-b-[1px] border-[#E3E8EF] ">
           <div className="flex inventoryListHeader items-center">
             <h3 className="mr-2 font-sans text-[20px] font-bold text-[#121212] ">
-              Add Items
+              {t("roomItemContainer.addItems")}
             </h3>
           </div>
           <div
@@ -304,7 +307,7 @@ const InventoryListModal = ({
                       : "text-[#9e9e9e]"
                   }`}
                 >
-                  Inventory List
+                  {t("uploadModal.btn1")}
                 </p>
               </div>
               <div
@@ -312,7 +315,7 @@ const InventoryListModal = ({
                 className={`h-[36px]  cursor-pointer {${!isInventoryListModalOpen} && border-[1px]}  rounded-[1000px] p-[10px] flex justify-center items-center border-[#E5E5E5] `}
               >
                 <p className="font-sans text-[16px] inventoryListModal leading-[25.6px] text-[#9e9e9e] ">
-                  Upload Image
+                  {t("uploadModal.btn2")}
                 </p>
               </div>
             </div>
@@ -394,7 +397,7 @@ const InventoryListModal = ({
               <p className="font-sans text-[16px] w-[130px] text-[#3C82F6] ml-2 leading-[25.6px] ">
                 {items.length}{" "}
                 <span className="selectedItems  uploadImageItemSelected">
-                  Items Selected
+                  {t("roomItemContainer.selected")}
                 </span>
               </p>
             </div>
@@ -423,7 +426,7 @@ const InventoryListModal = ({
             onClick={handleSubmit}
             className="self-center bg-primary py-2 px-4 w-[150px] inventoryListBtn text-white rounded-[20px] cursor-pointer text-[12px] text-manrope font-light "
           >
-            ADD ITEMS
+            {t("roomItemContainer.addItems")}
           </button>
         </div>
       </div>

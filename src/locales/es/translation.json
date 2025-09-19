@@ -235,7 +235,8 @@
     "roomItemContainer": {
       "selected": "Artículos seleccionados",
       "add": "+ AGREGAR ARTÍCULOS",
-      "more": "más"
+      "more": "más",
+      "addItems": "AGREGAR ARTÍCULOS"
     },
     "uploadModal": {
       "title1": "Subir imagen",
@@ -281,7 +282,89 @@
       "shuttle1": "¿Necesita transporte?",
       "needHelp1": "¿Necesita ayuda para empacar sus artículos?",
       "to": "Hasta"
-    }
+    },
+    "summary": {
+  "title": "Resumen de la Mudanza",
+  "movingFrom": "Mudanza desde",
+  "movingTo": "Mudanza a",
+  "moveSize": "Tamaño de la mudanza",
+  "house": "Casa",
+  "rooms": "Habitaciones",
+  "livingRoom": "Sala de estar",
+  "toilet": "Baño",
+  "kitchen": "Cocina",
+  "items": "artículos seleccionados",
+  "dinning": "Comedor",
+  "bed": "Dormitorio",
+  "moveDate": "Fecha de mudanza",
+  "day": "Día",
+  "moveTime": "Hora de mudanza",
+  "moverPhone": "Teléfono de los mudadores",
+  "moverEmail": "Correo electrónico de los mudadores",
+  "address": "Dirección"
+},
+"quoteSuccess": {
+    "thanks": "Gracias por solicitar una cotización",
+    "sentToEmail": "Tus cotizaciones están en camino a tu correo electrónico",
+    "btn": "OK, ENTENDIDO"
+  },
+  "trackCode": {
+    "home": "Inicio",
+    "track": "Sigue el progreso de tu mudanza",
+    "enterCode": "Ingresa el código para rastrear la mudanza",
+    "btn": "COMENZAR A RASTREAR LA MUDANZA"
+  },
+  "moversProgress": {
+    "location": "Detalles de la ubicación",
+    "setup": "Configurar lista de inventario",
+    "moving": "Información de la mudanza",
+    "view": "Ver resumen",
+    "recommended": "Mudadores recomendados",
+    "list": "Lista de empresas de mudanza y cotizaciones",
+    "payment": "Realizar pago",
+    "easy": "Realiza tu pago fácilmente",
+    "track": "Rastrear mudanza",
+    "start": "Comenzar a rastrear tu mudanza"
+  },
+   "moversContainer": {
+    "back": "REGRESAR",
+    "payment": "COMPLETAR PAGO",
+    "make": "REALIZAR PAGO"
+  },
+  "recommendedList": {
+    "loading": "Cargando mudadores",
+    "error": "Error al cargar mudadores",
+    "btn": "Intentar de nuevo",
+    "showing": "Mostrando",
+    "movers": "Mudadores recomendados",
+    "found": "No se encontraron mudadores"
+  },
+  "payment": {
+    "complete": "Completar pago",
+    "from": "De",
+    "to": "A",
+    "miles": "millas de distancia",
+    "card": "Nueva tarjeta de crédito o débito",
+    "cardNumber": "Número de tarjeta",
+    "expire": "Vencimiento",
+    "cvv": "CVV",
+    "postal": "Código postal",
+    "save": "Guardar esta tarjeta de crédito para uso futuro",
+    "available": "Disponible"
+  },
+  "trackMove": {
+    "title": "Rastreo de Mudanza",
+    "desc": "Asegúrate de ponerte en contacto con la empresa de mudanza para confirmar cualquier información necesaria",
+    "timeline": "Cronología de la mudanza",
+    "paymentMade": "Pago realizado",
+    "paymentConfirmed": "Pago confirmado y código de seguimiento generado",
+    "pickupStart": "Inicio de recogida y mudanza",
+    "mover": "El mudador se dirige a la ubicación de recogida según lo programado.",
+    "transit": "Mudador en tránsito",
+    "belongings": "Pertenencias cargadas de forma segura; el tránsito comienza inmediatamente.",
+    "unload": "Descargando mudanza",
+    "moverUnload": "El mudador descarga el inventario en la ubicación de entrega."
+  }
 
 
 }

@@ -343,7 +343,7 @@ const MovingInformation = ({
             </div>
             <div className="flex mb-[10px] flex-col">
               <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                {t("moveInformation.number")}
+                {t("moveInformation.phone")}
               </label>
               <input
                 value={phoneNumber}
@@ -441,7 +441,7 @@ const MovingInformation = ({
             </div>
             <div>
               <p className="font-sans mb-2 text-[#136AB5] text-[16px] ">
-                {t("moveInformation.restrictions1")}
+                {t("moveInformation.restrictions")}
               </p>
               <div className="flex mt-4 mb-1 justify-between  items-center apartmentNumberContainer">
                 <div className="flex  w-[48%] mb-[10px] flex-col">
@@ -782,7 +782,7 @@ const MovingInformation = ({
             </div>
             <div>
               <p className="font-sans mb-2 text-[#136AB5] text-[16px] ">
-                {t("moveInformation.restrictions1")}
+                {t("moveInformation.restrictions")}
               </p>
               <div className="flex mt-4 mb-1 justify-between  items-center apartmentNumberContainer">
                 <div className="flex  w-[48%] mb-[10px] flex-col">

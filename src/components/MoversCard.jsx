@@ -2,6 +2,7 @@ import React from "react";
 import img from "../Assets/Rectangle 4562.svg";
 import { useDispatch } from "react-redux";
 import { setMoversData } from "../redux/action";
+import { useTranslation } from "react-i18next";
 
 const MoversCard = ({ makeActive, quoteData }) => {
   const dispatch = useDispatch();
@@ -9,6 +10,8 @@ const MoversCard = ({ makeActive, quoteData }) => {
     dispatch(setMoversData(quoteData));
     makeActive();
   };
+
+  const { t } = useTranslation();
 
   return (
     <div
@@ -40,7 +43,7 @@ const MoversCard = ({ makeActive, quoteData }) => {
             </p>
             <div className="bg-[#DCFAE6] rounded-[4px] px-[8px] py-[4px] ">
               <p className="text-[#079455] cardCompanyAvailability text-[14px] font-sans leading-[18.2px] ">
-                Available
+                {t("payment.available")}
               </p>
             </div>
           </div>
@@ -49,7 +52,7 @@ const MoversCard = ({ makeActive, quoteData }) => {
 
       <div className="w-[90%] mx-auto mt-3 ">
         <p className="text-[#9e9e9e] font-thin text-[16px] cardCompanyDistance leading-[25.6px] font-sans ">
-          22 miles away
+          22 {t("payment.miles")}
         </p>
         <div className="flex items-center mt-2 justify-between">
           <p className="font-sans text-[32px] cardCompanyAmount leading-[38.5px] font-normal ">

@@ -11,12 +11,15 @@ import "./MoversContainer.css";
 import { useSelector } from "react-redux";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 const MoversContainer = ({ trackingCode }) => {
   const [activeTab, setActiveTab] = useState(1);
   const [isPaymentMade, setIsPaymentMade] = useState(false);
 
   const [isActive, setIsActive] = useState(false);
+
+  const { t } = useTranslation();
 
   const [err, setErr] = useState(false);
 
@@ -139,14 +142,14 @@ const MoversContainer = ({ trackingCode }) => {
             <div className="w-full flex items-center justify-between">
               {activeTab === 1 ? (
                 <p className="text-[#88b5fe]  py-1 px-2 rounded-[20px]  text-[14px] text-manrope font-light ">
-                  GO BACK
+                  {t("moversContainer.back")}
                 </p>
               ) : (
                 <button
                   onClick={() => handlePrevTabs(activeTab)}
                   className="text-[#3C82F6] hover:bg-primary py-1 px-2 hover:text-white rounded-[20px] cursor-pointer text-[14px] text-manrope font-light "
                 >
-                  GO BACK
+                  {t("moversContainer.back")}
                 </button>
               )}
               <div>
@@ -155,14 +158,14 @@ const MoversContainer = ({ trackingCode }) => {
                     handlePress={openModal}
                     className={"text-[14px] "}
                   >
-                    COMPLETE PAYMENT
+                    {t("moversContainer.payment")}
                   </PrimaryBtn>
                 ) : (
                   <PrimaryBtn
                     handlePress={() => handleTabs(activeTab)}
                     className={"text-[14px] "}
                   >
-                    MAKE PAYMENT
+                    {t("moversContainer.make")}
                   </PrimaryBtn>
                 )}
               </div>
@@ -175,7 +178,7 @@ const MoversContainer = ({ trackingCode }) => {
               onClick={() => handlePrevTabs(activeTab)}
               className="text-[#3C82F6] w-full quoteContainerPrimaryBtn  py-1 px-2 rounded-[20px] cursor-pointer text-[14px] text-manrope font-light "
             >
-              GO BACK
+              {t("moversContainer.back")}
             </button>
           )}
           <div>
@@ -186,7 +189,7 @@ const MoversContainer = ({ trackingCode }) => {
                   "text-[14px] quoteContainerPrimaryBtn hidden my-3 w-full "
                 }
               >
-                COMPLETE PAYMENT
+                {t("moversContainer.payment")}
               </PrimaryBtn>
             ) : (
               <PrimaryBtn
@@ -195,7 +198,7 @@ const MoversContainer = ({ trackingCode }) => {
                   "text-[14px] quoteContainerPrimaryBtn hidden my-3 w-full "
                 }
               >
-                MAKE PAYMENT
+                {t("moversContainer.make")}
               </PrimaryBtn>
             )}
           </div>

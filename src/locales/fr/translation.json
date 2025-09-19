@@ -235,7 +235,8 @@
     "roomItemContainer": {
       "selected": "Articles sélectionnés",
       "add": "+ AJOUTER DES ARTICLES",
-      "more": "plus"
+      "more": "plus",
+      "addItems": "AJOUTER DES ARTICLES"
     },
      "uploadModal": {
       "title1": "Téléverser l’image",
@@ -281,7 +282,90 @@
       "shuttle1": "Besoin de navette ?",
       "needHelp1": "Besoin d’aide pour emballer vos articles ?",
       "to": "À"
-    }
+    },
+    "summary": {
+  "title": "Résumé du Déménagement",
+  "movingFrom": "Déménagement de",
+  "movingTo": "Déménagement vers",
+  "moveSize": "Taille du déménagement",
+  "house": "Maison",
+  "rooms": "Pièces",
+  "livingRoom": "Salon",
+  "toilet": "Salle de bain et toilettes",
+  "kitchen": "Cuisine",
+  "items": "articles sélectionnés",
+  "dinning": "Salle à manger",
+  "bed": "Chambre",
+  "moveDate": "Date du déménagement",
+  "day": "Jour",
+  "moveTime": "Heure du déménagement",
+  "moverPhone": "Téléphone des déménageurs",
+  "moverEmail": "Email des déménageurs",
+  "address": "Adresse"
+},
+"quoteSuccess": {
+    "thanks": "Merci d'avoir demandé un devis",
+    "sentToEmail": "Vos devis sont en route vers votre email",
+    "btn": "OK, J'AI COMPRIS"
+  },
+   "trackCode": {
+    "home": "Accueil",
+    "track": "Suivez l’avancement de votre déménagement",
+    "enterCode": "Entrez le code pour suivre le déménagement",
+    "btn": "COMMENCER LE SUIVI DU DÉMÉNAGEMENT"
+  },
+  "moversProgress": {
+    "location": "Détails de l’emplacement",
+    "setup": "Configurer la liste d’inventaire",
+    "moving": "Informations sur le déménagement",
+    "view": "Voir le résumé",
+    "recommended": "Déménageurs recommandés",
+    "list": "Liste des entreprises de déménagement et devis",
+    "payment": "Effectuer le paiement",
+    "easy": "Effectuez votre paiement facilement",
+    "track": "Suivre le déménagement",
+    "start": "Commencer à suivre votre déménagement"
+  },
+  "moversContainer": {
+    "back": "RETOUR",
+    "payment": "TERMINER LE PAIEMENT",
+    "make": "EFFECTUER LE PAIEMENT"
+  },
+  "recommendedList": {
+    "loading": "Chargement des déménageurs",
+    "error": "Erreur lors du chargement des déménageurs",
+    "btn": "Réessayer",
+    "showing": "Affichage",
+    "movers": "Déménageurs recommandés",
+    "found": "Aucun déménageur trouvé"
+  },
+  "payment": {
+    "complete": "Effectuer le paiement",
+    "from": "De",
+    "to": "À",
+    "miles": "miles de distance",
+    "card": "Nouvelle carte de crédit ou de débit",
+    "cardNumber": "Numéro de carte",
+    "expire": "Expiration",
+    "cvv": "CVV",
+    "postal": "Code postal",
+    "save": "Enregistrer cette carte de crédit pour une utilisation future",
+    "available": "Disponible"
+  },
+  "trackMove": {
+    "title": "Suivi de la Mudance",
+    "desc": "Assurez-vous de contacter l’entreprise de déménagement pour confirmer toute information nécessaire",
+    "timeline": "Chronologie du déménagement",
+    "paymentMade": "Paiement effectué",
+    "paymentConfirmed": "Paiement confirmé et code de suivi généré",
+    "pickupStart": "Début de la collecte et du déménagement",
+    "mover": "Le déménageur se rend au lieu de collecte selon le planning.",
+    "transit": "Déménageur en transit",
+    "belongings": "Objets chargés en toute sécurité ; le transit commence immédiatement.",
+    "unload": "Déchargement de la mudance",
+    "moverUnload": "Le déménageur décharge l’inventaire à l’emplacement de livraison."
+  }
+
 
 
 }

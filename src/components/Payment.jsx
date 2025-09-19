@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 
 const Payment = () => {
@@ -8,7 +9,7 @@ const Payment = () => {
   const [cvv, setCvv] = useState("");
 
   const moversData = useSelector((state) => state.user.moversData);
-  console.log(moversData);
+  const { t } = useTranslation();
 
   // card number
   const formatCardNumber = (value) => {
@@ -59,7 +60,7 @@ const Payment = () => {
     <div className="ml-4 h-fit movingCompanyDetailBox w-full">
       <div className="overflow-y-scroll pb-[70px] custom-scroll ">
         <p className="font-sans text-[20px] text-[#121212] font-bold ">
-          Complete Payment
+          {t("payment.complete")}
         </p>
         <div className="my-5 border-[1px] w-full h-[146px] flex justify-center moveDetailsMainiContainer items-center rounded-[20px] border-[#136AB5] ">
           <div className=" w-[95%] moveDetailsOptionsContainer flex items-center justify-between h-[75%]">
@@ -116,7 +117,7 @@ const Payment = () => {
                       </svg>
                     </div>
                     <p className="text-[#b8b8b8] ml-2 font-light font-sans text-[16px] leading-[25.6px] ">
-                      From
+                      {t("payment.from")}
                     </p>
                   </div>
                   <div className="flex">
@@ -177,7 +178,7 @@ const Payment = () => {
                       </svg>
                     </div>
                     <p className="text-[#b8b8b8] ml-2 font-light font-sans text-[16px] leading-[25.6px] ">
-                      To
+                      {t("payment.to")}
                     </p>
                   </div>
                   <div className="flex">
@@ -194,7 +195,7 @@ const Payment = () => {
             <div className="w-[42%] movingCompanyMoreDetails h-full flex flex-col justify-between  ">
               <div className="webOptionsContainer">
                 <p className="text-[#9e9e9e] font-normal text-[16px] leading-[25.6px] font-sans ">
-                  22 miles away
+                  22 {t("payment.miles")}
                 </p>
                 <p className="font-unbounded text-[36px] leading-[38.5px] text-[#136AB5] font-semibold ">
                   {" "}
@@ -211,7 +212,7 @@ const Payment = () => {
                 </p>
                 <div>
                   <p className="text-[#9e9e9e] mobileOptionsContainerDistance font-normal text-[16px] leading-[25.6px] font-sans ">
-                    22 miles away
+                    22 {t("payment.miles")}
                   </p>
                   <p className="text-[16px] leading-[25.6px] mobileOptionsContainerOptions font-light text-[#373737] font-sans ">
                     Pickup & delivery included
@@ -294,7 +295,7 @@ const Payment = () => {
                 />
               </svg>
               <p className="font-sans ml-2 paymentCardText text-[16px] text-[#121212] leading-[25.6px] ">
-                New credit or debit card
+                {t("payment.card")}
               </p>
             </div>
             <div className="">
@@ -314,7 +315,7 @@ const Payment = () => {
           <div className="mt-4">
             <div className="mb-4">
               <label className="font-sans text-[14px] text-[#707070] font-extralight leading-[18.2px] ">
-                Card Number
+                {t("payment.cardNumber")}
               </label>
               <div className="h-[50px] mt-1 flex items-center ">
                 <div className="bg-[#E2E8F0] w-[50px] items-center justify-center flex h-full rounded-l-[6px] ">
@@ -355,7 +356,7 @@ const Payment = () => {
             <div className="flex justify-between gap-[16px] items-center">
               <div className="w-full">
                 <label className="font-sans block mb-2 text-[14px] text-[#707070] font-extralight leading-[18.2px] ">
-                  Expiration
+                  {t("payment.expire")}
                 </label>
                 <input
                   type="text"
@@ -368,7 +369,7 @@ const Payment = () => {
               </div>
               <div className="w-full">
                 <label className="font-sans block mb-2 text-[14px] text-[#707070] font-extralight leading-[18.2px] ">
-                  CVV
+                  {t("payment.cvv")}
                 </label>
                 <input
                   type="text"
@@ -381,7 +382,7 @@ const Payment = () => {
               </div>
               <div className="w-full">
                 <label className="font-sans block mb-2 text-[14px] text-[#707070] font-extralight leading-[18.2px] ">
-                  Postal Code
+                  {t("payment.postal")}
                 </label>
                 <input
                   type="text"
@@ -403,7 +404,7 @@ const Payment = () => {
                 className="font-sans font-extralight paymentCard ml-2 text-[16px] text-[#555]"
                 htmlFor="check"
               >
-                Save this credit card for future use
+                {t("payment.save")}
               </label>
             </div>
           </div>

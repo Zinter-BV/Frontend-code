@@ -1,6 +1,8 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const StaticMoversStepper = () => {
+  const { t } = useTranslation();
   const activeTab = 4;
   return (
     <div className="h-fit w-[350px] staticContainer mb-4 bg-[#f7f7f7] rounded-[20px] border-[1px] border-[#E4F2FB] px-[24px] py-[32px] ">
@@ -30,8 +32,10 @@ const StaticMoversStepper = () => {
           </div>
         </div>
         <div className="h-[70px] ">
-          <p className={`text-[#121212] font-sans font-bold text-[16px] mb-2`}>
-            Location Details
+          <p
+            className={`text-[#121212] max-w-[210px] truncate font-sans font-bold text-[16px] mb-2`}
+          >
+            {t("moversProgress.location")}
           </p>
         </div>
       </div>
@@ -61,8 +65,10 @@ const StaticMoversStepper = () => {
           </div>
         </div>
         <div className="h-[70px] ">
-          <p className={`text-[#121212] font-sans font-bold text-[16px] mb-2`}>
-            Setup Inventory List
+          <p
+            className={`text-[#121212] max-w-[210px] truncate font-sans font-bold text-[16px] mb-2`}
+          >
+            {t("moversProgress.setup")}
           </p>
         </div>
       </div>
@@ -92,8 +98,10 @@ const StaticMoversStepper = () => {
           </div>
         </div>
         <div className="h-[70px] ">
-          <p className={`text-[#121212] font-sans font-bold text-[16px] mb-2`}>
-            Moving Information
+          <p
+            className={`text-[#121212] max-w-[210px] truncate font-sans font-bold text-[16px] mb-2`}
+          >
+            {t("moversProgress.moving")}
           </p>
         </div>
       </div>
@@ -118,8 +126,10 @@ const StaticMoversStepper = () => {
           </div>
         </div>
         <div className="h-fit ">
-          <p className={`text-[#121212] font-sans font-bold text-[16px] mb-2`}>
-            View Summary
+          <p
+            className={`text-[#121212] max-w-[210px] truncate font-sans font-bold text-[16px] mb-2`}
+          >
+            {t("moversProgress.view")}
           </p>
         </div>
       </div>
