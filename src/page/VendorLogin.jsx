@@ -75,7 +75,7 @@ const VendorLogin = () => {
             }
         } else {
             setToast({
-                message: "Please enter username and password",
+                message: "Please enter email and password",
                 type: "warning"
             });
         }
