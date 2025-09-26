@@ -131,11 +131,12 @@
     font-family: "DM Sans", sans-serif;
 }
 
-a {
-    color: rgba(5, 77, 150, 1);
+.no_account_section a {
+    color: rgba(60, 130, 246, 1);
     font-size: 14px;
     font-weight: 400;
     font-family: "DM Sans", sans-serif;
+    text-decoration: underline;
 }
 
 .toast-container {

@@ -107,7 +107,7 @@ const VendorLogin = () => {
                     </span>
                 </div>
                 <div className="no_account_section">
-                    <span>Don't have an account?</span>   <a onClick={handleSignUp} href="">Sign up</a>
+                    <span>Don't have an account?</span>   <a onClick={handleSignUp} href="#">Sign up</a>
                 </div>
             </div>
 
