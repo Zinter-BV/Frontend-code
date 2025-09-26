@@ -33,8 +33,21 @@ const QuoteContainer = ({ data }) => {
   const [fromLocation, setFromLocation] = useState(
     user?.userMoveInfo?.pickUpAddress || "Keizersgracht 123, 1015 CJ Amsterdam"
   );
+  const [fromPickupLongitude, setFromPickupLongitude] = useState(
+    user?.userMoveInfo?.pickUpLongitude || "4.478618"
+  );
+  const [fromPickupLatitude, setFromPickupLatitude] = useState(
+    user?.userMoveInfo?.pickUpLatitude || "51.924419"
+  );
+
   const [toLocation, setToLocation] = useState(
     user?.userMoveInfo?.dropOffAddress || "Coolsingel 105, 3012 AG Rotterdam"
+  );
+  const [toDropOffLongitude, setToDropOffLongitude] = useState(
+    user?.userMoveInfo?.dropOffLongitude || "6.093440"
+  );
+  const [toDropOffLatitude, setToDropOffLatitude] = useState(
+    user?.userMoveInfo?.dropOffLatitude || '52.010199"'
   );
   const [isEditingFrom, setIsEditingFrom] = useState(false);
   const [isEditingTo, setIsEditingTo] = useState(false);
@@ -52,10 +65,10 @@ const QuoteContainer = ({ data }) => {
   const [dropOffAddress, setDropOffAddress] = useState(toLocation);
   const [pickUpAddressNumber, setPickUpAddressNumber] = useState("");
   const [dropOffAddressNumber, setDropOffAddressNumber] = useState("");
-  const [pickUpLongitude, setPickUpLongitude] = useState("4.478618");
-  const [pickUpLatitude, setPickUpLatitude] = useState("51.924419");
-  const [dropOffLongitude, setDropOffLongitude] = useState("6.093440");
-  const [dropOffLatitude, setDropOffLatitude] = useState("52.010199");
+  const [pickUpLongitude, setPickUpLongitude] = useState(fromPickupLongitude);
+  const [pickUpLatitude, setPickUpLatitude] = useState(fromPickupLatitude);
+  const [dropOffLongitude, setDropOffLongitude] = useState(toDropOffLongitude);
+  const [dropOffLatitude, setDropOffLatitude] = useState(toDropOffLatitude);
   const [toNumberOfFloors, setToNumberOfFloors] = useState("");
   const [toLongCarry, setToLongCarry] = useState("");
   const [toRemark, setToRemark] = useState("");
@@ -196,10 +209,11 @@ const QuoteContainer = ({ data }) => {
     dropOffAddress: user?.userMoveInfo?.dropOffAddress || toLocation,
     pickUpAddressNumber,
     dropOffAddressNumber,
-    pickUpLongitude,
-    pickUpLatitude,
-    dropOffLongitude,
-    dropOffLatitude,
+    pickUpLongitude: user?.userMoveInfo?.pickUpLongitude || fromPickupLongitude,
+    pickUpLatitude: user?.userMoveInfo?.pickUpLatitude || fromPickupLatitude,
+    dropOffLongitude:
+      user?.userMoveInfo?.toDropOffLongitude || toDropOffLongitude,
+    dropOffLatitude: user?.userMoveInfo?.toDropOffLatitude || toDropOffLatitude,
     toNumberOfFloors,
     toLongCarry,
     toRemark,
@@ -221,6 +235,10 @@ const QuoteContainer = ({ data }) => {
       fromLocation={fromLocation}
       toLocation={toLocation}
       setFromLocation={setFromLocation}
+      setFromPickupLongitude={setFromPickupLongitude}
+      setFromPickupLatitude={setFromPickupLatitude}
+      setToDropOffLongitude={setToDropOffLongitude}
+      setToDropOffLatitude={setToDropOffLatitude}
       setToLocation={setToLocation}
       isEditingFrom={isEditingFrom}
       isEditingTo={isEditingTo}
@@ -283,6 +301,10 @@ const QuoteContainer = ({ data }) => {
           isEditingTo={isEditingTo}
           setIsEditingFrom={setIsEditingFrom}
           setIsEditingTo={setIsEditingTo}
+          setFromPickupLongitude={setFromPickupLongitude}
+          setFromPickupLatitude={setFromPickupLatitude}
+          setToDropOffLongitude={setToDropOffLongitude}
+          setToDropOffLatitude={setToDropOffLatitude}
         />
       );
       break;
@@ -378,6 +400,10 @@ const QuoteContainer = ({ data }) => {
         setUserDetails({
           pickUpAddress: fromLocation,
           dropOffAddress: toLocation,
+          pickUpLongitude: fromPickupLongitude,
+          pickUpLatitude: fromPickupLatitude,
+          dropOffLongitude: toDropOffLongitude,
+          dropOffLatitude: fromPickupLatitude,
         })
       );
     }

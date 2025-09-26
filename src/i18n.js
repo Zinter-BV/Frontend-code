@@ -297,6 +297,7 @@ const enTranslations = {
     selected: "Items Selected",
     add: "+ ADD ITEMS",
     more: "more",
+    addItems: "ADD ITEMS",
   },
   uploadModal: {
     title1: "Upload Image",
@@ -865,115 +866,432 @@ const esTranslations = {
   },
 };
 
-const deTranslations = {
+const nlTranslations = {
   navigation: {
-    home: "Startseite",
-    about: "Über uns",
-    faqs: "Häufig gestellte Fragen",
+    home: "Home",
+    about: "Over Ons",
+    faqs: "FAQ",
   },
   hero: {
-    getStarted: "LOSLEGEN",
+    getStarted: "STARTEN",
     headline:
-      "Umzug, Verbessert. Kein Stress. Kein Rätselraten. Einfach tippen, fotografieren und entspannen.",
+      "Verhuizen, Verbeterd. Geen stress. Geen giswerk. Gewoon tikken, foto's maken en ontspannen.",
     subheadline:
-      "Unsere Plattform nutzt KI, um Ihre Gegenstände sofort zu identifizieren, Sie mit vertrauenswürdigen Umzugsunternehmen zu verbinden und den gesamten Prozess zu optimieren. Ein Foto. Eine Minute. Ein Kopfschmerz weniger.",
-    getQuote: "ANGEBOT ERHALTEN",
-    trackMove: "UMZUG VERFOLGEN",
-    activeUsers: "aktive Nutzer sind zufrieden mit Zinter",
+      "Ons platform gebruikt AI om direct uw spullen te identificeren, u te matchen met vertrouwde verhuizers en het hele proces te stroomlijnen. Eén foto. Eén minuut. Één zorg minder.",
+    getQuote: "OFFERTE AANVRAGEN",
+    trackMove: "VOLG VERHUIZING",
+    activeUsers: "actieve gebruikers zijn tevreden met Zinter",
+    suggestedDestinations: "suggesties",
   },
   features: {
-    smarterTitle: "Intelligenter als ein Formular. Einfacher als ein Anruf",
+    smarterTitle: "Slimmer Dan een Formulier. Makkelijker Dan een Belletje",
     smarterDescription:
-      "Laden Sie ein paar Fotos Ihres Raums hoch und unsere KI scannt Ihr Inventar und holt sofort wettbewerbsfähige Angebote aus unserem Netzwerk professioneller Umzugsunternehmen.",
-    sellingPoint: "VERKAUFSARGUMENT",
-    eliteTitle:
-      "Elite-Umzugsunternehmen. Vollständig Geprüft. Immer Zuverlässig.",
+      "Upload een paar foto's van uw ruimte en onze AI scant uw inventaris en haalt direct concurrerende offertes op uit ons netwerk van professionele verhuizers.",
+    sellingPoint: "VERKOOPPUNT",
+    eliteTitle: "Elite Verhuizers. Volledig Gescreend. Altijd Betrouwbaar.",
     eliteDescription:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
-    seamlessBooking: "Nahtloser und einfacher Buchungsprozess",
-    trustedNetwork: "Vertrauensvolles Netzwerk von Umzugsunternehmen",
-    expertGuidance: "Expertenhilfe und schneller Support jederzeit",
-    getStartedBtn: "Loslegen",
+    seamlessBooking: "Naadloos en eenvoudig boekingsproces",
+    trustedNetwork: "Vertrouwd netwerk van verhuisbedrijven",
+    expertGuidance: "Deskundige begeleiding en snelle ondersteuning, altijd",
+    getStartedBtn: "Starten",
   },
   process: {
-    title: "Ihr Umzug, in 60 Sekunden.",
-    step1Title: "Geben Sie Ihre Umzugsdetails ein",
+    title: "Uw Verhuizing, in 60 Seconden.",
+    step1Title: "Dien uw verhuisdetails in",
     step1Description:
-      "Füllen Sie unser schnelles Formular mit den Start- und Zielorten Ihres Umzugs und der Größe Ihres Umzugs aus",
-    step2Title: "Fotografieren Sie Ihren Raum",
+      "Vul ons snelle formulier in met begin- en eindlocatie van uw verhuizing, en de omvang van uw verhuizing",
+    step2Title: "Maak foto's van uw ruimte",
     step2Description:
-      "Machen Sie ein paar schnelle Fotos von den Räumen oder Gegenständen, die Sie umziehen möchten.",
-    step3Title: "Erhalten Sie Echtzeitangebote",
+      "Maak een paar snelle foto's van de kamers of items die u verhuist.",
+    step3Title: "Krijg real-time offertes",
     step3Description:
-      "Unsere KI scannt Ihr Inventar und liefert genaue Schätzungen von vertrauenswürdigen Profis.",
-    step4Title: "Wählen Sie Ihren Partner",
+      "Onze AI scant uw inventaris en retourneert nauwkeurige schattingen van vertrouwde professionals.",
+    step4Title: "Kies uw match",
     step4Description:
-      "Vergleichen Sie Angebote. Lesen Sie Bewertungen. Buchen Sie das Umzugsunternehmen, das Ihren Bedürfnissen und Ihrem Budget entspricht.",
-    letsGetMoving: "Lassen Sie uns loslegen",
+      "Vergelijk aanbiedingen. Lees reviews. Boek de verhuizer die bij uw behoeften en budget past.",
+    letsGetMoving: "Laten We U Helpen Verhuizen",
   },
   testimonials: {
-    title: "Echte Menschen. Echte Umzüge. Echte Seelenruhe.",
-    main: "Referenzen",
+    title: "Echte Mensen. Echte Verhuizingen. Echte Gemoedsrust.",
+    main: "Testimonials",
     testimonial1:
-      "Ich habe fünf Fotos von meinem Handy hochgeladen und hatte in Minuten ein Angebot. Die Umzugsunternehmen kamen genau dann, wann sie gesagt hatten.",
-    testimonial1Type: "Studio-Umzug",
+      "Ik uploadde vijf foto's vanaf mijn telefoon en had binnen enkele minuten een offerte. De verhuizers kwamen precies op tijd.",
+    testimonial1Type: "Studioverhuizing",
     testimonial2:
-      "Ehrlich gesagt fühlte es sich zu einfach an. Ich erwartete Formulare und Stress, aber alles wurde über die Plattform abgewickelt.",
-    testimonial2Type: "Familienumzug",
+      "Eerlijk gezegd voelde het te gemakkelijk. Ik verwachtte formulieren en stress, maar het werd allemaal via het platform afgehandeld.",
+    testimonial2Type: "Gezinsverhuizing",
     testimonial3:
-      "Ich hasse Umzüge. Aber diesmal? Es war reibungslos, schnell und hat mein Wochenende nicht ruiniert.",
-    testimonial3Type: "2-Zimmer-Wohnung",
+      "Ik haat verhuizen. Maar deze keer? Het verliep soepel, snel en verpestte mijn weekend niet.",
+    testimonial3Type: "2-Slaapkamerappartement",
   },
   faq: {
-    title: "Häufig gestellte Fragen",
-    paymentMethods: "Welche Zahlungsmethoden werden unterstützt?",
-    howEarly: "Wie früh sollte ich meinen Umzug buchen?",
-    packing: "Packen die Umzugsunternehmen auch meine Sachen?",
-    whatsIncluded: "Was ist in meinem Angebot enthalten?",
-    packingExtra: "Ist das Packen Teil des Deals oder extra?",
-    reschedule: "Kann ich umplanen, wenn sich Pläne ändern?",
-    tracking: "Kann ich meinen Umzug in Echtzeit verfolgen?",
-    storage: "Was ist, wenn ich Lagerung brauche, können Sie helfen?",
-    costCalculation: "Wie werden die Umzugskosten berechnet?",
+    title: "Veelgestelde Vragen",
+    paymentMethods: "Welke betaalmethoden worden ondersteund?",
+    howEarly: "Hoe vroeg moet ik mijn verhuizing boeken?",
+    packing: "Zullen de verhuizers ook mijn spullen inpakken?",
+    whatsIncluded: "Wat is inbegrepen in mijn offerte?",
+    packingExtra: "Is inpakken onderdeel van de deal of extra?",
+    reschedule: "Kan ik verplaatsen als de plannen veranderen?",
+    tracking: "Kan ik mijn verhuizing in realtime volgen?",
+    storage: "Wat als ik opslag nodig heb, kunnen jullie helpen?",
+    costCalculation: "Hoe wordt de verhuiskosten berekend?",
   },
   newsletter: {
-    title: "Verpassen Sie keinen Umzug.",
-    header: "Rundschreiben",
+    title: "Mis Geen Verhuizing.",
+    header: "NIEUWSBRIEF",
     description:
-      "Erhalten Sie Insider-Tipps, begrenzte Angebote und Umzugstricks direkt in Ihren Posteingang.",
+      "Krijg insidertips, limited deals en verhuishacks rechtstreeks in uw inbox.",
   },
   contact: {
-    title: "KONTAKTIEREN SIE UNS",
+    title: "CONTACTEER ONS",
     description:
-      "Begleiten Sie uns auf unserer Reise, die Logistik mit Innovation und Exzellenz neu zu definieren!",
+      "Doe mee aan onze reis om logistiek opnieuw te definiëren met innovatie en excellentie!",
     enquiry:
-      "Für Anfragen, Partnerschaften oder Servicebuchungen erreichen Sie uns unter 📧 support@zinter.nl",
+      "Voor vragen, partnerschappen of serviceboekingen, neem contact met ons op via 📧 support@zinter.nl",
   },
   footer: {
-    quicklinks: "Schnelllinks",
-    aboutUs: "Über uns",
-    reportIssue: "Problem melden",
-    faq: "Häufig gestellte Fragen",
-    privacyPolicy: "Datenschutzrichtlinie",
-    termsConditions: "Geschäftsbedingungen",
-    contact: "Kontakt",
-    schedule: "Mo. - Fr.: 08:00 - 19:00\nSa.: 09:00 - 17:00",
-    copyright: "© 2025 Alle Rechte vorbehalten",
+    quicklinks: "Snelkoppelingen",
+    aboutUs: "Over Ons",
+    reportIssue: "Probleem melden",
+    faq: "Veelgestelde Vragen",
+    privacyPolicy: "Privacybeleid",
+    termsConditions: "Algemene Voorwaarden",
+    contact: "Contact",
+    schedule: "Ma. - Vr.: 08:00 - 19:00\nZa.: 09:00 - 17:00",
+    copyright: "© 2025 Alle rechten voorbehouden",
   },
   aboutheader: {
-    title: "Über Zinter",
-    description:
-      "Unsere Mission ist es, die Logistikbranche zu revolutionieren.",
+    title: "Over Zinter",
+    description: "Onze missie is om de logistieke industrie te revolutioneren.",
   },
   hasslefree: {
-    title: "STRESSFREIER UMZUG",
+    title: "ZORGVRIJE VERHUIZING",
     description:
-      "Unsere Mission ist es, die Logistikbranche zu revolutionieren, indem wir nahtlose, technologiegetriebene Lösungen anbieten",
-    more: "Die das Umzugserlebnis für Einzelpersonen und Unternehmen gleichermaßen vereinfachen und optimieren. Zinter BV engagiert sich für Innovation, Effizienz und Kundenzufriedenheit.",
-    founded: "Gegründet",
+      "Onze missie is om de logistieke industrie te revolutioneren door naadloze, technologische oplossingen aan te bieden",
+    founded: "Opgericht",
+    more: "Die de verhuiserervaring voor particulieren en bedrijven vereenvoudigen en optimaliseren. Zinter BV is toegewijd aan innovatie, efficiëntie en klanttevredenheid.",
     founded_year: "2024",
-    location: "Standort",
-    location_name: "Niederlande",
+    location: "Locatie",
+    location_name: "Nederland",
+  },
+  vision: {
+    title: "Onze Visie",
+    main: "Bij Zinter zien wij een wereld voor ons waarin logistiek gestroomlijnd, intelligent en moeiteloos is.",
+    description:
+      "Door gebruik te maken van cutting-edge technologie streven we ernaar een zorgeloze ervaring te bieden die de veelvoorkomende uitdagingen associated met verhuizen en transportdiensten elimineert. Ons doel is het creëren van een alomvattende logistieke infrastructuur die voorziet in diverse behoeften, van particuliere verhuizingen tot commerciële verplaatsingen.",
+  },
+  services: {
+    title: "Onze Diensten",
+    description: "Zinter BV voert zelf geen verhuizingen uit",
+    more: "In plaats daarvan verbinden we klanten met vertrouwde en professionele verhuisserviceproviders van derden. We zorgen voor een naadloze boekings- en logistieke ervaring door gebruik te maken van technologie om gebruikers te matchen met de beste beschikbare verhuizers. Onze diensten omvatten",
+    service1Title: "Particuliere Verhuizing",
+    service1Desc:
+      "Op maat gemaakte oplossingen voor individuen en gezinnen die naar een nieuwe woning verhuizen",
+    service2Title: "Commerciële Verhuizing",
+    service2Desc:
+      "Efficiënte en betrouwbare bedrijfsverhuizingen met minimale downtime",
+    service3Title: "Aangepaste Oplossingen",
+    service3Desc:
+      "Gepersonaliseerde diensten om aan unieke transportbehoeften te voldoen",
+    service4Title: "Technologie-Gedreven Logistiek",
+    service4Desc:
+      "Als een logistiek techbedrijf integreert Zinter BV geavanceerde technologie om processen te optimaliseren en de klantervaring te verbeteren",
+    service5Title: "AI Beeldherkenning voor Inventaris",
+    service5Desc:
+      "Verbetering van inventarisbeheer door gebruik te maken van AI om items nauwkeurig te herkennen, categoriseren en volgen, waardoor verhuizingen efficiënter en georganiseerder verlopen.",
+  },
+  privacy: {
+    title: "Privacybeleid",
+    infoOne: "1. INLEIDING",
+    oneDesc:
+      'Zinter BV ("wij," "ons," of "onze") is een logistiek techbedrijf gespecialiseerd in verhuisdiensten. Zinter BV is geregistreerd in Nederland. Wij zijn toegewijd aan het beschermen van uw privacy en de beveiliging van uw persoonlijke informatie. Dit Privacy- & Cookies Statement legt uit hoe we uw gegevens verzamelen, gebruiken en beschermen wanneer u onze diensten gebruikt, inclusief onze website en bijbehorende platforms.',
+    infoTwo: "2. INFORMATIE DIE WE VERZAMELEN",
+    infoTwoDesc1:
+      "a. Persoonsgegevens: Wanneer u onze verhuisdiensten gebruikt of met ons platform interacteert, kunnen we de volgende informatie verzamelen: Identiteits- & Contactgegevens: Naam, telefoonnummer, e-mailadres, thuis/kantooradres.",
+    infoTwoDesc2:
+      "Verhuisdetails: Ophaal- en afleverlocaties, type en volume van goederen, gewenste verhuisdatums. Facturerings- & Betalingsgegevens: Betalingsmethodedetails, transactiegeschiedenis. Klantenondersteuningsgegevens: Communicatie en vragen met betrekking tot uw boekingen of serviceverzoeken.",
+    infoTwoDesc3:
+      "b. Technische & Gebruiksgegevens: Apparaatinformatie: IP-adres, browsertype, besturingssysteem. Gebruiksgegevens: Interacties met ons platform, paginaweergaven, servicevoorkeuren. Cookies & Trackingtechnologieën: Informatie verzameld via cookies en analysetools.",
+    infoThree: "3. HOE WE UW INFORMATIE GEBRUIKEN",
+    infoThreeHeader: "We gebruiken uw gegevens om:",
+    infoThreeDesc1: "Verhuisserviceverzoeken te verwerken en uit te voeren.",
+    infoThreeDesc2: "Updates over uw boekingen te communiceren.",
+    infoThreeDesc3: "Onze diensten te verbeteren via analyses en feedback.",
+    infoThreeDesc4:
+      "De beveiliging en functionaliteit van ons platform te waarborgen.",
+    infoThreeDesc5: "Te voldoen aan wettelijke en regelgevende vereisten.",
+    infoFour: "4. HOE WE UW INFORMATIE DELEN",
+    infoFourHeader:
+      "We verkopen uw persoonsgegevens niet. We kunnen deze echter delen met:",
+    infoFourDesc1:
+      "Serviceproviders: Derde partijen logistieke partners en verhuisaannemers.",
+    infoFourDesc2: "Betalingsverwerkers: Om transacties veilig te faciliteren.",
+    infoFourDesc3:
+      "Wettelijke autoriteiten: Indien vereist door de wet of als reactie op wettelijke verzoeken.",
+    infoFive: "5. GEGEVENSBEVEILIGING EN -BEWARING",
+    infoFiveDesc:
+      "We implementeren beveiligingsmaatregelen om uw gegevens te beschermen tegen ongeautoriseerde toegang en inbreuken. Uw gegevens worden alleen bewaard zolang nodig om het verzameldoel te vervullen of aan wettelijke verplichtingen te voldoen.",
+    infoSix: "6. UW RECHTEN & KEUZES",
+    infoSixHeader: "U heeft het recht om:",
+    infoSixDesc1:
+      "Uw persoonsgegevens in te zien, bij te werken of te verwijderen.",
+    infoSixDesc2:
+      "Bezwaar te maken tegen verwerking of gegevensoverdraagbaarheid aan te vragen.",
+    infoSixDesc3: "Toestemming voor marketingcommunicatie in te trekken.",
+    infoSixDesc4: "Cookie-instellingen aan te passen via uw browser.",
+    infoSixDesc5:
+      "Neem contact met ons op via privacy@zinter.nl om uw rechten uit te oefenen.",
+    infoSeven: "7. COOKIESBELEID",
+    infoSevenDesc:
+      "Zinter BV gebruikt cookies om de gebruikerservaring te verbeteren en de prestaties van het platform te analyseren. U kunt uw cookievoorkeuren beheren via uw browserinstellingen.",
+    infoEight: "8. WIJZIGINGEN IN DIT BELEID",
+    infoEight1Header: "Essentiële Cookies:",
+    infoEight1Desc: "Noodzakelijk voor de functionaliteit van de website.",
+    infoEight2Header: "Analytische Cookies:",
+    infoEight2Desc: "Helpen ons gebruikersgedrag te begrijpen.",
+    infoEight3Header: "Marketingcookies:",
+    infoEight3Desc: "Advertenties en aanbiedingen personaliseren.",
+    infoNine: "9. UPDATES VAN DIT STATEMENT",
+    infoNineDesc:
+      "We kunnen dit beleid van tijd tot tijd updaten. Eventuele wijzigingen worden gecommuniceerd op onze website.",
+    infoTen: "10. CONTACTGEGEVENS",
+    infoTenDesc:
+      "Voor vragen met betrekking tot deze Algemene Voorwaarden, neem contact met ons op: 📧 support@zinter.nl",
+  },
+  terms: {
+    title: "Algemene Voorwaarden",
+    infoOne: "1. INLEIDING",
+    oneDesc:
+      "Welkom bij Zinter BV! Deze Algemene Voorwaarden regelen uw gebruik van onze diensten, inclusief onze website, logistiek en verhuisoplossingen. Door onze diensten te gebruiken, gaat u akkoord met deze voorwaarden. Als u niet akkoord gaat, gelieve dan geen gebruik te maken van onze diensten.",
+    infoTwo: "2. DEFINITIES",
+    infoTwoDesc1:
+      '"Bedrijf," "wij," "ons," "onze" verwijst naar Zinter BV, geregistreerd in Nederland.',
+    infoTwoDesc2:
+      '"Klant," "u" verwijst naar elk individu of bedrijf dat onze diensten gebruikt.',
+    infoTwoDesc3:
+      '"Diensten" verwijst naar onze logistieke, verhuis- en aanverwante oplossingen.',
+    infoThree: "3. GEBRUIK VAN DIENST",
+    infoThreeDesc1:
+      "U moet minstens 18 jaar oud zijn of juridische bevoegdheid hebben om namens een entiteit overeenkomsten aan te gaan.",
+    infoThreeDesc2:
+      "U gaat akkoord accurate en volledige informatie te verstrekken bij het gebruik van onze diensten.",
+    infoThreeDesc3:
+      "U bent verantwoordelijk voor het veiligstellen van de benodigde vergunningen of goedkeuringen die vereist zijn voor uw verhuizing.",
+    infoFour: "4. BOEKINGEN EN BETALINGEN",
+    infoFourDesc1:
+      "Alle boekingen zijn onder voorbehoud van beschikbaarheid en bevestiging.",
+    infoFourDesc2:
+      "Betalingen moeten volledig worden voldaan vóór de start van de service, tenzij anders overeengekomen.",
+    infoFourDesc3:
+      "Annuleringskosten kunnen van toepassing zijn als u een boeking annuleert binnen een bepaalde periode vóór de geplande service.",
+    infoFive: "5. AANSPRAKELIJKHEID EN VERZEKERING",
+    infoFiveDesc1:
+      "Zinter BV fungeert als een logistiek platform en voert zelf geen verhuisdiensten uit. We verbinden klanten met verhuisserviceproviders van derden. Als zodanig is Zinter BV niet aansprakelijk voor enige schade, vertragingen of verliezen opgelopen tijdens de verhuizing.",
+    infoFiveDesc2:
+      "Eventuele claims met betrekking tot schade, verlies of serviceproblemen moeten worden gericht aan de verhuizer van derden die verantwoordelijk is voor de uitvoering van de verhuizing.",
+    infoFiveDesc3:
+      "We moedigen klanten aan de voorwaarden en verzekeringspolissen van de toegewezen verhuisserviceprovider te controleren.",
+    infoFiveDesc4:
+      "Zinter BV kan verzekeringsopties aanbieden, en klanten worden aangemoedigd aanvullende dekking aan te schaffen voor hoogwaardige items.",
+    infoSix: "6. VERBODEN ARTIKELEN",
+    infoSixDescHeader:
+      "Klanten mogen geen gevaarlijke, illegale of bederfelijke items in hun verhuisinventaris opnemen. Verboden items zijn onder meer maar niet beperkt tot",
+    infoSixDesc1: "Brandbare materialen, explosieven of chemicaliën.",
+    infoSixDesc2: "Illegale substanties of smokkelwaar.",
+    infoSixDesc3:
+      "Bederfelijke voedselitems die tijdens transport kunnen bederven.",
+    infoSeven: "7. SERVICEBEPERKINGEN",
+    infoSevenDesc1:
+      "Zinter BV behoudt zich het recht voor service te weigeren in gevallen waarin de gevraagde verhuizing onveilig, onwettig of logistiek onuitvoerbaar is.",
+    infoSevenDesc2:
+      "Wij zijn niet verantwoordelijk voor vertragingen veroorzaakt door factoren buiten onze controle, inclusief maar niet beperkt tot weersomstandigheden, verkeer of regelgevende restricties.",
+    infoEight: "8. INTELLECTUEEL EIGENDOM",
+    infoEightDesc1:
+      "Alle inhoud op onze website en materialen gerelateerd aan onze diensten zijn eigendom van Zinter BV.",
+    infoEightDesc2:
+      "Ongeautoriseerd gebruik, reproductie of distributie van onze materialen is verboden.",
+    infoNine: "9. WIJZIGINGEN EN BEEINDIGING",
+    infoNineDesc1:
+      "We behouden ons het recht voor deze Algemene Voorwaarden op elk moment bij te werken.",
+    infoNineDesc2:
+      "Doorgegaan gebruik van onze diensten na wijzigingen houdt acceptatie van de nieuwe voorwaarden in.",
+    infoNineDesc3:
+      "Zinter BV kan diensten beëindigen als een klant deze voorwaarden schendt.",
+    infoTen: "10. TOEPASSELIJK RECHT & GESCHILLENBESLECHTING",
+    infoTenDesc1:
+      "Deze Algemene Voorwaarden worden beheerst door de wetten van Nederland.",
+    infoTenDesc2:
+      "Eventuele geschillen zullen eerst in der minne worden opgelost. Indien niet opgelost, worden geschillen afgehandeld via de juiste juridische kanalen in Nederland.",
+    infoEleven: "11. CONTACTGEGEVENS",
+    infoElevenDesc:
+      "Voor vragen met betrekking tot deze Algemene Voorwaarden, neem contact met ons op: 📧 support@zinter.nl",
+  },
+  quoteProgress: {
+    one: "Locatiedetails",
+    oneDesc: "Details van waar u verhuist",
+    two: "Inventarislijst Opstellen",
+    twoDesc: "Gedetailleerde lijst van items die verhuisd moeten worden",
+    three: "Verhuisinformatie",
+    threeDesc: "Datum, contacten, beperkingen, etc...",
+    four: "Samenvatting Bekijken",
+    fourDesc: "Volledige samenvatting van uw verhuizing",
+  },
+  location: {
+    title: "Locatiedetails",
+    from: "van",
+    to: "naar",
+    btn: "wijzigen",
+  },
+  quoteContainer: {
+    home: "Home",
+    desc: "Vraag een offerte aan voor een verhuizing",
+    back: "GA TERUG",
+    getQuotes: "OFFERTES OPVRAGEN",
+    continue: "DOORGAAN",
+  },
+  inventoryList: {
+    title: "Voeg items toe aan uw",
+    house: "Appartement",
+    room: "+ EXTRA KAMER",
+  },
+  uploadContainer: {
+    title: "Beeldherkenning",
+    desc: "Maak foto's van elke kamer en laat de AI een gepersonaliseerde checklist maken voor uw verhuizing of relocatie",
+    btn: "FOTO MAKEN",
+    secure: "VEILIG & VERTROUWELIJK",
+  },
+  roomItemContainer: {
+    selected: "Items Geselecteerd",
+    add: "+ ITEMS TOEVOEGEN",
+    more: "meer",
+  },
+  uploadModal: {
+    title1: "Afbeelding Uploaden",
+    title2: " Voor Beeldherkenning",
+    btn1: "Inventarislijst",
+    btn2: " Afbeelding Uploaden",
+    desc: "De afbeeldingen moeten van zeer goede kwaliteit zijn, bestandsgrootte mag niet meer dan 2MB zijn.",
+    upload: "AFBEELDING UPLOADEN",
+  },
+  selectImage: {
+    images: "Afbeeldingen Toegevoegd",
+    uploading: "Uploaden...",
+    failed: "Upload mislukt. Probeer opnieuw.",
+    success: "Succesvol geüpload",
+    drop: "Sleep een bestand",
+    or: "of",
+    browse: "Bladeren",
+  },
+  moveInformation: {
+    title1: "Verhuisinformatie",
+    title2: "Kamers",
+    dateTime: "Datum en Tijd",
+    pickupTime: "Ophaaltijd",
+    pickupDate: "Ophaaldatum",
+    moveTime: "Verhuistijd",
+    moveDate: "Verhuisdatum",
+    contactInfo: "Contactinfo",
+    fullName: "Volledige Naam",
+    email: "E-mailadres",
+    phone: "Telefoonnummer",
+    pickup: "Ophaaldetails",
+    from: "Van",
+    btn: "WIJZIGEN",
+    apartment1: "Appartementnummer",
+    remark1: "Opmerkingen voor de locatie",
+    restrictions: "Beperkingen",
+    floors1: "Aantal verdiepingen",
+    longCarry1: "Lange Afstand Dragen",
+    elevator1: "Lift?",
+    yes: "Ja",
+    no: "Nee",
+    insurance1: "Gebouwenverzekering",
+    shuttle1: "Shuttle Nodig?",
+    needHelp1: "Hulp nodig bij het inpakken van uw spullen?",
+    to: "Naar",
+  },
+  summary: {
+    title: "Verhuissamenvatting",
+    movingFrom: "Verhuizen Van",
+    movingTo: "Verhuizen Naar",
+    moveSize: "Verhuisomvang",
+    house: "Huis",
+    rooms: "Kamers",
+    livingRoom: "Woonkamer",
+    toilet: "Toilet en Bad",
+    kitchen: "Keuken",
+    items: "items geselecteerd",
+    dinning: "Eetkamer",
+    bed: "Slaapkamer",
+    moveDate: "Verhuisdatum",
+    day: "Dag",
+    moveTime: "Verhuistijd",
+    moverPhone: "Telefoon verhuizers",
+    moverEmail: "E-mail verhuizers",
+    address: "Adres",
+  },
+  quoteSuccess: {
+    thanks: "Bedankt voor uw offerteaanvraag",
+    sentToEmail: "Uw offertes zijn onderweg naar uw e-mail",
+    btn: "OK, BEGREPEN",
+  },
+  trackCode: {
+    home: "Home",
+    track: "Volg uw verhuisfortgang",
+    enterCode: "Voer Code In Om Verhuizing Te Volgen",
+    btn: "START MET VOLGEN VERHUIZING",
+  },
+  moversProgress: {
+    location: "Locatiedetails",
+    setup: "Inventarislijst Opstellen",
+    moving: "Verhuisinformatie",
+    view: "Samenvatting Bekijken",
+    recommended: "Aanbevolen Verhuizers",
+    list: "Lijst van verhuisbedrijven & offertes",
+    payment: "Betaling Voltooien",
+    easy: "Doe uw betaling gemakkelijk",
+    track: "Volg Verhuizing",
+    start: "Start met het volgen van uw verhuizing",
+  },
+  moversContainer: {
+    back: "GA TERUG",
+    payment: "BETALING VOLTOOIEN",
+    make: "BETALING DOEN",
+  },
+  recommendedList: {
+    loading: "Verhuizers Laden",
+    error: "Fout bij laden verhuizers",
+    btn: "Probeer Opnieuw",
+    showing: "Toont",
+    movers: "Aanbevolen Verhuizers",
+    found: "Geen verhuizers gevonden",
+  },
+  payment: {
+    complete: "Betaling Voltooien",
+    from: "Van",
+    to: "Naar",
+    miles: "mijl verderop",
+    card: "Nieuwe creditcard of debitcard",
+    cardNumber: "Kaartnummer",
+    expire: "Vervaldatum",
+    cvv: "CVV",
+    postal: "Postcode",
+    save: " Sla deze creditcard op voor toekomstig gebruik",
+    available: "Beschikbaar",
+  },
+  trackMove: {
+    title: "Volg Verhuizing",
+    desc: " Zorg dat u contact opneemt met het verhuisbedrijf om eventuele benodigde informatie te bevestigen",
+    timeline: "Verhuistijdlijn",
+    paymentMade: "Betaling Gedaan",
+    paymentConfirmed: "Betaling bevestigd en trackingcode gegenereerd",
+    pickupStart: "Ophalen & Verhuizing Start",
+    mover: "Verhuizer navigeert volgens schema naar ophaallocatie.",
+    transit: "Verhuizer Onderweg",
+    belongings: "Spullen veilig geladen; transport begint onmiddellijk.",
+    unload: "Verhuizing Uitladen",
+    moverUnload: "Verhuizer laadt inventaris uit op afleverlocatie.",
   },
 };
 
@@ -1419,8 +1737,8 @@ const frTranslations = {
 const resources = {
   en: { translation: enTranslations },
   es: { translation: esTranslations },
-  de: { translation: deTranslations },
   fr: { translation: frTranslations },
+  nl: { translation: nlTranslations },
 };
 
 // Initialize i18next
@@ -1462,7 +1780,7 @@ i18n
     },
 
     // Whitelist of supported languages
-    supportedLngs: ["en", "es", "de", "fr"],
+    supportedLngs: ["en", "es", "fr", "nl"],
 
     // Don't load a fallback language if no resources are found
     nonExplicitSupportedLngs: false,

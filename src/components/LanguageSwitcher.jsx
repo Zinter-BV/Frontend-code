@@ -3,8 +3,8 @@ import { useTranslation } from "react-i18next";
 
 const languages = [
   { code: "en", name: "English", flag: "🇺🇸" },
+  { code: "nl", name: "Nederlands", flag: "🇳🇱" },
   { code: "es", name: "Español", flag: "🇪🇸" },
-  { code: "de", name: "Deutsch", flag: "🇩🇪" },
   { code: "fr", name: "Français", flag: "🇫🇷" },
 ];
 
