@@ -144,6 +144,7 @@ const SideBar = () => {
     const handleDeactivate = () => {
         setShowLogout(false);
         navigate('/vendor-login')
+        sessionStorage.clear()
 
     };
 
