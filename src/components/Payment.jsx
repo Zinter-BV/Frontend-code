@@ -2,6 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+// Emmanuel's code
+import { loadStripe } from "@stripe/stripe-js";
+import { createPayment } from "../api/tracking";
+import PrimaryBtn from "./PrimaryBtn";
+const stripePromise = loadStripe("...");
 
 const Payment = () => {
   const [cardNumber, setCardNumber] = useState("");
@@ -54,6 +59,27 @@ const Payment = () => {
     // Remove non-numeric characters and limit to 4 digits
     const formatted = e.target.value.replace(/\D/g, "").slice(0, 4);
     setCvv(formatted);
+  };
+
+  // handle stripe function
+  const handleCheckout = async () => {
+    try {
+      const response = await createPayment(moversData?.amount || 200);
+
+      if (response.clientSecret) {
+        const stripe = await stripePromise;
+
+        const { error } = await stripe.redirectToCheckout({
+          clientSecret: response.clientSecret,
+        });
+
+        if (error) {
+          console.error("Stripe Checkout error:", error);
+        }
+      }
+    } catch (error) {
+      console.log("Checkout failed:", error);
+    }
   };
 
   return (
@@ -268,7 +294,7 @@ const Payment = () => {
             </svg>
           </div>
         </div> */}
-        <div className="rounded-[12px] paymentBox h-fit w-full flex-col mt-5 flex border-[1px] p-[16px] border-[#e3e3e3] ">
+        <div className="rounded-[12px] hidden paymentBox h-fit w-full flex-col mt-5 border-[1px] p-[16px] border-[#e3e3e3] ">
           <div className="items-center w-full justify-between flex">
             <div className="flex items-center">
               <svg
@@ -312,7 +338,7 @@ const Payment = () => {
             </svg> */}
             </div>
           </div>
-          <div className="mt-4">
+          {/* <div className="mt-4">
             <div className="mb-4">
               <label className="font-sans text-[14px] text-[#707070] font-extralight leading-[18.2px] ">
                 {t("payment.cardNumber")}
@@ -407,7 +433,15 @@ const Payment = () => {
                 {t("payment.save")}
               </label>
             </div>
-          </div>
+          </div> */}
+        </div>
+        <div>
+          <PrimaryBtn
+            handlePress={handleCheckout}
+            className={"text-[14px] w-full"}
+          >
+            Make payment
+          </PrimaryBtn>
         </div>
       </div>
     </div>

@@ -14,3 +14,8 @@ export const endMove = async (code) => {
     const response = await api.get(`Tracking/EndMove?authCode=${code}`)
     return response.data
 }
+
+export const createPayment = async (ref) => {
+    const response = await api.get(`MoveRequest/CreatePaymentIntent?amount=${ref}`)
+    return response.data
+}

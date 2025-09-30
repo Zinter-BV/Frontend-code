@@ -29,6 +29,7 @@ import Transactions from "./page/Transaction";
 import AdminLogin from "./page/AdminLogin";
 import Resolution from "./page/Resolution";
 import VendorLogin from "./page/VendorLogin";
+import Stripe from "./page/Stripe";
 
 function App() {
   return (
