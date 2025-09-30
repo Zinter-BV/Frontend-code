@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import InventoryItem from "../components/InventoryItem";
 import { formattedItems, countMap } from "../utils";
 import "./InventoryListModal.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUserItems } from "../redux/action";
 import SearchIcon from "../Assets/SVG/SearchIcon";
 import { useTranslation } from "react-i18next";
@@ -13,6 +13,8 @@ const InventoryListModal = ({
   isInventoryListModalOpen,
   openUploadImageModal,
 }) => {
+  const user = useSelector((state) => state.user);
+
   const [allInventories, setAllInventories] = useState([]);
   const [items, setItems] = useState([]);
   const [loadedImages, setLoadedImages] = useState({});
@@ -395,7 +397,7 @@ const InventoryListModal = ({
                 />
               </svg>
               <p className="font-sans text-[16px] w-[130px] text-[#3C82F6] ml-2 leading-[25.6px] ">
-                {items.length}{" "}
+                {items.length || user?.items?.length}{" "}
                 <span className="selectedItems  uploadImageItemSelected">
                   {t("roomItemContainer.selected")}
                 </span>

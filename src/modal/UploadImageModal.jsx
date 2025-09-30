@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import SelectImage from "../components/SelectImage";
 import UploadImageSuccess from "./UploadImageSuccess";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const UploadImageModal = ({
   closeUploadImageModal,
@@ -11,6 +12,8 @@ const UploadImageModal = ({
   const [allImages, setAllImages] = useState([]);
 
   const { t } = useTranslation();
+
+  const user = useSelector((state) => state.user);
 
   const [isUploadImageSuccess, setIsUploadImageSuccess] = useState(false);
 
@@ -140,7 +143,7 @@ const UploadImageModal = ({
               />
             </svg>
             <p className="font-sans text-[16px] text-[#3C82F6] ml-2 leading-[25.6px] ">
-              {allImages.length}
+              {allImages.length || user?.items?.length}
               <span className="uploadImageItemSelected">
                 {" "}
                 {t("roomItemContainer.selected")}
