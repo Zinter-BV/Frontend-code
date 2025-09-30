@@ -1,6 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+// Emmanuel's code
+import { loadStripe } from "@stripe/stripe-js";
+import { createPayment } from "../api/tracking";
+import PrimaryBtn from "./PrimaryBtn";
+const stripePromise = loadStripe("...");
+
 
 const Payment = () => {
   const [cardNumber, setCardNumber] = useState("");
@@ -54,6 +60,27 @@ const Payment = () => {
     const formatted = e.target.value.replace(/\D/g, "").slice(0, 4);
     setCvv(formatted);
   };
+
+  // handle stripe function 
+      const handleCheckout = async () => {
+          try {
+              const response = await createPayment(moversData?.amount || 200);
+  
+              if (response.clientSecret) {
+                  const stripe = await stripePromise;
+  
+                  const { error } = await stripe.redirectToCheckout({
+                      clientSecret: response.clientSecret,
+                  });
+  
+                  if (error) {
+                      console.error("Stripe Checkout error:", error);
+                  }
+              }
+          } catch (error) {
+              console.log("Checkout failed:", error);
+          }
+      };
 
   return (
     <div className="ml-4 h-fit movingCompanyDetailBox w-full">
@@ -407,6 +434,13 @@ const Payment = () => {
               </label>
             </div>
           </div>
+        </div>
+        <div>
+          <PrimaryBtn 
+          handlePress={handleCheckout} 
+          className={"text-[14px]"} >
+            Make payment
+          </PrimaryBtn>
         </div>
       </div>
     </div>

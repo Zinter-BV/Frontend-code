@@ -13,7 +13,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
 const MoversContainer = ({ trackingCode }) => {
-  const [activeTab, setActiveTab] = useState(1);
+  const [activeTab, setActiveTab] = useState(2);
   const [isPaymentMade, setIsPaymentMade] = useState(false);
 
   const [isActive, setIsActive] = useState(false);
@@ -35,7 +35,8 @@ const MoversContainer = ({ trackingCode }) => {
 
   switch (activeTab) {
     case 1:
-      content = <MoversHolder isActive={isActive} setIsActive={setIsActive} />;
+       content = <Payment />;
+      // content = <MoversHolder isActive={isActive} setIsActive={setIsActive} />;
       // content = <TrackMove />;
       break;
     case 2:

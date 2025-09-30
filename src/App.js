@@ -29,6 +29,7 @@ import Transactions from "./page/Transaction";
 import AdminLogin from "./page/AdminLogin";
 import Resolution from "./page/Resolution"
 import VendorLogin from "./page/VendorLogin";
+import Stripe from "./page/Stripe";
 
 function App() {
   // debugger
@@ -69,6 +70,7 @@ function App() {
           <Route path="/users" element={<UsersPage />} />
           <Route path="/transactions" element={<Transactions />} />
           <Route path="/resolution" element={<Resolution />} />
+          <Route path="/stripe" element={<Stripe/>}/>
 
           {/* Sidebar should only be visible on Overview & Calendar */}
 

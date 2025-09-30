@@ -30,7 +30,7 @@ const MovementMap = () => {
 //   const desti+nation = '15 John Ejakita Lekki';
 
   return (
-    <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
+    <LoadScript googleMapsApiKey={process.env.NEW_REACT_GOOGLE_MAPS_API_KEY}>
       <div style={{ position: 'relative' }}>
         {/* Control Panel */}
         <div
