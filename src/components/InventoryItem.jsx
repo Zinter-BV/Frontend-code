@@ -65,14 +65,14 @@ const InventoryItem = ({
         </p>
         <div className="flex items-center">
           <button
-            className={`group-hover:bg-primary opacity-30 h-[25px] w-[25px] flex items-center justify-center ${
+            className={`group-hover:bg-primary  h-[25px] w-[25px] flex items-center justify-center ${
               isCardSelected && "bg-primary opacity-100"
             } duration-500 p-1 rounded-[6px] transition`}
             onClick={decreaseItems}
           >
             <p
               className={`font-sans font-bold  text-[18px] group-hover:text-white ${
-                isCardSelected ? "text-white" : "text-[#d1d1d1]"
+                isCardSelected ? "text-white" : "text-black"
               } `}
             >
               -
@@ -80,20 +80,20 @@ const InventoryItem = ({
           </button>
           <p
             className={`mx-3 font-sans text-[16px] font-bold ${
-              isCardSelected ? "text-black" : "text-[#d1d1d1]"
+              isCardSelected ? "text-black" : "text-black"
             } `}
           >
             {count}
           </p>
           <button
-            className={`group-hover:bg-primary opacity-30 h-[25px] w-[25px] flex items-center justify-center ${
+            className={`group-hover:bg-primary  h-[25px] w-[25px] flex items-center justify-center ${
               isCardSelected && "bg-primary opacity-100"
             } duration-500 p-1 rounded-[6px] transition`}
             onClick={increaseItems}
           >
             <p
               className={`font-sans font-bold  text-[20px] group-hover:text-white ${
-                isCardSelected ? "text-white" : "text-[#d1d1d1]"
+                isCardSelected ? "text-white" : "text-black"
               } `}
             >
               +

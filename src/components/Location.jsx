@@ -1,6 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import Map from "../Assets/Map.svg";
 import { useTranslation } from "react-i18next";
+import ViewLocationMap from "./GoogleMap";
+import MovementMap from "./GoogleMapMove";
+import LocationMap from "./LocationMap";
 
 const Location = ({
   fromLocation,
@@ -585,7 +588,8 @@ const Location = ({
           </div>
         </div>
         <div>
-          <img className="locationMap" src={Map} alt="map" />
+          {/* <img className="locationMap" src={Map} alt="map" /> */}
+          <LocationMap />
         </div>
       </div>
     </div>
