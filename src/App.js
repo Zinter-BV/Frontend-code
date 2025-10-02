@@ -41,9 +41,9 @@ const stripePromise = loadStripe(
 function App() {
   return (
     <div className="app-container">
-      <Elements stripe={stripePromise}>
+      {/* <Elements stripe={stripePromise}>
         <Stripe />
-      </Elements>
+      </Elements> */}
       {/* { pathname === '/overview' && <SideBar /> } */}
       <Routes>
         <Route path="/" element={<Home />} />

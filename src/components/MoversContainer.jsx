@@ -8,16 +8,19 @@ import PrimaryBtn from "./PrimaryBtn";
 import PaymentSuccess from "../modal/PaymentSuccess";
 import MoversMobileContainer from "./MoversMobileContainer";
 import "./MoversContainer.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
+import { resetPaymentStatus } from "../redux/action";
 
 const MoversContainer = ({ trackingCode }) => {
   const [activeTab, setActiveTab] = useState(1);
   const [isPaymentMade, setIsPaymentMade] = useState(false);
 
   const [isActive, setIsActive] = useState(false);
+
+  const dispatch = useDispatch();
 
   const { t } = useTranslation();
 
@@ -26,6 +29,11 @@ const MoversContainer = ({ trackingCode }) => {
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
 
   const moversData = useSelector((state) => state.user.moversData);
+  const isPaymentSuccessful = useSelector(
+    (state) => state.user.paymentSuccessful
+  );
+
+  console.log(isPaymentSuccessful);
 
   useEffect(() => {
     if (trackingCode) setActiveTab(3);
@@ -38,8 +46,8 @@ const MoversContainer = ({ trackingCode }) => {
 
   switch (activeTab) {
     case 1:
-      //  content = <Payment />;
-      content = <MoversHolder isActive={isActive} setIsActive={setIsActive} />;
+      content = <Payment />;
+      // content = <MoversHolder isActive={isActive} setIsActive={setIsActive} />;
       // content = <TrackMove />;
       break;
     case 2:
@@ -125,6 +133,7 @@ const MoversContainer = ({ trackingCode }) => {
 
   const closeSuccessModal = () => {
     setOpenSuccessModal(false);
+    dispatch(resetPaymentStatus());
   };
 
   return (
@@ -213,7 +222,7 @@ const MoversContainer = ({ trackingCode }) => {
           </PrimaryBtn> */}
         </div>
       </div>
-      {openSuccessModal && (
+      {isPaymentSuccessful && (
         <PaymentSuccess closeSuccessModal={closeSuccessModal} />
       )}
     </div>

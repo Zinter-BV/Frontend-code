@@ -13,80 +13,61 @@ const stripePromise = loadStripe(
   "pk_test_51O2JovLw5fKJMXx3zvARABxAlQpptJi9aO6gPkcbH9lFFCfJXV8rgAw170q4wt3CHz00uDfGtPqKmvdvPFWQqNMc00c3Dqphpr"
 );
 
-const Payment = () => {
-  const [cardNumber, setCardNumber] = useState("");
-  const [expiry, setExpiry] = useState("");
-  const [cvv, setCvv] = useState("");
+// import { handleCheckout } from "../services/payment";
+
+const Payment = ({ handleCheckout }) => {
+  // const [cardNumber, setCardNumber] = useState("");
+  // const [expiry, setExpiry] = useState("");
+  // const [cvv, setCvv] = useState("");
 
   const moversData = useSelector((state) => state.user.moversData);
 
   console.log(moversData);
   const { t } = useTranslation();
   // card number
-  const formatCardNumber = (value) => {
-    // Remove non-numeric characters
-    let numbersOnly = value.replace(/\D/g, "");
+  // const formatCardNumber = (value) => {
+  //   // Remove non-numeric characters
+  //   let numbersOnly = value.replace(/\D/g, "");
 
-    // Limit to 16 digits
-    numbersOnly = numbersOnly.slice(0, 16);
+  //   // Limit to 16 digits
+  //   numbersOnly = numbersOnly.slice(0, 16);
 
-    // Add space after every 4 digits
-    return numbersOnly.replace(/(\d{4})/g, "$1 ").trim();
-  };
+  //   // Add space after every 4 digits
+  //   return numbersOnly.replace(/(\d{4})/g, "$1 ").trim();
+  // };
 
-  const handleChange = (e) => {
-    const formatted = formatCardNumber(e.target.value);
-    setCardNumber(formatted);
-  };
+  // const handleChange = (e) => {
+  //   const formatted = formatCardNumber(e.target.value);
+  //   setCardNumber(formatted);
+  // };
 
   // exp
-  const formatExpiryDate = (value) => {
-    // Remove non-numeric characters
-    let numbersOnly = value.replace(/\D/g, "");
+  // const formatExpiryDate = (value) => {
+  //   // Remove non-numeric characters
+  //   let numbersOnly = value.replace(/\D/g, "");
 
-    // Limit to 4 digits (MMYY)
-    numbersOnly = numbersOnly.slice(0, 4);
+  //   // Limit to 4 digits (MMYY)
+  //   numbersOnly = numbersOnly.slice(0, 4);
 
-    // Auto-add "/" after MM
-    if (numbersOnly.length > 2) {
-      numbersOnly = numbersOnly.replace(/(\d{2})(\d{0,2})/, "$1/$2");
-    }
+  //   // Auto-add "/" after MM
+  //   if (numbersOnly.length > 2) {
+  //     numbersOnly = numbersOnly.replace(/(\d{2})(\d{0,2})/, "$1/$2");
+  //   }
 
-    return numbersOnly;
-  };
+  //   return numbersOnly;
+  // };
 
-  const handleExpChange = (e) => {
-    setExpiry(formatExpiryDate(e.target.value));
-  };
+  // const handleExpChange = (e) => {
+  //   setExpiry(formatExpiryDate(e.target.value));
+  // };
 
-  // cvv
+  // // cvv
 
-  const handleCVVChange = (e) => {
-    // Remove non-numeric characters and limit to 4 digits
-    const formatted = e.target.value.replace(/\D/g, "").slice(0, 4);
-    setCvv(formatted);
-  };
-
-  // handle stripe function
-  const handleCheckout = async () => {
-    try {
-      const response = await createPayment(moversData?.amount || 200);
-
-      if (response.clientSecret) {
-        const stripe = await stripePromise;
-
-        const { error } = await stripe.redirectToCheckout({
-          clientSecret: response.clientSecret,
-        });
-
-        if (error) {
-          console.error("Stripe Checkout error:", error);
-        }
-      }
-    } catch (error) {
-      console.log("Checkout failed:", error);
-    }
-  };
+  // const handleCVVChange = (e) => {
+  //   // Remove non-numeric characters and limit to 4 digits
+  //   const formatted = e.target.value.replace(/\D/g, "").slice(0, 4);
+  //   setCvv(formatted);
+  // };
 
   return (
     <div className="ml-4 h-fit movingCompanyDetailBox w-full">
@@ -433,14 +414,14 @@ const Payment = () => {
         </div> */}
         <div>
           <Elements stripe={stripePromise}>
-            <Stripe />
+            <Stripe amount={moversData?.amount || 2000} />
           </Elements>
         </div>
-        <div>
+        {/* <div>
           <PrimaryBtn handlePress={handleCheckout} className={"text-[14px]"}>
             Make payment
           </PrimaryBtn>
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ const initialState = {
   items: [],
   moreInfo: {},
   moversData: {},
+  paymentSuccessful: false,
 };
 
 const UserReducer = (state = initialState, action) => {
@@ -28,6 +29,16 @@ const UserReducer = (state = initialState, action) => {
       return {
         ...state,
         moversData: action.payload,
+      };
+    case actionTypes.SET_PAYMENT_SUCCESS:
+      return {
+        ...state,
+        paymentSuccessful: true,
+      };
+    case actionTypes.RESET_PAYMENT_SUCCESS:
+      return {
+        ...state,
+        paymentSuccessful: false,
       };
     case actionTypes.RESET_MOVERS_DATA:
       return {
