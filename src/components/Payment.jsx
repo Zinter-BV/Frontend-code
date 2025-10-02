@@ -5,7 +5,11 @@ import { useSelector } from "react-redux";
 import { loadStripe } from "@stripe/stripe-js";
 import { createPayment } from "../api/tracking";
 import PrimaryBtn from "./PrimaryBtn";
-const stripePromise = loadStripe("...");
+import Stripe from "./page/Stripe";
+import { Elements } from "@stripe/react-stripe-js";
+// Load your publishable key (from Stripe Dashboard)
+const stripePromise = loadStripe("pk_test_51O2JovLw5fKJMXx3zvARABxAlQpptJi9aO6gPkcbH9lFFCfJXV8rgAw170q4wt3CHz00uDfGtPqKmvdvPFWQqNMc00c3Dqphpr");
+
 
 
 const Payment = () => {
@@ -14,6 +18,7 @@ const Payment = () => {
   const [cvv, setCvv] = useState("");
 
   const moversData = useSelector((state) => state.user.moversData);
+
   console.log(moversData);
 
   // card number
@@ -62,25 +67,25 @@ const Payment = () => {
   };
 
   // handle stripe function 
-      const handleCheckout = async () => {
-          try {
-              const response = await createPayment(moversData?.amount || 200);
-  
-              if (response.clientSecret) {
-                  const stripe = await stripePromise;
-  
-                  const { error } = await stripe.redirectToCheckout({
-                      clientSecret: response.clientSecret,
-                  });
-  
-                  if (error) {
-                      console.error("Stripe Checkout error:", error);
-                  }
-              }
-          } catch (error) {
-              console.log("Checkout failed:", error);
-          }
-      };
+  const handleCheckout = async () => {
+    try {
+      const response = await createPayment(moversData?.amount || 200);
+
+      if (response.clientSecret) {
+        const stripe = await stripePromise;
+
+        const { error } = await stripe.redirectToCheckout({
+          clientSecret: response.clientSecret,
+        });
+
+        if (error) {
+          console.error("Stripe Checkout error:", error);
+        }
+      }
+    } catch (error) {
+      console.log("Checkout failed:", error);
+    }
+  };
 
   return (
     <div className="ml-4 h-fit movingCompanyDetailBox w-full">
@@ -294,7 +299,7 @@ const Payment = () => {
             </svg>
           </div>
         </div> */}
-        <div className="rounded-[12px] paymentBox h-fit w-full flex-col mt-5 flex border-[1px] p-[16px] border-[#e3e3e3] ">
+        {/* <div className="rounded-[12px] paymentBox h-fit w-full flex-col mt-5 flex border-[1px] p-[16px] border-[#e3e3e3] ">
           <div className="items-center w-full justify-between flex">
             <div className="flex items-center">
               <svg
@@ -326,16 +331,7 @@ const Payment = () => {
             </div>
             <div className="">
               <div className="w-[16px] h-[16px] rounded-full border-[1px] border-[#CBD5E1] "></div>
-              {/* <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="19"
-              height="20"
-              viewBox="0 0 19 20"
-              fill="none"
-            >
-              <circle cx="9.5" cy="10" r="9" fill="#F5F5F5" stroke="#136AB5" />
-              <circle cx="9.49862" cy="9.99996" r="6.14706" fill="#136AB5" />
-            </svg> */}
+  
             </div>
           </div>
           <div className="mt-4">
@@ -389,7 +385,7 @@ const Payment = () => {
                   value={expiry}
                   onChange={handleExpChange}
                   placeholder="MM/YY"
-                  maxLength={19} // 16 digits + 3 spaces
+                  maxLength={19} 
                   className="border-[1px] w-full h-[40px] pl-2 outline-none rounded-r-[6px] "
                 />
               </div>
@@ -402,7 +398,7 @@ const Payment = () => {
                   value={cvv}
                   onChange={handleCVVChange}
                   placeholder="123"
-                  maxLength={3} // 16 digits + 3 spaces
+                  maxLength={3} 
                   className="border-[1px] w-full h-[40px] pl-2 outline-none rounded-r-[6px] "
                 />
               </div>
@@ -412,10 +408,9 @@ const Payment = () => {
                 </label>
                 <input
                   type="text"
-                  // value={cardNumber}
-                  // onChange={handleChange}
+                  
                   placeholder="12345"
-                  maxLength={6} // 16 digits + 3 spaces
+                  maxLength={6} 
                   className="border-[1px] w-full h-[40px] pl-2 outline-none rounded-r-[6px] "
                 />
               </div>
@@ -434,11 +429,16 @@ const Payment = () => {
               </label>
             </div>
           </div>
+        </div> */}
+        <div>
+          <Elements stripe={stripePromise}>
+            <Stripe />
+          </Elements>
         </div>
         <div>
-          <PrimaryBtn 
-          handlePress={handleCheckout} 
-          className={"text-[14px]"} >
+          <PrimaryBtn
+            handlePress={handleCheckout}
+            className={"text-[14px]"} >
             Make payment
           </PrimaryBtn>
         </div>

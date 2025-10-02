@@ -1,26 +1,36 @@
 import React, { useState } from "react";
-import { loadStripe } from "@stripe/stripe-js";
+// import { loadStripe } from "@stripe/stripe-js";
 import { createPayment } from "../api/tracking";
+import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 
 // Load your publishable key (from Stripe Dashboard)
-const stripePromise = loadStripe("...");
+// const stripePromise = loadStripe("pk_live_51O2JovLw5fKJMXx3q7cQnNGAODGP6tnY2OCoYlhBqMeBf1Fs8flni7lVj1INWbxjVAOzSFALiWhXBceYt9zTo64V00R9rtjcSH");
 
 const Stripe = () => {
     const [amount, setAmount] = useState("");
+    const stripe = useStripe();
+    const elements = useElements();
 
     const handleCheckout = async () => {
+        //loading should be true
         try {
-            const response = await createPayment(amount);
+            const response = await createPayment(amount); // your backend call
 
-            if (response.clientSecret) {
-                const stripe = await stripePromise;
-
-                const { error } = await stripe.redirectToCheckout({
-                    clientSecret: response.clientSecret,
-                });
-
+            if (response.clientSecret && stripe && elements) {
+                const { error, paymentIntent } = await stripe.confirmCardPayment(
+                    response.clientSecret,
+                    {
+                        payment_method: {
+                            card: elements.getElement(CardElement),
+                        },
+                    }
+                );
+                // Stops the loader here if an error or successful
                 if (error) {
-                    console.error("Stripe Checkout error:", error);
+                    
+                    console.error("Payment failed:", error.message);
+                } else if (paymentIntent.status === "succeeded") {
+                    console.log(" Payment successful!", paymentIntent);
                 }
             }
         } catch (error) {
@@ -40,7 +50,10 @@ const Stripe = () => {
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
                 />
-                <button onClick={handleCheckout}>BUY NOW</button>
+                <div style={{ margin: "15px 0" }}>
+                    <CardElement />
+                </div>
+                <button onClick={handleCheckout} disabled={!stripe}>BUY NOW</button>
             </div>
         </div>
     );
