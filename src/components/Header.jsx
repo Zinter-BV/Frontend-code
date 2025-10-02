@@ -255,6 +255,9 @@ const Header = () => {
                 )}
               </div>
             </div>
+            <div className="m-4">
+              <LanguageSwitcher />
+            </div>
 
             <div>
               {menuOptionsOpen && (

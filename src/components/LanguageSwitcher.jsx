@@ -2,10 +2,10 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 const languages = [
-  { code: "en", name: "English", flag: "🇺🇸" },
-  { code: "nl", name: "Nederlands", flag: "🇳🇱" },
-  { code: "es", name: "Español", flag: "🇪🇸" },
-  { code: "fr", name: "Français", flag: "🇫🇷" },
+  { code: "en", name: "EN", flag: "🇺🇸" },
+  { code: "nl", name: "NL", flag: "🇳🇱" },
+  { code: "es", name: "ES", flag: "🇪🇸" },
+  { code: "fr", name: "FR", flag: "🇫🇷" },
 ];
 
 function LanguageSwitcher() {
