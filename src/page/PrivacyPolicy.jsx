@@ -14,7 +14,7 @@ const PrivacyPolicy = () => {
       <Header />
       <div className="  w-full  bg-gradient-to-b mt-[80px] from-[#E8F5F5] to-white">
         <div className="w-[90vw] heroSection pt-14 max-w-[1500px] items-center flex justify-between mx-auto">
-          <div className="md:w-[70%] w-[90%] mx-auto  ">
+          <div className="md:w-[70%] w-[100%] mx-auto  ">
             <h1 className="font-unbounded font-semibold text-[48px] text-black ">
               {t("privacy.title")}
             </h1>
@@ -133,7 +133,7 @@ const PrivacyPolicy = () => {
                 {t("privacy.infoEight")}
               </h3>
               <p className="w-full flex flex-col  ">
-                <div className="flex items-center">
+                <div className="flex md:flex-row flex-col md:items-center">
                   <span className="text-[#707070] font-bold leading-[160%] text-[16px] font-sans ">
                     {t("privacy.infoEight1Header")}
                   </span>
@@ -141,7 +141,7 @@ const PrivacyPolicy = () => {
                     {t("privacy.infoEight1Desc")}
                   </span>
                 </div>
-                <div className="flex my-3 items-center">
+                <div className="flex my-3 md:flex-row flex-col md:items-center">
                   <span className="text-[#707070] font-bold leading-[160%] text-[16px] font-sans ">
                     {t("privacy.infoEight2Header")}
                   </span>
@@ -149,7 +149,7 @@ const PrivacyPolicy = () => {
                     {t("privacy.infoEight2Desc")}
                   </span>
                 </div>
-                <div className="flex items-center">
+                <div className="flex md:items-center md:flex-row flex-col">
                   <span className="text-[#707070] font-bold leading-[160%] text-[16px] font-sans ">
                     {t("privacy.infoEight3Header")}
                   </span>

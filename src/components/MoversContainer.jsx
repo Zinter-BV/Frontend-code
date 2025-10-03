@@ -44,10 +44,12 @@ const MoversContainer = ({ trackingCode }) => {
     <MoversHolder MoversHolder isActive={isActive} setIsActive={setIsActive} />
   );
 
+  // CODE FOR PAYMENT
+
   switch (activeTab) {
     case 1:
-      content = <Payment />;
-      // content = <MoversHolder isActive={isActive} setIsActive={setIsActive} />;
+      // content = <Payment />;
+      content = <MoversHolder isActive={isActive} setIsActive={setIsActive} />;
       // content = <TrackMove />;
       break;
     case 2:
@@ -134,6 +136,7 @@ const MoversContainer = ({ trackingCode }) => {
   const closeSuccessModal = () => {
     setOpenSuccessModal(false);
     dispatch(resetPaymentStatus());
+    setActiveTab(3);
   };
 
   return (
