@@ -4,10 +4,19 @@ import DownIcon from "../Assets/SVG/DownIcon";
 import MoveSize from "../Assets/SVG/MoveSize";
 import PrimaryBtn from "./PrimaryBtn";
 import { useNavigate } from "react-router-dom";
+import { useJsApiLoader } from "@react-google-maps/api";
+import { useDispatch } from "react-redux";
+import { setUserDetails } from "../redux/action";
+
+// Define libraries outside component to prevent reloading
+const LIBRARIES = ["places"];
 
 const MoveDetails = () => {
   const navigate = useNavigate();
-  // State management for both inputs
+
+  const dispatch = useDispatch();
+
+  // State management
   const [fromLocation, setFromLocation] = useState("");
   const [toLocation, setToLocation] = useState("");
   const [moveSize, setMoveSize] = useState("");
@@ -16,26 +25,33 @@ const MoveDetails = () => {
   const [showSizeModal, setShowSizeModal] = useState(false);
   const [activeIndex, setActiveIndex] = useState({ from: -1, to: -1 });
 
-  // Refs for DOM access
+  // cords
+  const [pickupName, setPickupName] = useState("");
+  const [pickupCoords, setPickupCoords] = useState(null);
+  const [dropoffName, setDropoffName] = useState("");
+  const [dropoffCoords, setDropoffCoords] = useState(null);
+
+  // Google Places suggestions
+  const [fromSuggestions, setFromSuggestions] = useState([]);
+  const [toSuggestions, setToSuggestions] = useState([]);
+
+  // Refs
   const fromModalRef = useRef(null);
   const toModalRef = useRef(null);
   const fromInputRef = useRef(null);
   const toInputRef = useRef(null);
   const locationItemsRef = useRef({ from: [], to: [] });
-
-  // Mock location data
-  const allLocations = [
-    "Keizersgracht 123, 1015 CJ Amsterdam",
-    "Herengracht 150, 1015 BA Amsterdam",
-    "Lijnbaansgracht 70, 1016 EE Amsterdam",
-    "Amstelstraat 89, 1018 CB Amsterdam",
-  ];
-
-  // size
   const modalRef = useRef(null);
   const inputRef = useRef(null);
 
-  // Close modal when clicking outside
+  // Load Google Maps
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    libraries: LIBRARIES,
+  });
+
+  // Size modal close handler
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (
@@ -52,88 +68,43 @@ const MoveDetails = () => {
   }, []);
 
   const houses = [
-    {
-      text: "Few Items",
-      desc: '(10" Truck)',
-    },
-    {
-      text: "1 Bedrooom",
-      desc: '(17" Truck)',
-    },
-    {
-      text: "2 Bedrooms",
-      desc: '(20" Truck)',
-    },
-    {
-      text: "3 Bedrooms",
-      desc: '(26" Truck)',
-    },
-    {
-      text: "4 Bedrooms",
-      desc: '(28" Truck)',
-    },
-    {
-      text: "5 Bedrooms",
-      desc: '(32" Truck)',
-    },
-    {
-      text: "6 Bedrooms",
-      desc: '(36" Truck)',
-    },
+    { text: "Few Items", desc: '(10" Truck)' },
+    { text: "1 Bedrooom", desc: '(17" Truck)' },
+    { text: "2 Bedrooms", desc: '(20" Truck)' },
+    { text: "3 Bedrooms", desc: '(26" Truck)' },
+    { text: "4 Bedrooms", desc: '(28" Truck)' },
+    { text: "5 Bedrooms", desc: '(32" Truck)' },
+    { text: "6 Bedrooms", desc: '(36" Truck)' },
   ];
 
   const apartments = [
-    {
-      text: "Few Items",
-      desc: '(10" Truck)',
-    },
-    {
-      text: "Studio",
-      desc: '(15" Truck)',
-    },
-    {
-      text: "1 Bedrooom",
-      desc: '(17" Truck)',
-    },
-    {
-      text: "2 Bedrooms",
-      desc: '(20" Truck)',
-    },
-    {
-      text: "3 Bedrooms",
-      desc: '(26" Truck)',
-    },
-    {
-      text: "4 Bedrooms",
-      desc: '(28" Truck)',
-    },
-    {
-      text: "5 Bedrooms",
-      desc: '(32" Truck)',
-    },
-    {
-      text: "6 Bedrooms",
-      desc: '(36" Truck)',
-    },
+    { text: "Few Items", desc: '(10" Truck)' },
+    { text: "Studio", desc: '(15" Truck)' },
+    { text: "1 Bedrooom", desc: '(17" Truck)' },
+    { text: "2 Bedrooms", desc: '(20" Truck)' },
+    { text: "3 Bedrooms", desc: '(26" Truck)' },
+    { text: "4 Bedrooms", desc: '(28" Truck)' },
+    { text: "5 Bedrooms", desc: '(32" Truck)' },
+    { text: "6 Bedrooms", desc: '(36" Truck)' },
   ];
 
   const storages = [
-    "Small 2” x 4”",
-    "Small 5” x 5”",
-    "Small 5” x 10”",
-    "Small 5” x 15”",
-    "Small 10” x 20”",
-    "Small 10” x 30”",
+    "Small 2 x 4",
+    "Small 5 x 5",
+    "Small 5 x 10",
+    "Small 5 x 15",
+    "Small 10 x 20",
+    "Small 10 x 30",
   ];
 
   const [activeMoveSizeTab, setActiveMoveSizeTab] = useState("house");
 
-  // Tab content based on active tab
+  // Tab content renderer
   const renderTabContent = () => {
     switch (activeMoveSizeTab) {
       case "house":
         return (
-          <div className="p-3  overflow-y-auto h-[300px]">
+          <div className="p-3 overflow-y-auto h-[300px]">
             {houses.map((house, index) => (
               <div
                 key={`house-${index}`}
@@ -155,7 +126,7 @@ const MoveDetails = () => {
         );
       case "apartment":
         return (
-          <div className="p-3  overflow-y-auto h-[300px]">
+          <div className="p-3 overflow-y-auto h-[300px]">
             {apartments.map((apartment, index) => (
               <div
                 key={`apartment-${index}`}
@@ -177,7 +148,7 @@ const MoveDetails = () => {
         );
       case "storage":
         return (
-          <div className="p-3  overflow-y-auto h-[300px]">
+          <div className="p-3 overflow-y-auto h-[300px]">
             {storages.map((store, index) => (
               <div
                 key={`storage-${index}`}
@@ -199,46 +170,106 @@ const MoveDetails = () => {
     }
   };
 
-  // Filter locations for both inputs
-  const filteredLocations = {
-    from: allLocations.filter((loc) =>
-      loc.toLowerCase().includes(fromLocation.toLowerCase())
-    ),
-    to: allLocations.filter((loc) =>
-      loc.toLowerCase().includes(toLocation.toLowerCase())
-    ),
-  };
-
-  // Common handlers
+  // Handle input changes with Google Places autocomplete
   const handleInputChange = (type) => (e) => {
     const value = e.target.value;
+
     if (type === "from") {
       setFromLocation(value);
       setActiveIndex((prev) => ({ ...prev, from: -1 }));
+
+      // Get Google Places predictions
+      if (value.length >= 3 && isLoaded) {
+        const service = new window.google.maps.places.AutocompleteService();
+        service.getPlacePredictions({ input: value }, (predictions, status) => {
+          if (
+            status === window.google.maps.places.PlacesServiceStatus.OK &&
+            predictions
+          ) {
+            setFromSuggestions(predictions);
+          } else {
+            setFromSuggestions([]);
+          }
+        });
+      } else {
+        setFromSuggestions([]);
+      }
     } else {
       setToLocation(value);
       setActiveIndex((prev) => ({ ...prev, to: -1 }));
+
+      // Get Google Places predictions
+      if (value.length >= 3 && isLoaded) {
+        const service = new window.google.maps.places.AutocompleteService();
+        service.getPlacePredictions({ input: value }, (predictions, status) => {
+          if (
+            status === window.google.maps.places.PlacesServiceStatus.OK &&
+            predictions
+          ) {
+            setToSuggestions(predictions);
+          } else {
+            setToSuggestions([]);
+          }
+        });
+      } else {
+        setToSuggestions([]);
+      }
     }
   };
 
-  const handleSelectLocation = (type) => (location) => {
-    if (type === "from") {
-      setFromLocation(location);
-      setShowFromModal(false);
-      fromInputRef.current?.focus();
-    } else {
-      setToLocation(location);
-      setShowToModal(false);
-      toInputRef.current?.focus();
-    }
+  const handleSelectLocation = (type) => (prediction) => {
+    const service = new window.google.maps.places.PlacesService(
+      document.createElement("div")
+    );
+
+    service.getDetails(
+      {
+        placeId: prediction.place_id,
+        fields: ["name", "geometry", "formatted_address"],
+      },
+      (place, status) => {
+        if (
+          status === window.google.maps.places.PlacesServiceStatus.OK &&
+          place
+        ) {
+          const locationData = {
+            name: place.name,
+            address: place.formatted_address,
+            lat: place.geometry.location.lat(),
+            lng: place.geometry.location.lng(),
+          };
+
+          console.log("Selected location:", type, locationData);
+
+          if (type === "from") {
+            setFromLocation(locationData.address);
+            setShowFromModal(false);
+            setFromSuggestions([]);
+
+            // Save the name and coordinates
+            setPickupName(locationData.name);
+            setPickupCoords({ lat: locationData.lat, lng: locationData.lng });
+          } else {
+            setToLocation(locationData.address);
+            setShowToModal(false);
+            setToSuggestions([]);
+
+            // Save the name and coordinates
+            setDropoffName(locationData.name);
+            setDropoffCoords({ lat: locationData.lat, lng: locationData.lng });
+          }
+        } else {
+          console.error("Place details request failed:", status);
+        }
+      }
+    );
   };
 
   const handleKeyDown = (type) => (e) => {
     const showModal = type === "from" ? showFromModal : showToModal;
     if (!showModal) return;
 
-    const locations =
-      type === "from" ? filteredLocations.from : filteredLocations.to;
+    const suggestions = type === "from" ? fromSuggestions : toSuggestions;
     const activeIdx = type === "from" ? activeIndex.from : activeIndex.to;
     const setActive = (idx) =>
       setActiveIndex((prev) => ({ ...prev, [type]: idx }));
@@ -246,7 +277,7 @@ const MoveDetails = () => {
     switch (e.key) {
       case "ArrowDown":
         e.preventDefault();
-        setActive(Math.min(activeIdx + 1, locations.length - 1));
+        setActive(Math.min(activeIdx + 1, suggestions.length - 1));
         break;
       case "ArrowUp":
         e.preventDefault();
@@ -255,7 +286,7 @@ const MoveDetails = () => {
       case "Enter":
         if (activeIdx >= 0) {
           e.preventDefault();
-          handleSelectLocation(type)(locations[activeIdx]);
+          handleSelectLocation(type)(suggestions[activeIdx]);
         }
         break;
       case "Escape":
@@ -298,11 +329,10 @@ const MoveDetails = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showFromModal, showToModal]);
 
-  // Modal template
+  // Modal renderer
   const renderLocationModal = (type) => {
     const showModal = type === "from" ? showFromModal : showToModal;
-    const locations =
-      type === "from" ? filteredLocations.from : filteredLocations.to;
+    const suggestions = type === "from" ? fromSuggestions : toSuggestions;
     const activeIdx = type === "from" ? activeIndex.from : activeIndex.to;
 
     return (
@@ -314,26 +344,32 @@ const MoveDetails = () => {
           <p className="text-[#3C82F6] px-3 mb-1 pt-3 font-sans text-[12px]">
             Suggested Destinations
           </p>
-          {locations.length > 0 ? (
-            locations.map((location, index) => (
+          {suggestions.length > 0 ? (
+            suggestions.map((prediction, index) => (
               <div
-                key={`${type}-${location}`}
+                key={prediction.place_id}
                 ref={(el) => (locationItemsRef.current[type][index] = el)}
                 className={`p-3 border-b-[1px] border-[#E3E2E0] hover:bg-gray-100 cursor-pointer ${
                   index === activeIdx ? "bg-blue-50" : ""
                 }`}
-                onClick={() => handleSelectLocation(type)(location)}
+                onClick={() => handleSelectLocation(type)(prediction)}
               >
                 <p className="font-sans text-[16px] leading-[25.6px] text-[#373737]">
-                  {location}
+                  {prediction.structured_formatting.main_text}
                 </p>
                 <p className="text-[12px] font-sans text-[#9e9e9e]">
-                  200 km from your location
+                  {prediction.structured_formatting.secondary_text}
                 </p>
               </div>
             ))
           ) : (
-            <div className="p-3 text-gray-500">No locations found</div>
+            <div className="p-3 text-gray-500">
+              {type === "from"
+                ? fromLocation
+                : toLocation
+                ? "No locations found"
+                : "Type at least 3 characters"}
+            </div>
           )}
         </div>
       )
@@ -353,8 +389,23 @@ const MoveDetails = () => {
       data.moveSize === ""
     )
       return;
+
+    dispatch(
+      setUserDetails({
+        pickUpAddress: pickupName,
+        pickUpLatitude: pickupCoords?.lat,
+        pickUpLongitude: pickupCoords?.lng,
+        dropOffAddress: dropoffName,
+        dropOffLatitude: dropoffCoords?.lat,
+        dropOffLongitude: dropoffCoords?.lng,
+      })
+    );
     navigate("/quote", { state: { data } });
   };
+
+  if (!isLoaded) {
+    return <div></div>;
+  }
 
   return (
     <div className="w-[90vw] mt-16 moveDetails bg-gradient-to-br rounded-[20px] flex justify-center items-center p-8 from-[#1A7BC6] to-[#054D96] max-w-[1500px] mx-auto h-fit">
@@ -425,10 +476,10 @@ const MoveDetails = () => {
               <input
                 ref={inputRef}
                 value={moveSize}
-                // onChange={(e) => setMoveSize(e.target.value)}
                 onFocus={() => setShowSizeModal(true)}
                 placeholder="Moving Size"
                 className="font-sans w-full font-light text-[#707070] leading-[25.6px] border-none outline-none"
+                readOnly
               />
             </div>
             <button onClick={() => setShowSizeModal(true)}>
@@ -558,7 +609,7 @@ const MoveDetails = () => {
           {/* Get Quote Button */}
           <div className="w-[16%] flex justify-center p-3 moversBtnContainer items-center">
             <PrimaryBtn
-              // handlePress={handlePress}
+              handlePress={handlePress}
               className="text-[14px] moversBtn"
             >
               GET A QUOTE

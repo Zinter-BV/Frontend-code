@@ -88,10 +88,10 @@ const QuoteContainer = ({ data }) => {
   // Error message state
   const [errMessage, setErrMessage] = useState("");
 
-  useEffect(() => {
-    if (data) setActiveTab(2);
-    else setActiveTab(1);
-  }, [data]);
+  // useEffect(() => {
+  //   if (data) setActiveTab(2);
+  //   else setActiveTab(1);
+  // }, [data]);
 
   // Function to format datetime to ISO 8601 format
   const formatToISODateTime = (dateStr, timeStr) => {
@@ -244,6 +244,10 @@ const QuoteContainer = ({ data }) => {
       isEditingTo={isEditingTo}
       setIsEditingFrom={setIsEditingFrom}
       setIsEditingTo={setIsEditingTo}
+      fromPickupLongitude={fromPickupLongitude}
+      fromPickupLatitude={fromPickupLatitude}
+      toDropOffLongitude={toDropOffLongitude}
+      toDropOffLatitude={toDropOffLatitude}
     />
   );
 
@@ -305,6 +309,10 @@ const QuoteContainer = ({ data }) => {
           setFromPickupLatitude={setFromPickupLatitude}
           setToDropOffLongitude={setToDropOffLongitude}
           setToDropOffLatitude={setToDropOffLatitude}
+          fromPickupLongitude={fromPickupLongitude}
+          fromPickupLatitude={fromPickupLatitude}
+          toDropOffLongitude={toDropOffLongitude}
+          toDropOffLatitude={toDropOffLatitude}
         />
       );
       break;
@@ -403,7 +411,7 @@ const QuoteContainer = ({ data }) => {
           pickUpLongitude: fromPickupLongitude,
           pickUpLatitude: fromPickupLatitude,
           dropOffLongitude: toDropOffLongitude,
-          dropOffLatitude: fromPickupLatitude,
+          dropOffLatitude: toDropOffLatitude,
         })
       );
     }

@@ -2,6 +2,10 @@ import React, { useRef, useEffect, useState } from "react";
 import "./movingInformation.css";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import { useJsApiLoader } from "@react-google-maps/api";
+
+// Define libraries outside component to prevent reloading
+const LIBRARIES = ["places"];
 
 const MovingInformation = ({
   moveDate,
@@ -79,7 +83,14 @@ const MovingInformation = ({
 
   const { t } = useTranslation();
 
-  // Photon API search states
+  // Load Google Maps API
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    libraries: LIBRARIES,
+  });
+
+  // Google Places search states
   const [fromSuggestions, setFromSuggestions] = useState([]);
   const [toSuggestions, setToSuggestions] = useState([]);
   const [showFromSuggestions, setShowFromSuggestions] = useState(false);
@@ -100,8 +111,8 @@ const MovingInformation = ({
     }
   }, [isEditingTo]);
 
-  // Photon API search function
-  const searchPlaces = async (query, type) => {
+  // Google Places search function
+  const searchPlaces = (query, type) => {
     if (query.length < 3) {
       if (type === "from") {
         setFromSuggestions([]);
@@ -113,64 +124,87 @@ const MovingInformation = ({
       return;
     }
 
-    try {
-      if (type === "from") {
-        setIsSearchingFrom(true);
-      } else {
-        setIsSearchingTo(true);
-      }
-
-      const response = await fetch(
-        `https://photon.komoot.io/api/?q=${encodeURIComponent(query)}&limit=5`
-      );
-
-      if (!response.ok) {
-        throw new Error("Search failed");
-      }
-
-      const data = await response.json();
-
-      if (type === "from") {
-        setFromSuggestions(data.features || []);
-        setShowFromSuggestions(true);
-        setIsSearchingFrom(false);
-      } else {
-        setToSuggestions(data.features || []);
-        setShowToSuggestions(true);
-        setIsSearchingTo(false);
-      }
-    } catch (error) {
-      console.error("Photon API search error:", error);
-      if (type === "from") {
-        setIsSearchingFrom(false);
-        setFromSuggestions([]);
-      } else {
-        setIsSearchingTo(false);
-        setToSuggestions([]);
-      }
+    if (!isLoaded || !window.google) {
+      return;
     }
+
+    if (type === "from") {
+      setIsSearchingFrom(true);
+    } else {
+      setIsSearchingTo(true);
+    }
+
+    const service = new window.google.maps.places.AutocompleteService();
+
+    service.getPlacePredictions({ input: query }, (predictions, status) => {
+      if (type === "from") {
+        setIsSearchingFrom(false);
+        if (
+          status === window.google.maps.places.PlacesServiceStatus.OK &&
+          predictions
+        ) {
+          setFromSuggestions(predictions);
+          setShowFromSuggestions(true);
+        } else {
+          setFromSuggestions([]);
+        }
+      } else {
+        setIsSearchingTo(false);
+        if (
+          status === window.google.maps.places.PlacesServiceStatus.OK &&
+          predictions
+        ) {
+          setToSuggestions(predictions);
+          setShowToSuggestions(true);
+        } else {
+          setToSuggestions([]);
+        }
+      }
+    });
   };
 
   // Handle address selection
-  const handleAddressSelect = (suggestion, type) => {
-    const { properties, geometry } = suggestion;
-    const address = properties.name;
-    const { coordinates } = geometry;
-    const [longitude, latitude] = coordinates;
+  const handleAddressSelect = (prediction, type) => {
+    const placesService = new window.google.maps.places.PlacesService(
+      document.createElement("div")
+    );
 
-    if (type === "from") {
-      setFromLocation(address);
-      setPickUpLongitude(longitude);
-      setPickUpLatitude(latitude);
-      setShowFromSuggestions(false);
-      setIsEditingFrom(false);
-    } else {
-      setToLocation(address);
-      setDropOffLongitude(longitude);
-      setDropOffLatitude(latitude);
-      setShowToSuggestions(false);
-      setIsEditingTo(false);
-    }
+    placesService.getDetails(
+      { placeId: prediction.place_id },
+      (place, status) => {
+        if (
+          status === window.google.maps.places.PlacesServiceStatus.OK &&
+          place &&
+          place.geometry
+        ) {
+          const latitude = place.geometry.location.lat();
+          const longitude = place.geometry.location.lng();
+          const address = prediction.description;
+
+          if (type === "from") {
+            setFromLocation(address);
+            setPickUpLongitude(longitude);
+            setPickUpLatitude(latitude);
+            setShowFromSuggestions(false);
+            setIsEditingFrom(false);
+            console.log("From location selected:", {
+              address,
+              coordinates: { latitude, longitude },
+            });
+          } else {
+            setToLocation(address);
+            setDropOffLongitude(longitude);
+            setDropOffLatitude(latitude);
+            setShowToSuggestions(false);
+            setIsEditingTo(false);
+            console.log("To location selected:", {
+              address,
+              coordinates: { latitude, longitude },
+            });
+          }
+        }
+      }
+    );
   };
 
   const handleFromChange = () => {
@@ -227,23 +261,34 @@ const MovingInformation = ({
     }
   };
 
-  // Suggestion item component
-  const SuggestionItem = ({ suggestion, onClick }) => {
-    const { properties } = suggestion;
+  // Google Places Suggestion item component
+  const SuggestionItem = ({ prediction, onClick }) => {
     return (
       <div
-        className="p-2 hover:bg-gray-100 cursor-pointer border-b border-gray-200 last:border-b-0"
+        className="px-4 py-3 hover:bg-gray-100 cursor-pointer border-b border-gray-100 last:border-b-0 transition-colors"
         onClick={onClick}
       >
-        <div className="font-medium text-sm">{properties.name}</div>
-        {properties.street && (
-          <div className="text-xs text-gray-600">
-            {properties.street}
-            {properties.housenumber && ` ${properties.housenumber}`}
-            {properties.city && `, ${properties.city}`}
-            {properties.country && `, ${properties.country}`}
+        <div className="flex items-start">
+          <svg
+            className="w-4 h-4 text-blue-500 mr-3 mt-1 flex-shrink-0"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fillRule="evenodd"
+              d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+              clipRule="evenodd"
+            />
+          </svg>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-medium text-gray-900 truncate">
+              {prediction.structured_formatting.main_text}
+            </p>
+            <p className="text-xs text-gray-500 line-clamp-2">
+              {prediction.structured_formatting.secondary_text}
+            </p>
           </div>
-        )}
+        </div>
       </div>
     );
   };
@@ -259,17 +304,17 @@ const MovingInformation = ({
     if (!show) return null;
 
     return (
-      <div className="absolute top-full left-0 right-0 bg-white border border-gray-300 rounded-b-lg shadow-lg z-10 max-h-60 overflow-y-auto">
+      <div className="absolute top-full left-0 right-0 z-50 bg-white border border-[#e3e3e3] rounded-[8px] shadow-lg mt-1 max-h-60 overflow-y-auto">
         {isLoading ? (
           <div className="p-2 text-center text-gray-500">Searching...</div>
         ) : suggestions.length === 0 ? (
           <div className="p-2 text-center text-gray-500">No results found</div>
         ) : (
-          suggestions.map((suggestion, index) => (
+          suggestions.map((prediction) => (
             <SuggestionItem
-              key={index}
-              suggestion={suggestion}
-              onClick={() => onSelect(suggestion, type)}
+              key={prediction.place_id}
+              prediction={prediction}
+              onClick={() => onSelect(prediction, type)}
             />
           ))
         )}
@@ -385,6 +430,10 @@ const MovingInformation = ({
   }
   const uniqueRooms = getUniqueRooms(data?.items || []);
 
+  // Show loading if Google Maps isn't loaded yet
+  if (!isLoaded) {
+    return <div>Loading Google Maps...</div>;
+  }
   return (
     <div className="ml-4 movingInfoBox w-full">
       <div className="overflow-y-scroll pb-[40px] h-[700px] moveBox custom-scrol w-fit">
@@ -547,7 +596,7 @@ const MovingInformation = ({
                         onBlur={handleFromBlur}
                         onKeyDown={(e) => handleKeyDown(e, "from")}
                         className="text-[#707070] ml-2 font-sans text-[16px] leading-[25.6px] bg-transparent outline-none flex-1 min-w-0"
-                        placeholder="Start typing to search for address..."
+                        placeholder="Search places... (min 3 chars)"
                       />
                     ) : (
                       <p className="text-[#707070] ml-2 font-sans text-[16px] line-clamp-2 leading-[25.6px] fromLocationText truncate ">
@@ -897,7 +946,7 @@ const MovingInformation = ({
                         onBlur={handleToBlur}
                         onKeyDown={(e) => handleKeyDown(e, "to")}
                         className="text-[#707070] ml-2 font-sans text-[16px] leading-[25.6px] bg-transparent outline-none flex-1 min-w-0"
-                        placeholder="Start typing to search for address..."
+                        placeholder="Search places... (min 3 chars)"
                       />
                     ) : (
                       <p className="text-[#707070] ml-2 fromLocationText line-clamp-2 truncate font-sans text-[16px] leading-[25.6px]">
