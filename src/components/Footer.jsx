@@ -39,13 +39,13 @@ const Footer = () => {
                   {" "}
                   About Us
                 </Link>
-                <p
+                <span
                   // onClick={openModal}
-                  className="font-sora cursor-pointer text-right font-regular footerDesc mt-2"
+                  className="font-sora cursor-pointer font-regular text-[#136AB5] text-[15px] text-right footerDesc mt-2"
                 >
                   {" "}
                   Report an issue
-                </p>
+                </span>
                 {/* <Link
                   to="/faq"
                   className="font-sora text-right font-regular footerDesc mt-2"

@@ -17,6 +17,7 @@ import {
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import Loader from "./loader";
+import { useTranslation } from "react-i18next";
 
 const QuoteContainer = ({ data }) => {
   const [activeTab, setActiveTab] = useState(1);
@@ -24,14 +25,29 @@ const QuoteContainer = ({ data }) => {
   // gets the whole data needed and puts in one object
   const user = useSelector((state) => state.user);
 
+  const { t } = useTranslation();
+
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
   const navigate = useNavigate();
   // location details
   const [fromLocation, setFromLocation] = useState(
-    user?.userDetails?.pickUpAddress || "Keizersgracht 123, 1015 CJ Amsterdam"
+    user?.userMoveInfo?.pickUpAddress || "Keizersgracht 123, 1015 CJ Amsterdam"
   );
+  const [fromPickupLongitude, setFromPickupLongitude] = useState(
+    user?.userMoveInfo?.pickUpLongitude || "4.478618"
+  );
+  const [fromPickupLatitude, setFromPickupLatitude] = useState(
+    user?.userMoveInfo?.pickUpLatitude || "51.924419"
+  );
+
   const [toLocation, setToLocation] = useState(
-    user?.userDetails?.dropOffAddress || "Coolsingel 105, 3012 AG Rotterdam"
+    user?.userMoveInfo?.dropOffAddress || "Coolsingel 105, 3012 AG Rotterdam"
+  );
+  const [toDropOffLongitude, setToDropOffLongitude] = useState(
+    user?.userMoveInfo?.dropOffLongitude || "6.093440"
+  );
+  const [toDropOffLatitude, setToDropOffLatitude] = useState(
+    user?.userMoveInfo?.dropOffLatitude || '52.010199"'
   );
   const [isEditingFrom, setIsEditingFrom] = useState(false);
   const [isEditingTo, setIsEditingTo] = useState(false);
@@ -49,10 +65,10 @@ const QuoteContainer = ({ data }) => {
   const [dropOffAddress, setDropOffAddress] = useState(toLocation);
   const [pickUpAddressNumber, setPickUpAddressNumber] = useState("");
   const [dropOffAddressNumber, setDropOffAddressNumber] = useState("");
-  const [pickUpLongitude, setPickUpLongitude] = useState("4.478618");
-  const [pickUpLatitude, setPickUpLatitude] = useState("51.924419");
-  const [dropOffLongitude, setDropOffLongitude] = useState("6.093440");
-  const [dropOffLatitude, setDropOffLatitude] = useState("52.010199");
+  const [pickUpLongitude, setPickUpLongitude] = useState(fromPickupLongitude);
+  const [pickUpLatitude, setPickUpLatitude] = useState(fromPickupLatitude);
+  const [dropOffLongitude, setDropOffLongitude] = useState(toDropOffLongitude);
+  const [dropOffLatitude, setDropOffLatitude] = useState(toDropOffLatitude);
   const [toNumberOfFloors, setToNumberOfFloors] = useState("");
   const [toLongCarry, setToLongCarry] = useState("");
   const [toRemark, setToRemark] = useState("");
@@ -72,10 +88,10 @@ const QuoteContainer = ({ data }) => {
   // Error message state
   const [errMessage, setErrMessage] = useState("");
 
-  useEffect(() => {
-    if (data) setActiveTab(2);
-    else setActiveTab(1);
-  }, [data]);
+  // useEffect(() => {
+  //   if (data) setActiveTab(2);
+  //   else setActiveTab(1);
+  // }, [data]);
 
   // Function to format datetime to ISO 8601 format
   const formatToISODateTime = (dateStr, timeStr) => {
@@ -181,8 +197,7 @@ const QuoteContainer = ({ data }) => {
   // Format the datetime when creating moreInfoData
   const formattedMoveDateTime = formatToISODateTime(moveDate, moveTime);
   const formattedPickUpDateTime = formatToISODateTime(pickUpDate, pickUpTime);
-  console.log(formattedMoveDateTime);
-  console.log(formattedPickUpDateTime);
+
   const moreInfoData = {
     moveTime: formattedMoveDateTime,
     pickUpTime: formattedPickUpDateTime,
@@ -190,14 +205,15 @@ const QuoteContainer = ({ data }) => {
     email,
     phoneNumber,
     provinceId,
-    pickUpAddress: user?.userDetails?.pickUpAddress || fromLocation,
-    dropOffAddress: user?.userDetails?.dropOffAddress || toLocation,
+    pickUpAddress: user?.userMoveInfo?.pickUpAddress || fromLocation,
+    dropOffAddress: user?.userMoveInfo?.dropOffAddress || toLocation,
     pickUpAddressNumber,
     dropOffAddressNumber,
-    pickUpLongitude,
-    pickUpLatitude,
-    dropOffLongitude,
-    dropOffLatitude,
+    pickUpLongitude: user?.userMoveInfo?.pickUpLongitude || fromPickupLongitude,
+    pickUpLatitude: user?.userMoveInfo?.pickUpLatitude || fromPickupLatitude,
+    dropOffLongitude:
+      user?.userMoveInfo?.toDropOffLongitude || toDropOffLongitude,
+    dropOffLatitude: user?.userMoveInfo?.toDropOffLatitude || toDropOffLatitude,
     toNumberOfFloors,
     toLongCarry,
     toRemark,
@@ -219,11 +235,19 @@ const QuoteContainer = ({ data }) => {
       fromLocation={fromLocation}
       toLocation={toLocation}
       setFromLocation={setFromLocation}
+      setFromPickupLongitude={setFromPickupLongitude}
+      setFromPickupLatitude={setFromPickupLatitude}
+      setToDropOffLongitude={setToDropOffLongitude}
+      setToDropOffLatitude={setToDropOffLatitude}
       setToLocation={setToLocation}
       isEditingFrom={isEditingFrom}
       isEditingTo={isEditingTo}
       setIsEditingFrom={setIsEditingFrom}
       setIsEditingTo={setIsEditingTo}
+      fromPickupLongitude={fromPickupLongitude}
+      fromPickupLatitude={fromPickupLatitude}
+      toDropOffLongitude={toDropOffLongitude}
+      toDropOffLatitude={toDropOffLatitude}
     />
   );
 
@@ -236,8 +260,6 @@ const QuoteContainer = ({ data }) => {
   }
   const dataToSend = mergeTwoObjects(user?.items, user?.moreInfo);
 
-  // responnnse from server
-
   // Remove the wrapper object - send dataToSend directly
   const addUserDetails = async () => {
     const response = await axios.post(
@@ -247,39 +269,9 @@ const QuoteContainer = ({ data }) => {
     return response.data;
   };
 
-  // const mutation = useMutation({
-  // //   mutationFn: addUserDetails,
-
-  // //   onSuccess: (data) => {
-  // //     // console.log(data.responseTime, "Main Status");
-  // //     console.log(data);
-  // //     if (data.responseStatus) {
-  // //       setOpenSuccessModal(true);
-  // //       setEmail("");
-  // //       localStorage.setItem("Code", JSON.stringify(data));
-  // //       setErrMessage("");
-  // //     }
-  // //     if (!data.responseStatus) {
-  // //       setErrMessage(
-  // //         data.responseMessage || "An error occurred. Please try again."
-  // //       );
-  // //     }
-  // //   },
-  // //   onError: (error) => {
-  // //     console.error("Error creating user:", error);
-  // //     setErrMessage("An error occurred. Please try again.");
-  // //   },
-  // // });
-
-  // // const fetchData = () => {
-  // //   mutation.mutate(); // Remove parameter since it's already in the function
-  // // };
-
   const {
     mutate: fetchData,
-    isLoading, // true when the request is running
-    isError,
-    isSuccess,
+    isPending, // true when the request is running
   } = useMutation({
     mutationFn: addUserDetails,
     onSuccess: (data) => {
@@ -313,13 +305,19 @@ const QuoteContainer = ({ data }) => {
           isEditingTo={isEditingTo}
           setIsEditingFrom={setIsEditingFrom}
           setIsEditingTo={setIsEditingTo}
+          setFromPickupLongitude={setFromPickupLongitude}
+          setFromPickupLatitude={setFromPickupLatitude}
+          setToDropOffLongitude={setToDropOffLongitude}
+          setToDropOffLatitude={setToDropOffLatitude}
+          fromPickupLongitude={fromPickupLongitude}
+          fromPickupLatitude={fromPickupLatitude}
+          toDropOffLongitude={toDropOffLongitude}
+          toDropOffLatitude={toDropOffLatitude}
         />
       );
-      // Code to be executed if expression matches value1
       break;
     case 2:
       content = <InventoryList />;
-      // Code to be executed if expression matches value2
       break;
     case 3:
       content = (
@@ -395,26 +393,25 @@ const QuoteContainer = ({ data }) => {
           errMessage={errMessage}
         />
       );
-      // Code to be executed if expression matches value2
       break;
     case 4:
       content = <ViewSummary errMessage={errMessage} />;
-      // Code to be executed if expression matches value2
       break;
     default:
       content = <Location />;
-    // Code to be executed if expression doesn't match any case
   }
 
   // Function to handle moving forward in tabs
   const handleTabs = () => {
-    console.log(activeTab, "activeTab");
     if (activeTab === 1) {
-      console.log(activeTab, 1);
       dispatch(
         setUserDetails({
           pickUpAddress: fromLocation,
           dropOffAddress: toLocation,
+          pickUpLongitude: fromPickupLongitude,
+          pickUpLatitude: fromPickupLatitude,
+          dropOffLongitude: toDropOffLongitude,
+          dropOffLatitude: toDropOffLatitude,
         })
       );
     }
@@ -437,20 +434,17 @@ const QuoteContainer = ({ data }) => {
 
     if (activeTab >= 5) return; // Ensure we don't go beyond the last tab
     setActiveTab((prevTab) => prevTab + 1);
-    console.log("Next Tab:", activeTab + 1);
   };
 
   // Function to handle moving backward in tabs
   const handlePrevTabs = () => {
     if (activeTab <= 1) return; // Ensure we don't go below tab 1
     setActiveTab((prevTab) => prevTab - 1);
-    console.log("Previous Tab:", activeTab - 1);
   };
 
   const handleSubmit = () => {
     console.log(openSuccessModal);
     fetchData();
-    // setOpenSuccessModal(true);
   };
 
   const closeSuccessModal = () => {
@@ -459,99 +453,115 @@ const QuoteContainer = ({ data }) => {
     dispatch(resetUserInfo());
   };
 
-  {
-    isLoading && <Loader />;
-  }
-
   return (
-    <div className="relative">
-      <div className="w-[90vw] relative h-[calc(100vh-90px)] max-w-[1500px] mx-auto mt-24">
-        <div className="w-full  ">
-          <div className="flex items-center">
-            <Link to="/">
-              <p className="text-[#9e9e9e] text-[14px] font-sans leading-[19.6px]">
-                Home
-              </p>{" "}
-            </Link>
-            <div className="mx-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="6"
-                height="11"
-                viewBox="0 0 6 11"
-                fill="none"
-              >
-                <path
-                  d="M0.219801 0.720115C0.0788617 0.861097 -0.000314284 1.05228 -0.000314301 1.25163C-0.000314319 1.45098 0.0788616 1.64217 0.219801 1.78315L3.94119 5.50454L0.219801 9.22592C0.0828549 9.36771 0.00707833 9.55762 0.00879111 9.75474C0.0105039 9.95186 0.0895692 10.1404 0.228958 10.2798C0.368347 10.4192 0.556907 10.4983 0.754025 10.5C0.951143 10.5017 1.14105 10.4259 1.28284 10.289L5.53574 6.03606C5.67668 5.89508 5.75586 5.70389 5.75586 5.50454C5.75586 5.30519 5.67668 5.114 5.53574 4.97302L1.28284 0.720115C1.14186 0.579175 0.950669 0.5 0.75132 0.5C0.551971 0.5 0.360784 0.579175 0.219801 0.720115Z"
-                  fill="#E3E3E3"
-                />
-              </svg>
-            </div>
-            <p className="text-[#525252] text-[16px] font-bold font-sans  ">
-              Get a quote for a move
-            </p>
-          </div>
-          <div className="mt-4  quoteContainer flex ">
-            <MobileQuoteProgress activeTab={activeTab} />
-            <QuoteProgress activeTab={activeTab} />
-            {content}
-          </div>
-        </div>
-        <div className="h-[80px] quoteContainerBtns shadow-[0px_-6px_6px_-6px_rgba(0,0,0,0.3)] bg-white fixed bottom-0 max-w-[1500px] mx-auto w-[90vw] flex items-center justify-center  ">
-          <div className="w-full flex items-center justify-between">
-            {activeTab === 1 ? (
-              <p className="text-[#88b5fe]  py-1 px-2 rounded-[20px]  text-[14px] text-manrope font-light ">
-                GO BACK
+    <>
+      {isPending && <Loader />}
+      <div className="relative">
+        <div className="w-[90vw] relative h-[calc(100vh-90px)] max-w-[1500px] mx-auto mt-24">
+          <div className="w-full  ">
+            <div className="flex items-center">
+              <Link to="/">
+                <p className="text-[#9e9e9e] text-[14px] font-sans leading-[19.6px]">
+                  {t("quoteContainer.home")}
+                </p>{" "}
+              </Link>
+              <div className="mx-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="6"
+                  height="11"
+                  viewBox="0 0 6 11"
+                  fill="none"
+                >
+                  <path
+                    d="M0.219801 0.720115C0.0788617 0.861097 -0.000314284 1.05228 -0.000314301 1.25163C-0.000314319 1.45098 0.0788616 1.64217 0.219801 1.78315L3.94119 5.50454L0.219801 9.22592C0.0828549 9.36771 0.00707833 9.55762 0.00879111 9.75474C0.0105039 9.95186 0.0895692 10.1404 0.228958 10.2798C0.368347 10.4192 0.556907 10.4983 0.754025 10.5C0.951143 10.5017 1.14105 10.4259 1.28284 10.289L5.53574 6.03606C5.67668 5.89508 5.75586 5.70389 5.75586 5.50454C5.75586 5.30519 5.67668 5.114 5.53574 4.97302L1.28284 0.720115C1.14186 0.579175 0.950669 0.5 0.75132 0.5C0.551971 0.5 0.360784 0.579175 0.219801 0.720115Z"
+                    fill="#E3E3E3"
+                  />
+                </svg>
+              </div>
+              <p className="text-[#525252] text-[16px] font-bold font-sans  ">
+                {t("quoteContainer.desc")}
               </p>
-            ) : (
+            </div>
+            <div className="mt-4  quoteContainer flex ">
+              <MobileQuoteProgress activeTab={activeTab} />
+              <QuoteProgress activeTab={activeTab} />
+              {content}
+            </div>
+          </div>
+          <div className="h-[80px] quoteContainerBtns shadow-[0px_-6px_6px_-6px_rgba(0,0,0,0.3)] bg-white fixed bottom-0 max-w-[1500px] mx-auto w-[90vw] flex items-center justify-center  ">
+            <div className="w-full flex items-center justify-between">
+              {activeTab === 1 ? (
+                <p className="text-[#88b5fe]  py-1 px-2 rounded-[20px]  text-[14px] text-manrope font-light ">
+                  {t("quoteContainer.back")}
+                </p>
+              ) : (
+                <button
+                  onClick={() => handlePrevTabs(activeTab)}
+                  className="text-[#3C82F6] hover:bg-primary py-1 px-2 hover:text-white rounded-[20px] cursor-pointer text-[14px] text-manrope font-light "
+                >
+                  {t("quoteContainer.back")}
+                </button>
+              )}
+              <div>
+                {activeTab === 4 ? (
+                  <PrimaryBtn
+                    handlePress={handleSubmit}
+                    className={"text-[14px] "}
+                  >
+                    {t("quoteContainer.getQuotes")}
+                  </PrimaryBtn>
+                ) : (
+                  <PrimaryBtn
+                    handlePress={() => handleTabs(activeTab)}
+                    className={"text-[14px] "}
+                  >
+                    {t("quoteContainer.continue")}
+                  </PrimaryBtn>
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="pb-[20px] md:hidden ">
+            {activeTab > 1 && (
               <button
                 onClick={() => handlePrevTabs(activeTab)}
-                className="text-[#3C82F6] hover:bg-primary py-1 px-2 hover:text-white rounded-[20px] cursor-pointer text-[14px] text-manrope font-light "
+                className="text-[#3C82F6] w-full quoteContainerPrimaryBtn mb-4 py-1 px-2 rounded-[20px] cursor-pointer text-[14px] text-manrope font-light "
               >
-                GO BACK
+                {t("quoteContainer.back")}
               </button>
             )}
+
+            {/* <PrimaryBtn
+            handlePress={() => handleTabs(activeTab)}
+            className={
+              "text-[14px] quoteContainerPrimaryBtn md:hidden my-3 w-full "
+            }
+          >
+            {t("quoteContainer.continue")}
+          </PrimaryBtn> */}
             <div>
               {activeTab === 4 ? (
                 <PrimaryBtn
                   handlePress={handleSubmit}
-                  className={"text-[14px] "}
+                  className={"text-[14px] w-full "}
                 >
-                  GET QUOTES
+                  {t("quoteContainer.getQuotes")}
                 </PrimaryBtn>
               ) : (
                 <PrimaryBtn
                   handlePress={() => handleTabs(activeTab)}
-                  className={"text-[14px] "}
+                  className={"text-[14px] w-full"}
                 >
-                  CONTINUE
+                  {t("quoteContainer.continue")}
                 </PrimaryBtn>
               )}
             </div>
           </div>
         </div>
-        <div className="pb-[20px]">
-          {activeTab > 1 && (
-            <button
-              onClick={() => handlePrevTabs(activeTab)}
-              className="text-[#3C82F6] w-full quoteContainerPrimaryBtn  py-1 px-2 rounded-[20px] cursor-pointer text-[14px] text-manrope font-light "
-            >
-              GO BACK
-            </button>
-          )}
-
-          <PrimaryBtn
-            handlePress={() => handleTabs(activeTab)}
-            className={
-              "text-[14px] quoteContainerPrimaryBtn hidden my-3 w-full "
-            }
-          >
-            CONTINUE
-          </PrimaryBtn>
-        </div>
+        {openSuccessModal && <QuoteSuccess closeModal={closeSuccessModal} />}
       </div>
-      {openSuccessModal && <QuoteSuccess closeModal={closeSuccessModal} />}
-    </div>
+    </>
   );
 };
 

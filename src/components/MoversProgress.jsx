@@ -1,6 +1,8 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const MoversProgress = ({ activeTab }) => {
+  const { t } = useTranslation();
   return (
     <div className="h-fit w-[350px] moversProgressContainer bg-[#f7f7f7] rounded-[20px] border-[1px] border-[#E4F2FB] px-[24px] py-[32px] ">
       <div className="flex relative">
@@ -92,16 +94,16 @@ const MoversProgress = ({ activeTab }) => {
           <p
             className={`${
               activeTab > 2 ? "text-[#2c2c2c]" : "text-primary"
-            } font-sans font-bold text-[16px] mb-2`}
+            } font-sans font-bold max-w-[210px] truncate text-[16px] mb-2`}
           >
-            Recommended Movers
+            {t("moversProgress.recommended")}
           </p>
           <p
             className={`${
               activeTab > 2 ? "text-[#2c2c2c]" : "text-primary"
-            } font-sans text-[14px]`}
+            } font-sans max-w-[210px] truncate text-[14px]`}
           >
-            List of moving companies & quotes
+            {t("moversProgress.list")}
           </p>
         </div>
       </div>
@@ -192,11 +194,11 @@ const MoversProgress = ({ activeTab }) => {
           )}
         </div>
         <div className="h-[100px] ">
-          <p className="text-[#697586] font-sans font-bold text-[16px] mb-2">
-            Make Payment
+          <p className="text-[#697586] max-w-[210px] truncate font-sans font-bold text-[16px] mb-2">
+            {t("moversProgress.payment")}
           </p>
-          <p className="text-[#697586] font-sans text-[14px]">
-            Make your payment easily
+          <p className="text-[#697586] max-w-[210px] truncate font-sans text-[14px]">
+            {t("moversProgress.easy")}
           </p>
         </div>
       </div>
@@ -281,11 +283,11 @@ const MoversProgress = ({ activeTab }) => {
           )}
         </div>
         <div className="h-fit">
-          <p className="text-[#697586] font-sans font-bold text-[16px] mb-2">
-            Track Move
+          <p className="text-[#697586] max-w-[210px] truncate font-sans font-bold text-[16px] mb-2">
+            {t("moversProgress.track")}
           </p>
-          <p className="text-[#697586] font-sans text-[14px]">
-            Start Tracking your move
+          <p className="text-[#697586] max-w-[210px] truncate font-sans text-[14px]">
+            {t("moversProgress.start")}
           </p>
         </div>
       </div>

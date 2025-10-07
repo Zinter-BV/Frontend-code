@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import SelectImage from "../components/SelectImage";
 import UploadImageSuccess from "./UploadImageSuccess";
+import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const UploadImageModal = ({
   closeUploadImageModal,
@@ -8,6 +10,10 @@ const UploadImageModal = ({
   openIsInventoryList,
 }) => {
   const [allImages, setAllImages] = useState([]);
+
+  const { t } = useTranslation();
+
+  const user = useSelector((state) => state.user);
 
   const [isUploadImageSuccess, setIsUploadImageSuccess] = useState(false);
 
@@ -19,14 +25,14 @@ const UploadImageModal = ({
 
   return (
     <div className="fixed top-0 z-50 left-0 backdrop-blur-[3px] bg-[rgba(0,0,0,0.10)] h-full w-full flex justify-center items-center ">
-      <div className="bg-white flex flex-col relative justify-between w-[80%] rounded-[16px] h-[90%]">
+      <div className="bg-white flex flex-col relative justify-between md:w-[80%] w-[90%] rounded-[16px] h-[90%]">
         <div className="flex items-center w-full justify-between p-[28px] border-b-[1px] border-[#E3E8EF] ">
           <div className="flex uploadImageHeader items-center">
             <h3 className="mr-2 font-sans text-[20px] font-bold text-[#121212] ">
-              Upload Image
+              {t("uploadModal.title1")}
             </h3>
             <p className="font-sans text-[20px] font-semibold italic text-[#9e9e9e]">
-              For Image Recognition
+              {t("uploadModal.title2")}
             </p>
           </div>
           <div
@@ -55,7 +61,7 @@ const UploadImageModal = ({
                 className={`h-[36px] mr-1 cursor-pointer {${!isUploadImageModalOpen} && border-[1px]}  rounded-[1000px] p-[10px] flex justify-center items-center border-[#E5E5E5] `}
               >
                 <p className="font-sans text-[16px] inventoryListModal leading-[25.6px] text-[#9e9e9e] ">
-                  Inventory List
+                  {t("uploadModal.btn1")}
                 </p>
               </div>
               <div className="h-[36px] border-[1px] cursor-pointer  rounded-[1000px] p-[10px] flex justify-center items-center border-[#E5E5E5] ">
@@ -64,7 +70,7 @@ const UploadImageModal = ({
                     isUploadImageModalOpen ? "text-[#121212]" : "text-[#9e9e9e]"
                   }`}
                 >
-                  Upload Image
+                  {t("uploadModal.btn2")}
                 </p>
               </div>
             </div>
@@ -91,8 +97,7 @@ const UploadImageModal = ({
                 />
               </svg>
               <p className="font-sans ml-2 text-[16px] imagesDescText text-[#136AB5] leading-[25.6px] ">
-                The images should be of a very good quality, file Size should
-                not be more than 2MB.
+                {t("uploadModal.desc")}.
               </p>
             </div>
             <div className="my-3 grid grid-cols-3 uploadImageContainer gap-[18px] pb-4 w-full">
@@ -138,15 +143,18 @@ const UploadImageModal = ({
               />
             </svg>
             <p className="font-sans text-[16px] text-[#3C82F6] ml-2 leading-[25.6px] ">
-              {allImages.length}
-              <span className="uploadImageItemSelected"> Items Selected</span>
+              {allImages.length || user?.items?.length}
+              <span className="uploadImageItemSelected">
+                {" "}
+                {t("roomItemContainer.selected")}
+              </span>
             </p>
           </div>
           <button
             onClick={() => closeUploadImageModal()}
             className="self-center bg-primary py-2 px-4 text-white rounded-[20px] cursor-pointer text-[12px] text-manrope font-light "
           >
-            UPLOAD IMAGE
+            {t("uploadModal.upload")}
           </button>
         </div>
         {isUploadImageSuccess && (

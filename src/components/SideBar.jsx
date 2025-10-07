@@ -144,6 +144,7 @@ const SideBar = () => {
     const handleDeactivate = () => {
         setShowLogout(false);
         navigate('/vendor-login')
+        sessionStorage.clear()
 
     };
 
@@ -215,10 +216,9 @@ const SideBar = () => {
 
                     </div>
                 </div>
-                <div className={`side_bar_mobile_all ${isOpen ? "open" : ""}`}>
+                {/* <div className={`side_bar_mobile_all ${isOpen ? "open" : ""}`}>
                     <div className="side_bar_container_mobile">
                         <div onClick={toggleSidebar} className="side_bar_logo_mobile">
-                            {/* <img src={logoMobileScreen} alt="" /> */}
                             <img src="/images/logo_mobile_screen.svg" alt="" />
 
                         </div>
@@ -234,7 +234,6 @@ const SideBar = () => {
                         <div className="side_bar_bottom">
                             <div>
                                 <img src="/images/sidebar-icon.svg" alt="" />
-                                {/* <img src={sidebarIcon} alt="" /> */}
                             </div>
                             <div className="side_bar_bottom_text">
                                 <span>Urban Movers</span>
@@ -242,7 +241,44 @@ const SideBar = () => {
                             </div>
                         </div>
                     </div>
+                </div> */}
+                <div className={`side_bar_mobile_all ${isOpen ? "open" : ""}`}>
+                    {/* Sidebar */}
+                    <div className="side_bar_container_mobile">
+                        <div onClick={toggleSidebar} className="side_bar_logo_mobile">
+                            <img src="/images/logo_mobile_screen.svg" alt="logo" />
+                        </div>
+
+                        {navItemsMobile.map(({ path, icon, activeIcon, label }) => (
+                            <Link key={path} to={path}>
+                                <div
+                                    className={`side_bar_child_mobile ${location.pathname === path ? "side_bar_child_active" : ""
+                                        }`}
+                                >
+                                    <img
+                                        src={location.pathname === path ? activeIcon : icon}
+                                        alt={label}
+                                    />
+                                    <span>{label}</span>
+                                </div>
+                            </Link>
+                        ))}
+
+                        <div className="side_bar_bottom">
+                            <div>
+                                <img src="/images/sidebar-icon.svg" alt="icon" />
+                            </div>
+                            <div className="side_bar_bottom_text">
+                                <span>Urban Movers</span>
+                                <span>Workspace</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Overlay (click to close sidebar) */}
+                    <div className="sidebar_overlay" onClick={toggleSidebar}></div>
                 </div>
+
 
             </div>
             <LogoutModal

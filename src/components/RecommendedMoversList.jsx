@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import MoversCard from "./MoversCard";
 
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 const code = JSON.parse(localStorage.getItem("Code")) || null;
 console.log(code);
@@ -30,6 +31,8 @@ const RecommendedMoversList = ({ makeActive }) => {
     cacheTime: 10 * 60 * 1000,
   });
 
+  const { t } = useTranslation();
+
   // Loading state
   if (isLoading) {
     return (
@@ -38,7 +41,7 @@ const RecommendedMoversList = ({ makeActive }) => {
           <div className="flex items-center justify-center h-full">
             <div className="text-center">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-              <p className="text-gray-600">Loading movers...</p>
+              <p className="text-gray-600">{t("recommendedList.loading")}...</p>
             </div>
           </div>
         </div>
@@ -54,13 +57,13 @@ const RecommendedMoversList = ({ makeActive }) => {
           <div className="flex items-center justify-center h-full">
             <div className="text-center">
               <p className="text-red-600 mb-4">
-                Error loading movers: {error.message}
+                {t("recommendedList.error")}: {error.message}
               </p>
               <button
                 onClick={() => refetch()}
                 className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
               >
-                Try Again
+                {t("recommendedList.btn")}
               </button>
             </div>
           </div>
@@ -80,10 +83,10 @@ const RecommendedMoversList = ({ makeActive }) => {
         <div className="flex items-center w-full justify-between">
           <div className="flex mb-4 items-center">
             <h3 className="mr-2 font-sans text-[20px] font-bold text-[#121212]">
-              Showing
+              {t("recommendedList.showing")}
             </h3>
             <p className="font-sans text-[20px] font-semibold italic text-[#9e9e9e]">
-              {quotesCount} Recommended Movers
+              {quotesCount} {t("recommendedList.movers")}
             </p>
           </div>
         </div>
@@ -98,7 +101,7 @@ const RecommendedMoversList = ({ makeActive }) => {
             ))
           ) : (
             <div className="col-span-2 text-center py-8">
-              <p className="text-gray-600">No movers found</p>
+              <p className="text-gray-600">{t("recommendedList.found")}</p>
             </div>
           )}
         </div>

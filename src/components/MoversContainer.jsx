@@ -8,9 +8,11 @@ import PrimaryBtn from "./PrimaryBtn";
 import PaymentSuccess from "../modal/PaymentSuccess";
 import MoversMobileContainer from "./MoversMobileContainer";
 import "./MoversContainer.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
+import { resetPaymentStatus } from "../redux/action";
 
 const MoversContainer = ({ trackingCode }) => {
   const [activeTab, setActiveTab] = useState(1);
@@ -18,11 +20,20 @@ const MoversContainer = ({ trackingCode }) => {
 
   const [isActive, setIsActive] = useState(false);
 
+  const dispatch = useDispatch();
+
+  const { t } = useTranslation();
+
   const [err, setErr] = useState(false);
 
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
 
   const moversData = useSelector((state) => state.user.moversData);
+  const isPaymentSuccessful = useSelector(
+    (state) => state.user.paymentSuccessful
+  );
+
+  console.log(isPaymentSuccessful);
 
   useEffect(() => {
     if (trackingCode) setActiveTab(3);
@@ -33,9 +44,12 @@ const MoversContainer = ({ trackingCode }) => {
     <MoversHolder MoversHolder isActive={isActive} setIsActive={setIsActive} />
   );
 
+  // CODE FOR PAYMENT
+
   switch (activeTab) {
     case 1:
-      content = <MoversHolder isActive={isActive} setIsActive={setIsActive} />;
+      content = <Payment />;
+      // content = <MoversHolder isActive={isActive} setIsActive={setIsActive} />;
       // content = <TrackMove />;
       break;
     case 2:
@@ -121,6 +135,8 @@ const MoversContainer = ({ trackingCode }) => {
 
   const closeSuccessModal = () => {
     setOpenSuccessModal(false);
+    dispatch(resetPaymentStatus());
+    setActiveTab(3);
   };
 
   return (
@@ -139,14 +155,14 @@ const MoversContainer = ({ trackingCode }) => {
             <div className="w-full flex items-center justify-between">
               {activeTab === 1 ? (
                 <p className="text-[#88b5fe]  py-1 px-2 rounded-[20px]  text-[14px] text-manrope font-light ">
-                  GO BACK
+                  {t("moversContainer.back")}
                 </p>
               ) : (
                 <button
                   onClick={() => handlePrevTabs(activeTab)}
                   className="text-[#3C82F6] hover:bg-primary py-1 px-2 hover:text-white rounded-[20px] cursor-pointer text-[14px] text-manrope font-light "
                 >
-                  GO BACK
+                  {t("moversContainer.back")}
                 </button>
               )}
               <div>
@@ -155,14 +171,14 @@ const MoversContainer = ({ trackingCode }) => {
                     handlePress={openModal}
                     className={"text-[14px] "}
                   >
-                    COMPLETE PAYMENT
+                    {t("moversContainer.payment")}
                   </PrimaryBtn>
                 ) : (
                   <PrimaryBtn
                     handlePress={() => handleTabs(activeTab)}
                     className={"text-[14px] "}
                   >
-                    MAKE PAYMENT
+                    {t("moversContainer.make")}
                   </PrimaryBtn>
                 )}
               </div>
@@ -175,7 +191,7 @@ const MoversContainer = ({ trackingCode }) => {
               onClick={() => handlePrevTabs(activeTab)}
               className="text-[#3C82F6] w-full quoteContainerPrimaryBtn  py-1 px-2 rounded-[20px] cursor-pointer text-[14px] text-manrope font-light "
             >
-              GO BACK
+              {t("moversContainer.back")}
             </button>
           )}
           <div>
@@ -186,7 +202,7 @@ const MoversContainer = ({ trackingCode }) => {
                   "text-[14px] quoteContainerPrimaryBtn hidden my-3 w-full "
                 }
               >
-                COMPLETE PAYMENT
+                {t("moversContainer.payment")}
               </PrimaryBtn>
             ) : (
               <PrimaryBtn
@@ -195,7 +211,7 @@ const MoversContainer = ({ trackingCode }) => {
                   "text-[14px] quoteContainerPrimaryBtn hidden my-3 w-full "
                 }
               >
-                MAKE PAYMENT
+                {t("moversContainer.make")}
               </PrimaryBtn>
             )}
           </div>
@@ -209,7 +225,7 @@ const MoversContainer = ({ trackingCode }) => {
           </PrimaryBtn> */}
         </div>
       </div>
-      {openSuccessModal && (
+      {isPaymentSuccessful && (
         <PaymentSuccess closeSuccessModal={closeSuccessModal} />
       )}
     </div>

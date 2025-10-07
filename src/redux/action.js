@@ -27,3 +27,11 @@ export const resetMoversInfo = () => ({
 export const resetUserInfo = () => ({
   type: actionTypes.RESET_USER_INFO,
 });
+
+export const setPaymentStatus = () => ({
+  type: actionTypes.SET_PAYMENT_SUCCESS,
+});
+
+export const resetPaymentStatus = () => ({
+  type: actionTypes.RESET_PAYMENT_SUCCESS,
+});

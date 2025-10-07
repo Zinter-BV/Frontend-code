@@ -3,8 +3,10 @@ import UploadImageForAIRecognition from "./UploadImageForAIRecognition";
 import RoomItemContainer from "./RoomItemContainer";
 import UploadImageModal from "../modal/UploadImageModal";
 import InventoryListModal from "../modal/InventoryListModal";
+import { useTranslation } from "react-i18next";
 
 const InventoryList = () => {
+  const { t } = useTranslation();
   const [isUploadImageModalOpen, setIsUploadImageModalOpen] = useState(false);
   const [isInventoryListModalOpen, setIsInventoryListModalModalOpen] =
     useState(false);
@@ -37,14 +39,14 @@ const InventoryList = () => {
         <div className="flex items-center addItemsBox w-full justify-between">
           <div className="flex addItemsContainer items-center">
             <h3 className="mr-2 font-sans text-[20px] font-bold text-[#121212] ">
-              Add items to your
+              {t("inventoryList.title")}
             </h3>
             <p className="font-sans text-[20px] font-semibold italic text-[#9e9e9e]">
-              3 Bedroom Apartment
+              {t("inventoryList.house")}
             </p>
           </div>
           <button className="text-[#3C82F6] addRoomBtnText self-center hover:bg-primary py-2 px-4 hover:text-white rounded-[20px] cursor-pointer text-[14px] text-manrope font-light ">
-            + ADDITIONAL ROOM
+            {t("inventoryList.room")}
           </button>
           <button className="h-[32px] w-[32px] rounded-full addRoomBtn hidden self-center justify-center items-center border-[1px] border-[#3C82F6] cursor-pointer text-[14px]">
             <svg

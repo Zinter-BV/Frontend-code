@@ -2,10 +2,13 @@ import React, { useMemo } from "react";
 import "./ViewSummary.css";
 import { useSelector } from "react-redux";
 import { formatDate, getDayOfWeek, convertTo12Hour } from "../utils";
+import { useTranslation } from "react-i18next";
 
 const ViewSummary = ({ errMessage }) => {
   const data = useSelector((state) => state.user);
   console.log(data);
+
+  const { t } = useTranslation();
 
   // Memoized room items and counts calculation
   const { roomCounts } = useMemo(() => {
@@ -36,7 +39,7 @@ const ViewSummary = ({ errMessage }) => {
       <div className="overflow-y-scroll pb-[80px] viewSummaryContainer h-[700px] custom-scroll w-full">
         <div className="flex mb-4 items-center">
           <h3 className="mr-2 font-sans text-[20px] font-bold text-[#121212] ">
-            Move Summary
+            {t("summary.title")}
           </h3>
         </div>
         {errMessage && <p className="text-red-500">{errMessage}</p>}
@@ -73,9 +76,9 @@ const ViewSummary = ({ errMessage }) => {
                 </svg>
               </div>
 
-              <div className="h-[88px] boxSide ml-[10px] w-full px-[24px] py-[16px] border-[#e3e3e3] flex flex-col justify-between border-[1px] rounded-[12px] ">
+              <div className="md:h-[88px] h-fit boxSide ml-[10px] w-full px-[24px] py-[16px] border-[#e3e3e3] flex flex-col justify-between border-[1px] rounded-[12px] ">
                 <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                  Moving From
+                  {t("summary.movingFrom")}
                 </p>
                 <p className="text-[20px] text-[#136AB5] font-bold font-sans ">
                   {data?.moreInfo?.pickUpAddress}
@@ -117,9 +120,9 @@ const ViewSummary = ({ errMessage }) => {
                 </svg>
               </div>
 
-              <div className="h-[88px] boxSide ml-[10px] w-full px-[24px] py-[16px] border-[#e3e3e3] flex flex-col justify-between border-[1px] rounded-[12px] ">
+              <div className="md:h-[88px] h-fit boxSide ml-[10px] w-full px-[24px] py-[16px] border-[#e3e3e3] flex flex-col justify-between border-[1px] rounded-[12px] ">
                 <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                  Moving To
+                  {t("summary.movingTo")}
                 </p>
                 <p className="text-[20px] text-[#136AB5] font-bold font-sans ">
                   {data?.moreInfo?.dropOffAddress}
@@ -134,54 +137,54 @@ const ViewSummary = ({ errMessage }) => {
                 <div className="w-full h-[50%] flex items-center justify-between border-[#e3e3e3] border-b-[1px]">
                   <div className="flex rounded-tl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full justify-between">
                     <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      Move Size
+                      {t("summary.moveSize")}
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      House - {uniqueRooms?.length}{" "}
+                      {t("summary.house")}- {uniqueRooms?.length}{" "}
                       {uniqueRooms?.length > 1 ? "Rooms" : "Room"}
                     </p>
                   </div>
 
                   <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
                     <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      Living Room
+                      {t("summary.livingRoom")}
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      {getRoomCount("Living Room")} items selected
+                      {getRoomCount("Living Room")} {t("summary.items")}
                     </p>
                   </div>
                   <div className="flex p-[16px] rounded-tr-[12px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
                     <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      Toilet and Bath
+                      {t("summary.toilet")}
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      {getRoomCount("Toilet and bath")} items selected
+                      {getRoomCount("Toilet and bath")} {t("summary.items")}
                     </p>
                   </div>
                 </div>
                 <div className="w-full h-[50%] flex items-center justify-between ">
                   <div className="flex rounded-bl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full justify-between">
                     <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      Kitchen
+                      {t("summary.kitchen")}
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      {getRoomCount("Kitchen")} items selected
+                      {getRoomCount("Kitchen")} {t("summary.items")}
                     </p>
                   </div>
                   <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
                     <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      Dinning Room
+                      {t("summary.dinning")}
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      {getRoomCount("Dinning Room")} items selected
+                      {getRoomCount("Dinning Room")} {t("summary.items")}
                     </p>
                   </div>
                   <div className="flex p-[16px] rounded-br-[12px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
                     <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      Bedroom
+                      {t("summary.bed")}
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      {getRoomCount("Bedroom")} items selected
+                      {getRoomCount("Bedroom")} {t("summary.items")}
                     </p>
                   </div>
                 </div>
@@ -192,56 +195,56 @@ const ViewSummary = ({ errMessage }) => {
                 <div className="w-full h-[50%] flex items-center justify-between border-[#e3e3e3] border-b-[1px]">
                   <div className="flex w-[50%] rounded-tl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7]  h-full justify-between">
                     <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      Move Size
+                      {t("summary.moveSize")}
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      House - {uniqueRooms?.length}{" "}
+                      {t("summary.house")} - {uniqueRooms?.length}{" "}
                       {uniqueRooms?.length > 1 ? "Rooms" : "Room"}
                     </p>
                   </div>
 
                   <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[50%] h-full  justify-between">
                     <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      Living Room
+                      {t("summary.livingRoom")}
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      20 items selected
+                      {getRoomCount("Living Room")} {t("summary.items")}
                     </p>
                   </div>
                 </div>
                 <div className="w-full h-[50%] flex items-center border-[#e3e3e3] border-b-[1px] justify-between ">
                   <div className="flex rounded-bl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7] w-[50%] h-full justify-between">
                     <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      Bedroom 2
+                      {t("summary.bed")}
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      7 items selected
+                      {getRoomCount("Bedroom")} {t("summary.items")}
                     </p>
                   </div>
                   <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[50%] h-full  justify-between">
                     <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      Dinning Room
+                      {t("summary.dinning")}
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      6 items selected
+                      {getRoomCount("Dinning Room")} {t("summary.items")}
                     </p>
                   </div>
                 </div>
                 <div className="w-full h-[50%] flex items-center justify-between ">
                   <div className="flex rounded-bl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7] w-[50%] h-full justify-between">
                     <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      Bedroom 2
+                      {t("summary.toilet")}
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      7 items selected
+                      {getRoomCount("Toilet and bath")} {t("summary.items")}
                     </p>
                   </div>
                   <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[50%] h-full  justify-between">
                     <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      Dinning Room
+                      {t("summary.kitchen")}
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      6 items selected
+                      {getRoomCount("Kitchen")} {t("summary.items")}
                     </p>
                   </div>
                 </div>
@@ -250,7 +253,7 @@ const ViewSummary = ({ errMessage }) => {
               <div className="w-full h-[90px] webTable flex items-center border-[#e3e3e3] border-[1px] mt-[20px] rounded-[12px] justify-between ">
                 <div className="flex rounded-bl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full justify-between">
                   <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                    Move Date
+                    {t("summary.moveDate")}
                   </p>
                   <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
                     {formatDate(data?.moreInfo?.moveTime)}
@@ -258,7 +261,7 @@ const ViewSummary = ({ errMessage }) => {
                 </div>
                 <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
                   <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                    Day
+                    {t("summary.day")}
                   </p>
                   <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
                     {getDayOfWeek(data?.moreInfo?.moveTime)}
@@ -266,19 +269,17 @@ const ViewSummary = ({ errMessage }) => {
                 </div>
                 <div className="flex p-[16px] rounded-br-[12px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
                   <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                    Move Time
+                    {t("summary.moveTime")}
                   </p>
                   <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
                     {convertTo12Hour(data?.moreInfo?.pickUpTime)}
-                    {/* {convertTo12Hour(data?.moreInfo?.pickUpTime)} */}
-                    {/* {data?.moreInfo?.pickUpTime} */}
                   </p>
                 </div>
               </div>
               <div className="w-full h-[90px] webTable flex items-center border-[#e3e3e3] border-[1px] mt-[20px] rounded-[12px] justify-between ">
                 <div className="flex rounded-bl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full justify-between">
                   <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                    Movers phone
+                    {t("summary.moverPhone")}
                   </p>
                   <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
                     {data?.moreInfo?.phoneNumber}
@@ -286,7 +287,7 @@ const ViewSummary = ({ errMessage }) => {
                 </div>
                 <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
                   <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                    Movers email
+                    {t("summary.moverEmail")}
                   </p>
                   <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
                     {data?.moreInfo?.email}
@@ -294,7 +295,7 @@ const ViewSummary = ({ errMessage }) => {
                 </div>
                 <div className="flex p-[16px] rounded-br-[12px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
                   <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                    Address
+                    {t("summary.address")}
                   </p>
                   <p className="text-[16px] overflow-hidden text-ellipsis whitespace-nowrap leading-[25.6px] font-light text-[#121212] font-sans ">
                     {data?.moreInfo?.pickUpAddress}
@@ -303,58 +304,58 @@ const ViewSummary = ({ errMessage }) => {
               </div>
 
               {/* mobile */}
-              <div className="h-fit w-full mobileTable border-[#e3e3e3] border-[1px] rounded-[12px] ">
+              <div className="h-fit w-full mobileTable border-[#e3e3e3] border-[1px] mt-[20px] rounded-[12px]">
                 <div className="w-full h-[50%] flex items-center justify-between border-[#e3e3e3] border-b-[1px]">
-                  <div className="flex w-[50%] rounded-tl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7]  h-full justify-between">
-                    <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      Move Date
+                  <div className="flex w-[50%] rounded-tl-[12px] p-[16px] flex-col hover:bg-[#f7f7f7] h-full justify-between">
+                    <p className="font-sans text-[14px] leading-[19.6px] text-[#707070]">
+                      {t("summary.moveDate")}
                     </p>
-                    <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      {formatDate(data?.moreInfo?.moveDate)}
+                    <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans">
+                      {formatDate(data?.moreInfo?.moveTime)}
                     </p>
                   </div>
 
-                  <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[50%] h-full  justify-between">
-                    <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      Day
+                  <div className="flex flex-col p-[16px] hover:bg-[#f7f7f7] w-[50%] h-full justify-between">
+                    <p className="font-sans text-[14px] leading-[19.6px] text-[#707070]">
+                      {t("summary.day")}
                     </p>
-                    <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      {getDayOfWeek(data?.moreInfo?.moveDate)}
+                    <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans">
+                      {getDayOfWeek(data?.moreInfo?.moveTime)}
                     </p>
                   </div>
                 </div>
-                <div className="w-full h-[50%] flex items-center border-[#e3e3e3] border-b-[1px] justify-between ">
-                  <div className="flex rounded-bl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7] w-[50%] h-full justify-between">
-                    <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      Move Time
+                <div className="w-full h-[50%] flex items-center border-[#e3e3e3] border-b-[1px] justify-between">
+                  <div className="flex rounded-bl-[12px] p-[16px] flex-col hover:bg-[#f7f7f7] w-[50%] h-full justify-between">
+                    <p className="font-sans text-[14px] leading-[19.6px] text-[#707070]">
+                      {t("summary.moveTime")}
                     </p>
-                    <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
+                    <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans">
                       {convertTo12Hour(data?.moreInfo?.pickUpTime)}
                     </p>
                   </div>
-                  <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[50%] h-full  justify-between">
-                    <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      Movers phone
+                  <div className="flex flex-col p-[16px] hover:bg-[#f7f7f7] w-[50%] h-full justify-between">
+                    <p className="font-sans text-[14px] leading-[19.6px] text-[#707070]">
+                      {t("summary.moverPhone")}
                     </p>
-                    <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
+                    <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans">
                       {data?.moreInfo?.phoneNumber}
                     </p>
                   </div>
                 </div>
-                <div className="w-full h-[50%] flex items-center justify-between ">
-                  <div className="flex rounded-bl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7] w-[50%] h-full justify-between">
-                    <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      Movers email
+                <div className="w-full h-[50%] flex items-center justify-between">
+                  <div className="flex rounded-bl-[12px] p-[16px] flex-col hover:bg-[#f7f7f7] w-[50%] h-full justify-between">
+                    <p className="font-sans text-[14px] leading-[19.6px] text-[#707070]">
+                      {t("summary.moverEmail")}
                     </p>
-                    <p className="text-[16px] tableText leading-[25.6px] font-light text-[#121212] font-sans ">
+                    <p className="text-[16px] tableText leading-[25.6px] font-light text-[#121212] font-sans">
                       {data?.moreInfo?.email}
                     </p>
                   </div>
-                  <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[50%] h-full  justify-between">
-                    <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      Address
+                  <div className="flex flex-col p-[16px] hover:bg-[#f7f7f7] w-[50%] h-full justify-between">
+                    <p className="font-sans text-[14px] leading-[19.6px] text-[#707070]">
+                      {t("summary.address")}
                     </p>
-                    <p className="text-[16px] tableText overflow-hidden text-ellipsis whitespace-nowrap leading-[25.6px] font-light text-[#121212] font-sans ">
+                    <p className="text-[16px] tableText overflow-hidden text-ellipsis whitespace-nowrap leading-[25.6px] font-light text-[#121212] font-sans">
                       {data?.moreInfo?.pickUpAddress}
                     </p>
                   </div>

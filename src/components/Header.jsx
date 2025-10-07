@@ -255,6 +255,9 @@ const Header = () => {
                 )}
               </div>
             </div>
+            <div className="m-4">
+              <LanguageSwitcher />
+            </div>
 
             <div>
               {menuOptionsOpen && (
@@ -279,7 +282,7 @@ const Header = () => {
                         </p>
                       </div>
                     </Link>
-                    <Link>
+                    <Link to="/get-started">
                       <div className="py-[8px] border-t-[1px] border-[#E4F2FB] flex items-center w-full ">
                         <TruckIcon />
                         <p className="ml-[8px] font-sans text-[#373737] ">

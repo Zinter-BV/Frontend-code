@@ -12,6 +12,10 @@
     width: 350px;
   }
 
+  /* .app-container {
+    margin: 300px;
+  } */
+
 @media screen and (max-width:1400px){
 .moveDetailsDesc{
   width: 70%;

@@ -1,65 +1,79 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+// Emmanuel's code
+import { loadStripe } from "@stripe/stripe-js";
+import { createPayment } from "../api/tracking";
+import PrimaryBtn from "./PrimaryBtn";
+import Stripe from "../page/Stripe";
+import { Elements } from "@stripe/react-stripe-js";
+// Load your publishable key (from Stripe Dashboard)
+const stripePromise = loadStripe(
+  "pk_test_51O2JovLw5fKJMXx3zvARABxAlQpptJi9aO6gPkcbH9lFFCfJXV8rgAw170q4wt3CHz00uDfGtPqKmvdvPFWQqNMc00c3Dqphpr"
+);
 
-const Payment = () => {
-  const [cardNumber, setCardNumber] = useState("");
-  const [expiry, setExpiry] = useState("");
-  const [cvv, setCvv] = useState("");
+// import { handleCheckout } from "../services/payment";
+
+const Payment = ({ handleCheckout }) => {
+  // const [cardNumber, setCardNumber] = useState("");
+  // const [expiry, setExpiry] = useState("");
+  // const [cvv, setCvv] = useState("");
 
   const moversData = useSelector((state) => state.user.moversData);
+
   console.log(moversData);
-
+  const { t } = useTranslation();
   // card number
-  const formatCardNumber = (value) => {
-    // Remove non-numeric characters
-    let numbersOnly = value.replace(/\D/g, "");
+  // const formatCardNumber = (value) => {
+  //   // Remove non-numeric characters
+  //   let numbersOnly = value.replace(/\D/g, "");
 
-    // Limit to 16 digits
-    numbersOnly = numbersOnly.slice(0, 16);
+  //   // Limit to 16 digits
+  //   numbersOnly = numbersOnly.slice(0, 16);
 
-    // Add space after every 4 digits
-    return numbersOnly.replace(/(\d{4})/g, "$1 ").trim();
-  };
+  //   // Add space after every 4 digits
+  //   return numbersOnly.replace(/(\d{4})/g, "$1 ").trim();
+  // };
 
-  const handleChange = (e) => {
-    const formatted = formatCardNumber(e.target.value);
-    setCardNumber(formatted);
-  };
+  // const handleChange = (e) => {
+  //   const formatted = formatCardNumber(e.target.value);
+  //   setCardNumber(formatted);
+  // };
 
   // exp
-  const formatExpiryDate = (value) => {
-    // Remove non-numeric characters
-    let numbersOnly = value.replace(/\D/g, "");
+  // const formatExpiryDate = (value) => {
+  //   // Remove non-numeric characters
+  //   let numbersOnly = value.replace(/\D/g, "");
 
-    // Limit to 4 digits (MMYY)
-    numbersOnly = numbersOnly.slice(0, 4);
+  //   // Limit to 4 digits (MMYY)
+  //   numbersOnly = numbersOnly.slice(0, 4);
 
-    // Auto-add "/" after MM
-    if (numbersOnly.length > 2) {
-      numbersOnly = numbersOnly.replace(/(\d{2})(\d{0,2})/, "$1/$2");
-    }
+  //   // Auto-add "/" after MM
+  //   if (numbersOnly.length > 2) {
+  //     numbersOnly = numbersOnly.replace(/(\d{2})(\d{0,2})/, "$1/$2");
+  //   }
 
-    return numbersOnly;
-  };
+  //   return numbersOnly;
+  // };
 
-  const handleExpChange = (e) => {
-    setExpiry(formatExpiryDate(e.target.value));
-  };
+  // const handleExpChange = (e) => {
+  //   setExpiry(formatExpiryDate(e.target.value));
+  // };
 
-  // cvv
+  // // cvv
 
-  const handleCVVChange = (e) => {
-    // Remove non-numeric characters and limit to 4 digits
-    const formatted = e.target.value.replace(/\D/g, "").slice(0, 4);
-    setCvv(formatted);
-  };
+  // const handleCVVChange = (e) => {
+  //   // Remove non-numeric characters and limit to 4 digits
+  //   const formatted = e.target.value.replace(/\D/g, "").slice(0, 4);
+  //   setCvv(formatted);
+  // };
 
   return (
     <div className="ml-4 h-fit movingCompanyDetailBox w-full">
       <div className="overflow-y-scroll pb-[70px] custom-scroll ">
         <p className="font-sans text-[20px] text-[#121212] font-bold ">
-          Complete Payment
+          {t("payment.complete")}
         </p>
         <div className="my-5 border-[1px] w-full h-[146px] flex justify-center moveDetailsMainiContainer items-center rounded-[20px] border-[#136AB5] ">
           <div className=" w-[95%] moveDetailsOptionsContainer flex items-center justify-between h-[75%]">
@@ -116,7 +130,7 @@ const Payment = () => {
                       </svg>
                     </div>
                     <p className="text-[#b8b8b8] ml-2 font-light font-sans text-[16px] leading-[25.6px] ">
-                      From
+                      {t("payment.from")}
                     </p>
                   </div>
                   <div className="flex">
@@ -177,7 +191,7 @@ const Payment = () => {
                       </svg>
                     </div>
                     <p className="text-[#b8b8b8] ml-2 font-light font-sans text-[16px] leading-[25.6px] ">
-                      To
+                      {t("payment.to")}
                     </p>
                   </div>
                   <div className="flex">
@@ -194,7 +208,7 @@ const Payment = () => {
             <div className="w-[42%] movingCompanyMoreDetails h-full flex flex-col justify-between  ">
               <div className="webOptionsContainer">
                 <p className="text-[#9e9e9e] font-normal text-[16px] leading-[25.6px] font-sans ">
-                  22 miles away
+                  22 {t("payment.miles")}
                 </p>
                 <p className="font-unbounded text-[36px] leading-[38.5px] text-[#136AB5] font-semibold ">
                   {" "}
@@ -211,7 +225,7 @@ const Payment = () => {
                 </p>
                 <div>
                   <p className="text-[#9e9e9e] mobileOptionsContainerDistance font-normal text-[16px] leading-[25.6px] font-sans ">
-                    22 miles away
+                    22 {t("payment.miles")}
                   </p>
                   <p className="text-[16px] leading-[25.6px] mobileOptionsContainerOptions font-light text-[#373737] font-sans ">
                     Pickup & delivery included
@@ -267,7 +281,7 @@ const Payment = () => {
             </svg>
           </div>
         </div> */}
-        <div className="rounded-[12px] paymentBox h-fit w-full flex-col mt-5 flex border-[1px] p-[16px] border-[#e3e3e3] ">
+        {/* <div className="rounded-[12px] paymentBox h-fit w-full flex-col mt-5 flex border-[1px] p-[16px] border-[#e3e3e3] ">
           <div className="items-center w-full justify-between flex">
             <div className="flex items-center">
               <svg
@@ -294,27 +308,18 @@ const Payment = () => {
                 />
               </svg>
               <p className="font-sans ml-2 paymentCardText text-[16px] text-[#121212] leading-[25.6px] ">
-                New credit or debit card
+                {t("payment.card")}
               </p>
             </div>
             <div className="">
               <div className="w-[16px] h-[16px] rounded-full border-[1px] border-[#CBD5E1] "></div>
-              {/* <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="19"
-              height="20"
-              viewBox="0 0 19 20"
-              fill="none"
-            >
-              <circle cx="9.5" cy="10" r="9" fill="#F5F5F5" stroke="#136AB5" />
-              <circle cx="9.49862" cy="9.99996" r="6.14706" fill="#136AB5" />
-            </svg> */}
+  
             </div>
           </div>
-          <div className="mt-4">
+          {/* <div className="mt-4">
             <div className="mb-4">
               <label className="font-sans text-[14px] text-[#707070] font-extralight leading-[18.2px] ">
-                Card Number
+                {t("payment.cardNumber")}
               </label>
               <div className="h-[50px] mt-1 flex items-center ">
                 <div className="bg-[#E2E8F0] w-[50px] items-center justify-center flex h-full rounded-l-[6px] ">
@@ -355,40 +360,39 @@ const Payment = () => {
             <div className="flex justify-between gap-[16px] items-center">
               <div className="w-full">
                 <label className="font-sans block mb-2 text-[14px] text-[#707070] font-extralight leading-[18.2px] ">
-                  Expiration
+                  {t("payment.expire")}
                 </label>
                 <input
                   type="text"
                   value={expiry}
                   onChange={handleExpChange}
                   placeholder="MM/YY"
-                  maxLength={19} // 16 digits + 3 spaces
+                  maxLength={19} 
                   className="border-[1px] w-full h-[40px] pl-2 outline-none rounded-r-[6px] "
                 />
               </div>
               <div className="w-full">
                 <label className="font-sans block mb-2 text-[14px] text-[#707070] font-extralight leading-[18.2px] ">
-                  CVV
+                  {t("payment.cvv")}
                 </label>
                 <input
                   type="text"
                   value={cvv}
                   onChange={handleCVVChange}
                   placeholder="123"
-                  maxLength={3} // 16 digits + 3 spaces
+                  maxLength={3} 
                   className="border-[1px] w-full h-[40px] pl-2 outline-none rounded-r-[6px] "
                 />
               </div>
               <div className="w-full">
                 <label className="font-sans block mb-2 text-[14px] text-[#707070] font-extralight leading-[18.2px] ">
-                  Postal Code
+                  {t("payment.postal")}
                 </label>
                 <input
                   type="text"
-                  // value={cardNumber}
-                  // onChange={handleChange}
+                  
                   placeholder="12345"
-                  maxLength={6} // 16 digits + 3 spaces
+                  maxLength={6} 
                   className="border-[1px] w-full h-[40px] pl-2 outline-none rounded-r-[6px] "
                 />
               </div>
@@ -403,11 +407,21 @@ const Payment = () => {
                 className="font-sans font-extralight paymentCard ml-2 text-[16px] text-[#555]"
                 htmlFor="check"
               >
-                Save this credit card for future use
+                {t("payment.save")}
               </label>
             </div>
           </div>
+        </div> */}
+        <div>
+          <Elements stripe={stripePromise}>
+            <Stripe amount={moversData?.amount || 2000} />
+          </Elements>
         </div>
+        {/* <div>
+          <PrimaryBtn handlePress={handleCheckout} className={"text-[14px]"}>
+            Make payment
+          </PrimaryBtn>
+        </div> */}
       </div>
     </div>
   );

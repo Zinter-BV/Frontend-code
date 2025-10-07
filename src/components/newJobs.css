@@ -1,5 +1,3 @@
-
-
 .table_container {
     border: 1px solid rgba(147, 204, 242, 1);
     margin-top: 10px;
@@ -58,7 +56,7 @@
     border-radius: 6px;
     padding: 7px 12px;
     width: 80px;
-    
+
     display: flex;
     gap: 3px;
     align-items: center;
@@ -66,7 +64,7 @@
     font-size: 14px;
     font-weight: 500;
     color: rgba(112, 112, 112, 1);
-  
+
     border: 1px solid rgba(205, 213, 223, 1);
 }
 
@@ -95,7 +93,7 @@ table thead {
 
 }
 
-table thead tr th div { 
+table thead tr th div {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -109,6 +107,7 @@ table thead tr th div {
 tbody tr td .td {
     padding: 5px 20px;
 }
+
 .name_td {
     display: flex;
     gap: 12px;
@@ -175,18 +174,34 @@ tbody tr td .td {
 
 
 .table_wrapper {
-  position: relative;
-  min-height: 300px; /* space for overlay */
+    position: relative;
+    min-height: 300px;
+    /* space for overlay */
 }
 
 .empty_state_overlay {
-  position: absolute;
-  top: 20px;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+@media (max-width: 1000px) {
+    .empty_state_overlay {
+        position: absolute;
+        top: 40px;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        z-index: 1;
+    }
 }

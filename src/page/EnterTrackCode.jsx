@@ -4,9 +4,13 @@ import QuoteHeader from "../components/QuoteHeader";
 import { Link, useNavigate } from "react-router-dom";
 import PrimaryBtn from "../components/PrimaryBtn";
 import { useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
+import Loader from "../components/loader";
 
 const EnterTrackCode = () => {
   const navigate = useNavigate();
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -95,6 +99,7 @@ const EnterTrackCode = () => {
 
   return (
     <div>
+      {trackMoveMutation.isPending && <Loader />}
       <div className="w-[90vw] relative max-w-[1500px] mx-auto mt-24">
         <div className="w-full mt-4 ">
           <QuoteHeader />
@@ -102,7 +107,7 @@ const EnterTrackCode = () => {
             <div className="flex items-center">
               <Link to="/">
                 <p className="text-[#9e9e9e] text-[14px] font-sans leading-[19.6px]">
-                  Home
+                  {t("trackCode.home")}
                 </p>{" "}
               </Link>
               <div className="mx-2">
@@ -120,14 +125,14 @@ const EnterTrackCode = () => {
                 </svg>
               </div>
               <p className="text-[#525252] text-[16px] font-bold font-sans  ">
-                Track your move progress
+                {t("trackCode.track")}
               </p>
             </div>
             <div className="flex flex-col  items-center justify-center w-full h-[60vh] my-auto mt-5">
               <div className="flex border-[1px] trackCodeBox flex-col rounded-[12px] bg-white w-[450px] justify-center">
                 <div className="flex flex-col  justify-center items-center px-[24px] pt-[24px] ">
                   <h2 className="my-3 text-center trackCodeBoxText font-sans text-[24px] text-[#121212] font-bold ">
-                    Enter Code to Track Move
+                    {t("trackCode.enterCode")}
                   </h2>
                   <div className="flex gap-x-3 mb-[16px] trackBoxInputContainer items-center">
                     <div className="flex items-center gap-x-3">
@@ -187,9 +192,7 @@ const EnterTrackCode = () => {
                     }`}
                     disabled={trackMoveMutation.isPending}
                   >
-                    {trackMoveMutation.isPending
-                      ? "TRACKING..."
-                      : "START TRACKING MOVE"}
+                    {t("trackCode.btn")}
                   </PrimaryBtn>
                 </div>
               </div>

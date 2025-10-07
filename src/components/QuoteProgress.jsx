@@ -1,6 +1,8 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const QuoteProgress = ({ activeTab }) => {
+  const { t } = useTranslation();
   return (
     <div className="h-fit w-[450px] bg-[#f7f7f7] quoteContainerProgress rounded-[20px] border-[1px] border-[#E4F2FB] px-[24px] py-[32px] ">
       <div className="flex relative">
@@ -92,16 +94,16 @@ const QuoteProgress = ({ activeTab }) => {
           <p
             className={`${
               activeTab > 1 ? "text-[#2c2c2c]" : "text-primary"
-            } font-sans font-bold text-[16px] mb-2`}
+            } font-sans max-w-[200px] truncate font-bold text-[16px] mb-2`}
           >
-            Location Details
+            {t("quoteProgress.one")}
           </p>
           <p
             className={`${
               activeTab > 1 ? "text-[#2c2c2c]" : "text-primary"
-            } font-sans text-[14px]`}
+            } font-sans max-w-[200px] truncate text-[14px]`}
           >
-            Details of you are moving from
+            {t("quoteProgress.oneDesc")}
           </p>
         </div>
       </div>
@@ -191,11 +193,11 @@ const QuoteProgress = ({ activeTab }) => {
           )}
         </div>
         <div className="h-[100px] ">
-          <p className="text-[#697586] font-sans font-bold text-[16px] mb-2">
-            Setup Inventory List
+          <p className="text-[#697586] max-w-[200px] truncate font-sans font-bold text-[16px] mb-2">
+            {t("quoteProgress.two")}
           </p>
-          <p className="text-[#697586] font-sans text-[14px]">
-            Detailed list of items to be moved
+          <p className="text-[#697586] max-w-[200px] truncate font-sans text-[14px]">
+            {t("quoteProgress.twoDesc")}
           </p>
         </div>
       </div>
@@ -285,11 +287,11 @@ const QuoteProgress = ({ activeTab }) => {
           )}
         </div>
         <div className="h-[100px] ">
-          <p className="text-[#697586] font-sans font-bold text-[16px] mb-2">
-            Moving Information
+          <p className="text-[#697586] max-w-[200px] truncate font-sans font-bold text-[16px] mb-2">
+            {t("quoteProgress.three")}
           </p>
-          <p className="text-[#697586] font-sans text-[14px]">
-            Date, contacts, restrictions, etc...
+          <p className="text-[#697586] max-w-[200px] truncate font-sans text-[14px]">
+            {t("quoteProgress.threeDesc")}
           </p>
         </div>
       </div>
@@ -374,11 +376,11 @@ const QuoteProgress = ({ activeTab }) => {
           )}
         </div>
         <div className="h-fit">
-          <p className="text-[#697586] font-sans font-bold text-[16px] mb-2">
-            View Summary
+          <p className="text-[#697586] font-sans max-w-[200px] truncate font-bold text-[16px] mb-2">
+            {t("quoteProgress.four")}
           </p>
-          <p className="text-[#697586] font-sans text-[14px]">
-            Full summary of your move
+          <p className="text-[#697586] max-w-[200px] truncate font-sans text-[14px]">
+            {t("quoteProgress.fourDesc")}
           </p>
         </div>
       </div>

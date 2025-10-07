@@ -1,11 +1,12 @@
 import React, { useState, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 
 const RoomItemContainer = ({ activeIcon, openIsInventoryList }) => {
   const [isOpenDropDown, setIsOpenDropDown] = useState(false);
   const openDropDown = () => setIsOpenDropDown((prev) => !prev);
 
-  const data = ["Bed", "Night stand", "Table Lamp", "Curtain"];
+  const { t } = useTranslation();
 
   const items = useSelector((state) => state.user.items);
 
@@ -245,7 +246,10 @@ const RoomItemContainer = ({ activeIcon, openIsInventoryList }) => {
               </svg>
               <p className="font-sans text-[16px] text-[#3C82F6] ml-2 leading-[25.6px] ">
                 {getRoomCount(activeIcon)}{" "}
-                <span className="selectedText"> Items Selected</span>
+                <span className="selectedText">
+                  {" "}
+                  {t("roomItemContainer.selected")}
+                </span>
               </p>
             </div>
           )}
@@ -257,7 +261,7 @@ const RoomItemContainer = ({ activeIcon, openIsInventoryList }) => {
               className="text-[#b8b8b8] mr-2 cursor-pointer addItemsText hover:text-[#3C82F6] font-sans text-[14px] font-bold "
             >
               {" "}
-              + ADD ITEMS
+              {t("roomItemContainer.add")}
             </p>
             <button
               onClick={openIsInventoryList}
@@ -330,7 +334,9 @@ const RoomItemContainer = ({ activeIcon, openIsInventoryList }) => {
             </svg>
             <p className="font-sans text-[16px] numberText text-[#3C82F6] ml-2 leading-[25.6px] ">
               {getRoomCount(activeIcon)}{" "}
-              <span className="selectedText">Items Selected </span>
+              <span className="selectedText">
+                {t("roomItemContainer.selected")}{" "}
+              </span>
             </p>
           </div>
           <div className="w-full flex flex-wrap items-center ">
@@ -359,7 +365,7 @@ const RoomItemContainer = ({ activeIcon, openIsInventoryList }) => {
                 {roomItems.length > 5 && (
                   <div className="flex ml-2 items-center">
                     <p className="text-[14px] font-sans leading-[18.2px] text-[#3C82F6]">
-                      +{roomItems.length - 5} more
+                      +{roomItems.length - 5} {t("roomItemContainer.more")}
                     </p>
                   </div>
                 )}
