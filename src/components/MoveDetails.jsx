@@ -409,7 +409,7 @@ const MoveDetails = () => {
 
   return (
     <div className="w-[90vw] mt-16 moveDetails bg-gradient-to-br rounded-[20px] flex justify-center items-center p-8 from-[#1A7BC6] to-[#054D96] max-w-[1500px] mx-auto h-fit">
-      <div className="w-[90%]">
+      <div className="md:w-[90%] w-full">
         <div className="bg-[#136AB5] flex justify-center w-fit mx-auto items-center rounded-[100px] p-3">
           <p className="text-white font-sans text-[14px]">GET A QUOTE</p>
         </div>
