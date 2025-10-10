@@ -466,7 +466,12 @@ const QuoteContainer = ({ data }) => {
     navigate("/");
     setOpenSuccessModal(false);
     dispatch(resetUserInfo());
+    dispatch(setHouseSize(""));
   };
+
+  useEffect(() => {
+    setMoveSize(user?.houseSize);
+  }, [user]);
 
   return (
     <>

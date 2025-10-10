@@ -6,7 +6,7 @@ import PrimaryBtn from "./PrimaryBtn";
 import { useNavigate } from "react-router-dom";
 import { useJsApiLoader } from "@react-google-maps/api";
 import { useDispatch } from "react-redux";
-import { setUserDetails } from "../redux/action";
+import { setHouseSize, setUserDetails } from "../redux/action";
 
 // Define libraries outside component to prevent reloading
 const LIBRARIES = ["places"];
@@ -400,6 +400,7 @@ const MoveDetails = () => {
         dropOffLongitude: dropoffCoords?.lng,
       })
     );
+    dispatch(setHouseSize(moveSize));
     navigate("/quote", { state: { data } });
   };
 
