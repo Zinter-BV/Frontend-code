@@ -6,6 +6,7 @@ const initialState = {
   moreInfo: {},
   moversData: {},
   paymentSuccessful: false,
+  houseSize: "",
 };
 
 const UserReducer = (state = initialState, action) => {
@@ -29,6 +30,11 @@ const UserReducer = (state = initialState, action) => {
       return {
         ...state,
         moversData: action.payload,
+      };
+    case actionTypes.SET_HOUSE_SIZE:
+      return {
+        ...state,
+        houseSize: action.payload,
       };
     case actionTypes.SET_PAYMENT_SUCCESS:
       return {

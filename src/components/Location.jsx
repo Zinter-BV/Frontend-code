@@ -2,6 +2,10 @@ import React, { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import LocationMap from "./LocationMap";
 import { useJsApiLoader } from "@react-google-maps/api";
+import { useQuery } from "@tanstack/react-query";
+import { fetchProvince } from "../api/agentApi";
+import MoveSize from "../Assets/SVG/MoveSize";
+import DownIcon from "../Assets/SVG/DownIcon";
 
 // Define libraries outside component to prevent reloading
 const LIBRARIES = ["places"];
@@ -23,6 +27,12 @@ const Location = ({
   fromPickupLatitude,
   toDropOffLongitude,
   toDropOffLatitude,
+  setProvinceId,
+  provinceId,
+  moveSize,
+  setMoveSize,
+  errMessage,
+  setErrMessage,
 }) => {
   const fromInputRef = useRef(null);
   const toInputRef = useRef(null);
@@ -207,6 +217,186 @@ const Location = ({
     );
   };
 
+  const [allProvinces, setAllProvinces] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [selectedProvince, setSelectedProvince] = useState(null);
+  const [selectedProvinceName, setSelectedProvinceName] = useState("");
+  const dropdownRef = useRef(null);
+
+  const {
+    data: provinces,
+    isLoading,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["provinces"],
+    queryFn: fetchProvince,
+    staleTime: 5 * 60 * 1000, // Cache for 5 minutes (optional)
+  });
+
+  // Store fetched data in selectedProvinces when data is available
+  useEffect(() => {
+    if (provinces) {
+      setAllProvinces(provinces);
+    }
+  }, [provinces]);
+
+  // Restore selected province when component mounts or provinceId changes
+  useEffect(() => {
+    if (provinceId && allProvinces?.result?.length > 0) {
+      const province = allProvinces.result.find(
+        (p) => p.provinceId === provinceId
+      );
+      if (province) {
+        setSelectedProvince(province);
+        setSelectedProvinceName(province.provinceName);
+      }
+    }
+  }, [provinceId, allProvinces]);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    if (showDropdown) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showDropdown]);
+
+  // Toggle dropdown
+  const toggleDropdown = () => setShowDropdown((prev) => !prev);
+
+  // Handle province selection
+  const handleProvinceSelect = (province) => {
+    setSelectedProvince(province);
+    setShowDropdown(false); // Close dropdown after selection
+    setProvinceId(province?.provinceId);
+    setSelectedProvinceName(province?.provinceName);
+  };
+
+  // Clear selection
+  const clearSelection = (e) => {
+    e.stopPropagation();
+    setSelectedProvince(null);
+  };
+
+  // house type
+
+  const modalRef = useRef(null);
+  const inputRef = useRef(null);
+  const [showSizeModal, setShowSizeModal] = useState(false);
+  const houses = [
+    { text: "Few Items", desc: '(10" Truck)' },
+    { text: "1 Bedrooom", desc: '(17" Truck)' },
+    { text: "2 Bedrooms", desc: '(20" Truck)' },
+    { text: "3 Bedrooms", desc: '(26" Truck)' },
+    { text: "4 Bedrooms", desc: '(28" Truck)' },
+    { text: "5 Bedrooms", desc: '(32" Truck)' },
+    { text: "6 Bedrooms", desc: '(36" Truck)' },
+  ];
+
+  const apartments = [
+    { text: "Few Items", desc: '(10" Truck)' },
+    { text: "Studio", desc: '(15" Truck)' },
+    { text: "1 Bedrooom", desc: '(17" Truck)' },
+    { text: "2 Bedrooms", desc: '(20" Truck)' },
+    { text: "3 Bedrooms", desc: '(26" Truck)' },
+    { text: "4 Bedrooms", desc: '(28" Truck)' },
+    { text: "5 Bedrooms", desc: '(32" Truck)' },
+    { text: "6 Bedrooms", desc: '(36" Truck)' },
+  ];
+
+  const storages = [
+    "Small 2 x 4",
+    "Small 5 x 5",
+    "Small 5 x 10",
+    "Small 5 x 15",
+    "Small 10 x 20",
+    "Small 10 x 30",
+  ];
+
+  const [activeMoveSizeTab, setActiveMoveSizeTab] = useState("house");
+
+  // Tab content renderer
+  const renderTabContent = () => {
+    switch (activeMoveSizeTab) {
+      case "house":
+        return (
+          <div className="p-3 overflow-y-auto h-[300px]">
+            {houses.map((house, index) => (
+              <div
+                key={`house-${index}`}
+                className="p-3 flex items-center border-b border-[#E3E2E0] hover:bg-gray-100 cursor-pointer"
+                onClick={() => {
+                  setMoveSize(house.text);
+                  setShowSizeModal(false);
+                  setErrMessage("");
+                }}
+              >
+                <p className="font-sans text-[16px] leading-[25.6px] text-[#373737]">
+                  {house.text}
+                </p>
+                <p className="text-[16px] ml-1 font-sans text-[#9e9e9e]">
+                  {house.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        );
+      case "apartment":
+        return (
+          <div className="p-3 overflow-y-auto h-[300px]">
+            {apartments.map((apartment, index) => (
+              <div
+                key={`apartment-${index}`}
+                className="p-3 flex items-center border-b border-[#E3E2E0] hover:bg-gray-100 cursor-pointer"
+                onClick={() => {
+                  setMoveSize(apartment.text);
+                  setShowSizeModal(false);
+                }}
+              >
+                <p className="font-sans text-[16px] leading-[25.6px] text-[#373737]">
+                  {apartment.text}
+                </p>
+                <p className="text-[16px] ml-1 font-sans text-[#9e9e9e]">
+                  {apartment.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        );
+      case "storage":
+        return (
+          <div className="p-3 overflow-y-auto h-[300px]">
+            {storages.map((store, index) => (
+              <div
+                key={`storage-${index}`}
+                className="p-3 flex items-center border-b border-[#E3E2E0] hover:bg-gray-100 cursor-pointer"
+                onClick={() => {
+                  setMoveSize(store);
+                  setShowSizeModal(false);
+                }}
+              >
+                <p className="font-sans text-[16px] leading-[25.6px] text-[#373737]">
+                  {store}
+                </p>
+              </div>
+            ))}
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
   if (!isLoaded) {
     return <div>Loading...</div>;
   }
@@ -215,10 +405,55 @@ const Location = ({
     <div className="ml-4 locationParentContainer w-full">
       <div className="justify-between locationDetailsContainer flex">
         <div className="w-[69%] locationContainer">
-          <h2 className="font-sans text-[20px] mb-4 text-[#121212] font-bold">
+          {errMessage && (
+            <p className="text-red-600 text-[12px] mb-2">{errMessage}</p>
+          )}
+          <h2 className="font-sans text-[20px] text-[#121212] font-bold">
             {t("location.title")}
           </h2>
           <div className="w-full flex flex-col gap-[16px]">
+            <div className="input_multiple" ref={dropdownRef}>
+              <div className="dropdown_trigger" onClick={toggleDropdown}>
+                <div className="border-[1px] h-[68px] rounded-[8px] cursor-pointer flex items-center px-[16px]  w-full border-[#e3e3e3]">
+                  {selectedProvince ? (
+                    <span className="">
+                      {selectedProvinceName || selectedProvince.provinceName}
+                    </span>
+                  ) : (
+                    <span className="">Select province from the options</span>
+                  )}
+                </div>
+              </div>
+
+              {showDropdown && (
+                <div className=" w-full">
+                  <div className="dropdown_list w-full" role="listbox">
+                    {allProvinces?.result?.length > 0 ? (
+                      allProvinces.result.map((province) => (
+                        <div
+                          className={`dropdown_item ${
+                            selectedProvince?.provinceName ===
+                            province.provinceName
+                              ? "selected"
+                              : ""
+                          }`}
+                          key={province.provinceName}
+                          role="option"
+                          onClick={() => handleProvinceSelect(province)}
+                        >
+                          <span>{province.provinceName}</span>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="dropdown_empty">
+                        No provinces available
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+
             {/* From Location */}
             <div className="relative">
               <div className="w-full h-[68px] locationFrom rounded-[8px] border-[1px] px-[16px] flex items-center justify-between border-[#e3e3e3]">
@@ -395,6 +630,144 @@ const Location = ({
                   ))}
                 </div>
               )}
+              <div className="moveDetailsBtnBox mt-[16px] relative flex justify-between border-r-2 border-[#E3E2E0] p-3 items-center w-full h-[68px] rounded-[8px] border-[1px] px-[16px]">
+                <div className="flex w-[90%] items-center">
+                  <div className="mr-[8px]">
+                    <MoveSize />
+                  </div>
+                  <input
+                    ref={inputRef}
+                    value={moveSize}
+                    onFocus={() => setShowSizeModal(true)}
+                    placeholder="Moving Size"
+                    className="font-sans w-full font-light text-[#707070] leading-[25.6px] border-none outline-none"
+                    readOnly
+                  />
+                </div>
+                <button onClick={() => setShowSizeModal(true)}>
+                  <DownIcon />
+                </button>
+                {showSizeModal && (
+                  <div
+                    ref={modalRef}
+                    className="w-[400px] max-h-[300px] fromAndToContainer overflow-y-auto bg-white absolute top-[60px] border border-gray-200 rounded-[12px] left-0 shadow-lg z-50"
+                  >
+                    <div className="p-3 flex items-center border-b-[1px] justify-between">
+                      <button
+                        onClick={() => setActiveMoveSizeTab("house")}
+                        className={`${
+                          activeMoveSizeTab === "house"
+                            ? "bg-[#F0F9FD] border-[1px]"
+                            : ""
+                        } w-[100px] p-2 rounded-[8px] border-[#BCDFF6] flex items-center`}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="21"
+                          height="21"
+                          viewBox="0 0 21 21"
+                          fill="none"
+                        >
+                          <path
+                            d="M8.38688 10.9739H13.3869M4.22021 14.1406V9.68389C4.22021 9.23889 4.22021 9.01639 4.27438 8.80889C4.32235 8.62548 4.40126 8.4516 4.50771 8.29473C4.62855 8.11723 4.79605 7.96973 5.13105 7.67723L9.13188 4.17556C9.75355 3.63223 10.0644 3.36056 10.4135 3.25723C10.7219 3.16556 11.051 3.16556 11.3594 3.25723C11.7094 3.36056 12.021 3.63223 12.6427 4.17723L16.6427 7.67723C16.9785 7.97056 17.1452 8.11723 17.266 8.29389C17.3727 8.45334 17.4505 8.625 17.4994 8.80889C17.5535 9.01639 17.5535 9.23889 17.5535 9.68389V14.1439C17.5535 15.0756 17.5535 15.5414 17.3719 15.8981C17.2117 16.2115 16.9565 16.4661 16.6427 16.6256C16.2869 16.8072 15.821 16.8072 14.8894 16.8072H6.88438C5.95271 16.8072 5.48605 16.8072 5.13021 16.6256C4.81675 16.466 4.56181 16.2113 4.40188 15.8981C4.22021 15.5406 4.22021 15.0739 4.22021 14.1406Z"
+                            stroke={
+                              activeMoveSizeTab === "house"
+                                ? "#136AB5"
+                                : "#9e9e9e"
+                            }
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                        <span
+                          className={`${
+                            activeMoveSizeTab === "house"
+                              ? "text-[#136AB5]"
+                              : "text-[#9e9e9e]"
+                          } ml-2 font-sans text-[14px]`}
+                        >
+                          House
+                        </span>
+                      </button>
+
+                      <button
+                        onClick={() => setActiveMoveSizeTab("apartment")}
+                        className={`${
+                          activeMoveSizeTab === "apartment"
+                            ? "bg-[#F0F9FD] border-[1px]"
+                            : ""
+                        } w-[150px] p-2 rounded-[8px] border-[#BCDFF6] flex items-center`}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="18"
+                          height="18"
+                          viewBox="0 0 18 18"
+                          fill="none"
+                        >
+                          <path
+                            d="M1.88687 16.6406H16.8869M6.88687 5.80729H7.7202M6.88687 9.14062H7.7202M6.88687 12.474H7.7202M11.0535 5.80729H11.8869M11.0535 9.14062H11.8869M11.0535 12.474H11.8869M3.55354 16.6406V3.30729C3.55354 2.86526 3.72913 2.44134 4.04169 2.12878C4.35425 1.81622 4.77818 1.64063 5.2202 1.64062H13.5535C13.9956 1.64063 14.4195 1.81622 14.732 2.12878C15.0446 2.44134 15.2202 2.86526 15.2202 3.30729V16.6406"
+                            stroke={
+                              activeMoveSizeTab === "apartment"
+                                ? "#136AB5"
+                                : "#9e9e9e"
+                            }
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                        <span
+                          className={`${
+                            activeMoveSizeTab === "apartment"
+                              ? "text-[#136AB5]"
+                              : "text-[#9e9e9e]"
+                          } ml-2 font-sans text-[14px]`}
+                        >
+                          Apartment
+                        </span>
+                      </button>
+
+                      <button
+                        onClick={() => setActiveMoveSizeTab("storage")}
+                        className={`${
+                          activeMoveSizeTab === "storage"
+                            ? "bg-[#F0F9FD] border-[1px]"
+                            : ""
+                        } w-[100px] p-2 rounded-[8px] border-[#BCDFF6] flex items-center`}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="18"
+                          height="14"
+                          viewBox="0 0 18 14"
+                          fill="none"
+                        >
+                          <path
+                            d="M8.88686 0.307129C4.30353 0.307129 0.553528 4.05713 0.553528 8.64046V13.6405H17.2202V8.64046C17.2202 4.05713 13.4702 0.307129 8.88686 0.307129ZM8.88686 1.9738C10.9952 1.9738 12.8702 2.9488 14.0952 4.4738H3.68686C4.90353 2.9488 6.77853 1.9738 8.88686 1.9738ZM5.55353 11.9738H2.22019V8.64046C2.22019 7.75713 2.39519 6.91546 2.70353 6.14046H5.55353V11.9738ZM10.5535 11.9738H7.22019V6.14046H10.5535V11.9738ZM15.5535 11.9738H12.2202V6.14046H15.0702C15.3785 6.91546 15.5535 7.75713 15.5535 8.64046V11.9738Z"
+                            fill={
+                              activeMoveSizeTab === "storage"
+                                ? "#136AB5"
+                                : "#9e9e9e"
+                            }
+                          />
+                        </svg>
+                        <span
+                          className={`${
+                            activeMoveSizeTab === "storage"
+                              ? "text-[#136AB5]"
+                              : "text-[#9e9e9e]"
+                          } ml-2 font-sans text-[14px]`}
+                        >
+                          Storage
+                        </span>
+                      </button>
+                    </div>
+                    {renderTabContent()}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>

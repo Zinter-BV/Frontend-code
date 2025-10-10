@@ -48,8 +48,8 @@ const MoversContainer = ({ trackingCode }) => {
 
   switch (activeTab) {
     case 1:
-      content = <Payment />;
-      // content = <MoversHolder isActive={isActive} setIsActive={setIsActive} />;
+      // content = <Payment />;
+      content = <MoversHolder isActive={isActive} setIsActive={setIsActive} />;
       // content = <TrackMove />;
       break;
     case 2:
@@ -194,7 +194,7 @@ const MoversContainer = ({ trackingCode }) => {
               {t("moversContainer.back")}
             </button>
           )}
-          <div>
+          <div className={`${activeTab === 2 ? "flex" : "hidden"}`}>
             {activeTab === 2 ? (
               <PrimaryBtn
                 handlePress={openModal}

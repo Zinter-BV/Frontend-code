@@ -28,12 +28,6 @@ const ViewSummary = ({ errMessage }) => {
     return roomCounts[roomName] ?? 0;
   };
 
-  // Get unique room names from inventory
-  function getUniqueRooms(items) {
-    return [...new Set(items.map((item) => item.room))];
-  }
-  const uniqueRooms = getUniqueRooms(data?.items || []);
-
   return (
     <div className="ml-4 summaryBox w-full">
       <div className="overflow-y-scroll pb-[80px] viewSummaryContainer h-[700px] custom-scroll w-full">
@@ -140,8 +134,7 @@ const ViewSummary = ({ errMessage }) => {
                       {t("summary.moveSize")}
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      {t("summary.house")}- {uniqueRooms?.length}{" "}
-                      {uniqueRooms?.length > 1 ? "Rooms" : "Room"}
+                      {data?.houseSize}
                     </p>
                   </div>
 
@@ -198,8 +191,7 @@ const ViewSummary = ({ errMessage }) => {
                       {t("summary.moveSize")}
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      {t("summary.house")} - {uniqueRooms?.length}{" "}
-                      {uniqueRooms?.length > 1 ? "Rooms" : "Room"}
+                      {data?.houseSize}
                     </p>
                   </div>
 

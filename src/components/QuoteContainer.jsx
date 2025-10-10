@@ -11,6 +11,7 @@ import MobileQuoteProgress from "./MobileQuoteProgress";
 import { useDispatch, useSelector } from "react-redux";
 import {
   resetUserInfo,
+  setHouseSize,
   setUserDetails,
   setUserMoreInfo,
 } from "../redux/action";
@@ -60,7 +61,7 @@ const QuoteContainer = ({ data }) => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [provinceId, setProvinceId] = useState(1);
+  const [provinceId, setProvinceId] = useState(0);
   const [pickUpAddress, setPickUpAddress] = useState(fromLocation);
   const [dropOffAddress, setDropOffAddress] = useState(toLocation);
   const [pickUpAddressNumber, setPickUpAddressNumber] = useState("");
@@ -88,10 +89,7 @@ const QuoteContainer = ({ data }) => {
   // Error message state
   const [errMessage, setErrMessage] = useState("");
 
-  // useEffect(() => {
-  //   if (data) setActiveTab(2);
-  //   else setActiveTab(1);
-  // }, [data]);
+  const [moveSize, setMoveSize] = useState("");
 
   // Function to format datetime to ISO 8601 format
   const formatToISODateTime = (dateStr, timeStr) => {
@@ -248,6 +246,12 @@ const QuoteContainer = ({ data }) => {
       fromPickupLatitude={fromPickupLatitude}
       toDropOffLongitude={toDropOffLongitude}
       toDropOffLatitude={toDropOffLatitude}
+      setProvinceId={setProvinceId}
+      provinceId={provinceId}
+      moveSize={moveSize}
+      setMoveSize={setMoveSize}
+      errMessage={errMessage}
+      setErrMessage={setErrMessage}
     />
   );
 
@@ -313,6 +317,12 @@ const QuoteContainer = ({ data }) => {
           fromPickupLatitude={fromPickupLatitude}
           toDropOffLongitude={toDropOffLongitude}
           toDropOffLatitude={toDropOffLatitude}
+          provinceId={provinceId}
+          setProvinceId={setProvinceId}
+          moveSize={moveSize}
+          setMoveSize={setMoveSize}
+          errMessage={errMessage}
+          setErrMessage={setErrMessage}
         />
       );
       break;
@@ -403,6 +413,10 @@ const QuoteContainer = ({ data }) => {
 
   // Function to handle moving forward in tabs
   const handleTabs = () => {
+    if (!moveSize) {
+      setErrMessage("Please Enter House Size");
+      return;
+    }
     if (activeTab === 1) {
       dispatch(
         setUserDetails({
@@ -414,9 +428,10 @@ const QuoteContainer = ({ data }) => {
           dropOffLatitude: toDropOffLatitude,
         })
       );
+      dispatch(setHouseSize(moveSize));
     }
     if (activeTab === 2) {
-      console.log(activeTab, 2);
+      // console.log(activeTab, 2);
       // if active tab is 2 and user has not added any items, stay on tab 2
       if (user.items.length === 0) {
         setActiveTab(2);

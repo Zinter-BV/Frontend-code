@@ -425,10 +425,6 @@ const MovingInformation = ({
 
   // Get unique room names from inventory
   const data = useSelector((state) => state.user);
-  function getUniqueRooms(items) {
-    return [...new Set(items.map((item) => item.room))];
-  }
-  const uniqueRooms = getUniqueRooms(data?.items || []);
 
   // Show loading if Google Maps isn't loaded yet
   if (!isLoaded) {
@@ -442,7 +438,7 @@ const MovingInformation = ({
             {t("moveInformation.title1")}
           </h3>
           <p className="font-sans text-[20px] font-semibold italic text-[#9e9e9e]">
-            {uniqueRooms?.length} {t("moveInformation.title2")}
+            {data?.houseSize}
           </p>
         </div>
         {errMessage && <p className="text-red-600 mb-4">{errMessage}</p>}
