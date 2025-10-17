@@ -211,7 +211,8 @@
   "title":"Location Details",
   "from":"from",
   "to":"to",
-  "btn":"change"
+  "btn":"change",
+  "province":"Select a province from the options"
 },
 "quoteContainer":{
   "home":"Home",

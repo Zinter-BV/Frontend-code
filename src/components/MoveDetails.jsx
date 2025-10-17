@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useJsApiLoader } from "@react-google-maps/api";
 import { useDispatch } from "react-redux";
 import { setHouseSize, setUserDetails } from "../redux/action";
+import { useTranslation } from "react-i18next";
 
 // Define libraries outside component to prevent reloading
 const LIBRARIES = ["places"];
@@ -15,6 +16,8 @@ const MoveDetails = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
+
+  const { t } = useTranslation();
 
   // State management
   const [fromLocation, setFromLocation] = useState("");
@@ -412,15 +415,15 @@ const MoveDetails = () => {
     <div className="w-[90vw] mt-16 moveDetails bg-gradient-to-br rounded-[20px] flex justify-center items-center p-8 from-[#1A7BC6] to-[#054D96] max-w-[1500px] mx-auto h-fit">
       <div className="md:w-[90%] w-full">
         <div className="bg-[#136AB5] flex justify-center w-fit mx-auto items-center rounded-[100px] p-3">
-          <p className="text-white font-sans text-[14px]">GET A QUOTE</p>
+          <p className="text-white font-sans text-[14px]">
+            {t("hero.getQuote")}
+          </p>
         </div>
         <h2 className="font-unbounded moveDetailsText text-white text-center font-bold my-2 text-[32px]">
-          Smarter Than a Form. Easier Than a Call
+          {t("features.smarterTitle")}
         </h2>
         <p className="font-sans moveDetailsDesc w-[60%] mx-auto text-center text-[18px] text-[#BCDFF6]">
-          Upload a few photos of your space and our AI scans your inventory and
-          instantly pulls in competitive quotes from our network of professional
-          movers.
+          {t("features.smarterDescription")}
         </p>
 
         <div className="w-full bg-white my-4 h-[80px] moveDetailsCtaContainer rounded-[10px] flex">
@@ -613,7 +616,7 @@ const MoveDetails = () => {
               handlePress={handlePress}
               className="text-[14px] moversBtn"
             >
-              GET A QUOTE
+              {t("features.getStartedBtn")}
             </PrimaryBtn>
           </div>
         </div>

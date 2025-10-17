@@ -207,11 +207,18 @@ const QuoteContainer = ({ data }) => {
     dropOffAddress: user?.userMoveInfo?.dropOffAddress || toLocation,
     pickUpAddressNumber,
     dropOffAddressNumber,
-    pickUpLongitude: user?.userMoveInfo?.pickUpLongitude || fromPickupLongitude,
-    pickUpLatitude: user?.userMoveInfo?.pickUpLatitude || fromPickupLatitude,
-    dropOffLongitude:
-      user?.userMoveInfo?.toDropOffLongitude || toDropOffLongitude,
-    dropOffLatitude: user?.userMoveInfo?.toDropOffLatitude || toDropOffLatitude,
+    pickUpLongitude: String(
+      user?.userMoveInfo?.pickUpLongitude || fromPickupLongitude
+    ),
+    pickUpLatitude: String(
+      user?.userMoveInfo?.pickUpLatitude || fromPickupLatitude
+    ),
+    dropOffLongitude: String(
+      user?.userMoveInfo?.toDropOffLongitude || toDropOffLongitude
+    ),
+    dropOffLatitude: String(
+      user?.userMoveInfo?.toDropOffLatitude || toDropOffLatitude
+    ),
     toNumberOfFloors,
     toLongCarry,
     toRemark,
@@ -415,6 +422,9 @@ const QuoteContainer = ({ data }) => {
   const handleTabs = () => {
     if (!moveSize) {
       setErrMessage("Please Enter House Size");
+      return;
+    } else if (!provinceId || provinceId === 0) {
+      setErrMessage("Please select a province");
       return;
     }
     if (activeTab === 1) {

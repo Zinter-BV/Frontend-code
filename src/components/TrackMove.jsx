@@ -1,12 +1,13 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import Map from "../Assets/Map - Showing location details.svg";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import LocationMap from "./LocationMap";
 
 const TrackMove = () => {
   const moversData = useSelector((state) => state.user.moversData);
+  console.log(moversData.moveDetails, "move");
   const code = JSON.parse(localStorage.getItem("Code")) || null;
   console.log(code);
   // Function to fetch tracking data
@@ -56,6 +57,17 @@ const TrackMove = () => {
     );
   }
 
+  console.log(data.result, "tracking data");
+
+  const fromPickupLongitude =
+    data?.result?.fromLongitude || moversData?.moveDetails?.pickUpLongitude;
+  const fromPickupLatitude =
+    data?.result?.fromLatitude || moversData?.moveDetails?.pickUpLatitude;
+  const toDropOffLongitude =
+    data?.result?.toLongitude || moversData?.moveDetails?.dropOffLongitude;
+  const toDropOffLatitude =
+    data?.result?.toLatitude || moversData?.moveDetails?.dropOffLatitude;
+
   return (
     <div className="ml-4 movingCompanyDetailBox h-fit w-full">
       <div className="overflow-y-scroll pb-[70px] custom-scroll ">
@@ -85,9 +97,12 @@ const TrackMove = () => {
           </p>
         </div>
         <div className="flex gap-x-[22px] moveTimeLine items-center">
-          <div className="moveTimeLineMapContainer h-[440px] w-[400px] ">
-            <img className="w-[400px] h-[440px] " src={Map} alt="map" />{" "}
-          </div>
+          <LocationMap
+            fromPickupLongitude={fromPickupLongitude}
+            fromPickupLatitude={fromPickupLatitude}
+            toDropOffLongitude={toDropOffLongitude}
+            toDropOffLatitude={toDropOffLatitude}
+          />
           <div className="mt-4 moveTimeLineInfo relative ">
             <div className="w-full h-[420px] moveTimeLineInfoOverlay absolute top-0 z-30 ">
               <div className="w-full h-[25%]"></div>

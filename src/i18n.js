@@ -274,6 +274,7 @@ const enTranslations = {
     from: "from",
     to: "to",
     btn: "change",
+    province: "Select a province from the options",
   },
   quoteContainer: {
     home: "Home",
@@ -709,6 +710,7 @@ const esTranslations = {
     from: "desde",
     to: "hasta",
     btn: "cambiar",
+    province: "Selecciona la provincia de las opciones",
   },
   quoteContainer: {
     home: "Inicio",
@@ -1142,6 +1144,7 @@ const nlTranslations = {
     from: "van",
     to: "naar",
     btn: "wijzigen",
+    province: "Selecteer de provincie uit de opties",
   },
   quoteContainer: {
     home: "Home",
@@ -1577,6 +1580,7 @@ const frTranslations = {
     from: "de",
     to: "à",
     btn: "modifier",
+    province: "Sélectionnez la province parmi les options",
   },
   quoteContainer: {
     home: "Accueil",

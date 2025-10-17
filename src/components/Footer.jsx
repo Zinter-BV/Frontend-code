@@ -40,7 +40,7 @@ const Footer = () => {
                   About Us
                 </Link>
                 <span
-                  // onClick={openModal}
+                  onClick={openModal}
                   className="font-sora cursor-pointer font-regular text-[#136AB5] text-[15px] text-right footerDesc mt-2"
                 >
                   {" "}

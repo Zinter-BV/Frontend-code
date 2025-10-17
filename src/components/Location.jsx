@@ -420,7 +420,7 @@ const Location = ({
                       {selectedProvinceName || selectedProvince.provinceName}
                     </span>
                   ) : (
-                    <span className="">Select province from the options</span>
+                    <span className="">{t("location.province")}</span>
                   )}
                 </div>
               </div>

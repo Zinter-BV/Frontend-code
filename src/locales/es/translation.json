@@ -212,7 +212,8 @@
       "title": "Detalles de la ubicación",
       "from": "desde",
       "to": "hasta",
-      "btn": "cambiar"
+      "btn": "cambiar",
+      "province":"Selecciona la provincia de las opciones"
     },
      "quoteContainer": {
       "home": "Inicio",

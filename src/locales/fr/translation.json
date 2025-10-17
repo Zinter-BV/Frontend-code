@@ -212,7 +212,8 @@
       "title": "Détails de l’emplacement",
       "from": "de",
       "to": "à",
-      "btn": "modifier"
+      "btn": "modifier",
+      "province":"Sélectionnez la province parmi les options"
   },
    "quoteContainer": {
       "home": "Accueil",
