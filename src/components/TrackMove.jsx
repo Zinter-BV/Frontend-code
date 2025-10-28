@@ -10,10 +10,9 @@ const TrackMove = () => {
   console.log(moversData.moveDetails, "move");
   const code = JSON.parse(localStorage.getItem("Code")) || null;
   console.log(code);
-  // Function to fetch tracking data
+
   const fetchTrackingData = async () => {
     const response = await axios.get(
-      // `https://involved-birgit-zinter-cb767b47.koyeb.app/api/MoveRequest/TrackMove?code=${moversData?.quoteId}`
       `https://involved-birgit-zinter-cb767b47.koyeb.app/api/MoveRequest/TrackMove?code=${code.result}`
     );
     return response.data;
@@ -21,17 +20,15 @@ const TrackMove = () => {
 
   const { t } = useTranslation();
 
-  // React Query hook with 5-second refetch interval
   const { data, isLoading, error } = useQuery({
-    queryKey: ["trackMove", "1234567"],
+    queryKey: ["trackMove"],
     queryFn: fetchTrackingData,
-    refetchInterval: 5000, // Refetch every 5 seconds
-    refetchIntervalInBackground: true, // Continue refetching when tab is not active
-    retry: 3, // Retry failed requests up to 3 times
-    staleTime: 0, // Consider data stale immediately
+    refetchInterval: 5000,
+    refetchIntervalInBackground: true,
+    retry: 3,
+    staleTime: 0,
   });
 
-  // Handle loading state
   if (isLoading) {
     return (
       <div className="ml-4 movingCompanyDetailBox h-fit w-full">
@@ -43,7 +40,6 @@ const TrackMove = () => {
     );
   }
 
-  // Handle error state
   if (error) {
     return (
       <div className="ml-4 movingCompanyDetailBox h-fit w-full">
@@ -68,14 +64,33 @@ const TrackMove = () => {
   const toDropOffLatitude =
     data?.result?.toLatitude || moversData?.moveDetails?.dropOffLatitude;
 
+  // Get status flags from API
+  const hasArrived = data?.result?.hasArrived || false;
+  const inTransit = data?.result?.inTransit || false;
+  const isCompleted = data?.result?.isCompleted || false;
+
+  // Helper function to determine if step is active
+  const isStepActive = (step) => {
+    switch (step) {
+      case "payment":
+        return true; // Payment is always completed if tracking exists
+      case "pickup":
+        return inTransit || hasArrived || isCompleted;
+      case "transit":
+        return hasArrived || isCompleted;
+      case "unload":
+        return isCompleted;
+      default:
+        return false;
+    }
+  };
+
   return (
     <div className="ml-4 movingCompanyDetailBox h-fit w-full">
       <div className="overflow-y-scroll pb-[70px] custom-scroll ">
         <h3 className="mb-3 font-sans text-[20px] font-bold text-[#121212] ">
           {t("trackMove.title")}
         </h3>
-
-        {/* Display API data if available */}
 
         <div className="flex moversTrackInfoContainer items-center mb-4 bg-[#F0F9FD] w-fit rounded-[12px] p-[20px]  ">
           <div className="flex justify-center border-[1px] border-black items-center w-[24px] h-[24px] min-w-[24px] min-h-[24px] rounded-full mr-2">
@@ -96,6 +111,7 @@ const TrackMove = () => {
             {t("trackMove.desc")}
           </p>
         </div>
+
         <div className="flex gap-x-[22px] moveTimeLine items-center">
           <LocationMap
             fromPickupLongitude={fromPickupLongitude}
@@ -104,16 +120,23 @@ const TrackMove = () => {
             toDropOffLatitude={toDropOffLatitude}
           />
           <div className="mt-4 moveTimeLineInfo relative ">
-            <div className="w-full h-[420px] moveTimeLineInfoOverlay absolute top-0 z-30 ">
-              <div className="w-full h-[25%]"></div>
-              <div className="w-full h-[75%] bg-white opacity-90 "></div>
-            </div>
+            {!isCompleted && (
+              <div className="w-full h-[420px] moveTimeLineInfoOverlay absolute top-0 z-30 ">
+                <div className="w-full h-[25%]"></div>
+                <div className="w-full h-[75%] bg-white opacity-90 "></div>
+              </div>
+            )}
             <p className="font-sans text-[18px] mb-2 font-extralight text-[#121212] ">
               {t("trackMove.timeline")}
             </p>
             <div className="">
+              {/* Payment Made */}
               <div className="flex gap-[10px] mb-[30px] relative items-center">
-                <div className="absolute h-[80px] w-[2px] left-2 top-11 bg-[#b8b8b8] rounded-[1px] "></div>
+                <div
+                  className={`absolute h-[80px] w-[2px] left-2 top-11 rounded-[1px] ${
+                    isStepActive("pickup") ? "bg-[#136AB5]" : "bg-[#b8b8b8]"
+                  }`}
+                ></div>
 
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -161,8 +184,14 @@ const TrackMove = () => {
                   </div>
                 </div>
               </div>
+
+              {/* Pickup Start */}
               <div className="flex gap-[10px] mb-[30px] relative items-center">
-                <div className="absolute h-[80px] w-[2px] left-2 top-11 bg-[#b8b8b8] rounded-[1px] "></div>
+                <div
+                  className={`absolute h-[80px] w-[2px] left-2 top-11 rounded-[1px] ${
+                    isStepActive("transit") ? "bg-[#136AB5]" : "bg-[#b8b8b8]"
+                  }`}
+                ></div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="19"
@@ -233,8 +262,14 @@ const TrackMove = () => {
                   </div>
                 </div>
               </div>
+
+              {/* In Transit */}
               <div className="flex gap-[10px] mb-[30px] relative items-center">
-                <div className="absolute h-[80px] w-[2px] left-2 top-11 bg-[#b8b8b8] rounded-[1px] "></div>
+                <div
+                  className={`absolute h-[80px] w-[2px] left-2 top-11 rounded-[1px] ${
+                    isStepActive("unload") ? "bg-[#136AB5]" : "bg-[#b8b8b8]"
+                  }`}
+                ></div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="19"
@@ -291,6 +326,8 @@ const TrackMove = () => {
                   </div>
                 </div>
               </div>
+
+              {/* Unload */}
               <div className="flex gap-[10px] items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

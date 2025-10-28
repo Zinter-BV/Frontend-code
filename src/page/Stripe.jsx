@@ -38,6 +38,8 @@ const Stripe = ({ amount }) => {
     },
   };
 
+  const paymentUrl = `https://involved-birgit-zinter-cb767b47.koyeb.app/api/MoveRequest/CreatePaymentIntent?amount=${amount}`;
+
   const handleCardChange = (field) => (event) => {
     if (event.error) {
       setErrors((prev) => ({ ...prev, [field]: event.error.message }));
@@ -46,37 +48,79 @@ const Stripe = ({ amount }) => {
     }
   };
 
-  const handleCheckout = async () => {
-    if (!stripe || !elements) {
-      return;
-    }
+  // const makePaymentIntent = async () => {
+  //   const res = await fetch(paymentUrl, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+  //   const data = res.json();
+  //   console.log(data);
+  // };
 
+  // const handleCheckout = async () => {
+  //   if (!stripe || !elements) {
+  //     return;
+  //   }
+
+  //   setIsProcessing(true);
+
+  //   try {
+  //     const response = await createPayment(amount);
+
+  //     if (response.clientSecret) {
+  //       const { error, paymentIntent } = await stripe.confirmCardPayment(
+  //         response.clientSecret,
+  //         {
+  //           payment_method: {
+  //             card: elements.getElement(CardNumberElement),
+  //           },
+  //         }
+  //       );
+  //       makePaymentIntent();
+  //       if (error) {
+  //         console.error("Payment failed:", error.message);
+  //         setErrors({ payment: error.message });
+  //       } else if (paymentIntent.status === "succeeded") {
+  //         console.log("Payment successful!", paymentIntent);
+  //         dispatch(setPaymentStatus());
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.log("Checkout failed:", error);
+  //     setErrors({ payment: "Payment failed. Please try again." });
+  //   } finally {
+  //     setIsProcessing(false);
+  //   }
+  // };
+
+  const handleCheckout = async () => {
+    if (!stripe || !elements) return;
     setIsProcessing(true);
 
     try {
-      const response = await createPayment(amount);
+      // Step 1: Create the PaymentIntent
+      const res = await fetch(paymentUrl, { method: "GET" });
+      const data = await res.json(); // contains clientSecret
+      const clientSecret = data.clientSecret;
 
-      if (response.clientSecret) {
-        const { error, paymentIntent } = await stripe.confirmCardPayment(
-          response.clientSecret,
-          {
-            payment_method: {
-              card: elements.getElement(CardNumberElement),
-            },
-          }
-        );
-
-        if (error) {
-          console.error("Payment failed:", error.message);
-          setErrors({ payment: error.message });
-        } else if (paymentIntent.status === "succeeded") {
-          console.log("Payment successful!", paymentIntent);
-          dispatch(setPaymentStatus());
+      // Step 2: Confirm payment with clientSecret
+      const { error, paymentIntent } = await stripe.confirmCardPayment(
+        clientSecret,
+        {
+          payment_method: { card: elements.getElement(CardNumberElement) },
         }
+      );
+
+      if (error) {
+        setErrors({ payment: error.message });
+      } else if (paymentIntent.status === "succeeded") {
+        console.log("Payment successful!", paymentIntent);
+        dispatch(setPaymentStatus());
       }
     } catch (error) {
-      console.log("Checkout failed:", error);
-      setErrors({ payment: "Payment failed. Please try again." });
+      console.error(error);
     } finally {
       setIsProcessing(false);
     }

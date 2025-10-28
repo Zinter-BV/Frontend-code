@@ -432,7 +432,7 @@ const MovingInformation = ({
   }
   return (
     <div className="ml-4 movingInfoBox w-full">
-      <div className="overflow-y-scroll pb-[40px] h-[700px] moveBox custom-scrol w-fit">
+      <div className=" pb-[40px] h-fit moveBox  w-fit">
         <div className="flex movingInformationHeader mb-4 items-center">
           <h3 className="mr-2 font-sans text-[20px] font-bold text-[#121212] ">
             {t("moveInformation.title1")}

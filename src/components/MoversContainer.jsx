@@ -76,10 +76,12 @@ const MoversContainer = ({ trackingCode }) => {
   const sendQuoteData = async () => {
     const response = await axios.get(
       `https://involved-birgit-zinter-cb767b47.koyeb.app/api/Quote/AcceptQuote?id=${moversData?.quoteId}`
-      // `https://involved-birgit-zinter-cb767b47.koyeb.app/api/Quote/AcceptQuote?id=TmaN5c`
+      // `https://involved-birgit-zinter-cb767b47.koyeb.app/api/Quote/AcceptQuote?id=q5mPNV`
     );
     return response.data;
   };
+
+  // if all is false, then show movev has ot started yet
 
   const mutation = useMutation({
     mutationFn: sendQuoteData,
@@ -88,6 +90,7 @@ const MoversContainer = ({ trackingCode }) => {
         setOpenSuccessModal(true);
         setErr(false);
         setActiveTab(3);
+        console.log(data);
       } else {
         // alert("Not Cool");
         setErr(true);
@@ -128,16 +131,17 @@ const MoversContainer = ({ trackingCode }) => {
   //   console.log("Helloo");
   // };
 
-  const openModal = () => {
-    handleTabs();
-    fetchData();
-    // ;
-  };
-
   const closeSuccessModal = () => {
     setOpenSuccessModal(false);
     dispatch(resetPaymentStatus());
     setActiveTab(3);
+  };
+
+  const openModal = () => {
+    handleTabs();
+    fetchData();
+    closeSuccessModal();
+    // ;
   };
 
   return (
@@ -166,23 +170,25 @@ const MoversContainer = ({ trackingCode }) => {
                   {t("moversContainer.back")}
                 </button>
               )}
-              <div>
-                {activeTab === 2 ? (
-                  <PrimaryBtn
-                    handlePress={openModal}
-                    className={"text-[14px] "}
-                  >
-                    {t("moversContainer.payment")}
-                  </PrimaryBtn>
-                ) : (
-                  <PrimaryBtn
-                    handlePress={() => handleTabs(activeTab)}
-                    className={"text-[14px] "}
-                  >
-                    {t("moversContainer.make")}
-                  </PrimaryBtn>
-                )}
-              </div>
+              {
+                <div>
+                  {activeTab === 2 ? (
+                    <PrimaryBtn
+                      handlePress={openModal}
+                      className={"text-[14px] "}
+                    >
+                      {t("moversContainer.payment")}
+                    </PrimaryBtn>
+                  ) : (
+                    <PrimaryBtn
+                      handlePress={() => handleTabs(activeTab)}
+                      className={"text-[14px] "}
+                    >
+                      {t("moversContainer.make")}
+                    </PrimaryBtn>
+                  )}
+                </div>
+              }
             </div>
           </div>
         )}
@@ -227,7 +233,10 @@ const MoversContainer = ({ trackingCode }) => {
         </div>
       </div>
       {isPaymentSuccessful && (
-        <PaymentSuccess closeSuccessModal={closeSuccessModal} />
+        <PaymentSuccess
+          // closeSuccessModal={closeSuccessModal}
+          openModal={openModal}
+        />
       )}
     </div>
   );
