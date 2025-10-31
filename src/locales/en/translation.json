@@ -52,11 +52,16 @@
     "howEarly": "How early should I book my move?",
     "packing": "Will the movers pack my stuff too?",
     "whatsIncluded": "What's included in my quote?",
-    "packingExtra": "Is packing part of the deal or extra?",
     "reschedule": "Can I reschedule if plans change?",
-    "tracking": "Can I track my move in real time?",
     "storage": "What if I need storage, can you help?",
-    "costCalculation": "How is the cost of moving worked out?"
+    "costCalculation": "How is the cost of moving worked out?",
+    "ans1": "We accept a variety of payment methods for your convenience, including iDEAL, credit and debit cards, and mobile payment options. Payment details will be confirmed during the booking process.",
+    "ans2": "We recommend booking your move at least 2–4 weeks in advance, particularly during peak months (April to September). This ensures availability on your preferred date and allows us to provide the highest quality service. However, we will always do our best to accommodate last-minute bookings whenever possible.",
+    "ans3":"Yes. You can choose between full packing services or self-packing options, depending on your preferences. Our professional packing team can securely pack your belongings to ensure they are well protected during transit.",
+    "ans4":"Your quote typically includes labour, transportation, and fuel costs. All charges are clearly itemized so you know exactly what’s covered before moving day. Optional services—such as packing, storage, specialty item handling, or insurance—can be added upon request.",
+    "ans5":"Absolutely. We understand that plans can change. You can reschedule your move with advance notice by contacting our team as soon as possible. We’ll work with you to adjust your booking quickly and without hassle.",
+    "ans6":"Of course. We partner with trusted providers offering short-term and long-term storage solutions in secure, climate-controlled facilities to keep your belongings safe until you’re ready for delivery.",
+    "ans7":"Moving costs are determined by several factors, including distance, volume of items, and any additional services selected (such as packing or storage). We provide transparent, itemized quotes so you’ll always know exactly what you’re paying for—no hidden fees."
   },
   "newsletter": {
     "header": "NEWS LETTER",
