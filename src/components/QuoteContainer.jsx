@@ -19,6 +19,7 @@ import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import Loader from "./loader";
 import { useTranslation } from "react-i18next";
+import MovingInformation2 from "./MovingInformation2";
 
 const QuoteContainer = ({ data }) => {
   const [activeTab, setActiveTab] = useState(1);
@@ -338,7 +339,7 @@ const QuoteContainer = ({ data }) => {
       break;
     case 3:
       content = (
-        <MovingInformation
+        <MovingInformation2
           setMoveDate={setMoveDate}
           moveDate={moveDate}
           setPickUpDate={setPickUpDate}
@@ -423,10 +424,11 @@ const QuoteContainer = ({ data }) => {
     if (!moveSize) {
       setErrMessage("Please Enter House Size");
       return;
-    } else if (!provinceId || provinceId === 0) {
-      setErrMessage("Please select a province");
-      return;
     }
+    // else if (!provinceId || provinceId === 0) {
+    //   setErrMessage("Please select a province");
+    //   return;
+    // }
     if (activeTab === 1) {
       dispatch(
         setUserDetails({
