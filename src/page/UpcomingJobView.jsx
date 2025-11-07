@@ -728,7 +728,7 @@ const UpcomingJobView = () => {
                 </div>
                 {showMoveDetails && <div className="footer_upcoming_jobs">
                     {/* <button>REJECT</button> */}
-                    <button onClick={openMoveCheckList} >START QUOTE</button>
+                    <button onClick={openMoveCheckList} >START MOVE</button>
                 </div>}
 
             </div>
@@ -845,8 +845,8 @@ const UpcomingJobView = () => {
                             <div className="body_checklist">
                                 <input
                                     type="checkbox"
-                                    checked={currentStep >= 4}
-                                    disabled={currentStep !== 4 || currentStep === 4}
+                                    checked={currentStep >= 3}
+                                   
                                 />
                                 <span className={currentStep !== 4 ? "disabled-text" : ""}>
                                     <strong>End Move</strong> using customer tracking code
@@ -855,7 +855,7 @@ const UpcomingJobView = () => {
                             <div className="body_checklist_input">
                                 <input
                                     type="text"
-                                    disabled={currentStep !== 4 || currentStep === 4}
+                                   
                                     onChange={(e) => setEndMoveValue(e.target.value)}
                                     placeholder="-----"
                                     value={endMoveValue}
@@ -863,7 +863,7 @@ const UpcomingJobView = () => {
                                 <button
                                     className="end_move_btn"
                                     onClick={openMoveSuccess}
-                                    disabled={currentStep !== 4 || currentStep === 4}
+                                   
                                 >
                                     End move
                                 </button>

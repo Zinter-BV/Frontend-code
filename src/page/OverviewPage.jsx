@@ -31,23 +31,11 @@ import { useQuery } from "@tanstack/react-query";
 import { moversDashboardAnalytics } from "../api/agentApi";
 import Loader from "../components/loader";
 import AllJobs from "../components/AllJobs";
+import InComing from "../components/InComing";
 
 
 
 const OverviewPage = () => {
-    const moveRequests = [
-        { name: "Anna van Dijk", email: "AnnaVanDijk@gmail.com", status: "New Request" },
-        // { name: "David Osei", email: "davidosei@mail.com", status: "In Transit" },
-        // { name: "Fatima Bello", email: "fatimabello@mail.com", status: "Completed" },
-        // { name: "John Park", email: "johnpark@fastmail.com", status: "New Request" },
-        // { name: "Lina Chukwu", email: "linachuks@mail.com", status: "In Transit" },
-        // { name: "James Okoro", email: "okorojames@gmail.com", status: "Completed" },
-        // { name: "Sara Müller", email: "sara.mueller@email.com", status: "In Transit" },
-        // { name: "Peter Mensah", email: "mensahpeter@yahoo.com", status: "New Request" },
-        // { name: "Grace Kim", email: "gracekim@outlook.com", status: "Completed" },
-        // { name: "Ali Jibril", email: "alijibril@mail.com", status: "In Transit" },
-    ];
-
     const [incomingRequest, setIncomingRequest] = useState(0)
     const [approvedRequest, setApprovedRequest] = useState(0)
     const [paymentMade, setPaymentMade] = useState(0)
@@ -55,9 +43,12 @@ const OverviewPage = () => {
     const [inTransitNumber, setInTransitNumber] = useState(0)
     const [completedMoves, setCompletedMove] = useState(0)
     const [cancelledMoves, setCancelledMove] = useState(0)
+    const [showIncomingModal, setShowIncomingModal] = useState(false)
 
 
-
+    const handleIncomingModal = () => {
+        setShowIncomingModal(true)
+    }
 
     const { data, isLoading, error } = useQuery({
         queryKey: ['statistics'],
@@ -94,7 +85,7 @@ const OverviewPage = () => {
 
 
                         </div>
-                        <div className="view_jobs_container" >
+                        <div className="view_jobs_container" onClick={handleIncomingModal} >
                             <div className="view_jobs_header">
                                 <span>Incoming</span>
                             </div>
@@ -324,6 +315,12 @@ const OverviewPage = () => {
                     </div>
                 </div>
             </div>
+            {showIncomingModal && (
+                <div className="blur_background">
+                    <InComing onClose={() => setShowIncomingModal(false)} />
+                </div>
+            )}
+
         </div>
 
     )

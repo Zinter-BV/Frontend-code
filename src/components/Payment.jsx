@@ -15,10 +15,37 @@ const stripePromise = loadStripe(
 
 // import { handleCheckout } from "../services/payment";
 
-const Payment = ({ handleCheckout }) => {
+const Payment = ({  }) => {
   // const [cardNumber, setCardNumber] = useState("");
   // const [expiry, setExpiry] = useState("");
   // const [cvv, setCvv] = useState("");
+  // const handleCheckout = async () => {
+  //   //loading should be true
+  //   try {
+  //     const response = await createPayment(amount); // your backend call
+
+  //     if (response.clientSecret && stripe && elements) {
+  //       const { error, paymentIntent } = await stripe.confirmCardPayment(
+  //         response.clientSecret,
+  //         {
+  //           payment_method: {
+  //             card: elements.getElement(CardElement),
+  //           },
+  //         }
+  //       );
+  //       // Stops the loader here if an error or successful
+  //       if (error) {
+  //         console.error("Payment failed:", error.message);
+  //       } else if (paymentIntent.status === "succeeded") {
+  //         console.log(" Payment successful!", paymentIntent);
+  //         dispatch(setPaymentStatus());
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.log("Checkout failed:", error);
+  //   }
+  // };
+
 
   const moversData = useSelector((state) => state.user.moversData);
 
@@ -68,6 +95,8 @@ const Payment = ({ handleCheckout }) => {
   //   const formatted = e.target.value.replace(/\D/g, "").slice(0, 4);
   //   setCvv(formatted);
   // };
+
+  
 
   return (
     <div className="ml-4 h-fit movingCompanyDetailBox w-full">
