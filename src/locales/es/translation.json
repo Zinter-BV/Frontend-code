@@ -52,11 +52,17 @@
     "howEarly": "¿Con qué anticipación debo reservar mi mudanza?",
     "packing": "¿Los mudanceros también empaquetarán mis cosas?",
     "whatsIncluded": "¿Qué está incluido en mi cotización?",
-    "packingExtra": "¿El empaque es parte del trato o es extra?",
     "reschedule": "¿Puedo reprogramar si cambian los planes?",
-    "tracking": "¿Puedo rastrear mi mudanza en tiempo real?",
     "storage": "¿Qué pasa si necesito almacenamiento, pueden ayudar?",
-    "costCalculation": "¿Cómo se calcula el costo de la mudanza?"
+    "costCalculation": "¿Cómo se calcula el costo de la mudanza?",
+    "ans1": "Aceptamos una variedad de métodos de pago para su comodidad, incluidos iDEAL, tarjetas de crédito y débito, y opciones de pago móvil. Los detalles del pago se confirmarán durante el proceso de reserva.",
+    "ans2": "Recomendamos reservar su mudanza con al menos 2 a 4 semanas de anticipación, especialmente durante los meses de mayor demanda (de abril a septiembre). Esto garantiza la disponibilidad en la fecha que prefiera y nos permite ofrecerle el mejor servicio posible. Sin embargo, siempre haremos todo lo posible para acomodar reservas de última hora cuando sea posible.",
+    "ans3": "Sí. Puede elegir entre servicios de embalaje completos o la opción de embalar usted mismo, según sus preferencias. Nuestro equipo profesional de embalaje puede asegurar sus pertenencias para garantizar que estén bien protegidas durante el transporte.",
+    "ans4": "Su presupuesto normalmente incluye los costos de mano de obra, transporte y combustible. Todos los cargos se detallan claramente para que sepa exactamente qué está cubierto antes del día de la mudanza. Los servicios opcionales, como embalaje, almacenamiento, manejo de artículos especiales o seguro, se pueden agregar a petición.",
+    "ans5": "Por supuesto. Entendemos que los planes pueden cambiar. Puede reprogramar su mudanza con previo aviso contactando a nuestro equipo lo antes posible. Trabajaremos con usted para ajustar su reserva rápidamente y sin complicaciones.",
+    "ans6": "Por supuesto. Colaboramos con proveedores de confianza que ofrecen soluciones de almacenamiento a corto y largo plazo en instalaciones seguras y con control climático para mantener sus pertenencias protegidas hasta que esté listo para la entrega.",
+    "ans7": "Los costos de mudanza se determinan por varios factores, incluyendo la distancia, el volumen de los artículos y los servicios adicionales seleccionados (como embalaje o almacenamiento). Ofrecemos presupuestos transparentes y detallados para que siempre sepa exactamente por qué está pagando, sin tarifas ocultas."
+ 
   },
   "newsletter": {
     "title": "No te Pierdas una Mudanza.",
@@ -212,7 +218,8 @@
       "title": "Detalles de la ubicación",
       "from": "desde",
       "to": "hasta",
-      "btn": "cambiar"
+      "btn": "cambiar",
+      "province":"Selecciona la provincia de las opciones"
     },
      "quoteContainer": {
       "home": "Inicio",

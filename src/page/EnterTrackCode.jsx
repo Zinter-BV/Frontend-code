@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import PrimaryBtn from "../components/PrimaryBtn";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import Loader from "../components/loader";
 
 const EnterTrackCode = () => {
   const navigate = useNavigate();
@@ -98,6 +99,7 @@ const EnterTrackCode = () => {
 
   return (
     <div>
+      {trackMoveMutation.isPending && <Loader />}
       <div className="w-[90vw] relative max-w-[1500px] mx-auto mt-24">
         <div className="w-full mt-4 ">
           <QuoteHeader />

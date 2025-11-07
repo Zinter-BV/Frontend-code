@@ -25,7 +25,7 @@ const UploadImageModal = ({
 
   return (
     <div className="fixed top-0 z-50 left-0 backdrop-blur-[3px] bg-[rgba(0,0,0,0.10)] h-full w-full flex justify-center items-center ">
-      <div className="bg-white flex flex-col relative justify-between w-[80%] rounded-[16px] h-[90%]">
+      <div className="bg-white flex flex-col relative justify-between md:w-[80%] w-[90%] rounded-[16px] h-[90%]">
         <div className="flex items-center w-full justify-between p-[28px] border-b-[1px] border-[#E3E8EF] ">
           <div className="flex uploadImageHeader items-center">
             <h3 className="mr-2 font-sans text-[20px] font-bold text-[#121212] ">

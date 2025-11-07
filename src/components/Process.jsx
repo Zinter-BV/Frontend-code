@@ -82,7 +82,7 @@ const Process = () => {
               handlePress={() => navigate("/quote")}
               className={"text-[20px]"}
             >
-              Let’s Get You Moving{" "}
+              {t("process.letsGetMoving")}
             </PrimaryBtn>
           </div>
 

@@ -4,127 +4,57 @@ import DownIcon from "../Assets/SVG/DownIcon";
 import MoveSize from "../Assets/SVG/MoveSize";
 import PrimaryBtn from "./PrimaryBtn";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import { useJsApiLoader } from "@react-google-maps/api";
 import { useDispatch } from "react-redux";
-import { setUserDetails } from "../redux/action";
+import { setHouseSize, setUserDetails } from "../redux/action";
+import { useTranslation } from "react-i18next";
+
+// Define libraries outside component to prevent reloading
+const LIBRARIES = ["places"];
 
 const MoveDetails = () => {
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
   const { t } = useTranslation();
 
-  // State management for both inputs
+  // State management
   const [fromLocation, setFromLocation] = useState("");
-  const [fromPickupLongitude, setFromPickupLongitude] = useState("");
-  const [fromPickupLatitude, setFromPickupLatitude] = useState("");
   const [toLocation, setToLocation] = useState("");
-  const [toDropOffLongitude, setToDropOffLongitude] = useState("");
-  const [toDropOffLatitude, setToDropOffLatitude] = useState("");
   const [moveSize, setMoveSize] = useState("");
   const [showFromModal, setShowFromModal] = useState(false);
   const [showToModal, setShowToModal] = useState(false);
   const [showSizeModal, setShowSizeModal] = useState(false);
   const [activeIndex, setActiveIndex] = useState({ from: -1, to: -1 });
 
-  // Places search states
+  // cords
+  const [pickupName, setPickupName] = useState("");
+  const [pickupCoords, setPickupCoords] = useState(null);
+  const [dropoffName, setDropoffName] = useState("");
+  const [dropoffCoords, setDropoffCoords] = useState(null);
+
+  // Google Places suggestions
   const [fromSuggestions, setFromSuggestions] = useState([]);
   const [toSuggestions, setToSuggestions] = useState([]);
-  const [loadingFrom, setLoadingFrom] = useState(false);
-  const [loadingTo, setLoadingTo] = useState(false);
 
-  // Refs for DOM access
+  // Refs
   const fromModalRef = useRef(null);
   const toModalRef = useRef(null);
   const fromInputRef = useRef(null);
   const toInputRef = useRef(null);
   const locationItemsRef = useRef({ from: [], to: [] });
-
-  // size
   const modalRef = useRef(null);
   const inputRef = useRef(null);
 
-  // Debounce function to limit API calls
-  const debounce = (func, wait) => {
-    let timeout;
-    return function executedFunction(...args) {
-      const later = () => {
-        clearTimeout(timeout);
-        func(...args);
-      };
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-    };
-  };
+  // Load Google Maps
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    libraries: LIBRARIES,
+  });
 
-  // Free Photon API search function - NO API KEY REQUIRED
-  const searchPlaces = async (input, setSuggestions, setLoading) => {
-    if (!input.trim() || input.length < 3) {
-      setSuggestions([]);
-      return;
-    }
-
-    setLoading(true);
-
-    try {
-      // Using Photon API - 100% FREE, no registration needed
-      const response = await fetch(
-        `https://photon.komoot.io/api/?` +
-          new URLSearchParams({
-            q: input,
-            limit: "5",
-            osm_tag: "place",
-          })
-      );
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const data = await response.json();
-
-      const transformedSuggestions = data.features.map((feature, index) => ({
-        place_id: `photon-${feature.properties.osm_id || index}`,
-        description: `${feature.properties.name || ""} ${
-          feature.properties.street || ""
-        } ${feature.properties.city || ""} ${
-          feature.properties.state || ""
-        }`.trim(),
-        structured_formatting: {
-          main_text:
-            feature.properties.name || feature.properties.street || "Location",
-          secondary_text: `${feature.properties.city || ""} ${
-            feature.properties.state || ""
-          } ${feature.properties.country || ""}`.trim(),
-        },
-        geometry: {
-          lat: feature.geometry.coordinates[1],
-          lng: feature.geometry.coordinates[0],
-        },
-        properties: feature.properties,
-      }));
-
-      setSuggestions(
-        transformedSuggestions.filter(
-          (s) => s.structured_formatting.main_text !== "Location"
-        )
-      );
-    } catch (error) {
-      console.error("Error fetching place suggestions:", error);
-      setSuggestions([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Debounced search functions
-  const debouncedFromSearch = debounce((input) => {
-    searchPlaces(input, setFromSuggestions, setLoadingFrom);
-  }, 500);
-
-  const debouncedToSearch = debounce((input) => {
-    searchPlaces(input, setToSuggestions, setLoadingTo);
-  }, 500);
-
-  // Close modal when clicking outside
+  // Size modal close handler
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (
@@ -140,21 +70,130 @@ const MoveDetails = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Combined filter for both mock data and API suggestions
-  const getCombinedSuggestions = (type) => {
-    return type === "from" ? fromSuggestions : toSuggestions;
+  const houses = [
+    { text: "Few Items", desc: '(10" Truck)' },
+    { text: "1 Bedrooom", desc: '(17" Truck)' },
+    { text: "2 Bedrooms", desc: '(20" Truck)' },
+    { text: "3 Bedrooms", desc: '(26" Truck)' },
+    { text: "4 Bedrooms", desc: '(28" Truck)' },
+    { text: "5 Bedrooms", desc: '(32" Truck)' },
+    { text: "6 Bedrooms", desc: '(36" Truck)' },
+  ];
+
+  const apartments = [
+    { text: "Few Items", desc: '(10" Truck)' },
+    { text: "Studio", desc: '(15" Truck)' },
+    { text: "1 Bedrooom", desc: '(17" Truck)' },
+    { text: "2 Bedrooms", desc: '(20" Truck)' },
+    { text: "3 Bedrooms", desc: '(26" Truck)' },
+    { text: "4 Bedrooms", desc: '(28" Truck)' },
+    { text: "5 Bedrooms", desc: '(32" Truck)' },
+    { text: "6 Bedrooms", desc: '(36" Truck)' },
+  ];
+
+  const storages = [
+    "Small 2 x 4",
+    "Small 5 x 5",
+    "Small 5 x 10",
+    "Small 5 x 15",
+    "Small 10 x 20",
+    "Small 10 x 30",
+  ];
+
+  const [activeMoveSizeTab, setActiveMoveSizeTab] = useState("house");
+
+  // Tab content renderer
+  const renderTabContent = () => {
+    switch (activeMoveSizeTab) {
+      case "house":
+        return (
+          <div className="p-3 overflow-y-auto h-[300px]">
+            {houses.map((house, index) => (
+              <div
+                key={`house-${index}`}
+                className="p-3 flex items-center border-b border-[#E3E2E0] hover:bg-gray-100 cursor-pointer"
+                onClick={() => {
+                  setMoveSize(house.text);
+                  setShowSizeModal(false);
+                }}
+              >
+                <p className="font-sans text-[16px] leading-[25.6px] text-[#373737]">
+                  {house.text}
+                </p>
+                <p className="text-[16px] ml-1 font-sans text-[#9e9e9e]">
+                  {house.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        );
+      case "apartment":
+        return (
+          <div className="p-3 overflow-y-auto h-[300px]">
+            {apartments.map((apartment, index) => (
+              <div
+                key={`apartment-${index}`}
+                className="p-3 flex items-center border-b border-[#E3E2E0] hover:bg-gray-100 cursor-pointer"
+                onClick={() => {
+                  setMoveSize(apartment.text);
+                  setShowSizeModal(false);
+                }}
+              >
+                <p className="font-sans text-[16px] leading-[25.6px] text-[#373737]">
+                  {apartment.text}
+                </p>
+                <p className="text-[16px] ml-1 font-sans text-[#9e9e9e]">
+                  {apartment.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        );
+      case "storage":
+        return (
+          <div className="p-3 overflow-y-auto h-[300px]">
+            {storages.map((store, index) => (
+              <div
+                key={`storage-${index}`}
+                className="p-3 flex items-center border-b border-[#E3E2E0] hover:bg-gray-100 cursor-pointer"
+                onClick={() => {
+                  setMoveSize(store);
+                  setShowSizeModal(false);
+                }}
+              >
+                <p className="font-sans text-[16px] leading-[25.6px] text-[#373737]">
+                  {store}
+                </p>
+              </div>
+            ))}
+          </div>
+        );
+      default:
+        return null;
+    }
   };
 
-  // Common handlers
+  // Handle input changes with Google Places autocomplete
   const handleInputChange = (type) => (e) => {
     const value = e.target.value;
+
     if (type === "from") {
       setFromLocation(value);
       setActiveIndex((prev) => ({ ...prev, from: -1 }));
 
-      // Trigger API search for places
-      if (value.length >= 3) {
-        debouncedFromSearch(value);
+      // Get Google Places predictions
+      if (value.length >= 3 && isLoaded) {
+        const service = new window.google.maps.places.AutocompleteService();
+        service.getPlacePredictions({ input: value }, (predictions, status) => {
+          if (
+            status === window.google.maps.places.PlacesServiceStatus.OK &&
+            predictions
+          ) {
+            setFromSuggestions(predictions);
+          } else {
+            setFromSuggestions([]);
+          }
+        });
       } else {
         setFromSuggestions([]);
       }
@@ -162,40 +201,78 @@ const MoveDetails = () => {
       setToLocation(value);
       setActiveIndex((prev) => ({ ...prev, to: -1 }));
 
-      // Trigger API search for places
-      if (value.length >= 3) {
-        debouncedToSearch(value);
+      // Get Google Places predictions
+      if (value.length >= 3 && isLoaded) {
+        const service = new window.google.maps.places.AutocompleteService();
+        service.getPlacePredictions({ input: value }, (predictions, status) => {
+          if (
+            status === window.google.maps.places.PlacesServiceStatus.OK &&
+            predictions
+          ) {
+            setToSuggestions(predictions);
+          } else {
+            setToSuggestions([]);
+          }
+        });
       } else {
         setToSuggestions([]);
       }
     }
   };
 
-  const handleSelectLocation = (type) => (suggestion) => {
-    console.log(suggestion);
+  const handleSelectLocation = (type) => (prediction) => {
+    const service = new window.google.maps.places.PlacesService(
+      document.createElement("div")
+    );
 
-    if (type === "from") {
-      setFromLocation(suggestion.description);
-      setFromPickupLongitude(suggestion.geometry.lng);
-      setFromPickupLatitude(suggestion.geometry.lat);
-      setShowFromModal(false);
-      setFromSuggestions([]);
-      fromInputRef.current?.focus();
-    } else {
-      setToLocation(suggestion.description);
-      setToDropOffLongitude(suggestion.geometry.lng);
-      setToDropOffLatitude(suggestion.geometry.lat);
-      setShowToModal(false);
-      setToSuggestions([]);
-      toInputRef.current?.focus();
-    }
+    service.getDetails(
+      {
+        placeId: prediction.place_id,
+        fields: ["name", "geometry", "formatted_address"],
+      },
+      (place, status) => {
+        if (
+          status === window.google.maps.places.PlacesServiceStatus.OK &&
+          place
+        ) {
+          const locationData = {
+            name: place.name,
+            address: place.formatted_address,
+            lat: place.geometry.location.lat(),
+            lng: place.geometry.location.lng(),
+          };
+
+          console.log("Selected location:", type, locationData);
+
+          if (type === "from") {
+            setFromLocation(locationData.address);
+            setShowFromModal(false);
+            setFromSuggestions([]);
+
+            // Save the name and coordinates
+            setPickupName(locationData.name);
+            setPickupCoords({ lat: locationData.lat, lng: locationData.lng });
+          } else {
+            setToLocation(locationData.address);
+            setShowToModal(false);
+            setToSuggestions([]);
+
+            // Save the name and coordinates
+            setDropoffName(locationData.name);
+            setDropoffCoords({ lat: locationData.lat, lng: locationData.lng });
+          }
+        } else {
+          console.error("Place details request failed:", status);
+        }
+      }
+    );
   };
 
   const handleKeyDown = (type) => (e) => {
     const showModal = type === "from" ? showFromModal : showToModal;
     if (!showModal) return;
 
-    const locations = getCombinedSuggestions(type);
+    const suggestions = type === "from" ? fromSuggestions : toSuggestions;
     const activeIdx = type === "from" ? activeIndex.from : activeIndex.to;
     const setActive = (idx) =>
       setActiveIndex((prev) => ({ ...prev, [type]: idx }));
@@ -203,7 +280,7 @@ const MoveDetails = () => {
     switch (e.key) {
       case "ArrowDown":
         e.preventDefault();
-        setActive(Math.min(activeIdx + 1, locations.length - 1));
+        setActive(Math.min(activeIdx + 1, suggestions.length - 1));
         break;
       case "ArrowUp":
         e.preventDefault();
@@ -212,9 +289,7 @@ const MoveDetails = () => {
       case "Enter":
         if (activeIdx >= 0) {
           e.preventDefault();
-          const apiSuggestions =
-            type === "from" ? fromSuggestions : toSuggestions;
-          handleSelectLocation(type)(apiSuggestions[activeIdx]);
+          handleSelectLocation(type)(suggestions[activeIdx]);
         }
         break;
       case "Escape":
@@ -257,12 +332,10 @@ const MoveDetails = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showFromModal, showToModal]);
 
-  // Modal template with API suggestions
+  // Modal renderer
   const renderLocationModal = (type) => {
     const showModal = type === "from" ? showFromModal : showToModal;
-    const locations = getCombinedSuggestions(type);
-    const apiSuggestions = type === "from" ? fromSuggestions : toSuggestions;
-    const loading = type === "from" ? loadingFrom : loadingTo;
+    const suggestions = type === "from" ? fromSuggestions : toSuggestions;
     const activeIdx = type === "from" ? activeIndex.from : activeIndex.to;
 
     return (
@@ -272,79 +345,35 @@ const MoveDetails = () => {
           className="w-[400px] max-h-[300px] fromAndToContainer overflow-y-auto bg-white absolute top-[80px] border border-gray-200 rounded-[12px] left-0 shadow-lg z-50"
         >
           <p className="text-[#3C82F6] px-3 mb-1 pt-3 font-sans text-[12px]">
-            {loading ? "Searching places..." : t("hero.suggestedDestinations")}
+            Suggested Destinations
           </p>
-
-          {loading && (
-            <div className="p-3 flex items-center justify-center">
-              <svg
-                className="animate-spin h-5 w-5 text-blue-500"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
+          {suggestions.length > 0 ? (
+            suggestions.map((prediction, index) => (
+              <div
+                key={prediction.place_id}
+                ref={(el) => (locationItemsRef.current[type][index] = el)}
+                className={`p-3 border-b-[1px] border-[#E3E2E0] hover:bg-gray-100 cursor-pointer ${
+                  index === activeIdx ? "bg-blue-50" : ""
+                }`}
+                onClick={() => handleSelectLocation(type)(prediction)}
               >
-                <circle
-                  className="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                ></circle>
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                ></path>
-              </svg>
-              <span className="ml-2 text-sm text-gray-500">
-                Loading suggestions...
-              </span>
+                <p className="font-sans text-[16px] leading-[25.6px] text-[#373737]">
+                  {prediction.structured_formatting.main_text}
+                </p>
+                <p className="text-[12px] font-sans text-[#9e9e9e]">
+                  {prediction.structured_formatting.secondary_text}
+                </p>
+              </div>
+            ))
+          ) : (
+            <div className="p-3 text-gray-500">
+              {type === "from"
+                ? fromLocation
+                : toLocation
+                ? "No locations found"
+                : "Type at least 3 characters"}
             </div>
           )}
-
-          {!loading && apiSuggestions.length > 0
-            ? apiSuggestions.map((suggestion, index) => (
-                <div
-                  key={`${type}-${suggestion.place_id}`}
-                  ref={(el) => (locationItemsRef.current[type][index] = el)}
-                  className={`p-3 border-b-[1px] border-[#E3E2E0] hover:bg-gray-100 cursor-pointer ${
-                    index === activeIdx ? "bg-blue-50" : ""
-                  }`}
-                  onClick={() => handleSelectLocation(type)(suggestion)}
-                >
-                  <div className="flex items-start">
-                    <svg
-                      className="w-4 h-4 text-blue-500 mr-3 mt-1 flex-shrink-0"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-sans text-[16px] leading-[25.6px] text-[#373737] truncate">
-                        {suggestion.structured_formatting.main_text}
-                      </p>
-                      <p className="text-[12px] font-sans text-[#9e9e9e] line-clamp-2">
-                        {suggestion.structured_formatting.secondary_text}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))
-            : !loading && (
-                <div className="p-3 text-gray-500">
-                  <p className="font-sans text-[14px]">
-                    {(type === "from" ? fromLocation : toLocation).length < 3
-                      ? "Type at least 3 characters to search places..."
-                      : "No locations found. Try a different search term."}
-                  </p>
-                </div>
-              )}
         </div>
       )
     );
@@ -356,28 +385,35 @@ const MoveDetails = () => {
     moveSize,
   };
 
-  const dispatch = useDispatch();
-
   const handlePress = () => {
-    if (data.fromLocation === "" || data.toLocation === "") return;
-    else {
-      dispatch(
-        setUserDetails({
-          pickUpAddress: fromLocation,
-          dropOffAddress: toLocation,
-          pickUpLongitude: fromPickupLongitude,
-          pickUpLatitude: fromPickupLatitude,
-          dropOffLongitude: toDropOffLongitude,
-          dropOffLatitude: toDropOffLatitude,
-        })
-      );
-      navigate("/quote");
-    }
+    if (
+      data.fromLocation === "" ||
+      data.toLocation === "" ||
+      data.moveSize === ""
+    )
+      return;
+
+    dispatch(
+      setUserDetails({
+        pickUpAddress: pickupName,
+        pickUpLatitude: pickupCoords?.lat,
+        pickUpLongitude: pickupCoords?.lng,
+        dropOffAddress: dropoffName,
+        dropOffLatitude: dropoffCoords?.lat,
+        dropOffLongitude: dropoffCoords?.lng,
+      })
+    );
+    dispatch(setHouseSize(moveSize));
+    navigate("/quote", { state: { data } });
   };
+
+  if (!isLoaded) {
+    return <div></div>;
+  }
 
   return (
     <div className="w-[90vw] mt-16 moveDetails bg-gradient-to-br rounded-[20px] flex justify-center items-center p-8 from-[#1A7BC6] to-[#054D96] max-w-[1500px] mx-auto h-fit">
-      <div className="w-[90%]">
+      <div className="md:w-[90%] w-full">
         <div className="bg-[#136AB5] flex justify-center w-fit mx-auto items-center rounded-[100px] p-3">
           <p className="text-white font-sans text-[14px]">
             {t("hero.getQuote")}
@@ -392,7 +428,7 @@ const MoveDetails = () => {
 
         <div className="w-full bg-white my-4 h-[80px] moveDetailsCtaContainer rounded-[10px] flex">
           {/* Moving From Input */}
-          <div className="w-[42%] moveDetailsBtnBox relative flex justify-between border-r-2 border-[#E3E2E0] p-3 items-center">
+          <div className="w-[28%] moveDetailsBtnBox relative flex justify-between border-r-2 border-[#E3E2E0] p-3 items-center">
             <div className="flex w-[90%] items-center">
               <div className="mr-[8px]">
                 <LocationIcon color="#12B981" />
@@ -408,36 +444,13 @@ const MoveDetails = () => {
               />
             </div>
             <button onClick={() => setShowFromModal(true)}>
-              {loadingFrom ? (
-                <svg
-                  className="animate-spin h-4 w-4 text-blue-500"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  ></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  ></path>
-                </svg>
-              ) : (
-                <DownIcon />
-              )}
+              <DownIcon />
             </button>
             {renderLocationModal("from")}
           </div>
 
           {/* Moving To Input */}
-          <div className="w-[42%] moveDetailsBtnBox relative flex justify-between border-r-2 border-[#E3E2E0] p-3 items-center">
+          <div className="w-[28%] moveDetailsBtnBox relative flex justify-between border-r-2 border-[#E3E2E0] p-3 items-center">
             <div className="flex w-[90%] items-center">
               <div className="mr-[8px]">
                 <LocationIcon color="#DE2527" />
@@ -453,32 +466,148 @@ const MoveDetails = () => {
               />
             </div>
             <button onClick={() => setShowToModal(true)}>
-              {loadingTo ? (
-                <svg
-                  className="animate-spin h-4 w-4 text-blue-500"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  ></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  ></path>
-                </svg>
-              ) : (
-                <DownIcon />
-              )}
+              <DownIcon />
             </button>
             {renderLocationModal("to")}
+          </div>
+
+          {/* Moving Size Input */}
+          <div className="w-[28%] moveDetailsBtnBox relative flex justify-between border-r-2 border-[#E3E2E0] p-3 items-center">
+            <div className="flex w-[90%] items-center">
+              <div className="mr-[8px]">
+                <MoveSize />
+              </div>
+              <input
+                ref={inputRef}
+                value={moveSize}
+                onFocus={() => setShowSizeModal(true)}
+                placeholder="Moving Size"
+                className="font-sans w-full font-light text-[#707070] leading-[25.6px] border-none outline-none"
+                readOnly
+              />
+            </div>
+            <button onClick={() => setShowSizeModal(true)}>
+              <DownIcon />
+            </button>
+
+            {showSizeModal && (
+              <div
+                ref={modalRef}
+                className="w-[400px] max-h-[300px] fromAndToContainer overflow-y-auto bg-white absolute top-[80px] border border-gray-200 rounded-[12px] left-0 shadow-lg z-50"
+              >
+                <div className="p-3 flex items-center border-b-[1px] justify-between">
+                  <button
+                    onClick={() => setActiveMoveSizeTab("house")}
+                    className={`${
+                      activeMoveSizeTab === "house"
+                        ? "bg-[#F0F9FD] border-[1px]"
+                        : ""
+                    } w-[100px] p-2 rounded-[8px] border-[#BCDFF6] flex items-center`}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="21"
+                      height="21"
+                      viewBox="0 0 21 21"
+                      fill="none"
+                    >
+                      <path
+                        d="M8.38688 10.9739H13.3869M4.22021 14.1406V9.68389C4.22021 9.23889 4.22021 9.01639 4.27438 8.80889C4.32235 8.62548 4.40126 8.4516 4.50771 8.29473C4.62855 8.11723 4.79605 7.96973 5.13105 7.67723L9.13188 4.17556C9.75355 3.63223 10.0644 3.36056 10.4135 3.25723C10.7219 3.16556 11.051 3.16556 11.3594 3.25723C11.7094 3.36056 12.021 3.63223 12.6427 4.17723L16.6427 7.67723C16.9785 7.97056 17.1452 8.11723 17.266 8.29389C17.3727 8.45334 17.4505 8.625 17.4994 8.80889C17.5535 9.01639 17.5535 9.23889 17.5535 9.68389V14.1439C17.5535 15.0756 17.5535 15.5414 17.3719 15.8981C17.2117 16.2115 16.9565 16.4661 16.6427 16.6256C16.2869 16.8072 15.821 16.8072 14.8894 16.8072H6.88438C5.95271 16.8072 5.48605 16.8072 5.13021 16.6256C4.81675 16.466 4.56181 16.2113 4.40188 15.8981C4.22021 15.5406 4.22021 15.0739 4.22021 14.1406Z"
+                        stroke={
+                          activeMoveSizeTab === "house" ? "#136AB5" : "#9e9e9e"
+                        }
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    <span
+                      className={`${
+                        activeMoveSizeTab === "house"
+                          ? "text-[#136AB5]"
+                          : "text-[#9e9e9e]"
+                      } ml-2 font-sans text-[14px]`}
+                    >
+                      House
+                    </span>
+                  </button>
+
+                  <button
+                    onClick={() => setActiveMoveSizeTab("apartment")}
+                    className={`${
+                      activeMoveSizeTab === "apartment"
+                        ? "bg-[#F0F9FD] border-[1px]"
+                        : ""
+                    } w-[150px] p-2 rounded-[8px] border-[#BCDFF6] flex items-center`}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 18 18"
+                      fill="none"
+                    >
+                      <path
+                        d="M1.88687 16.6406H16.8869M6.88687 5.80729H7.7202M6.88687 9.14062H7.7202M6.88687 12.474H7.7202M11.0535 5.80729H11.8869M11.0535 9.14062H11.8869M11.0535 12.474H11.8869M3.55354 16.6406V3.30729C3.55354 2.86526 3.72913 2.44134 4.04169 2.12878C4.35425 1.81622 4.77818 1.64063 5.2202 1.64062H13.5535C13.9956 1.64063 14.4195 1.81622 14.732 2.12878C15.0446 2.44134 15.2202 2.86526 15.2202 3.30729V16.6406"
+                        stroke={
+                          activeMoveSizeTab === "apartment"
+                            ? "#136AB5"
+                            : "#9e9e9e"
+                        }
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    <span
+                      className={`${
+                        activeMoveSizeTab === "apartment"
+                          ? "text-[#136AB5]"
+                          : "text-[#9e9e9e]"
+                      } ml-2 font-sans text-[14px]`}
+                    >
+                      Apartment
+                    </span>
+                  </button>
+
+                  <button
+                    onClick={() => setActiveMoveSizeTab("storage")}
+                    className={`${
+                      activeMoveSizeTab === "storage"
+                        ? "bg-[#F0F9FD] border-[1px]"
+                        : ""
+                    } w-[100px] p-2 rounded-[8px] border-[#BCDFF6] flex items-center`}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="14"
+                      viewBox="0 0 18 14"
+                      fill="none"
+                    >
+                      <path
+                        d="M8.88686 0.307129C4.30353 0.307129 0.553528 4.05713 0.553528 8.64046V13.6405H17.2202V8.64046C17.2202 4.05713 13.4702 0.307129 8.88686 0.307129ZM8.88686 1.9738C10.9952 1.9738 12.8702 2.9488 14.0952 4.4738H3.68686C4.90353 2.9488 6.77853 1.9738 8.88686 1.9738ZM5.55353 11.9738H2.22019V8.64046C2.22019 7.75713 2.39519 6.91546 2.70353 6.14046H5.55353V11.9738ZM10.5535 11.9738H7.22019V6.14046H10.5535V11.9738ZM15.5535 11.9738H12.2202V6.14046H15.0702C15.3785 6.91546 15.5535 7.75713 15.5535 8.64046V11.9738Z"
+                        fill={
+                          activeMoveSizeTab === "storage"
+                            ? "#136AB5"
+                            : "#9e9e9e"
+                        }
+                      />
+                    </svg>
+                    <span
+                      className={`${
+                        activeMoveSizeTab === "storage"
+                          ? "text-[#136AB5]"
+                          : "text-[#9e9e9e]"
+                      } ml-2 font-sans text-[14px]`}
+                    >
+                      Storage
+                    </span>
+                  </button>
+                </div>
+                {renderTabContent()}
+              </div>
+            )}
           </div>
 
           {/* Get Quote Button */}
@@ -487,7 +616,7 @@ const MoveDetails = () => {
               handlePress={handlePress}
               className="text-[14px] moversBtn"
             >
-              GET A QUOTE
+              {t("features.getStartedBtn")}
             </PrimaryBtn>
           </div>
         </div>

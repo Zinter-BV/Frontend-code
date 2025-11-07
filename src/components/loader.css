@@ -1,21 +1,21 @@
 /* HTML: <div class="loader"></div> */
 
 .overall-container-loader {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     /* background-color: #fff; */
     backdrop-filter: blur(4px);
     height: 100vh;
-    z-index: 2;
+    z-index: 1000;
 }
 
 .container-loader {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(50%, 0);
+    transform: translate(-50%, -50%);
     z-index: 100;
 }
 .loader {

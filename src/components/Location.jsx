@@ -1,9 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
-import Map from "../Assets/Map.svg";
 import { useTranslation } from "react-i18next";
-import ViewLocationMap from "./GoogleMap";
-import MovementMap from "./GoogleMapMove";
 import LocationMap from "./LocationMap";
+import { useJsApiLoader } from "@react-google-maps/api";
+import { useQuery } from "@tanstack/react-query";
+import { fetchProvince } from "../api/agentApi";
+import MoveSize from "../Assets/SVG/MoveSize";
+import DownIcon from "../Assets/SVG/DownIcon";
+
+// Define libraries outside component to prevent reloading
+const LIBRARIES = ["places"];
 
 const Location = ({
   fromLocation,
@@ -18,6 +23,16 @@ const Location = ({
   setFromPickupLatitude,
   setToDropOffLongitude,
   setToDropOffLatitude,
+  fromPickupLongitude,
+  fromPickupLatitude,
+  toDropOffLongitude,
+  toDropOffLatitude,
+  setProvinceId,
+  provinceId,
+  moveSize,
+  setMoveSize,
+  errMessage,
+  setErrMessage,
 }) => {
   const fromInputRef = useRef(null);
   const toInputRef = useRef(null);
@@ -26,27 +41,15 @@ const Location = ({
   const [toSuggestions, setToSuggestions] = useState([]);
   const [showFromSuggestions, setShowFromSuggestions] = useState(false);
   const [showToSuggestions, setShowToSuggestions] = useState(false);
-  const [loadingFrom, setLoadingFrom] = useState(false);
-  const [loadingTo, setLoadingTo] = useState(false);
 
   const { t } = useTranslation();
 
-  // MapBox API - Get your free token at https://account.mapbox.com/access-tokens/
-  const MAPBOX_TOKEN =
-    "pk.eyJ1IjoieW91cnVzZXJuYW1lIiwiaCI6InlvdXJfYWNjZXNzX3Rva2VuX2hlcmUifQ.example";
-
-  // Debounce function to limit API calls
-  const debounce = (func, wait) => {
-    let timeout;
-    return function executedFunction(...args) {
-      const later = () => {
-        clearTimeout(timeout);
-        func(...args);
-      };
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-    };
-  };
+  // Load Google Maps with static libraries array
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    libraries: LIBRARIES,
+  });
 
   // Focus input when editing starts
   useEffect(() => {
@@ -60,205 +63,6 @@ const Location = ({
       toInputRef.current.focus();
     }
   }, [isEditingTo]);
-
-  // MapBox Geocoding API search function - FREE with 100,000 requests/month
-  const searchPlaces = async (input, setSuggestions, setLoading) => {
-    if (!input.trim() || input.length < 3) {
-      setSuggestions([]);
-      return;
-    }
-
-    setLoading(true);
-
-    try {
-      const encodedInput = encodeURIComponent(input);
-      const response = await fetch(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodedInput}.json?` +
-          new URLSearchParams({
-            access_token: MAPBOX_TOKEN,
-            country: "US", // Restrict to US, remove for worldwide
-            limit: "5",
-            types: "place,postcode,address,poi", // Include various location types
-          })
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      // Transform MapBox response to our expected format
-      const transformedSuggestions = data.features.map((feature) => ({
-        place_id: feature.id,
-        description: feature.place_name,
-        structured_formatting: {
-          main_text: feature.text || feature.place_name.split(",")[0],
-          secondary_text: feature.place_name
-            .split(",")
-            .slice(1)
-            .join(",")
-            .trim(),
-        },
-        geometry: {
-          lat: feature.geometry.coordinates[1],
-          lng: feature.geometry.coordinates[0],
-        },
-        properties: feature.properties,
-        context: feature.context,
-      }));
-
-      setSuggestions(transformedSuggestions);
-    } catch (error) {
-      console.error("Error fetching place suggestions:", error);
-      setSuggestions([]);
-
-      // Fallback to a simple mock data if API fails
-      if (input.length >= 3) {
-        const mockSuggestions = [
-          {
-            place_id: `mock-1-${Date.now()}`,
-            description: `${input} - Search result not available`,
-            structured_formatting: {
-              main_text: input,
-              secondary_text:
-                "Please try a different search or check your internet connection",
-            },
-            geometry: { lat: 0, lng: 0 },
-          },
-        ];
-        setSuggestions(mockSuggestions);
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Alternative: Use a completely free service (LocationIQ) - No registration required for basic use
-  const searchPlacesLocationIQ = async (input, setSuggestions, setLoading) => {
-    if (!input.trim() || input.length < 3) {
-      setSuggestions([]);
-      return;
-    }
-
-    setLoading(true);
-
-    try {
-      // Using LocationIQ free tier - 10,000 requests/month free
-      const response = await fetch(
-        `https://us1.locationiq.com/v1/search?` +
-          new URLSearchParams({
-            key: "YOUR_LOCATIONIQ_API_KEY", // Get free key at https://locationiq.com/
-            q: input,
-            format: "json",
-            limit: "5",
-            countrycodes: "us", // Remove for worldwide search
-            addressdetails: "1",
-          })
-      );
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const data = await response.json();
-
-      const transformedSuggestions = data.map((place) => ({
-        place_id: place.place_id,
-        description: place.display_name,
-        structured_formatting: {
-          main_text: place.name || place.display_name.split(",")[0],
-          secondary_text: place.display_name
-            .split(",")
-            .slice(1)
-            .join(",")
-            .trim(),
-        },
-        geometry: {
-          lat: parseFloat(place.lat),
-          lng: parseFloat(place.lon),
-        },
-        address: place.address,
-      }));
-
-      setSuggestions(transformedSuggestions);
-    } catch (error) {
-      console.error("Error fetching place suggestions:", error);
-      // Fallback to manual entry
-      setSuggestions([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Using REST Countries API + Local search as completely free alternative
-  const searchPlacesFree = async (input, setSuggestions, setLoading) => {
-    if (!input.trim() || input.length < 3) {
-      setSuggestions([]);
-      return;
-    }
-
-    setLoading(true);
-
-    try {
-      // Using a free, no-API-key service: Photon (OpenStreetMap)
-      const response = await fetch(
-        `https://photon.komoot.io/api/?` +
-          new URLSearchParams({
-            q: input,
-            limit: "5",
-            osm_tag: "place",
-          })
-      );
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const data = await response.json();
-
-      const transformedSuggestions = data.features.map((feature, index) => ({
-        place_id: `photon-${feature.properties.osm_id || index}`,
-        description: `${feature.properties.name || ""} ${
-          feature.properties.street || ""
-        } ${feature.properties.city || ""} ${
-          feature.properties.state || ""
-        }`.trim(),
-        structured_formatting: {
-          main_text:
-            feature.properties.name || feature.properties.street || "Location",
-          secondary_text: `${feature.properties.city || ""} ${
-            feature.properties.state || ""
-          } ${feature.properties.country || ""}`.trim(),
-        },
-        geometry: {
-          lat: feature.geometry.coordinates[1],
-          lng: feature.geometry.coordinates[0],
-        },
-        properties: feature.properties,
-      }));
-
-      setSuggestions(
-        transformedSuggestions.filter(
-          (s) => s.structured_formatting.main_text !== "Location"
-        )
-      );
-    } catch (error) {
-      console.error("Error fetching place suggestions:", error);
-      setSuggestions([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Debounced search functions
-  const debouncedFromSearch = debounce((input) => {
-    searchPlacesFree(input, setFromSuggestions, setLoadingFrom);
-  }, 500);
-
-  const debouncedToSearch = debounce((input) => {
-    searchPlacesFree(input, setToSuggestions, setLoadingTo);
-  }, 500);
 
   const handleFromChange = () => {
     setIsEditingFrom(true);
@@ -274,22 +78,34 @@ const Location = ({
     setTimeout(() => {
       setIsEditingFrom(false);
       setShowFromSuggestions(false);
-    }, 150);
+    }, 200);
   };
 
   const handleToBlur = () => {
     setTimeout(() => {
       setIsEditingTo(false);
       setShowToSuggestions(false);
-    }, 150);
+    }, 200);
   };
 
   const handleFromInputChange = (e) => {
     const value = e.target.value;
     setFromLocation(value);
 
-    if (value.length >= 3) {
-      debouncedFromSearch(value);
+    if (value.length >= 3 && isLoaded) {
+      const service = new window.google.maps.places.AutocompleteService();
+
+      service.getPlacePredictions({ input: value }, (predictions, status) => {
+        if (
+          status === window.google.maps.places.PlacesServiceStatus.OK &&
+          predictions
+        ) {
+          setFromSuggestions(predictions);
+          setShowFromSuggestions(true);
+        } else {
+          setFromSuggestions([]);
+        }
+      });
     } else {
       setFromSuggestions([]);
     }
@@ -299,8 +115,20 @@ const Location = ({
     const value = e.target.value;
     setToLocation(value);
 
-    if (value.length >= 3) {
-      debouncedToSearch(value);
+    if (value.length >= 3 && isLoaded) {
+      const service = new window.google.maps.places.AutocompleteService();
+
+      service.getPlacePredictions({ input: value }, (predictions, status) => {
+        if (
+          status === window.google.maps.places.PlacesServiceStatus.OK &&
+          predictions
+        ) {
+          setToSuggestions(predictions);
+          setShowToSuggestions(true);
+        } else {
+          setToSuggestions([]);
+        }
+      });
     } else {
       setToSuggestions([]);
     }
@@ -318,44 +146,314 @@ const Location = ({
     }
   };
 
-  const selectFromSuggestion = (suggestion) => {
-    setFromLocation(suggestion.description);
+  const selectFromSuggestion = (prediction) => {
+    setFromLocation(prediction.description);
     setIsEditingFrom(false);
     setShowFromSuggestions(false);
     setFromSuggestions([]);
 
-    console.log("Selected from location:", {
-      address: suggestion.description,
-      coordinates: suggestion.geometry,
-      properties: suggestion.properties,
-    });
-    setFromPickupLongitude(suggestion.geometry.lng);
-    setFromPickupLatitude(suggestion.geometry.lat);
+    // Get place details including coordinates
+    const placesService = new window.google.maps.places.PlacesService(
+      document.createElement("div")
+    );
+
+    placesService.getDetails(
+      { placeId: prediction.place_id },
+      (place, status) => {
+        if (
+          status === window.google.maps.places.PlacesServiceStatus.OK &&
+          place
+        ) {
+          const lat = place.geometry.location.lat();
+          const lng = place.geometry.location.lng();
+
+          setFromPickupLatitude(lat);
+          setFromPickupLongitude(lng);
+
+          console.log("Selected from location:", {
+            address: prediction.description,
+            coordinates: { lat, lng },
+          });
+          setFromPickupLongitude(lng);
+          setFromPickupLatitude(lat);
+        }
+      }
+    );
   };
 
-  const selectToSuggestion = (suggestion) => {
-    setToLocation(suggestion.description);
+  const selectToSuggestion = (prediction) => {
+    setToLocation(prediction.description);
     setIsEditingTo(false);
     setShowToSuggestions(false);
     setToSuggestions([]);
 
-    console.log("Selected to location:", {
-      address: suggestion.description,
-      coordinates: suggestion.geometry,
-      properties: suggestion.properties,
-    });
-    setToDropOffLongitude(suggestion.geometry.lng);
-    setToDropOffLatitude(suggestion.geometry.lat);
+    // Get place details including coordinates
+    const placesService = new window.google.maps.places.PlacesService(
+      document.createElement("div")
+    );
+
+    placesService.getDetails(
+      { placeId: prediction.place_id },
+      (place, status) => {
+        if (
+          status === window.google.maps.places.PlacesServiceStatus.OK &&
+          place
+        ) {
+          const lat = place.geometry.location.lat();
+          const lng = place.geometry.location.lng();
+
+          setToDropOffLatitude(lat);
+          setToDropOffLongitude(lng);
+
+          console.log("Selected to location:", {
+            address: prediction.description,
+            coordinates: { lat, lng },
+          });
+
+          setToDropOffLongitude(lng);
+          setToDropOffLatitude(lat);
+        }
+      }
+    );
   };
+
+  const [allProvinces, setAllProvinces] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [selectedProvince, setSelectedProvince] = useState(null);
+  const [selectedProvinceName, setSelectedProvinceName] = useState("");
+  const dropdownRef = useRef(null);
+
+  const {
+    data: provinces,
+    isLoading,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["provinces"],
+    queryFn: fetchProvince,
+    staleTime: 5 * 60 * 1000, // Cache for 5 minutes (optional)
+  });
+
+  // Store fetched data in selectedProvinces when data is available
+  useEffect(() => {
+    if (provinces) {
+      setAllProvinces(provinces);
+    }
+  }, [provinces]);
+
+  // Restore selected province when component mounts or provinceId changes
+  useEffect(() => {
+    if (provinceId && allProvinces?.result?.length > 0) {
+      const province = allProvinces.result.find(
+        (p) => p.provinceId === provinceId
+      );
+      if (province) {
+        setSelectedProvince(province);
+        setSelectedProvinceName(province.provinceName);
+      }
+    }
+  }, [provinceId, allProvinces]);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    if (showDropdown) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showDropdown]);
+
+  // Toggle dropdown
+  const toggleDropdown = () => setShowDropdown((prev) => !prev);
+
+  // Handle province selection
+  const handleProvinceSelect = (province) => {
+    setSelectedProvince(province);
+    setShowDropdown(false); // Close dropdown after selection
+    setProvinceId(province?.provinceId);
+    setSelectedProvinceName(province?.provinceName);
+  };
+
+  // Clear selection
+  const clearSelection = (e) => {
+    e.stopPropagation();
+    setSelectedProvince(null);
+  };
+
+  // house type
+
+  const modalRef = useRef(null);
+  const inputRef = useRef(null);
+  const [showSizeModal, setShowSizeModal] = useState(false);
+  const houses = [
+    { text: "Few Items", desc: '(10" Truck)' },
+    { text: "1 Bedrooom", desc: '(17" Truck)' },
+    { text: "2 Bedrooms", desc: '(20" Truck)' },
+    { text: "3 Bedrooms", desc: '(26" Truck)' },
+    { text: "4 Bedrooms", desc: '(28" Truck)' },
+    { text: "5 Bedrooms", desc: '(32" Truck)' },
+    { text: "6 Bedrooms", desc: '(36" Truck)' },
+  ];
+
+  const apartments = [
+    { text: "Few Items", desc: '(10" Truck)' },
+    { text: "Studio", desc: '(15" Truck)' },
+    { text: "1 Bedrooom", desc: '(17" Truck)' },
+    { text: "2 Bedrooms", desc: '(20" Truck)' },
+    { text: "3 Bedrooms", desc: '(26" Truck)' },
+    { text: "4 Bedrooms", desc: '(28" Truck)' },
+    { text: "5 Bedrooms", desc: '(32" Truck)' },
+    { text: "6 Bedrooms", desc: '(36" Truck)' },
+  ];
+
+  const storages = [
+    "Small 2 x 4",
+    "Small 5 x 5",
+    "Small 5 x 10",
+    "Small 5 x 15",
+    "Small 10 x 20",
+    "Small 10 x 30",
+  ];
+
+  const [activeMoveSizeTab, setActiveMoveSizeTab] = useState("house");
+
+  // Tab content renderer
+  const renderTabContent = () => {
+    switch (activeMoveSizeTab) {
+      case "house":
+        return (
+          <div className="p-3 overflow-y-auto h-[300px]">
+            {houses.map((house, index) => (
+              <div
+                key={`house-${index}`}
+                className="p-3 flex items-center border-b border-[#E3E2E0] hover:bg-gray-100 cursor-pointer"
+                onClick={() => {
+                  setMoveSize(house.text);
+                  setShowSizeModal(false);
+                  setErrMessage("");
+                }}
+              >
+                <p className="font-sans text-[16px] leading-[25.6px] text-[#373737]">
+                  {house.text}
+                </p>
+                <p className="text-[16px] ml-1 font-sans text-[#9e9e9e]">
+                  {house.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        );
+      case "apartment":
+        return (
+          <div className="p-3 overflow-y-auto h-[300px]">
+            {apartments.map((apartment, index) => (
+              <div
+                key={`apartment-${index}`}
+                className="p-3 flex items-center border-b border-[#E3E2E0] hover:bg-gray-100 cursor-pointer"
+                onClick={() => {
+                  setMoveSize(apartment.text);
+                  setShowSizeModal(false);
+                }}
+              >
+                <p className="font-sans text-[16px] leading-[25.6px] text-[#373737]">
+                  {apartment.text}
+                </p>
+                <p className="text-[16px] ml-1 font-sans text-[#9e9e9e]">
+                  {apartment.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        );
+      case "storage":
+        return (
+          <div className="p-3 overflow-y-auto h-[300px]">
+            {storages.map((store, index) => (
+              <div
+                key={`storage-${index}`}
+                className="p-3 flex items-center border-b border-[#E3E2E0] hover:bg-gray-100 cursor-pointer"
+                onClick={() => {
+                  setMoveSize(store);
+                  setShowSizeModal(false);
+                }}
+              >
+                <p className="font-sans text-[16px] leading-[25.6px] text-[#373737]">
+                  {store}
+                </p>
+              </div>
+            ))}
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="ml-4 locationParentContainer w-full">
       <div className="justify-between locationDetailsContainer flex">
         <div className="w-[69%] locationContainer">
-          <h2 className="font-sans text-[20px] mb-4 text-[#121212] font-bold">
+          {errMessage && (
+            <p className="text-red-600 text-[12px] mb-2">{errMessage}</p>
+          )}
+          <h2 className="font-sans text-[20px] text-[#121212] font-bold">
             {t("location.title")}
           </h2>
           <div className="w-full flex flex-col gap-[16px]">
+            <div className="input_multiple" ref={dropdownRef}>
+              <div className="dropdown_trigger" onClick={toggleDropdown}>
+                <div className="border-[1px] h-[68px] rounded-[8px] cursor-pointer flex items-center px-[16px]  w-full border-[#e3e3e3]">
+                  {selectedProvince ? (
+                    <span className="">
+                      {selectedProvinceName || selectedProvince.provinceName}
+                    </span>
+                  ) : (
+                    <span className="">{t("location.province")}</span>
+                  )}
+                </div>
+              </div>
+
+              {showDropdown && (
+                <div className=" w-full">
+                  <div className="dropdown_list w-full" role="listbox">
+                    {allProvinces?.result?.length > 0 ? (
+                      allProvinces.result.map((province) => (
+                        <div
+                          className={`dropdown_item ${
+                            selectedProvince?.provinceName ===
+                            province.provinceName
+                              ? "selected"
+                              : ""
+                          }`}
+                          key={province.provinceName}
+                          role="option"
+                          onClick={() => handleProvinceSelect(province)}
+                        >
+                          <span>{province.provinceName}</span>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="dropdown_empty">
+                        No provinces available
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+
             {/* From Location */}
             <div className="relative">
               <div className="w-full h-[68px] locationFrom rounded-[8px] border-[1px] px-[16px] flex items-center justify-between border-[#e3e3e3]">
@@ -384,42 +482,16 @@ const Location = ({
                       -
                     </p>
                     {isEditingFrom ? (
-                      <div className="flex items-center flex-1">
-                        <input
-                          ref={fromInputRef}
-                          type="text"
-                          value={fromLocation}
-                          onChange={handleFromInputChange}
-                          onBlur={handleFromBlur}
-                          onKeyDown={(e) => handleKeyDown(e, "from")}
-                          placeholder="Search places... (min 3 chars)"
-                          className="text-[#707070] ml-2 font-sans text-[16px] leading-[25.6px] bg-transparent outline-none flex-1 min-w-0"
-                        />
-                        {loadingFrom && (
-                          <div className="ml-2">
-                            <svg
-                              className="animate-spin h-4 w-4 text-blue-500"
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                            >
-                              <circle
-                                className="opacity-25"
-                                cx="12"
-                                cy="12"
-                                r="10"
-                                stroke="currentColor"
-                                strokeWidth="4"
-                              ></circle>
-                              <path
-                                className="opacity-75"
-                                fill="currentColor"
-                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                              ></path>
-                            </svg>
-                          </div>
-                        )}
-                      </div>
+                      <input
+                        ref={fromInputRef}
+                        type="text"
+                        value={fromLocation}
+                        onChange={handleFromInputChange}
+                        onBlur={handleFromBlur}
+                        onKeyDown={(e) => handleKeyDown(e, "from")}
+                        placeholder="Search places... (min 3 chars)"
+                        className="text-[#707070] ml-2 font-sans text-[16px] leading-[25.6px] bg-transparent outline-none flex-1 min-w-0"
+                      />
                     ) : (
                       <p className="text-[#707070] ml-2 font-sans text-[16px] line-clamp-2 leading-[25.6px] fromLocationText truncate">
                         {fromLocation}
@@ -438,10 +510,10 @@ const Location = ({
               {/* From Location Suggestions */}
               {showFromSuggestions && fromSuggestions.length > 0 && (
                 <div className="absolute top-full left-0 right-0 z-50 bg-white border border-[#e3e3e3] rounded-[8px] shadow-lg mt-1 max-h-60 overflow-y-auto">
-                  {fromSuggestions.map((suggestion, index) => (
+                  {fromSuggestions.map((prediction) => (
                     <div
-                      key={`${suggestion.place_id}-${index}`}
-                      onClick={() => selectFromSuggestion(suggestion)}
+                      key={prediction.place_id}
+                      onClick={() => selectFromSuggestion(prediction)}
                       className="px-4 py-3 hover:bg-gray-100 cursor-pointer border-b border-gray-100 last:border-b-0 transition-colors"
                     >
                       <div className="flex items-start">
@@ -458,10 +530,10 @@ const Location = ({
                         </svg>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-medium text-gray-900 truncate">
-                            {suggestion.structured_formatting.main_text}
+                            {prediction.structured_formatting.main_text}
                           </p>
                           <p className="text-xs text-gray-500 line-clamp-2">
-                            {suggestion.structured_formatting.secondary_text}
+                            {prediction.structured_formatting.secondary_text}
                           </p>
                         </div>
                       </div>
@@ -499,42 +571,16 @@ const Location = ({
                       -
                     </p>
                     {isEditingTo ? (
-                      <div className="flex items-center flex-1">
-                        <input
-                          ref={toInputRef}
-                          type="text"
-                          value={toLocation}
-                          onChange={handleToInputChange}
-                          onBlur={handleToBlur}
-                          onKeyDown={(e) => handleKeyDown(e, "to")}
-                          placeholder="Search places... (min 3 chars)"
-                          className="text-[#707070] ml-2 font-sans text-[16px] leading-[25.6px] bg-transparent outline-none flex-1 min-w-0"
-                        />
-                        {loadingTo && (
-                          <div className="ml-2">
-                            <svg
-                              className="animate-spin h-4 w-4 text-blue-500"
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                            >
-                              <circle
-                                className="opacity-25"
-                                cx="12"
-                                cy="12"
-                                r="10"
-                                stroke="currentColor"
-                                strokeWidth="4"
-                              ></circle>
-                              <path
-                                className="opacity-75"
-                                fill="currentColor"
-                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                              ></path>
-                            </svg>
-                          </div>
-                        )}
-                      </div>
+                      <input
+                        ref={toInputRef}
+                        type="text"
+                        value={toLocation}
+                        onChange={handleToInputChange}
+                        onBlur={handleToBlur}
+                        onKeyDown={(e) => handleKeyDown(e, "to")}
+                        placeholder="Search places... (min 3 chars)"
+                        className="text-[#707070] ml-2 font-sans text-[16px] leading-[25.6px] bg-transparent outline-none flex-1 min-w-0"
+                      />
                     ) : (
                       <p className="text-[#707070] ml-2 fromLocationText line-clamp-2 truncate font-sans text-[16px] leading-[25.6px]">
                         {toLocation}
@@ -553,10 +599,10 @@ const Location = ({
               {/* To Location Suggestions */}
               {showToSuggestions && toSuggestions.length > 0 && (
                 <div className="absolute top-full left-0 right-0 z-50 bg-white border border-[#e3e3e3] rounded-[8px] shadow-lg mt-1 max-h-60 overflow-y-auto">
-                  {toSuggestions.map((suggestion, index) => (
+                  {toSuggestions.map((prediction) => (
                     <div
-                      key={`${suggestion.place_id}-${index}`}
-                      onClick={() => selectToSuggestion(suggestion)}
+                      key={prediction.place_id}
+                      onClick={() => selectToSuggestion(prediction)}
                       className="px-4 py-3 hover:bg-gray-100 cursor-pointer border-b border-gray-100 last:border-b-0 transition-colors"
                     >
                       <div className="flex items-start">
@@ -573,10 +619,10 @@ const Location = ({
                         </svg>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-medium text-gray-900 truncate">
-                            {suggestion.structured_formatting.main_text}
+                            {prediction.structured_formatting.main_text}
                           </p>
                           <p className="text-xs text-gray-500 line-clamp-2">
-                            {suggestion.structured_formatting.secondary_text}
+                            {prediction.structured_formatting.secondary_text}
                           </p>
                         </div>
                       </div>
@@ -584,12 +630,154 @@ const Location = ({
                   ))}
                 </div>
               )}
+              <div className="moveDetailsBtnBox mt-[16px] relative flex justify-between border-r-2 border-[#E3E2E0] p-3 items-center w-full h-[68px] rounded-[8px] border-[1px] px-[16px]">
+                <div className="flex w-[90%] items-center">
+                  <div className="mr-[8px]">
+                    <MoveSize />
+                  </div>
+                  <input
+                    ref={inputRef}
+                    value={moveSize}
+                    onFocus={() => setShowSizeModal(true)}
+                    placeholder="Moving Size"
+                    className="font-sans w-full font-light text-[#707070] leading-[25.6px] border-none outline-none"
+                    readOnly
+                  />
+                </div>
+                <button onClick={() => setShowSizeModal(true)}>
+                  <DownIcon />
+                </button>
+                {showSizeModal && (
+                  <div
+                    ref={modalRef}
+                    className="w-[400px] max-h-[300px] fromAndToContainer overflow-y-auto bg-white absolute top-[60px] border border-gray-200 rounded-[12px] left-0 shadow-lg z-50"
+                  >
+                    <div className="p-3 flex items-center border-b-[1px] justify-between">
+                      <button
+                        onClick={() => setActiveMoveSizeTab("house")}
+                        className={`${
+                          activeMoveSizeTab === "house"
+                            ? "bg-[#F0F9FD] border-[1px]"
+                            : ""
+                        } w-[100px] p-2 rounded-[8px] border-[#BCDFF6] flex items-center`}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="21"
+                          height="21"
+                          viewBox="0 0 21 21"
+                          fill="none"
+                        >
+                          <path
+                            d="M8.38688 10.9739H13.3869M4.22021 14.1406V9.68389C4.22021 9.23889 4.22021 9.01639 4.27438 8.80889C4.32235 8.62548 4.40126 8.4516 4.50771 8.29473C4.62855 8.11723 4.79605 7.96973 5.13105 7.67723L9.13188 4.17556C9.75355 3.63223 10.0644 3.36056 10.4135 3.25723C10.7219 3.16556 11.051 3.16556 11.3594 3.25723C11.7094 3.36056 12.021 3.63223 12.6427 4.17723L16.6427 7.67723C16.9785 7.97056 17.1452 8.11723 17.266 8.29389C17.3727 8.45334 17.4505 8.625 17.4994 8.80889C17.5535 9.01639 17.5535 9.23889 17.5535 9.68389V14.1439C17.5535 15.0756 17.5535 15.5414 17.3719 15.8981C17.2117 16.2115 16.9565 16.4661 16.6427 16.6256C16.2869 16.8072 15.821 16.8072 14.8894 16.8072H6.88438C5.95271 16.8072 5.48605 16.8072 5.13021 16.6256C4.81675 16.466 4.56181 16.2113 4.40188 15.8981C4.22021 15.5406 4.22021 15.0739 4.22021 14.1406Z"
+                            stroke={
+                              activeMoveSizeTab === "house"
+                                ? "#136AB5"
+                                : "#9e9e9e"
+                            }
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                        <span
+                          className={`${
+                            activeMoveSizeTab === "house"
+                              ? "text-[#136AB5]"
+                              : "text-[#9e9e9e]"
+                          } ml-2 font-sans text-[14px]`}
+                        >
+                          House
+                        </span>
+                      </button>
+
+                      <button
+                        onClick={() => setActiveMoveSizeTab("apartment")}
+                        className={`${
+                          activeMoveSizeTab === "apartment"
+                            ? "bg-[#F0F9FD] border-[1px]"
+                            : ""
+                        } w-[150px] p-2 rounded-[8px] border-[#BCDFF6] flex items-center`}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="18"
+                          height="18"
+                          viewBox="0 0 18 18"
+                          fill="none"
+                        >
+                          <path
+                            d="M1.88687 16.6406H16.8869M6.88687 5.80729H7.7202M6.88687 9.14062H7.7202M6.88687 12.474H7.7202M11.0535 5.80729H11.8869M11.0535 9.14062H11.8869M11.0535 12.474H11.8869M3.55354 16.6406V3.30729C3.55354 2.86526 3.72913 2.44134 4.04169 2.12878C4.35425 1.81622 4.77818 1.64063 5.2202 1.64062H13.5535C13.9956 1.64063 14.4195 1.81622 14.732 2.12878C15.0446 2.44134 15.2202 2.86526 15.2202 3.30729V16.6406"
+                            stroke={
+                              activeMoveSizeTab === "apartment"
+                                ? "#136AB5"
+                                : "#9e9e9e"
+                            }
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                        <span
+                          className={`${
+                            activeMoveSizeTab === "apartment"
+                              ? "text-[#136AB5]"
+                              : "text-[#9e9e9e]"
+                          } ml-2 font-sans text-[14px]`}
+                        >
+                          Apartment
+                        </span>
+                      </button>
+
+                      <button
+                        onClick={() => setActiveMoveSizeTab("storage")}
+                        className={`${
+                          activeMoveSizeTab === "storage"
+                            ? "bg-[#F0F9FD] border-[1px]"
+                            : ""
+                        } w-[100px] p-2 rounded-[8px] border-[#BCDFF6] flex items-center`}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="18"
+                          height="14"
+                          viewBox="0 0 18 14"
+                          fill="none"
+                        >
+                          <path
+                            d="M8.88686 0.307129C4.30353 0.307129 0.553528 4.05713 0.553528 8.64046V13.6405H17.2202V8.64046C17.2202 4.05713 13.4702 0.307129 8.88686 0.307129ZM8.88686 1.9738C10.9952 1.9738 12.8702 2.9488 14.0952 4.4738H3.68686C4.90353 2.9488 6.77853 1.9738 8.88686 1.9738ZM5.55353 11.9738H2.22019V8.64046C2.22019 7.75713 2.39519 6.91546 2.70353 6.14046H5.55353V11.9738ZM10.5535 11.9738H7.22019V6.14046H10.5535V11.9738ZM15.5535 11.9738H12.2202V6.14046H15.0702C15.3785 6.91546 15.5535 7.75713 15.5535 8.64046V11.9738Z"
+                            fill={
+                              activeMoveSizeTab === "storage"
+                                ? "#136AB5"
+                                : "#9e9e9e"
+                            }
+                          />
+                        </svg>
+                        <span
+                          className={`${
+                            activeMoveSizeTab === "storage"
+                              ? "text-[#136AB5]"
+                              : "text-[#9e9e9e]"
+                          } ml-2 font-sans text-[14px]`}
+                        >
+                          Storage
+                        </span>
+                      </button>
+                    </div>
+                    {renderTabContent()}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
         <div>
-          {/* <img className="locationMap" src={Map} alt="map" /> */}
-          <LocationMap />
+          <LocationMap
+            fromPickupLongitude={fromPickupLongitude}
+            fromPickupLatitude={fromPickupLatitude}
+            toDropOffLongitude={toDropOffLongitude}
+            toDropOffLatitude={toDropOffLatitude}
+          />
         </div>
       </div>
     </div>

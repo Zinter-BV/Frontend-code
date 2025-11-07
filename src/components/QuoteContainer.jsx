@@ -11,6 +11,7 @@ import MobileQuoteProgress from "./MobileQuoteProgress";
 import { useDispatch, useSelector } from "react-redux";
 import {
   resetUserInfo,
+  setHouseSize,
   setUserDetails,
   setUserMoreInfo,
 } from "../redux/action";
@@ -18,6 +19,7 @@ import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import Loader from "./loader";
 import { useTranslation } from "react-i18next";
+import MovingInformation2 from "./MovingInformation2";
 
 const QuoteContainer = ({ data }) => {
   const [activeTab, setActiveTab] = useState(1);
@@ -60,7 +62,7 @@ const QuoteContainer = ({ data }) => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [provinceId, setProvinceId] = useState(1);
+  const [provinceId, setProvinceId] = useState(0);
   const [pickUpAddress, setPickUpAddress] = useState(fromLocation);
   const [dropOffAddress, setDropOffAddress] = useState(toLocation);
   const [pickUpAddressNumber, setPickUpAddressNumber] = useState("");
@@ -88,10 +90,7 @@ const QuoteContainer = ({ data }) => {
   // Error message state
   const [errMessage, setErrMessage] = useState("");
 
-  useEffect(() => {
-    if (data) setActiveTab(2);
-    else setActiveTab(1);
-  }, [data]);
+  const [moveSize, setMoveSize] = useState("");
 
   // Function to format datetime to ISO 8601 format
   const formatToISODateTime = (dateStr, timeStr) => {
@@ -209,11 +208,18 @@ const QuoteContainer = ({ data }) => {
     dropOffAddress: user?.userMoveInfo?.dropOffAddress || toLocation,
     pickUpAddressNumber,
     dropOffAddressNumber,
-    pickUpLongitude: user?.userMoveInfo?.pickUpLongitude || fromPickupLongitude,
-    pickUpLatitude: user?.userMoveInfo?.pickUpLatitude || fromPickupLatitude,
-    dropOffLongitude:
-      user?.userMoveInfo?.toDropOffLongitude || toDropOffLongitude,
-    dropOffLatitude: user?.userMoveInfo?.toDropOffLatitude || toDropOffLatitude,
+    pickUpLongitude: String(
+      user?.userMoveInfo?.pickUpLongitude || fromPickupLongitude
+    ),
+    pickUpLatitude: String(
+      user?.userMoveInfo?.pickUpLatitude || fromPickupLatitude
+    ),
+    dropOffLongitude: String(
+      user?.userMoveInfo?.toDropOffLongitude || toDropOffLongitude
+    ),
+    dropOffLatitude: String(
+      user?.userMoveInfo?.toDropOffLatitude || toDropOffLatitude
+    ),
     toNumberOfFloors,
     toLongCarry,
     toRemark,
@@ -244,6 +250,16 @@ const QuoteContainer = ({ data }) => {
       isEditingTo={isEditingTo}
       setIsEditingFrom={setIsEditingFrom}
       setIsEditingTo={setIsEditingTo}
+      fromPickupLongitude={fromPickupLongitude}
+      fromPickupLatitude={fromPickupLatitude}
+      toDropOffLongitude={toDropOffLongitude}
+      toDropOffLatitude={toDropOffLatitude}
+      setProvinceId={setProvinceId}
+      provinceId={provinceId}
+      moveSize={moveSize}
+      setMoveSize={setMoveSize}
+      errMessage={errMessage}
+      setErrMessage={setErrMessage}
     />
   );
 
@@ -267,7 +283,7 @@ const QuoteContainer = ({ data }) => {
 
   const {
     mutate: fetchData,
-    isLoading, // true when the request is running
+    isPending, // true when the request is running
   } = useMutation({
     mutationFn: addUserDetails,
     onSuccess: (data) => {
@@ -305,6 +321,16 @@ const QuoteContainer = ({ data }) => {
           setFromPickupLatitude={setFromPickupLatitude}
           setToDropOffLongitude={setToDropOffLongitude}
           setToDropOffLatitude={setToDropOffLatitude}
+          fromPickupLongitude={fromPickupLongitude}
+          fromPickupLatitude={fromPickupLatitude}
+          toDropOffLongitude={toDropOffLongitude}
+          toDropOffLatitude={toDropOffLatitude}
+          provinceId={provinceId}
+          setProvinceId={setProvinceId}
+          moveSize={moveSize}
+          setMoveSize={setMoveSize}
+          errMessage={errMessage}
+          setErrMessage={setErrMessage}
         />
       );
       break;
@@ -313,7 +339,7 @@ const QuoteContainer = ({ data }) => {
       break;
     case 3:
       content = (
-        <MovingInformation
+        <MovingInformation2
           setMoveDate={setMoveDate}
           moveDate={moveDate}
           setPickUpDate={setPickUpDate}
@@ -395,6 +421,14 @@ const QuoteContainer = ({ data }) => {
 
   // Function to handle moving forward in tabs
   const handleTabs = () => {
+    if (!moveSize) {
+      setErrMessage("Please Enter House Size");
+      return;
+    }
+    // else if (!provinceId || provinceId === 0) {
+    //   setErrMessage("Please select a province");
+    //   return;
+    // }
     if (activeTab === 1) {
       dispatch(
         setUserDetails({
@@ -403,12 +437,13 @@ const QuoteContainer = ({ data }) => {
           pickUpLongitude: fromPickupLongitude,
           pickUpLatitude: fromPickupLatitude,
           dropOffLongitude: toDropOffLongitude,
-          dropOffLatitude: fromPickupLatitude,
+          dropOffLatitude: toDropOffLatitude,
         })
       );
+      dispatch(setHouseSize(moveSize));
     }
     if (activeTab === 2) {
-      console.log(activeTab, 2);
+      // console.log(activeTab, 2);
       // if active tab is 2 and user has not added any items, stay on tab 2
       if (user.items.length === 0) {
         setActiveTab(2);
@@ -443,72 +478,112 @@ const QuoteContainer = ({ data }) => {
     navigate("/");
     setOpenSuccessModal(false);
     dispatch(resetUserInfo());
+    dispatch(setHouseSize(""));
   };
 
-  {
-    isLoading && <Loader />;
-  }
+  useEffect(() => {
+    setMoveSize(user?.houseSize);
+  }, [user]);
 
   return (
-    <div className="relative">
-      <div className="w-[90vw] relative h-[calc(100vh-90px)] max-w-[1500px] mx-auto mt-24">
-        <div className="w-full  ">
-          <div className="flex items-center">
-            <Link to="/">
-              <p className="text-[#9e9e9e] text-[14px] font-sans leading-[19.6px]">
-                {t("quoteContainer.home")}
-              </p>{" "}
-            </Link>
-            <div className="mx-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="6"
-                height="11"
-                viewBox="0 0 6 11"
-                fill="none"
-              >
-                <path
-                  d="M0.219801 0.720115C0.0788617 0.861097 -0.000314284 1.05228 -0.000314301 1.25163C-0.000314319 1.45098 0.0788616 1.64217 0.219801 1.78315L3.94119 5.50454L0.219801 9.22592C0.0828549 9.36771 0.00707833 9.55762 0.00879111 9.75474C0.0105039 9.95186 0.0895692 10.1404 0.228958 10.2798C0.368347 10.4192 0.556907 10.4983 0.754025 10.5C0.951143 10.5017 1.14105 10.4259 1.28284 10.289L5.53574 6.03606C5.67668 5.89508 5.75586 5.70389 5.75586 5.50454C5.75586 5.30519 5.67668 5.114 5.53574 4.97302L1.28284 0.720115C1.14186 0.579175 0.950669 0.5 0.75132 0.5C0.551971 0.5 0.360784 0.579175 0.219801 0.720115Z"
-                  fill="#E3E3E3"
-                />
-              </svg>
-            </div>
-            <p className="text-[#525252] text-[16px] font-bold font-sans  ">
-              {t("quoteContainer.desc")}
-            </p>
-          </div>
-          <div className="mt-4  quoteContainer flex ">
-            <MobileQuoteProgress activeTab={activeTab} />
-            <QuoteProgress activeTab={activeTab} />
-            {content}
-          </div>
-        </div>
-        <div className="h-[80px] quoteContainerBtns shadow-[0px_-6px_6px_-6px_rgba(0,0,0,0.3)] bg-white fixed bottom-0 max-w-[1500px] mx-auto w-[90vw] flex items-center justify-center  ">
-          <div className="w-full flex items-center justify-between">
-            {activeTab === 1 ? (
-              <p className="text-[#88b5fe]  py-1 px-2 rounded-[20px]  text-[14px] text-manrope font-light ">
-                {t("quoteContainer.back")}
+    <>
+      {isPending && <Loader />}
+      <div className="relative">
+        <div className="w-[90vw] relative h-[calc(100vh-90px)] max-w-[1500px] mx-auto mt-24">
+          <div className="w-full  ">
+            <div className="flex items-center">
+              <Link to="/">
+                <p className="text-[#9e9e9e] text-[14px] font-sans leading-[19.6px]">
+                  {t("quoteContainer.home")}
+                </p>{" "}
+              </Link>
+              <div className="mx-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="6"
+                  height="11"
+                  viewBox="0 0 6 11"
+                  fill="none"
+                >
+                  <path
+                    d="M0.219801 0.720115C0.0788617 0.861097 -0.000314284 1.05228 -0.000314301 1.25163C-0.000314319 1.45098 0.0788616 1.64217 0.219801 1.78315L3.94119 5.50454L0.219801 9.22592C0.0828549 9.36771 0.00707833 9.55762 0.00879111 9.75474C0.0105039 9.95186 0.0895692 10.1404 0.228958 10.2798C0.368347 10.4192 0.556907 10.4983 0.754025 10.5C0.951143 10.5017 1.14105 10.4259 1.28284 10.289L5.53574 6.03606C5.67668 5.89508 5.75586 5.70389 5.75586 5.50454C5.75586 5.30519 5.67668 5.114 5.53574 4.97302L1.28284 0.720115C1.14186 0.579175 0.950669 0.5 0.75132 0.5C0.551971 0.5 0.360784 0.579175 0.219801 0.720115Z"
+                    fill="#E3E3E3"
+                  />
+                </svg>
+              </div>
+              <p className="text-[#525252] text-[16px] font-bold font-sans  ">
+                {t("quoteContainer.desc")}
               </p>
-            ) : (
+            </div>
+            <div className="mt-4  quoteContainer flex ">
+              <MobileQuoteProgress activeTab={activeTab} />
+              <QuoteProgress activeTab={activeTab} />
+              {content}
+            </div>
+          </div>
+          <div className="h-[80px] quoteContainerBtns shadow-[0px_-6px_6px_-6px_rgba(0,0,0,0.3)] bg-white fixed bottom-0 max-w-[1500px] mx-auto w-[90vw] flex items-center justify-center  ">
+            <div className="w-full flex items-center justify-between">
+              {activeTab === 1 ? (
+                <p className="text-[#88b5fe]  py-1 px-2 rounded-[20px]  text-[14px] text-manrope font-light ">
+                  {t("quoteContainer.back")}
+                </p>
+              ) : (
+                <button
+                  onClick={() => handlePrevTabs(activeTab)}
+                  className="text-[#3C82F6] hover:bg-primary py-1 px-2 hover:text-white rounded-[20px] cursor-pointer text-[14px] text-manrope font-light "
+                >
+                  {t("quoteContainer.back")}
+                </button>
+              )}
+              <div>
+                {activeTab === 4 ? (
+                  <PrimaryBtn
+                    handlePress={handleSubmit}
+                    className={"text-[14px] "}
+                  >
+                    {t("quoteContainer.getQuotes")}
+                  </PrimaryBtn>
+                ) : (
+                  <PrimaryBtn
+                    handlePress={() => handleTabs(activeTab)}
+                    className={"text-[14px] "}
+                  >
+                    {t("quoteContainer.continue")}
+                  </PrimaryBtn>
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="pb-[20px] md:hidden ">
+            {activeTab > 1 && (
               <button
                 onClick={() => handlePrevTabs(activeTab)}
-                className="text-[#3C82F6] hover:bg-primary py-1 px-2 hover:text-white rounded-[20px] cursor-pointer text-[14px] text-manrope font-light "
+                className="text-[#3C82F6] w-full quoteContainerPrimaryBtn mb-4 py-1 px-2 rounded-[20px] cursor-pointer text-[14px] text-manrope font-light "
               >
                 {t("quoteContainer.back")}
               </button>
             )}
+
+            {/* <PrimaryBtn
+            handlePress={() => handleTabs(activeTab)}
+            className={
+              "text-[14px] quoteContainerPrimaryBtn md:hidden my-3 w-full "
+            }
+          >
+            {t("quoteContainer.continue")}
+          </PrimaryBtn> */}
             <div>
               {activeTab === 4 ? (
                 <PrimaryBtn
                   handlePress={handleSubmit}
-                  className={"text-[14px] "}
+                  className={"text-[14px] w-full "}
                 >
                   {t("quoteContainer.getQuotes")}
                 </PrimaryBtn>
               ) : (
                 <PrimaryBtn
                   handlePress={() => handleTabs(activeTab)}
-                  className={"text-[14px] "}
+                  className={"text-[14px] w-full"}
                 >
                   {t("quoteContainer.continue")}
                 </PrimaryBtn>
@@ -516,28 +591,9 @@ const QuoteContainer = ({ data }) => {
             </div>
           </div>
         </div>
-        <div className="pb-[20px]">
-          {activeTab > 1 && (
-            <button
-              onClick={() => handlePrevTabs(activeTab)}
-              className="text-[#3C82F6] w-full quoteContainerPrimaryBtn  py-1 px-2 rounded-[20px] cursor-pointer text-[14px] text-manrope font-light "
-            >
-              {t("quoteContainer.back")}
-            </button>
-          )}
-
-          <PrimaryBtn
-            handlePress={() => handleTabs(activeTab)}
-            className={
-              "text-[14px] quoteContainerPrimaryBtn hidden my-3 w-full "
-            }
-          >
-            {t("quoteContainer.continue")}
-          </PrimaryBtn>
-        </div>
+        {openSuccessModal && <QuoteSuccess closeModal={closeSuccessModal} />}
       </div>
-      {openSuccessModal && <QuoteSuccess closeModal={closeSuccessModal} />}
-    </div>
+    </>
   );
 };
 

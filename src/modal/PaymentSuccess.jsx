@@ -4,7 +4,7 @@ import PrimaryBtn from "../components/PrimaryBtn";
 import { useSelector } from "react-redux";
 import { convertTo12Hour, formatDate } from "../utils";
 
-const PaymentSuccess = ({ closeSuccessModal }) => {
+const PaymentSuccess = ({ openModal }) => {
   const moversData = useSelector((state) => state.user.moversData);
   console.log(moversData);
 
@@ -42,7 +42,8 @@ const PaymentSuccess = ({ closeSuccessModal }) => {
         </div>
         <div className="border-[#e3e3e3] flex items-center justify-center p-[16px] border-t-[1px]">
           <PrimaryBtn
-            handlePress={closeSuccessModal}
+            // handlePress={closeSuccessModal}
+            handlePress={openModal}
             className={"text-[14px] "}
           >
             OK, GOT IT

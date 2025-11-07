@@ -20,6 +20,11 @@ export const setMoversData = (data) => ({
   payload: data,
 });
 
+export const setHouseSize = (data) => ({
+  type: actionTypes.SET_HOUSE_SIZE,
+  payload: data,
+});
+
 export const resetMoversInfo = () => ({
   type: actionTypes.RESET_MOVERS_DATA,
 });

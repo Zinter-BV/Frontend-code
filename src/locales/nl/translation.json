@@ -52,11 +52,16 @@
     "howEarly": "Hoe vroeg moet ik mijn verhuizing boeken?",
     "packing": "Zullen de verhuizers ook mijn spullen inpakken?",
     "whatsIncluded": "Wat is inbegrepen in mijn offerte?",
-    "packingExtra": "Is inpakken onderdeel van de deal of extra?",
     "reschedule": "Kan ik verplaatsen als de plannen veranderen?",
-    "tracking": "Kan ik mijn verhuizing in realtime volgen?",
     "storage": "Wat als ik opslag nodig heb, kunnen jullie helpen?",
-    "costCalculation": "Hoe wordt de verhuiskosten berekend?"
+    "costCalculation": "Hoe wordt de verhuiskosten berekend?",
+    "ans1": "We accepteren verschillende betaalmethoden voor uw gemak, waaronder iDEAL, creditcards, betaalpassen en mobiele betaalopties. Betalingsgegevens worden bevestigd tijdens het boekingsproces.",
+    "ans2": "We raden aan uw verhuizing minstens 2 tot 4 weken van tevoren te boeken, vooral tijdens de drukke maanden (april tot september). Dit garandeert beschikbaarheid op uw voorkeursdatum en stelt ons in staat om de best mogelijke service te bieden. We doen echter altijd ons best om last-minute boekingen waar mogelijk te accommoderen.",
+    "ans3": "Ja. U kunt kiezen tussen een volledige inpakservice of zelf inpakken, afhankelijk van uw voorkeur. Ons professionele inpakteam kan uw bezittingen veilig inpakken om ervoor te zorgen dat ze goed beschermd zijn tijdens het transport.",
+    "ans4": "Uw offerte bevat doorgaans arbeids-, transport- en brandstofkosten. Alle kosten worden duidelijk gespecificeerd zodat u precies weet wat is inbegrepen vóór de verhuisdag. Optionele diensten — zoals inpakken, opslag, speciale behandeling of verzekering — kunnen op verzoek worden toegevoegd.",
+    "ans5": "Absoluut. We begrijpen dat plannen kunnen veranderen. U kunt uw verhuizing opnieuw plannen door zo snel mogelijk contact met ons op te nemen. We werken samen met u om uw boeking snel en probleemloos aan te passen.",
+    "ans6": "Natuurlijk. We werken samen met betrouwbare partners die korte- en langetermijnopslag aanbieden in veilige, klimaatgeregelde faciliteiten om uw bezittingen veilig te houden totdat u klaar bent voor levering.",
+    "ans7": "De verhuiskosten worden bepaald door verschillende factoren, waaronder afstand, het volume van de items en eventuele extra geselecteerde diensten (zoals inpakken of opslag). We bieden transparante, gespecificeerde offertes zodat u altijd precies weet waarvoor u betaalt — zonder verborgen kosten."
   },
   "newsletter": {
     "title": "Mis Geen Verhuizing.",
