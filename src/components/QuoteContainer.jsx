@@ -62,7 +62,7 @@ const QuoteContainer = ({ data }) => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [provinceId, setProvinceId] = useState(0);
+  const [provinceId, setProvinceId] = useState(1);
   const [pickUpAddress, setPickUpAddress] = useState(fromLocation);
   const [dropOffAddress, setDropOffAddress] = useState(toLocation);
   const [pickUpAddressNumber, setPickUpAddressNumber] = useState("");
@@ -74,18 +74,18 @@ const QuoteContainer = ({ data }) => {
   const [toNumberOfFloors, setToNumberOfFloors] = useState("");
   const [toLongCarry, setToLongCarry] = useState("");
   const [toRemark, setToRemark] = useState("");
-  const [toHasElevator, setToHasElevator] = useState(null);
-  const [toNeedShuttle, setToNeedShuttle] = useState(null);
-  const [toHasBuildingInsurance, setToHasBuildingInsurance] = useState(null);
-  const [toNeedHelpPacking, setToNeedHelpPacking] = useState(null);
+  const [toHasElevator, setToHasElevator] = useState(true);
+  const [toNeedShuttle, setToNeedShuttle] = useState(true);
+  const [toHasBuildingInsurance, setToHasBuildingInsurance] = useState(true);
+  const [toNeedHelpPacking, setToNeedHelpPacking] = useState(true);
   const [fromNumberOfFloors, setFromNumberOfFloors] = useState("");
   const [fromLongCarry, setFromLongCarry] = useState("");
   const [fromRemark, setFromRemark] = useState("");
-  const [fromHasElevator, setFromHasElevator] = useState(null);
-  const [fromNeedShuttle, setFromNeedShuttle] = useState(null);
+  const [fromHasElevator, setFromHasElevator] = useState(true);
+  const [fromNeedShuttle, setFromNeedShuttle] = useState(true);
   const [fromHasBuildingInsurance, setFromHasBuildingInsurance] =
-    useState(null);
-  const [fromNeedHelpPacking, setFromNeedHelpPacking] = useState(null);
+    useState(true);
+  const [fromNeedHelpPacking, setFromNeedHelpPacking] = useState(true);
 
   // Error message state
   const [errMessage, setErrMessage] = useState("");
@@ -424,11 +424,10 @@ const QuoteContainer = ({ data }) => {
     if (!moveSize) {
       setErrMessage("Please Enter House Size");
       return;
+    } else if (!provinceId || provinceId === 0) {
+      setErrMessage("Please select a province");
+      return;
     }
-    // else if (!provinceId || provinceId === 0) {
-    //   setErrMessage("Please select a province");
-    //   return;
-    // }
     if (activeTab === 1) {
       dispatch(
         setUserDetails({

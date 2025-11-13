@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useJsApiLoader } from "@react-google-maps/api";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 // Define libraries outside component to prevent reloading
 const LIBRARIES = ["places"];
@@ -12,43 +13,24 @@ const MovingInformation2 = ({
   moveDate,
   setMoveDate,
   pickUpDate,
-  setPickUpDate,
-  moveTime,
-  setMoveTime,
-  pickUpTime,
-  setPickupTime,
   fullName,
   setFullName,
   email,
   setEmail,
   phoneNumber,
   setPhoneNumber,
-  provinceId,
-  setProvinceId,
-  pickUpAddress,
-  setPickUpAddress,
-  dropOffAddress,
-  setDropOffAddress,
   pickUpAddressNumber,
   setPickUpAddressNumber,
   dropOffAddressNumber,
   setDropOffAddressNumber,
-  pickUpLongitude,
   setPickUpLongitude,
-  pickUpLatitude,
   setPickUpLatitude,
-  dropOffLongitude,
   setDropOffLongitude,
-  dropOffLatitude,
   setDropOffLatitude,
   fromNumberOfFloors,
   setFromNumberOfFloors,
   toNumberOfFloors,
   setToNumberOfFloors,
-  fromLongCarry,
-  setFromLongCarry,
-  toLongCarry,
-  setToLongCarry,
   fromRemark,
   setFromRemark,
   toRemark,
@@ -510,104 +492,58 @@ const MovingInformation2 = ({
               />
             </div>
           </div>
-          <div className="border-[#e3e3e3] mb-6 border-[1px] rounded-[12px] p-5 ">
-            <div className="justify-between flex  ">
-              <div className="flex items-center">
-                <div className="flex items-center ">
-                  <p className="font-sans text-[#136AB5] text-[18px] font-bold ">
-                    {t("moveInformation.contactInfo")}
-                  </p>
+          <div className=" border-[#e3e3e3] mb-6 pb-2 border-b-[1px]">
+            <p className="font-sans text-[#136AB5] text-[18px] font-bold ">
+              {t("moveInformation.contactInfo")}
+            </p>
+
+            <div className="mt-[10px]">
+              <div className="flex mb-[15px] flex-col">
+                <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
+                  {t("moveInformation.fullName")}
                   <span className="text-red-500 text-[14px] ml-[4px]">*</span>
-                </div>
-                {isContactInfoOpen && (
-                  <div className="flex contactInfoItems items-center ml-2">
-                    <p className="font-sans text-[14px] mr-2 ">Full Name</p>{" "}
-                    <div className="w-[6px] h-[6px] mr-2 rounded-full bg-[#9E9E9E] " />
-                    <p className="font-sans text-[14px] mr-2  ">
-                      Email Address
-                    </p>{" "}
-                    <div className="w-[6px] h-[6px] mr-2 rounded-full bg-[#9E9E9E] " />
-                    <p className="font-sans text-[14px] ">Phone Number</p>{" "}
-                  </div>
-                )}
+                </label>
+                <input
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  placeholder="Enter Your Full Name"
+                  type="text"
+                  className="h-[45px] border-[#e3e3e3] font-light w-full border-[1px] outline-none p-[8px] rounded-[8px] "
+                />
               </div>
-              <div className="flex" onClick={toggleContactInfo}>
-                {!isContactInfoOpen ? (
-                  <div className="group flex items-center border-[#e3e3e3] justify-center border-[1px] rounded-full h-[32px] w-[32px] hover:bg-[#248CD9] cursor-pointer">
-                    <IoIosArrowDown className="text-black group-hover:text-white" />
-                  </div>
-                ) : (
-                  <div className="group flex items-center border-[#e3e3e3] justify-center border-[1px] rounded-full h-[32px] w-[32px] hover:bg-[#248CD9] cursor-pointer">
-                    <IoIosArrowUp className="text-black group-hover:text-white" />
-                  </div>
-                )}
+              <div className="flex mb-[10px] flex-col">
+                <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
+                  {t("moveInformation.email")}
+                  <span className="text-red-500 text-[14px] ml-[4px]">*</span>
+                </label>
+                <input
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter Your Email Address"
+                  type="email"
+                  className="h-[45px] w-full border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
+                />
+              </div>
+              <div className="flex mb-[10px] flex-col">
+                <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
+                  {t("moveInformation.phone")}
+                </label>
+                <input
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                  placeholder="Enter Your Phone Number"
+                  type="number"
+                  className="h-[45px] appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none w-full border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
+                />
               </div>
             </div>
-            {isContactInfoOpen && (
-              <div className="mt-[10px]">
-                <div className="flex mb-[15px] flex-col">
-                  <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                    {t("moveInformation.fullName")}
-                    <span className="text-red-500 text-[14px] ml-[4px]">*</span>
-                  </label>
-                  <input
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    placeholder="Enter Your Full Name"
-                    type="text"
-                    className="h-[45px] border-[#e3e3e3] font-light w-full border-[1px] outline-none p-[8px] rounded-[8px] "
-                  />
-                </div>
-                <div className="flex mb-[10px] flex-col">
-                  <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                    {t("moveInformation.email")}
-                    <span className="text-red-500 text-[14px] ml-[4px]">*</span>
-                  </label>
-                  <input
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter Your Email Address"
-                    type="email"
-                    className="h-[45px] w-full border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
-                  />
-                </div>
-                <div className="flex mb-[10px] flex-col">
-                  <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                    {t("moveInformation.phone")}
-                  </label>
-                  <input
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                    placeholder="Enter Your Phone Number"
-                    type="number"
-                    className="h-[45px] appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none w-full border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
-                  />
-                </div>
-              </div>
-            )}
           </div>
 
           <div>
-            <div className="border-[#e3e3e3] mb-6 border-[1px] rounded-[12px] p-5 ">
-              <div className="flex items-center w-full justify-between ">
-                <div className="flex items-center ">
-                  <p className="font-sans text-[#136AB5] text-[18px] font-bold ">
-                    {t("moveInformation.pickup")}
-                  </p>
-                  <span className="text-red-500 text-[14px] ml-[4px]">*</span>
-                </div>
-                <div className="flex" onClick={togglePickUpDetails}>
-                  {!isPickUpDetailsOpen ? (
-                    <div className="group flex items-center border-[#e3e3e3] justify-center border-[1px] rounded-full h-[32px] w-[32px] hover:bg-[#248CD9] cursor-pointer">
-                      <IoIosArrowDown className="text-black group-hover:text-white" />
-                    </div>
-                  ) : (
-                    <div className="group flex items-center border-[#e3e3e3] justify-center border-[1px] rounded-full h-[32px] w-[32px] hover:bg-[#248CD9] cursor-pointer">
-                      <IoIosArrowUp className="text-black group-hover:text-white" />
-                    </div>
-                  )}
-                </div>
-              </div>
+            <div className="border-[#e3e3e3] mb-6 border-b-[1px] pb-4  ">
+              <p className="font-sans text-[#136AB5] text-[18px] font-bold ">
+                {t("moveInformation.pickup")}
+              </p>
 
               {/* FROM Address with Photon Search */}
               {isPickUpDetailsOpen && (
@@ -716,7 +652,7 @@ const MovingInformation2 = ({
                           {t("moveInformation.restrictions")}
                         </p>
                         {!isRestrictionsOpen && (
-                          <div className="flex contactInfoItems items-center ml-2">
+                          <div className="flex contactInfoItems items-center ml-3">
                             <p className="font-sans text-[14px] mr-2 ">
                               Number of Floors
                             </p>{" "}
@@ -1000,28 +936,11 @@ const MovingInformation2 = ({
             </div>
 
             {/* TO Address with Photon Search */}
-            <div className="border-[#e3e3e3] border-[1px] rounded-[12px] p-5 ">
-              <div>
-                <div className="flex items-center w-full justify-between ">
-                  <div className="flex items-center ">
-                    <p className="font-sans text-[#136AB5] text-[18px] font-bold ">
-                      Drop-off Details
-                    </p>
-                    <span className="text-red-500 text-[14px] ml-[4px]">*</span>
-                  </div>
-                  <div className="flex" onClick={toggleDropOffDetails}>
-                    {!isDropOffDetailsOpen ? (
-                      <div className="group flex items-center border-[#e3e3e3] justify-center border-[1px] rounded-full h-[32px] w-[32px] hover:bg-[#248CD9] cursor-pointer">
-                        <IoIosArrowDown className="text-black group-hover:text-white" />
-                      </div>
-                    ) : (
-                      <div className="group flex items-center border-[#e3e3e3] justify-center border-[1px] rounded-full h-[32px] w-[32px] hover:bg-[#248CD9] cursor-pointer">
-                        <IoIosArrowUp className="text-black group-hover:text-white" />
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
+            <div className="border-[#e3e3e3] border-b-[1px] pb-4 ">
+              <p className="font-sans text-[#136AB5] text-[18px] font-bold ">
+                Drop-off Details
+              </p>
+
               {isDropOffDetailsOpen && (
                 <div>
                   <div className="relative mt-4">
@@ -1044,6 +963,9 @@ const MovingInformation2 = ({
                           </svg>
                           <p className="text-[#b8b8b8] ml-2 font-light font-sans text-[16px] leading-[25.6px] ">
                             {t("moveInformation.to")}
+                            <span className="text-red-500 text-[14px] ml-[4px]">
+                              *
+                            </span>
                           </p>
                         </div>
                         <div className="flex w-[80%] flex-1">
@@ -1429,7 +1351,14 @@ const MovingInformation2 = ({
               id="termsAndConditionLabel"
               className="text-[#2c2c2c] ml-2 font-sans text-[14px]"
             >
-              Accept terms and condition <span className="text-red-500">*</span>
+              Accept
+              <Link
+                className="ml-1 text-[#136AB5] underline font-sans text-[14px]"
+                to="/terms"
+              >
+                terms and condition
+              </Link>{" "}
+              <span className="text-red-500">*</span>
             </label>
           </div>
           <div className="flex items-center">
