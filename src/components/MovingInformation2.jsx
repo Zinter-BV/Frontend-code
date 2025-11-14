@@ -60,6 +60,10 @@ const MovingInformation2 = ({
   setFromLocation,
   setToLocation,
   errMessage,
+  receivePromotions,
+  setReceivePromotions,
+  acceptTerms,
+  setAcceptTerms,
 }) => {
   const fromInputRef = useRef(null);
   const toInputRef = useRef(null);
@@ -478,17 +482,9 @@ const MovingInformation2 = ({
                 placeholder="Select Move Date"
                 type="date"
                 value={moveDate}
-                min={
-                  pickUpDate
-                    ? new Date(
-                        new Date(pickUpDate).getTime() + 24 * 60 * 60 * 1000
-                      )
-                        .toISOString()
-                        .split("T")[0]
-                    : new Date().toISOString().split("T")[0]
-                }
+                min={new Date().toISOString().split("T")[0]} // ⬅️ Prevent past dates
                 onChange={(e) => setMoveDate(e.target.value)}
-                className="h-[45px] border-[#e3e3e3] w-full font-light border-[1px] outline-none p-[8px] rounded-[8px] "
+                className="h-[45px] border-[#e3e3e3] w-full font-light border-[1px] outline-none p-[8px] rounded-[8px]"
               />
             </div>
           </div>
@@ -1346,6 +1342,8 @@ const MovingInformation2 = ({
               name="termsAndCondition"
               className="h-[20px] w-[20px]"
               id="termsAndConditionLabel"
+              checked={acceptTerms}
+              onChange={(e) => setAcceptTerms(e.target.checked)}
             />
             <label
               id="termsAndConditionLabel"
@@ -1367,6 +1365,8 @@ const MovingInformation2 = ({
               name="termsAndCondition"
               className="h-[20px] w-[20px]"
               id="movigTips"
+              checked={receivePromotions}
+              onChange={(e) => setReceivePromotions(e.target.checked)}
             />
             <label
               id="movigTips"
