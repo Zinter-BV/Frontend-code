@@ -32,6 +32,8 @@ const Location = ({
   moveSize,
   setMoveSize,
   errMessage,
+  provinceName,
+  setProvinceName,
   setErrMessage,
 }) => {
   const fromInputRef = useRef(null);
@@ -146,13 +148,31 @@ const Location = ({
     }
   };
 
+  const [allProvinces, setAllProvinces] = useState([]);
+
+  const {
+    data: provinces,
+    isLoading,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["provinces"],
+    queryFn: fetchProvince,
+    staleTime: 5 * 60 * 1000,
+  });
+
+  useEffect(() => {
+    if (provinces) {
+      setAllProvinces(provinces);
+    }
+  }, [provinces]);
+
   const selectFromSuggestion = (prediction) => {
     setFromLocation(prediction.description);
     setIsEditingFrom(false);
     setShowFromSuggestions(false);
     setFromSuggestions([]);
 
-    // Get place details including coordinates
     const placesService = new window.google.maps.places.PlacesService(
       document.createElement("div")
     );
@@ -170,10 +190,47 @@ const Location = ({
           setFromPickupLatitude(lat);
           setFromPickupLongitude(lng);
 
+          const addressComponents = place.address_components || [];
+          let extractedProvinceName = "";
+
+          const provinceComponent = addressComponents.find((component) =>
+            component.types.includes("administrative_area_level_1")
+          );
+
+          if (provinceComponent) {
+            extractedProvinceName = provinceComponent.long_name;
+            setProvinceName(extractedProvinceName);
+
+            if (allProvinces?.result?.length > 0) {
+              const matchedProvince = allProvinces.result.find(
+                (p) =>
+                  p.provinceName.toLowerCase() ===
+                  extractedProvinceName.toLowerCase()
+              );
+
+              if (matchedProvince) {
+                setProvinceId(matchedProvince.provinceId);
+                setErrMessage("");
+                console.log("Province matched:", matchedProvince);
+              } else {
+                setProvinceId(null);
+                setErrMessage(
+                  "Invalid address entered - province not supported"
+                );
+              }
+            }
+          } else {
+            setProvinceName("");
+            setProvinceId(null);
+            setErrMessage("Invalid address entered - no province detected");
+          }
+
           console.log("Selected from location:", {
             address: prediction.description,
             coordinates: { lat, lng },
+            province: extractedProvinceName,
           });
+
           setFromPickupLongitude(lng);
           setFromPickupLatitude(lat);
         }
@@ -187,7 +244,6 @@ const Location = ({
     setShowToSuggestions(false);
     setToSuggestions([]);
 
-    // Get place details including coordinates
     const placesService = new window.google.maps.places.PlacesService(
       document.createElement("div")
     );
@@ -216,79 +272,6 @@ const Location = ({
       }
     );
   };
-
-  const [allProvinces, setAllProvinces] = useState([]);
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [selectedProvince, setSelectedProvince] = useState(null);
-  const [selectedProvinceName, setSelectedProvinceName] = useState("");
-  const dropdownRef = useRef(null);
-
-  const {
-    data: provinces,
-    isLoading,
-    error,
-    refetch,
-  } = useQuery({
-    queryKey: ["provinces"],
-    queryFn: fetchProvince,
-    staleTime: 5 * 60 * 1000, // Cache for 5 minutes (optional)
-  });
-
-  // Store fetched data in selectedProvinces when data is available
-  useEffect(() => {
-    if (provinces) {
-      setAllProvinces(provinces);
-    }
-  }, [provinces]);
-
-  // Restore selected province when component mounts or provinceId changes
-  useEffect(() => {
-    if (provinceId && allProvinces?.result?.length > 0) {
-      const province = allProvinces.result.find(
-        (p) => p.provinceId === provinceId
-      );
-      if (province) {
-        setSelectedProvince(province);
-        setSelectedProvinceName(province.provinceName);
-      }
-    }
-  }, [provinceId, allProvinces]);
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setShowDropdown(false);
-      }
-    };
-
-    if (showDropdown) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [showDropdown]);
-
-  // Toggle dropdown
-  const toggleDropdown = () => setShowDropdown((prev) => !prev);
-
-  // Handle province selection
-  const handleProvinceSelect = (province) => {
-    setSelectedProvince(province);
-    setShowDropdown(false); // Close dropdown after selection
-    setProvinceId(province?.provinceId);
-    setSelectedProvinceName(province?.provinceName);
-  };
-
-  // Clear selection
-  const clearSelection = (e) => {
-    e.stopPropagation();
-    setSelectedProvince(null);
-  };
-
-  // house type
 
   const modalRef = useRef(null);
   const inputRef = useRef(null);
@@ -325,7 +308,6 @@ const Location = ({
 
   const [activeMoveSizeTab, setActiveMoveSizeTab] = useState("house");
 
-  // Tab content renderer
   const renderTabContent = () => {
     switch (activeMoveSizeTab) {
       case "house":
@@ -412,49 +394,6 @@ const Location = ({
             {t("location.title")}
           </h2>
           <div className="w-full flex flex-col gap-[16px]">
-            <div className="input_multiple" ref={dropdownRef}>
-              <div className="dropdown_trigger" onClick={toggleDropdown}>
-                <div className="border-[1px] h-[68px] rounded-[8px] cursor-pointer flex items-center px-[16px]  w-full border-[#e3e3e3]">
-                  {selectedProvince ? (
-                    <span className="">
-                      {selectedProvinceName || selectedProvince.provinceName}
-                    </span>
-                  ) : (
-                    <span className="">{t("location.province")}</span>
-                  )}
-                </div>
-              </div>
-
-              {showDropdown && (
-                <div className=" w-full">
-                  <div className="dropdown_list w-full" role="listbox">
-                    {allProvinces?.result?.length > 0 ? (
-                      allProvinces.result.map((province) => (
-                        <div
-                          className={`dropdown_item ${
-                            selectedProvince?.provinceName ===
-                            province.provinceName
-                              ? "selected"
-                              : ""
-                          }`}
-                          key={province.provinceName}
-                          role="option"
-                          onClick={() => handleProvinceSelect(province)}
-                        >
-                          <span>{province.provinceName}</span>
-                        </div>
-                      ))
-                    ) : (
-                      <div className="dropdown_empty">
-                        No provinces available
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* From Location */}
             <div className="relative">
               <div className="w-full h-[68px] locationFrom rounded-[8px] border-[1px] px-[16px] flex items-center justify-between border-[#e3e3e3]">
                 <div className="flex items-center flex-1">
@@ -507,7 +446,6 @@ const Location = ({
                 </button>
               </div>
 
-              {/* From Location Suggestions */}
               {showFromSuggestions && fromSuggestions.length > 0 && (
                 <div className="absolute top-full left-0 right-0 z-50 bg-white border border-[#e3e3e3] rounded-[8px] shadow-lg mt-1 max-h-60 overflow-y-auto">
                   {fromSuggestions.map((prediction) => (
@@ -543,7 +481,6 @@ const Location = ({
               )}
             </div>
 
-            {/* To Location */}
             <div className="relative">
               <div className="w-full h-[68px] rounded-[8px] locationFrom border-[1px] px-[16px] flex items-center justify-between border-[#e3e3e3]">
                 <div className="flex items-center flex-1">
@@ -596,7 +533,6 @@ const Location = ({
                 </button>
               </div>
 
-              {/* To Location Suggestions */}
               {showToSuggestions && toSuggestions.length > 0 && (
                 <div className="absolute top-full left-0 right-0 z-50 bg-white border border-[#e3e3e3] rounded-[8px] shadow-lg mt-1 max-h-60 overflow-y-auto">
                   {toSuggestions.map((prediction) => (

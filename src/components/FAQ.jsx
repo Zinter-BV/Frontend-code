@@ -11,57 +11,33 @@ const FAQ = ({ showBackgroundColor }) => {
   const faqData = [
     {
       question: t("faq.paymentMethods"),
-      answer: t(
-        "We offer five specialized mentorship programs: Couples and Family Financial Mentorship, Teenagers' Financial Mentorship, Corps Members' Financial Mentorship, Retirement Wealth Planning Mentorship, and Elite Financial Mentorship. Each program is tailored to specific life stages and financial goals."
-      ),
+      answer: t("faq.ans1"),
     },
     {
       question: t("faq.howEarly"),
-      answer: t(
-        "Our mentorship programs typically run for 3-6 months, depending on the specific program. The duration is designed to provide comprehensive learning while allowing time for practical application of financial strategies. Some programs offer extended support and follow-up sessions."
-      ),
+      answer: t("faq.ans2"),
     },
     {
       question: t("faq.packing"),
-      answer: t(
-        "We offer both online and in-person options to accommodate different preferences and locations. Our online programs include live video sessions, interactive workshops, and digital resources. In-person sessions are available in select locations and for group workshops."
-      ),
+      answer: t("faq.ans3"),
     },
     {
       question: t("faq.whatsIncluded"),
-      answer: t(
-        "Our mentors are certified financial professionals with extensive experience in wealth building, investment strategies, and financial planning. They hold relevant certifications and have proven track records in helping individuals and families achieve their financial goals."
-      ),
+      answer: t("faq.ans4"),
     },
-    {
-      question: t("faq.packingExtra"),
-      answer: t(
-        "Yes, we offer a 30-day money-back guarantee for all our mentorship programs. If you're not satisfied with the program within the first 30 days, you can request a full refund. We're confident in the value our programs provide."
-      ),
-    },
+
     {
       question: t("faq.reschedule"),
-      answer: t(
-        "Yes, you can upgrade or switch to a different mentorship program that better suits your needs. Our team will work with you to ensure a smooth transition and apply any applicable credits from your current program to the new one."
-      ),
+      answer: t("faq.ans5"),
     },
-    {
-      question: t("faq.tracking"),
-      answer: t(
-        "Absolutely! Each mentorship program includes personalized financial advice tailored to your specific situation, goals, and risk tolerance. Our mentors work closely with you to develop customized strategies for wealth building and financial success."
-      ),
-    },
+
     {
       question: t("faq.storage"),
-      answer: t(
-        "All programs include comprehensive workbooks, financial planning templates, video tutorials, access to our online learning platform, and ongoing support materials. You'll also receive tools for budgeting, investment tracking, and goal setting."
-      ),
+      answer: t("faq.ans6"),
     },
     {
       question: t("faq.costCalculation"),
-      answer: t(
-        "No specific prerequisites are required, but some programs are designed for particular life stages or situations. For example, the Teenagers' program is for ages 13-19, while the Corps Members' program is specifically for NYSC participants. We'll help you choose the right program during consultation."
-      ),
+      answer: t("faq.ans7"),
     },
   ];
 

@@ -248,7 +248,7 @@ const ViewSummary = ({ errMessage }) => {
                     {t("summary.moveDate")}
                   </p>
                   <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                    {formatDate(data?.moreInfo?.moveTime)}
+                    {formatDate(data?.moreInfo?.moveDate)}
                   </p>
                 </div>
                 <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
@@ -256,7 +256,7 @@ const ViewSummary = ({ errMessage }) => {
                     {t("summary.day")}
                   </p>
                   <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                    {getDayOfWeek(data?.moreInfo?.moveTime)}
+                    {getDayOfWeek(data?.moreInfo?.moveDate)}
                   </p>
                 </div>
                 <div className="flex p-[16px] rounded-br-[12px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
@@ -264,7 +264,7 @@ const ViewSummary = ({ errMessage }) => {
                     {t("summary.moveTime")}
                   </p>
                   <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                    {convertTo12Hour(data?.moreInfo?.pickUpTime)}
+                    {convertTo12Hour(data?.moreInfo?.moveDate)}
                   </p>
                 </div>
               </div>
@@ -303,7 +303,7 @@ const ViewSummary = ({ errMessage }) => {
                       {t("summary.moveDate")}
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans">
-                      {formatDate(data?.moreInfo?.moveTime)}
+                      {formatDate(data?.moreInfo?.moveDate)}
                     </p>
                   </div>
 
@@ -312,7 +312,7 @@ const ViewSummary = ({ errMessage }) => {
                       {t("summary.day")}
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans">
-                      {getDayOfWeek(data?.moreInfo?.moveTime)}
+                      {getDayOfWeek(data?.moreInfo?.moveDate)}
                     </p>
                   </div>
                 </div>
@@ -322,7 +322,7 @@ const ViewSummary = ({ errMessage }) => {
                       {t("summary.moveTime")}
                     </p>
                     <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans">
-                      {convertTo12Hour(data?.moreInfo?.pickUpTime)}
+                      {convertTo12Hour(data?.moreInfo?.moveDate)}
                     </p>
                   </div>
                   <div className="flex flex-col p-[16px] hover:bg-[#f7f7f7] w-[50%] h-full justify-between">

@@ -19,6 +19,7 @@ import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import Loader from "./loader";
 import { useTranslation } from "react-i18next";
+import MovingInformation2 from "./MovingInformation2";
 
 const QuoteContainer = ({ data }) => {
   const [activeTab, setActiveTab] = useState(1);
@@ -73,18 +74,22 @@ const QuoteContainer = ({ data }) => {
   const [toNumberOfFloors, setToNumberOfFloors] = useState("");
   const [toLongCarry, setToLongCarry] = useState("");
   const [toRemark, setToRemark] = useState("");
-  const [toHasElevator, setToHasElevator] = useState(null);
-  const [toNeedShuttle, setToNeedShuttle] = useState(null);
-  const [toHasBuildingInsurance, setToHasBuildingInsurance] = useState(null);
-  const [toNeedHelpPacking, setToNeedHelpPacking] = useState(null);
+  const [toHasElevator, setToHasElevator] = useState(true);
+  const [toNeedShuttle, setToNeedShuttle] = useState(true);
+  const [toHasBuildingInsurance, setToHasBuildingInsurance] = useState(true);
+  const [toNeedHelpPacking, setToNeedHelpPacking] = useState(true);
   const [fromNumberOfFloors, setFromNumberOfFloors] = useState("");
   const [fromLongCarry, setFromLongCarry] = useState("");
   const [fromRemark, setFromRemark] = useState("");
-  const [fromHasElevator, setFromHasElevator] = useState(null);
-  const [fromNeedShuttle, setFromNeedShuttle] = useState(null);
+  const [fromHasElevator, setFromHasElevator] = useState(true);
+  const [fromNeedShuttle, setFromNeedShuttle] = useState(true);
   const [fromHasBuildingInsurance, setFromHasBuildingInsurance] =
-    useState(null);
-  const [fromNeedHelpPacking, setFromNeedHelpPacking] = useState(null);
+    useState(true);
+  const [fromNeedHelpPacking, setFromNeedHelpPacking] = useState(true);
+  //chheckbox
+  const [acceptTerms, setAcceptTerms] = useState(true);
+  const [receivePromotions, setReceivePromotions] = useState(null);
+  const [provinceName, setProvinceName] = useState("");
 
   // Error message state
   const [errMessage, setErrMessage] = useState("");
@@ -92,19 +97,22 @@ const QuoteContainer = ({ data }) => {
   const [moveSize, setMoveSize] = useState("");
 
   // Function to format datetime to ISO 8601 format
-  const formatToISODateTime = (dateStr, timeStr) => {
-    if (!dateStr || !timeStr) return "";
+  const formatToISODateTime = (dateStr) => {
+    if (!dateStr) return "";
 
-    // Combine date and time
-    const combinedDateTime = `${dateStr}T${timeStr}:00`;
+    // Create date from the selected date
+    const date = new Date(dateStr);
 
-    // Create a Date object and convert to ISO string
-    const date = new Date(combinedDateTime);
+    if (isNaN(date.getTime())) return "";
 
-    // Check if date is valid
-    if (isNaN(date.getTime())) {
-      return "";
-    }
+    // Get current time
+    const now = new Date();
+    date.setHours(
+      now.getHours(),
+      now.getMinutes(),
+      now.getSeconds(),
+      now.getMilliseconds()
+    );
 
     return date.toISOString();
   };
@@ -112,43 +120,41 @@ const QuoteContainer = ({ data }) => {
   // Function to validate move info data
   const validateMoveInfo = () => {
     const requiredFields = [
-      { field: moveTime, name: "Move Time" },
-      { field: pickUpDate, name: "Pickup Date" },
+      // { field: moveTime, name: "Move Time" },
+      // { field: pickUpDate, name: "Pickup Date" },
       { field: moveDate, name: "Move Date" },
-      { field: pickUpTime, name: "Pickup Time" },
+      // { field: pickUpTime, name: "Pickup Time" },
       { field: fullName, name: "Full Name" },
       { field: email, name: "Email" },
-      { field: phoneNumber, name: "Phone Number" },
+      // { field: phoneNumber, name: "Phone Number" },
       { field: pickUpAddress, name: "Pick Up Address" },
       { field: dropOffAddress, name: "Drop Off Address" },
       { field: fromLocation, name: "From Location" },
       { field: toLocation, name: "To Location" },
       { field: provinceId, name: "Province" },
-      { field: pickUpAddressNumber, name: "Pick Up Address Number" },
-      { field: dropOffAddressNumber, name: "Drop Off Address Number" },
+      // { field: pickUpAddressNumber, name: "Pick Up Address Number" },
+      // { field: dropOffAddressNumber, name: "Drop Off Address Number" },
       { field: pickUpLongitude, name: "Pick Up Longitude" },
       { field: pickUpLatitude, name: "Pick Up Latitude" },
       { field: dropOffLongitude, name: "Drop Off Longitude" },
       { field: dropOffLatitude, name: "Drop Off Latitude" },
-      { field: toNumberOfFloors, name: "To Number of Floors" },
-      { field: toLongCarry, name: "To Long Carry" },
-      { field: toHasElevator, name: "To Has Elevator" },
-      { field: toNeedShuttle, name: "To Need Shuttle" },
-      { field: toHasBuildingInsurance, name: "To Has Building Insurance" },
-      { field: toNeedHelpPacking, name: "To Need Help Packing" },
-      { field: fromNumberOfFloors, name: "From Number of Floors" },
-      { field: fromLongCarry, name: "From Long Carry" },
-      { field: fromHasElevator, name: "From Has Elevator" },
-      { field: fromNeedShuttle, name: "From Need Shuttle" },
-      { field: fromHasBuildingInsurance, name: "From Has Building Insurance" },
-      { field: fromNeedHelpPacking, name: "From Need Help Packing" },
-      { field: fromRemark, name: "From Remark" },
-      { field: toRemark, name: "To Remark" },
+      // { field: toNumberOfFloors, name: "To Number of Floors" },
+      // { field: toLongCarry, name: "To Long Carry" },
+      // { field: toHasElevator, name: "To Has Elevator" },
+      // { field: toNeedShuttle, name: "To Need Shuttle" },
+      // { field: toHasBuildingInsurance, name: "To Has Building Insurance" },
+      // { field: toNeedHelpPacking, name: "To Need Help Packing" },
+      // { field: fromNumberOfFloors, name: "From Number of Floors" },
+      // { field: fromLongCarry, name: "From Long Carry" },
+      // { field: fromHasElevator, name: "From Has Elevator" },
+      // { field: fromNeedShuttle, name: "From Need Shuttle" },
+      // { field: fromHasBuildingInsurance, name: "From Has Building Insurance" },
+      // { field: fromNeedHelpPacking, name: "From Need Help Packing" },
+      // { field: fromRemark, name: "From Remark" },
+      // { field: toRemark, name: "To Remark" },
+      { field: acceptTerms, name: "Accept Terms and Conditions" },
     ];
 
-    // const missingFields = requiredFields.filter(
-    //   ({ field }) => !field || field.trim() === ""
-    // );
     const missingFields = requiredFields.filter(({ field }) => {
       // Handle different data types properly
       if (field === null || field === undefined) {
@@ -197,16 +203,18 @@ const QuoteContainer = ({ data }) => {
   const formattedPickUpDateTime = formatToISODateTime(pickUpDate, pickUpTime);
 
   const moreInfoData = {
-    moveTime: formattedMoveDateTime,
-    pickUpTime: formattedPickUpDateTime,
+    // moveTime: formattedMoveDateTime || null,
+    // moveDate: formattedMoveDateTime || null,
+    moveDate: formattedMoveDateTime,
+    pickUpTime: null,
     fullName,
     email,
-    phoneNumber,
+    phoneNumber: phoneNumber || null,
     provinceId,
     pickUpAddress: user?.userMoveInfo?.pickUpAddress || fromLocation,
     dropOffAddress: user?.userMoveInfo?.dropOffAddress || toLocation,
-    pickUpAddressNumber,
-    dropOffAddressNumber,
+    pickUpAddressNumber: pickUpAddressNumber || null,
+    dropOffAddressNumber: dropOffAddressNumber || null,
     pickUpLongitude: String(
       user?.userMoveInfo?.pickUpLongitude || fromPickupLongitude
     ),
@@ -219,20 +227,28 @@ const QuoteContainer = ({ data }) => {
     dropOffLatitude: String(
       user?.userMoveInfo?.toDropOffLatitude || toDropOffLatitude
     ),
-    toNumberOfFloors,
-    toLongCarry,
-    toRemark,
-    toHasElevator,
-    toNeedShuttle,
-    toHasBuildingInsurance,
-    toNeedHelpPacking,
-    fromNumberOfFloors,
-    fromLongCarry,
-    fromRemark,
-    fromHasElevator,
-    fromNeedShuttle,
-    fromHasBuildingInsurance,
-    fromNeedHelpPacking,
+    toNumberOfFloors: toNumberOfFloors || null,
+    toLongCarry: toLongCarry || null,
+    toRemark: toRemark || null,
+    toHasElevator: toHasElevator || null,
+    toNeedShuttle: toNeedShuttle || null,
+    toHasBuildingInsurance: toHasBuildingInsurance || null,
+    toNeedHelpPacking: toNeedHelpPacking || null,
+    fromNumberOfFloors: fromNumberOfFloors || null,
+    fromLongCarry: fromLongCarry || null,
+    fromRemark: fromRemark || null,
+    fromHasElevator: fromHasElevator || null,
+    fromNeedShuttle: fromNeedShuttle || null,
+    fromHasBuildingInsurance: fromHasBuildingInsurance || null,
+    toHasBuildingInsurance: toHasBuildingInsurance || null,
+    toNeedHelpPacking: toNeedHelpPacking || null,
+    fromNumberOfFloors: fromNumberOfFloors || null,
+    fromLongCarry: fromLongCarry || null,
+    fromRemark: fromRemark || null,
+    fromHasElevator: fromHasElevator || null,
+    fromNeedShuttle: fromNeedShuttle || null,
+    fromHasBuildingInsurance: fromHasBuildingInsurance || null,
+    fromNeedHelpPacking: fromNeedHelpPacking || null,
   };
 
   let content = (
@@ -259,6 +275,8 @@ const QuoteContainer = ({ data }) => {
       setMoveSize={setMoveSize}
       errMessage={errMessage}
       setErrMessage={setErrMessage}
+      provinceName={provinceName}
+      setProvinceName={setProvinceName}
     />
   );
 
@@ -330,6 +348,8 @@ const QuoteContainer = ({ data }) => {
           setMoveSize={setMoveSize}
           errMessage={errMessage}
           setErrMessage={setErrMessage}
+          provinceName={provinceName}
+          setProvinceName={setProvinceName}
         />
       );
       break;
@@ -338,7 +358,7 @@ const QuoteContainer = ({ data }) => {
       break;
     case 3:
       content = (
-        <MovingInformation
+        <MovingInformation2
           setMoveDate={setMoveDate}
           moveDate={moveDate}
           setPickUpDate={setPickUpDate}
@@ -408,6 +428,10 @@ const QuoteContainer = ({ data }) => {
           setFromLocation={setFromLocation}
           setToLocation={setToLocation}
           errMessage={errMessage}
+          receivePromotions={receivePromotions}
+          setReceivePromotions={setReceivePromotions}
+          acceptTerms={acceptTerms}
+          setAcceptTerms={setAcceptTerms}
         />
       );
       break;
@@ -424,7 +448,7 @@ const QuoteContainer = ({ data }) => {
       setErrMessage("Please Enter House Size");
       return;
     } else if (!provinceId || provinceId === 0) {
-      setErrMessage("Please select a province");
+      setErrMessage("Please enter a valid address");
       return;
     }
     if (activeTab === 1) {
@@ -450,9 +474,14 @@ const QuoteContainer = ({ data }) => {
     }
     if (activeTab === 3) {
       console.log(activeTab, 3);
+
       // Validate move info before proceeding
       if (!validateMoveInfo()) {
         return; // Stop execution if validation fails
+      }
+      if (!acceptTerms) {
+        setErrMessage("Please accept terms and conditions");
+        return;
       }
       dispatch(setUserMoreInfo(moreInfoData));
     }
