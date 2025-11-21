@@ -66,7 +66,15 @@ const LocationMap = ({
   return (
     <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
       <div className="pb-4 map w-full rounded-[16px] h-[450px] md:w-[270px]">
-        <Map defaultCenter={point1} defaultZoom={10} mapId="YOUR_MAP_ID">
+        <Map
+          defaultCenter={point1}
+          defaultZoom={10}
+          mapTypeControl={false}
+          mapId="YOUR_MAP_ID"
+          rotateControl={false}
+          gmpClickable={false}
+          streetViewControl={false}
+        >
           <AdvancedMarker position={point1} />
           <AdvancedMarker position={point2} />
           <DirectionsRoute point1={point1} point2={point2} />

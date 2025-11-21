@@ -337,15 +337,15 @@ const MovingInformation2 = ({
   };
 
   // FROM UI state handlers
-  const [fromElevatorYes, setFromElevatorYes] = useState(true);
-  const [fromElevatorNo, setFromElevatorNo] = useState(false);
-  const [fromNeedShuttleYes, setFromNeedShuttleYes] = useState(true);
-  const [fromNeedShuttleNo, setFromNeedShuttleNo] = useState(false);
+  const [fromElevatorYes, setFromElevatorYes] = useState(null);
+  const [fromElevatorNo, setFromElevatorNo] = useState(null);
+  const [fromNeedShuttleYes, setFromNeedShuttleYes] = useState(null);
+  const [fromNeedShuttleNo, setFromNeedShuttleNo] = useState(null);
   const [fromBuildingInsuranceYes, setFromBuildingInsuranceYes] =
-    useState(true);
-  const [fromBuildingInsuranceNo, setFromBuildingInsuranceNo] = useState(false);
-  const [fromNeedHelpPackingYes, setFromNeedHelpPackingYes] = useState(true);
-  const [fromNeedHelpPackingNo, setFromNeedHelpPackingNo] = useState(false);
+    useState(null);
+  const [fromBuildingInsuranceNo, setFromBuildingInsuranceNo] = useState(null);
+  const [fromNeedHelpPackingYes, setFromNeedHelpPackingYes] = useState(null);
+  const [fromNeedHelpPackingNo, setFromNeedHelpPackingNo] = useState(null);
 
   const handleFromElevator = (value) => {
     if (value === "yes") {
@@ -388,14 +388,14 @@ const MovingInformation2 = ({
   };
 
   // TO UI state handlers
-  const [toElevatorYes, setToElevatorYes] = useState(true);
-  const [toElevatorNo, setToElevatorNo] = useState(false);
-  const [toNeedShuttleYes, setToNeedShuttleYes] = useState(true);
-  const [toNeedShuttleNo, setToNeedShuttleNo] = useState(false);
-  const [toBuildingInsuranceYes, setToBuildingInsuranceYes] = useState(true);
-  const [toBuildingInsuranceNo, setToBuildingInsuranceNo] = useState(false);
-  const [toNeedHelpPackingYes, setToNeedHelpPackingYes] = useState(true);
-  const [toNeedHelpPackingNo, setToNeedHelpPackingNo] = useState(false);
+  const [toElevatorYes, setToElevatorYes] = useState(null);
+  const [toElevatorNo, setToElevatorNo] = useState(null);
+  const [toNeedShuttleYes, setToNeedShuttleYes] = useState(null);
+  const [toNeedShuttleNo, setToNeedShuttleNo] = useState(null);
+  const [toBuildingInsuranceYes, setToBuildingInsuranceYes] = useState(null);
+  const [toBuildingInsuranceNo, setToBuildingInsuranceNo] = useState(null);
+  const [toNeedHelpPackingYes, setToNeedHelpPackingYes] = useState(null);
+  const [toNeedHelpPackingNo, setToNeedHelpPackingNo] = useState(null);
 
   const handleToElevator = (value) => {
     if (value === "yes") {
@@ -609,7 +609,7 @@ const MovingInformation2 = ({
                   </div>
 
                   <div className="flex mt-4 mb-5 justify-between  items-center apartmentNumberContainer ">
-                    <div className="flex  w-[35%] mb-[10px] flex-col">
+                    {/* <div className="flex  w-[35%] mb-[10px] flex-col">
                       <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
                         {t("moveInformation.apartment1")}
                       </label>
@@ -626,8 +626,8 @@ const MovingInformation2 = ({
                         }}
                         className="h-[45px] appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none w-full border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
                       />
-                    </div>
-                    <div className="flex w-[60%] mb-[10px] flex-col">
+                    </div> */}
+                    <div className="flex w-full mb-[10px] flex-col">
                       <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
                         {t("moveInformation.remark1")}
                       </label>
@@ -1004,7 +1004,7 @@ const MovingInformation2 = ({
                   </div>
 
                   <div className="flex mt-4 mb-5 justify-between  items-center apartmentNumberContainer ">
-                    <div className="flex  w-[35%] mb-[10px] flex-col">
+                    {/* <div className="flex  w-[35%] mb-[10px] flex-col">
                       <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
                         {t("moveInformation.apartment1")}
                       </label>
@@ -1028,8 +1028,8 @@ const MovingInformation2 = ({
                         }}
                         className="h-[45px] appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none w-full border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
                       />
-                    </div>
-                    <div className="flex w-[60%] mb-[10px] flex-col">
+                    </div> */}
+                    <div className="flex w-full mb-[10px] flex-col">
                       <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
                         {t("moveInformation.remark1")}
                       </label>

@@ -74,18 +74,18 @@ const QuoteContainer = ({ data }) => {
   const [toNumberOfFloors, setToNumberOfFloors] = useState("");
   const [toLongCarry, setToLongCarry] = useState("");
   const [toRemark, setToRemark] = useState("");
-  const [toHasElevator, setToHasElevator] = useState(true);
-  const [toNeedShuttle, setToNeedShuttle] = useState(true);
-  const [toHasBuildingInsurance, setToHasBuildingInsurance] = useState(true);
-  const [toNeedHelpPacking, setToNeedHelpPacking] = useState(true);
+  const [toHasElevator, setToHasElevator] = useState(null);
+  const [toNeedShuttle, setToNeedShuttle] = useState(null);
+  const [toHasBuildingInsurance, setToHasBuildingInsurance] = useState(null);
+  const [toNeedHelpPacking, setToNeedHelpPacking] = useState(null);
   const [fromNumberOfFloors, setFromNumberOfFloors] = useState("");
   const [fromLongCarry, setFromLongCarry] = useState("");
   const [fromRemark, setFromRemark] = useState("");
-  const [fromHasElevator, setFromHasElevator] = useState(true);
-  const [fromNeedShuttle, setFromNeedShuttle] = useState(true);
+  const [fromHasElevator, setFromHasElevator] = useState(null);
+  const [fromNeedShuttle, setFromNeedShuttle] = useState(null);
   const [fromHasBuildingInsurance, setFromHasBuildingInsurance] =
-    useState(true);
-  const [fromNeedHelpPacking, setFromNeedHelpPacking] = useState(true);
+    useState(null);
+  const [fromNeedHelpPacking, setFromNeedHelpPacking] = useState(null);
   //chheckbox
   const [acceptTerms, setAcceptTerms] = useState(true);
   const [receivePromotions, setReceivePromotions] = useState(null);
@@ -183,6 +183,10 @@ const QuoteContainer = ({ data }) => {
       // const fieldNames = missingFields.map(({ name }) => name).join(", ");
       // setErrMessage(`Please fill in all required fields: ${fieldNames}`);
       setErrMessage(`Please fill in all required fields.`);
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
       return;
     } else {
       setErrMessage("");
@@ -494,6 +498,7 @@ const QuoteContainer = ({ data }) => {
   const handlePrevTabs = () => {
     if (activeTab <= 1) return; // Ensure we don't go below tab 1
     setActiveTab((prevTab) => prevTab - 1);
+    setErrMessage("");
   };
 
   const handleSubmit = () => {
