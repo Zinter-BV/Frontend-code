@@ -87,7 +87,7 @@ const QuoteContainer = ({ data }) => {
     useState(null);
   const [fromNeedHelpPacking, setFromNeedHelpPacking] = useState(null);
   //chheckbox
-  const [acceptTerms, setAcceptTerms] = useState(true);
+  const [acceptTerms, setAcceptTerms] = useState(null);
   const [receivePromotions, setReceivePromotions] = useState(null);
   const [provinceName, setProvinceName] = useState("");
 
