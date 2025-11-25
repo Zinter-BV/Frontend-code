@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 const languages = [
-  { code: "us", name: "US", flag: "🇺🇸" },
+  { code: "us", name: "UK", flag: "🇬🇧" },
   { code: "nl", name: "NL", flag: "🇳🇱" },
   // { code: "es", name: "ES", flag: "🇪🇸" },
   // { code: "fr", name: "FR", flag: "🇫🇷" },

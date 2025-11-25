@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import img from "../Assets/HeroImage1.jpeg";
-import img1 from "../Assets/Rectangle 4533.png";
-import img2 from "../Assets/Rectangle 4533 (1).png";
-import img3 from "../Assets/Rectangle 4533 (2).png";
+import img from "../Assets/photo_1.jpg";
+import img1 from "../Assets/photo_2.jpg";
+import img2 from "../Assets/photo_3.jpg";
+import img3 from "../Assets/photo_4.jpg";
 import avatar1 from "../Assets/Avatar.png";
 import avatar2 from "../Assets/Avatar (1).png";
 import avatar3 from "../Assets/Avatar (2).png";

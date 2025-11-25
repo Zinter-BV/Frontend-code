@@ -1,5 +1,6 @@
 import React from "react";
-import coffeeGirl from "../Assets/coffeeGirl.jpeg";
+// import coffeeGirl from "../Assets/coffeeGirl.jpeg";
+import coffeeGirl from "../Assets/scan.jpg";
 import StarIcon from "../Assets/SVG/StarIcon";
 import HeroIcon from "../Assets/SVG/HeroIcon";
 import DiamondIcon from "../Assets/SVG/DiamondIcon";
