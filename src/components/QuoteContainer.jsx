@@ -152,7 +152,7 @@ const QuoteContainer = ({ data }) => {
       // { field: fromNeedHelpPacking, name: "From Need Help Packing" },
       // { field: fromRemark, name: "From Remark" },
       // { field: toRemark, name: "To Remark" },
-      { field: acceptTerms, name: "Accept Terms and Conditions" },
+      // { field: acceptTerms, name: "Accept Terms and Conditions" },
     ];
 
     const missingFields = requiredFields.filter(({ field }) => {
@@ -485,6 +485,10 @@ const QuoteContainer = ({ data }) => {
       }
       if (!acceptTerms) {
         setErrMessage("Please accept terms and conditions");
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
         return;
       }
       dispatch(setUserMoreInfo(moreInfoData));
