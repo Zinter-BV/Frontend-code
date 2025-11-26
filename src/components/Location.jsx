@@ -28,11 +28,9 @@ const Location = ({
   toDropOffLongitude,
   toDropOffLatitude,
   setProvinceId,
-  provinceId,
   moveSize,
   setMoveSize,
   errMessage,
-  provinceName,
   setProvinceName,
   setErrMessage,
 }) => {
@@ -66,6 +64,192 @@ const Location = ({
     }
   }, [isEditingTo]);
 
+  // Validate fromLocation when it changes and user is not editing
+  useEffect(() => {
+    if (!fromLocation || fromLocation.trim() === "") {
+      setErrMessage("Please enter a valid address");
+      return;
+    }
+
+    if (
+      fromLocation &&
+      fromLocation.length >= 3 &&
+      !isEditingFrom &&
+      isLoaded
+    ) {
+      validateAddress(fromLocation);
+    }
+  }, [fromLocation, isEditingFrom, isLoaded]);
+
+  const [allProvinces, setAllProvinces] = useState([]);
+
+  const { data: provinces } = useQuery({
+    queryKey: ["provinces"],
+    queryFn: fetchProvince,
+    staleTime: 5 * 60 * 1000,
+  });
+
+  useEffect(() => {
+    if (provinces) {
+      setAllProvinces(provinces);
+    }
+  }, [provinces]);
+
+  // Function to validate address and province
+  const validateAddress = (address) => {
+    if (!isLoaded) return;
+
+    // Clear error if address is being validated
+    setErrMessage("");
+
+    const geocoder = new window.google.maps.Geocoder();
+
+    geocoder.geocode({ address: address }, (results, status) => {
+      if (
+        status === window.google.maps.GeocoderStatus.OK &&
+        results &&
+        results[0]
+      ) {
+        const place = results[0];
+        const lat = place.geometry.location.lat();
+        const lng = place.geometry.location.lng();
+
+        setFromPickupLatitude(lat);
+        setFromPickupLongitude(lng);
+
+        const addressComponents = place.address_components || [];
+        let extractedProvinceName = "";
+
+        const provinceComponent = addressComponents.find((component) =>
+          component.types.includes("administrative_area_level_1")
+        );
+
+        if (provinceComponent) {
+          extractedProvinceName = provinceComponent.long_name;
+          setProvinceName(extractedProvinceName);
+
+          if (allProvinces?.result?.length > 0) {
+            const matchedProvince = allProvinces.result.find(
+              (p) =>
+                p.provinceName.toLowerCase() ===
+                extractedProvinceName.toLowerCase()
+            );
+
+            if (matchedProvince) {
+              setProvinceId(matchedProvince.provinceId);
+              setErrMessage("");
+              console.log("Province matched:", matchedProvince);
+            } else {
+              setProvinceId(null);
+              setErrMessage("Invalid address entered - province not supported");
+            }
+          }
+        } else {
+          setProvinceName("");
+          setProvinceId(null);
+          setErrMessage("Invalid address entered - no province detected");
+        }
+
+        console.log("Validated from location:", {
+          address: address,
+          coordinates: { lat, lng },
+          province: extractedProvinceName,
+        });
+
+        setFromPickupLongitude(lng);
+        setFromPickupLatitude(lat);
+      } else {
+        // If geocoding fails, try to find the address using places service
+        findAddressUsingPlaces(address);
+      }
+    });
+  };
+
+  // Fallback method using Places Service if Geocoding fails
+  const findAddressUsingPlaces = (address) => {
+    const service = new window.google.maps.places.AutocompleteService();
+
+    service.getPlacePredictions({ input: address }, (predictions, status) => {
+      if (
+        status === window.google.maps.places.PlacesServiceStatus.OK &&
+        predictions &&
+        predictions.length > 0
+      ) {
+        // Use the first prediction to get details
+        const prediction = predictions[0];
+        getPlaceDetails(prediction.place_id, address);
+      } else {
+        setProvinceId(null);
+        setErrMessage("Invalid address entered - unable to validate address");
+      }
+    });
+  };
+
+  // Get place details for validation
+  const getPlaceDetails = (placeId, originalAddress) => {
+    const placesService = new window.google.maps.places.PlacesService(
+      document.createElement("div")
+    );
+
+    placesService.getDetails({ placeId: placeId }, (place, status) => {
+      if (
+        status === window.google.maps.places.PlacesServiceStatus.OK &&
+        place
+      ) {
+        const lat = place.geometry.location.lat();
+        const lng = place.geometry.location.lng();
+
+        setFromPickupLatitude(lat);
+        setFromPickupLongitude(lng);
+
+        const addressComponents = place.address_components || [];
+        let extractedProvinceName = "";
+
+        const provinceComponent = addressComponents.find((component) =>
+          component.types.includes("administrative_area_level_1")
+        );
+
+        if (provinceComponent) {
+          extractedProvinceName = provinceComponent.long_name;
+          setProvinceName(extractedProvinceName);
+
+          if (allProvinces?.result?.length > 0) {
+            const matchedProvince = allProvinces.result.find(
+              (p) =>
+                p.provinceName.toLowerCase() ===
+                extractedProvinceName.toLowerCase()
+            );
+
+            if (matchedProvince) {
+              setProvinceId(matchedProvince.provinceId);
+              setErrMessage("");
+              console.log("Province matched via places:", matchedProvince);
+            } else {
+              setProvinceId(null);
+              setErrMessage("Invalid address entered - province not supported");
+            }
+          }
+        } else {
+          setProvinceName("");
+          setProvinceId(null);
+          setErrMessage("Invalid address entered - no province detected");
+        }
+
+        console.log("Validated from location via places:", {
+          address: originalAddress,
+          coordinates: { lat, lng },
+          province: extractedProvinceName,
+        });
+
+        setFromPickupLongitude(lng);
+        setFromPickupLatitude(lat);
+      } else {
+        setProvinceId(null);
+        setErrMessage("Invalid address entered - unable to validate address");
+      }
+    });
+  };
+
   const handleFromChange = () => {
     setIsEditingFrom(true);
     setShowFromSuggestions(true);
@@ -80,6 +264,16 @@ const Location = ({
     setTimeout(() => {
       setIsEditingFrom(false);
       setShowFromSuggestions(false);
+
+      // Validate address when user finishes editing
+      if (!fromLocation || fromLocation.trim() === "") {
+        setErrMessage("Please enter a valid address");
+        return;
+      }
+
+      if (fromLocation && fromLocation.length >= 3) {
+        validateAddress(fromLocation);
+      }
     }, 200);
   };
 
@@ -93,6 +287,11 @@ const Location = ({
   const handleFromInputChange = (e) => {
     const value = e.target.value;
     setFromLocation(value);
+
+    // Clear error when user starts typing
+    if (value.trim() !== "") {
+      setErrMessage("");
+    }
 
     if (value.length >= 3 && isLoaded) {
       const service = new window.google.maps.places.AutocompleteService();
@@ -141,31 +340,22 @@ const Location = ({
       if (type === "from") {
         setIsEditingFrom(false);
         setShowFromSuggestions(false);
+
+        // Validate address when user presses Enter
+        if (!fromLocation || fromLocation.trim() === "") {
+          setErrMessage("Please enter a valid address");
+          return;
+        }
+
+        if (fromLocation && fromLocation.length >= 3) {
+          validateAddress(fromLocation);
+        }
       } else {
         setIsEditingTo(false);
         setShowToSuggestions(false);
       }
     }
   };
-
-  const [allProvinces, setAllProvinces] = useState([]);
-
-  const {
-    data: provinces,
-    isLoading,
-    error,
-    refetch,
-  } = useQuery({
-    queryKey: ["provinces"],
-    queryFn: fetchProvince,
-    staleTime: 5 * 60 * 1000,
-  });
-
-  useEffect(() => {
-    if (provinces) {
-      setAllProvinces(provinces);
-    }
-  }, [provinces]);
 
   const selectFromSuggestion = (prediction) => {
     setFromLocation(prediction.description);
