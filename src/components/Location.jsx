@@ -67,7 +67,7 @@ const Location = ({
   // Validate fromLocation when it changes and user is not editing
   useEffect(() => {
     if (!fromLocation || fromLocation.trim() === "") {
-      setErrMessage("Please enter a valid address");
+      // setErrMessage("Please enter a valid address");
       return;
     }
 

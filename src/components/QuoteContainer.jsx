@@ -33,23 +33,23 @@ const QuoteContainer = ({ data }) => {
   const navigate = useNavigate();
   // location details
   const [fromLocation, setFromLocation] = useState(
-    user?.userMoveInfo?.pickUpAddress || "Keizersgracht 123, 1015 CJ Amsterdam"
+    user?.userMoveInfo?.pickUpAddress || ""
   );
   const [fromPickupLongitude, setFromPickupLongitude] = useState(
-    user?.userMoveInfo?.pickUpLongitude || "4.478618"
+    user?.userMoveInfo?.pickUpLongitude || ""
   );
   const [fromPickupLatitude, setFromPickupLatitude] = useState(
-    user?.userMoveInfo?.pickUpLatitude || "51.924419"
+    user?.userMoveInfo?.pickUpLatitude || ""
   );
 
   const [toLocation, setToLocation] = useState(
-    user?.userMoveInfo?.dropOffAddress || "Coolsingel 105, 3012 AG Rotterdam"
+    user?.userMoveInfo?.dropOffAddress || ""
   );
   const [toDropOffLongitude, setToDropOffLongitude] = useState(
-    user?.userMoveInfo?.dropOffLongitude || "6.093440"
+    user?.userMoveInfo?.dropOffLongitude || ""
   );
   const [toDropOffLatitude, setToDropOffLatitude] = useState(
-    user?.userMoveInfo?.dropOffLatitude || '52.010199"'
+    user?.userMoveInfo?.dropOffLatitude || ""
   );
   const [isEditingFrom, setIsEditingFrom] = useState(false);
   const [isEditingTo, setIsEditingTo] = useState(false);
@@ -560,9 +560,15 @@ const QuoteContainer = ({ data }) => {
           <div className="h-[80px] quoteContainerBtns shadow-[0px_-6px_6px_-6px_rgba(0,0,0,0.3)] bg-white fixed bottom-0 max-w-[1500px] mx-auto w-[90vw] flex items-center justify-center  ">
             <div className="w-full flex items-center justify-between">
               {activeTab === 1 ? (
-                <p className="text-[#88b5fe]  py-1 px-2 rounded-[20px]  text-[14px] text-manrope font-light ">
+                // <p className="text-[#88b5fe]  py-1 px-2 rounded-[20px]  text-[14px] text-manrope font-light ">
+                //   {t("quoteContainer.back")}
+                // </p>
+                <button
+                  onClick={() => navigate(-1)}
+                  className="text-[#3C82F6] hover:bg-primary py-1 px-2 hover:text-white rounded-[20px] cursor-pointer text-[14px] text-manrope font-light "
+                >
                   {t("quoteContainer.back")}
-                </p>
+                </button>
               ) : (
                 <button
                   onClick={() => handlePrevTabs(activeTab)}

@@ -1770,35 +1770,47 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    fallbackLng: "en",
+    // fallbackLng: "en",
+    lng: "nl",
+
+    fallbackLng: "nl",
+
     debug: false, // Set to true for development
 
     interpolation: {
       escapeValue: false, // React already escapes values
     },
 
+    // detection: {
+    //   // Language detection options
+    //   // order: ["localStorage", "navigator", "htmlTag", "path", "subdomain"],
+    //   order: ["localStorage"],
+    //   caches: ["localStorage"],
+
+    //   // Optional: Exclude certain languages from detection
+    //   excludeCacheFor: ["cimode"],
+
+    //   // Check for language in localStorage
+    //   lookupLocalStorage: "i18nextLng",
+
+    //   // Check for language in cookies
+    //   lookupCookie: "i18next",
+
+    //   // Check for language in query string
+    //   lookupQuerystring: "lng",
+
+    //   // Check for language in path
+    //   lookupFromPathIndex: 0,
+    //   lookupFromSubdomainIndex: 0,
+
+    //   // Only detect languages that we have resources for
+    //   checkWhitelist: true,
+    // },
+
     detection: {
-      // Language detection options
-      order: ["localStorage", "navigator", "htmlTag", "path", "subdomain"],
-      caches: ["localStorage"],
-
-      // Optional: Exclude certain languages from detection
-      excludeCacheFor: ["cimode"],
-
-      // Check for language in localStorage
+      order: ["localStorage"], // only detect from localStorage
+      caches: ["localStorage"], // save chosen language
       lookupLocalStorage: "i18nextLng",
-
-      // Check for language in cookies
-      lookupCookie: "i18next",
-
-      // Check for language in query string
-      lookupQuerystring: "lng",
-
-      // Check for language in path
-      lookupFromPathIndex: 0,
-      lookupFromSubdomainIndex: 0,
-
-      // Only detect languages that we have resources for
       checkWhitelist: true,
     },
 
@@ -1827,7 +1839,8 @@ i18n
 
     // Loading options
     load: "languageOnly",
-    preload: ["en"],
+    // preload: ["en"],
+    preload: ["nl"],
 
     // Save missing translations
     saveMissing: false,
