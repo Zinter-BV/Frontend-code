@@ -81,6 +81,7 @@ const UploadImageModal = ({
                 height="32"
                 viewBox="0 0 32 32"
                 fill="none"
+                className="flex-shrink-0 min-w-[32px] min-h-[32px]"
               >
                 <circle
                   cx="16"
@@ -121,21 +122,22 @@ const UploadImageModal = ({
                 title="Bathroom"
                 onImagesSelected={handleImagesSelected}
               /> */}
-              <SelectImage
+              {/* <SelectImage
                 title="Toilet and bath"
                 onImagesSelected={handleImagesSelected}
-              />
+              /> */}
             </div>
           </div>
         </div>
         <div className="flex items-center z-40 w-full shadow-[0px_-6px_6px_-6px_rgba(0,0,0,0.3)] justify-between  p-[28px] border-t-[1px] border-[#E3E8EF] ">
-          <div className="flex bg-[#F0F9FF] border-[1px] border-[#E0F2FE] rounded-[4px] p-1 items-center">
+          <div className="flex bg-[#F0F9FF] selectCont border-[1px] border-[#E0F2FE] rounded-[4px] p-1 items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="10"
-              height="7"
+              width="16"
+              height="16"
               viewBox="0 0 10 7"
               fill="none"
+              className="flex-shrink-0"
             >
               <path
                 d="M3.77578 6.9998L0.925781 4.1498L1.63828 3.4373L3.77578 5.5748L8.36328 0.987305L9.07578 1.6998L3.77578 6.9998Z"

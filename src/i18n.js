@@ -1183,6 +1183,7 @@ const nlTranslations = {
     selected: "Items Geselecteerd",
     add: "+ ITEMS TOEVOEGEN",
     more: "meer",
+    addItems: "Items toevoegen",
   },
   uploadModal: {
     title1: "Afbeelding Uploaden",
@@ -1765,96 +1766,118 @@ const resources = {
 };
 
 // Initialize i18next
-i18n
-  .use(LanguageDetector)
-  .use(initReactI18next)
-  .init({
-    resources,
-    // fallbackLng: "en",
-    lng: "nl",
+// i18n
+//   .use(LanguageDetector)
+//   .use(initReactI18next)
+//   .init({
+//     resources,
+//     // fallbackLng: "en",
+//     lng: "nl",
 
-    fallbackLng: "nl",
+//     fallbackLng: "nl",
 
-    debug: false, // Set to true for development
+//     debug: false, // Set to true for development
 
-    interpolation: {
-      escapeValue: false, // React already escapes values
-    },
+//     interpolation: {
+//       escapeValue: false, // React already escapes values
+//     },
 
-    // detection: {
-    //   // Language detection options
-    //   // order: ["localStorage", "navigator", "htmlTag", "path", "subdomain"],
-    //   order: ["localStorage"],
-    //   caches: ["localStorage"],
+//     detection: {
+//       order: ["localStorage"], // only detect from localStorage
+//       caches: ["localStorage"], // save chosen language
+//       lookupLocalStorage: "i18nextLng",
+//       checkWhitelist: true,
+//     },
 
-    //   // Optional: Exclude certain languages from detection
-    //   excludeCacheFor: ["cimode"],
+//     // Whitelist of supported languages
+//     supportedLngs: ["en", "es", "fr", "nl"],
 
-    //   // Check for language in localStorage
-    //   lookupLocalStorage: "i18nextLng",
+//     // Don't load a fallback language if no resources are found
+//     nonExplicitSupportedLngs: false,
 
-    //   // Check for language in cookies
-    //   lookupCookie: "i18next",
+//     // Additional options
+//     returnEmptyString: false,
+//     returnNull: false,
+//     returnObjects: false,
 
-    //   // Check for language in query string
-    //   lookupQuerystring: "lng",
+//     // Namespace configuration (optional)
+//     defaultNS: "translation",
+//     ns: ["translation"],
 
-    //   // Check for language in path
-    //   lookupFromPathIndex: 0,
-    //   lookupFromSubdomainIndex: 0,
+//     // Key separator for nested translations
+//     keySeparator: ".",
+//     nsSeparator: ":",
 
-    //   // Only detect languages that we have resources for
-    //   checkWhitelist: true,
-    // },
+//     // Pluralization options
+//     pluralSeparator: "_",
+//     contextSeparator: "_",
 
-    detection: {
-      order: ["localStorage"], // only detect from localStorage
-      caches: ["localStorage"], // save chosen language
-      lookupLocalStorage: "i18nextLng",
-      checkWhitelist: true,
-    },
+//     // Loading options
+//     load: "languageOnly",
+//     // preload: ["en"],
+//     preload: ["nl"],
 
-    // Whitelist of supported languages
-    supportedLngs: ["en", "es", "fr", "nl"],
+//     // Save missing translations
+//     saveMissing: false,
 
-    // Don't load a fallback language if no resources are found
-    nonExplicitSupportedLngs: false,
+//     // React specific options
+//     react: {
+//       useSuspense: true,
+//       wait: false,
+//       bindI18n: "languageChanged",
+//       bindI18nStore: "added removed",
+//       transEmptyNodeValue: "",
+//       transSupportBasicHtmlNodes: true,
+//       transKeepBasicHtmlNodesFor: ["br", "strong", "i", "p"],
+//     },
+//   });
+// i18n
+//   .use(LanguageDetector)
+//   .use(initReactI18next)
+//   .init({
+//     resources,
 
-    // Additional options
-    returnEmptyString: false,
-    returnNull: false,
-    returnObjects: false,
+//     // Force Dutch as the primary language
+//     lng: "nl",
+//     fallbackLng: "nl",
 
-    // Namespace configuration (optional)
-    defaultNS: "translation",
-    ns: ["translation"],
+//     detection: {
+//       // Only respect manual language changes
+//       order: ["localStorage"],
+//       caches: ["localStorage"],
+//     },
 
-    // Key separator for nested translations
-    keySeparator: ".",
-    nsSeparator: ":",
+//     supportedLngs: ["nl", "en", "es", "fr"], // Dutch first in list
 
-    // Pluralization options
-    pluralSeparator: "_",
-    contextSeparator: "_",
+//     // Make Dutch the "default" namespace
+//     defaultNS: "translation",
+//   });
 
-    // Loading options
-    load: "languageOnly",
-    // preload: ["en"],
-    preload: ["nl"],
+// Get saved language or default to Dutch
+const getSavedLanguage = () => {
+  return localStorage.getItem("zinter-lang") || "nl";
+};
 
-    // Save missing translations
-    saveMissing: false,
+// Initialize i18n
+i18n.use(initReactI18next).init({
+  resources,
+  lng: getSavedLanguage(), // Use saved language or Dutch
+  fallbackLng: "nl",
+  supportedLngs: ["nl", "en", "es", "fr"],
+  interpolation: {
+    escapeValue: false,
+  },
+  react: {
+    useSuspense: false,
+  },
+});
 
-    // React specific options
-    react: {
-      useSuspense: true,
-      wait: false,
-      bindI18n: "languageChanged",
-      bindI18nStore: "added removed",
-      transEmptyNodeValue: "",
-      transSupportBasicHtmlNodes: true,
-      transKeepBasicHtmlNodesFor: ["br", "strong", "i", "p"],
-    },
-  });
+// Override changeLanguage to automatically save to localStorage
+const originalChangeLanguage = i18n.changeLanguage;
+i18n.changeLanguage = (lng, callback) => {
+  console.log("Saving language to localStorage:", lng);
+  localStorage.setItem("zinter-lang", lng);
+  return originalChangeLanguage.call(i18n, lng, callback);
+};
 
 export default i18n;

@@ -239,7 +239,8 @@
   "roomItemContainer": {
     "selected": "Items Geselecteerd",
     "add": "+ ITEMS TOEVOEGEN",
-    "more": "meer"
+    "more": "meer",
+    "addItems": "Items toevoegen"
   },
   "uploadModal": {
     "title1": "Afbeelding Uploaden",
