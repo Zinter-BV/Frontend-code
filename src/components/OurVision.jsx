@@ -20,31 +20,22 @@ const OurVision = () => {
               <div className="first_card">
                 <img src={userSatisfaction} alt="Thumbs Up Icon" />
                 <div className="first_card_text">
-                  <span>User Satisfaction</span>
-                  <span>
-                    Duis aute irure dolor in reprehen derit in voluptate velit
-                    esse
-                  </span>
+                  <span>{t("vision.vision1Title")}</span>
+                  <span>{t("vision.vision1Desc")}</span>
                 </div>
               </div>
               <div className="first_card diff_class">
                 <img src={innovation} alt="" />
                 <div className="first_card_text">
-                  <span>Innovation</span>
-                  <span>
-                    Duis aute irure dolor in reprehen derit in voluptate velit
-                    esse
-                  </span>
+                  <span>{t("vision.vision2Title")}</span>
+                  <span>{t("vision.vision2Desc")}</span>
                 </div>
               </div>
               <div className="first_card">
                 <img src={simplicity} alt="" />
                 <div className="first_card_text">
-                  <span>Simplicity</span>
-                  <span>
-                    Duis aute irure dolor in reprehen derit in voluptate velit
-                    esse
-                  </span>
+                  <span>{t("vision.vision3Title")}</span>
+                  <span>{t("vision.vision3Desc")}</span>
                 </div>
               </div>
             </div>

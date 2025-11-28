@@ -65,7 +65,7 @@ const FAQ = ({ showBackgroundColor }) => {
           </div>
 
           {/* FAQ Items Full Width */}
-          <div className="w-full">
+          <div className=" w-full">
             {faqData.map((faq, index) => (
               <div
                 key={index}
@@ -112,7 +112,7 @@ const FAQ = ({ showBackgroundColor }) => {
         </div>
 
         {/* Desktop Layout */}
-        <div className="hidden lg:flex items-center h-[1000px] justify-between">
+        <div className="hidden lg:flex items-center h-[750px] justify-between">
           {/* Header Section */}
           <div className="text-center mb-8 flex justify-between w-[47%] h-full flex-col sm:mb-12 md:mb-16">
             <h2 className="text-[20px] font-unbounded sm:text-[25px] mt-[32px] w-[50%] font-bold md:text-[28px] lg:text-[38px] text-gray-800 mb-3 sm:mb-4 md:mb-6">
@@ -126,7 +126,7 @@ const FAQ = ({ showBackgroundColor }) => {
           </div>
 
           {/* FAQ Items */}
-          <div className="h-fit w-[50%] max-h-[1000px] scrollbar-hide overflow-y-auto pr-4">
+          <div className="h-fit w-[50%] max-h-[750px] scrollbar-hide overflow-y-auto pr-4">
             {faqData.map((faq, index) => (
               <div
                 key={index}

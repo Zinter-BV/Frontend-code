@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import LocationMap from "./LocationMap";
 import { useJsApiLoader } from "@react-google-maps/api";
@@ -64,23 +64,6 @@ const Location = ({
     }
   }, [isEditingTo]);
 
-  // Validate fromLocation when it changes and user is not editing
-  useEffect(() => {
-    if (!fromLocation || fromLocation.trim() === "") {
-      setErrMessage("Please enter a valid address");
-      return;
-    }
-
-    if (
-      fromLocation &&
-      fromLocation.length >= 3 &&
-      !isEditingFrom &&
-      isLoaded
-    ) {
-      validateAddress(fromLocation);
-    }
-  }, [fromLocation, isEditingFrom, isLoaded]);
-
   const [allProvinces, setAllProvinces] = useState([]);
 
   const { data: provinces } = useQuery({
@@ -95,160 +78,224 @@ const Location = ({
     }
   }, [provinces]);
 
-  // Function to validate address and province
-  const validateAddress = (address) => {
-    if (!isLoaded) return;
-
-    // Clear error if address is being validated
-    setErrMessage("");
-
-    const geocoder = new window.google.maps.Geocoder();
-
-    geocoder.geocode({ address: address }, (results, status) => {
-      if (
-        status === window.google.maps.GeocoderStatus.OK &&
-        results &&
-        results[0]
-      ) {
-        const place = results[0];
-        const lat = place.geometry.location.lat();
-        const lng = place.geometry.location.lng();
-
-        setFromPickupLatitude(lat);
-        setFromPickupLongitude(lng);
-
-        const addressComponents = place.address_components || [];
-        let extractedProvinceName = "";
-
-        const provinceComponent = addressComponents.find((component) =>
-          component.types.includes("administrative_area_level_1")
-        );
-
-        if (provinceComponent) {
-          extractedProvinceName = provinceComponent.long_name;
-          setProvinceName(extractedProvinceName);
-
-          if (allProvinces?.result?.length > 0) {
-            const matchedProvince = allProvinces.result.find(
-              (p) =>
-                p.provinceName.toLowerCase() ===
-                extractedProvinceName.toLowerCase()
-            );
-
-            if (matchedProvince) {
-              setProvinceId(matchedProvince.provinceId);
-              setErrMessage("");
-              console.log("Province matched:", matchedProvince);
-            } else {
-              setProvinceId(null);
-              setErrMessage("Invalid address entered - province not supported");
-            }
-          }
-        } else {
-          setProvinceName("");
-          setProvinceId(null);
-          setErrMessage("Invalid address entered - no province detected");
-        }
-
-        console.log("Validated from location:", {
-          address: address,
-          coordinates: { lat, lng },
-          province: extractedProvinceName,
-        });
-
-        setFromPickupLongitude(lng);
-        setFromPickupLatitude(lat);
-      } else {
-        // If geocoding fails, try to find the address using places service
-        findAddressUsingPlaces(address);
+  // Create stable callback functions for address validation
+  const validateAddress = useCallback(
+    (address) => {
+      if (!isLoaded || !window.google) {
+        console.log("Google Maps not loaded yet");
+        return;
       }
-    });
-  };
+
+      console.log("Starting address validation for:", address);
+
+      // Clear error if address is being validated
+      setErrMessage("");
+
+      const geocoder = new window.google.maps.Geocoder();
+
+      geocoder.geocode({ address: address }, (results, status) => {
+        console.log("Geocoding results:", { results, status });
+
+        if (
+          status === window.google.maps.GeocoderStatus.OK &&
+          results &&
+          results[0]
+        ) {
+          const place = results[0];
+          const lat = place.geometry.location.lat();
+          const lng = place.geometry.location.lng();
+
+          console.log("Setting coordinates:", { lat, lng });
+
+          // Set coordinates first
+          setFromPickupLatitude(lat);
+          setFromPickupLongitude(lng);
+
+          const addressComponents = place.address_components || [];
+          let extractedProvinceName = "";
+
+          const provinceComponent = addressComponents.find((component) =>
+            component.types.includes("administrative_area_level_1")
+          );
+
+          if (provinceComponent) {
+            extractedProvinceName = provinceComponent.long_name;
+            console.log("Setting province name:", extractedProvinceName);
+            setProvinceName(extractedProvinceName);
+
+            if (allProvinces?.result?.length > 0) {
+              const matchedProvince = allProvinces.result.find(
+                (p) =>
+                  p.provinceName.toLowerCase() ===
+                  extractedProvinceName.toLowerCase()
+              );
+
+              if (matchedProvince) {
+                console.log("Setting province ID:", matchedProvince.provinceId);
+                setProvinceId(matchedProvince.provinceId);
+                setErrMessage("");
+              } else {
+                console.log("No matching province found");
+                setProvinceId(null);
+                setErrMessage(
+                  "Invalid address entered - province not supported"
+                );
+              }
+            } else {
+              console.log("No provinces data available");
+            }
+          } else {
+            console.log("No province component found");
+            setProvinceName("");
+            setProvinceId(null);
+            setErrMessage("Invalid address entered - no province detected");
+          }
+
+          console.log("Validation completed successfully");
+        } else {
+          console.log("Geocoding failed, trying places service");
+          // If geocoding fails, try to find the address using places service
+          findAddressUsingPlaces(address);
+        }
+      });
+    },
+    [
+      isLoaded,
+      allProvinces,
+      setErrMessage,
+      setProvinceName,
+      setProvinceId,
+      setFromPickupLatitude,
+      setFromPickupLongitude,
+    ]
+  );
 
   // Fallback method using Places Service if Geocoding fails
-  const findAddressUsingPlaces = (address) => {
-    const service = new window.google.maps.places.AutocompleteService();
+  const findAddressUsingPlaces = useCallback(
+    (address) => {
+      if (!isLoaded || !window.google) return;
 
-    service.getPlacePredictions({ input: address }, (predictions, status) => {
-      if (
-        status === window.google.maps.places.PlacesServiceStatus.OK &&
-        predictions &&
-        predictions.length > 0
-      ) {
-        // Use the first prediction to get details
-        const prediction = predictions[0];
-        getPlaceDetails(prediction.place_id, address);
-      } else {
-        setProvinceId(null);
-        setErrMessage("Invalid address entered - unable to validate address");
-      }
-    });
-  };
+      const service = new window.google.maps.places.AutocompleteService();
+
+      service.getPlacePredictions({ input: address }, (predictions, status) => {
+        console.log("Places predictions:", { predictions, status });
+
+        if (
+          status === window.google.maps.places.PlacesServiceStatus.OK &&
+          predictions &&
+          predictions.length > 0
+        ) {
+          // Use the first prediction to get details
+          const prediction = predictions[0];
+          getPlaceDetails(prediction.place_id, address);
+        } else {
+          console.log("Places service also failed");
+          setProvinceId(null);
+          setErrMessage("Invalid address entered - unable to validate address");
+        }
+      });
+    },
+    [isLoaded, setErrMessage, setProvinceId]
+  );
 
   // Get place details for validation
-  const getPlaceDetails = (placeId, originalAddress) => {
-    const placesService = new window.google.maps.places.PlacesService(
-      document.createElement("div")
-    );
+  const getPlaceDetails = useCallback(
+    (placeId, originalAddress) => {
+      if (!isLoaded || !window.google) return;
 
-    placesService.getDetails({ placeId: placeId }, (place, status) => {
-      if (
-        status === window.google.maps.places.PlacesServiceStatus.OK &&
-        place
-      ) {
-        const lat = place.geometry.location.lat();
-        const lng = place.geometry.location.lng();
+      const placesService = new window.google.maps.places.PlacesService(
+        document.createElement("div")
+      );
 
-        setFromPickupLatitude(lat);
-        setFromPickupLongitude(lng);
+      placesService.getDetails({ placeId: placeId }, (place, status) => {
+        console.log("Place details:", { place, status });
 
-        const addressComponents = place.address_components || [];
-        let extractedProvinceName = "";
+        if (
+          status === window.google.maps.places.PlacesServiceStatus.OK &&
+          place
+        ) {
+          const lat = place.geometry.location.lat();
+          const lng = place.geometry.location.lng();
 
-        const provinceComponent = addressComponents.find((component) =>
-          component.types.includes("administrative_area_level_1")
-        );
+          console.log("Setting coordinates from places:", { lat, lng });
 
-        if (provinceComponent) {
-          extractedProvinceName = provinceComponent.long_name;
-          setProvinceName(extractedProvinceName);
+          setFromPickupLatitude(lat);
+          setFromPickupLongitude(lng);
 
-          if (allProvinces?.result?.length > 0) {
-            const matchedProvince = allProvinces.result.find(
-              (p) =>
-                p.provinceName.toLowerCase() ===
-                extractedProvinceName.toLowerCase()
+          const addressComponents = place.address_components || [];
+          let extractedProvinceName = "";
+
+          const provinceComponent = addressComponents.find((component) =>
+            component.types.includes("administrative_area_level_1")
+          );
+
+          if (provinceComponent) {
+            extractedProvinceName = provinceComponent.long_name;
+            console.log(
+              "Setting province name from places:",
+              extractedProvinceName
             );
+            setProvinceName(extractedProvinceName);
 
-            if (matchedProvince) {
-              setProvinceId(matchedProvince.provinceId);
-              setErrMessage("");
-              console.log("Province matched via places:", matchedProvince);
-            } else {
-              setProvinceId(null);
-              setErrMessage("Invalid address entered - province not supported");
+            if (allProvinces?.result?.length > 0) {
+              const matchedProvince = allProvinces.result.find(
+                (p) =>
+                  p.provinceName.toLowerCase() ===
+                  extractedProvinceName.toLowerCase()
+              );
+
+              if (matchedProvince) {
+                console.log(
+                  "Setting province ID from places:",
+                  matchedProvince.provinceId
+                );
+                setProvinceId(matchedProvince.provinceId);
+                setErrMessage("");
+              } else {
+                setProvinceId(null);
+                setErrMessage(
+                  "Invalid address entered - province not supported"
+                );
+              }
             }
+          } else {
+            setProvinceName("");
+            setProvinceId(null);
+            setErrMessage("Invalid address entered - no province detected");
           }
         } else {
-          setProvinceName("");
           setProvinceId(null);
-          setErrMessage("Invalid address entered - no province detected");
+          setErrMessage("Invalid address entered - unable to validate address");
         }
+      });
+    },
+    [
+      isLoaded,
+      allProvinces,
+      setErrMessage,
+      setProvinceName,
+      setProvinceId,
+      setFromPickupLatitude,
+      setFromPickupLongitude,
+    ]
+  );
 
-        console.log("Validated from location via places:", {
-          address: originalAddress,
-          coordinates: { lat, lng },
-          province: extractedProvinceName,
-        });
+  // Validate fromLocation when it changes and user is not editing
+  useEffect(() => {
+    if (!fromLocation || fromLocation.trim() === "") {
+      return;
+    }
 
-        setFromPickupLongitude(lng);
-        setFromPickupLatitude(lat);
-      } else {
-        setProvinceId(null);
-        setErrMessage("Invalid address entered - unable to validate address");
-      }
-    });
-  };
+    if (
+      fromLocation &&
+      fromLocation.length >= 3 &&
+      !isEditingFrom &&
+      isLoaded
+    ) {
+      console.log("Triggering validation for:", fromLocation);
+      validateAddress(fromLocation);
+    }
+  }, [fromLocation, isEditingFrom, isLoaded, validateAddress]);
 
   const handleFromChange = () => {
     setIsEditingFrom(true);
@@ -271,7 +318,8 @@ const Location = ({
         return;
       }
 
-      if (fromLocation && fromLocation.length >= 3) {
+      if (fromLocation && fromLocation.length >= 3 && isLoaded) {
+        console.log("Triggering validation on blur for:", fromLocation);
         validateAddress(fromLocation);
       }
     }, 200);
@@ -286,6 +334,7 @@ const Location = ({
 
   const handleFromInputChange = (e) => {
     const value = e.target.value;
+    console.log("Setting from location to:", value);
     setFromLocation(value);
 
     // Clear error when user starts typing
@@ -293,7 +342,7 @@ const Location = ({
       setErrMessage("");
     }
 
-    if (value.length >= 3 && isLoaded) {
+    if (value.length >= 3 && isLoaded && window.google) {
       const service = new window.google.maps.places.AutocompleteService();
 
       service.getPlacePredictions({ input: value }, (predictions, status) => {
@@ -314,9 +363,10 @@ const Location = ({
 
   const handleToInputChange = (e) => {
     const value = e.target.value;
+    console.log("Setting to location to:", value);
     setToLocation(value);
 
-    if (value.length >= 3 && isLoaded) {
+    if (value.length >= 3 && isLoaded && window.google) {
       const service = new window.google.maps.places.AutocompleteService();
 
       service.getPlacePredictions({ input: value }, (predictions, status) => {
@@ -347,7 +397,7 @@ const Location = ({
           return;
         }
 
-        if (fromLocation && fromLocation.length >= 3) {
+        if (fromLocation && fromLocation.length >= 3 && isLoaded) {
           validateAddress(fromLocation);
         }
       } else {
@@ -358,10 +408,13 @@ const Location = ({
   };
 
   const selectFromSuggestion = (prediction) => {
+    console.log("Selecting from suggestion:", prediction.description);
     setFromLocation(prediction.description);
     setIsEditingFrom(false);
     setShowFromSuggestions(false);
     setFromSuggestions([]);
+
+    if (!isLoaded || !window.google) return;
 
     const placesService = new window.google.maps.places.PlacesService(
       document.createElement("div")
@@ -376,6 +429,8 @@ const Location = ({
         ) {
           const lat = place.geometry.location.lat();
           const lng = place.geometry.location.lng();
+
+          console.log("Setting coordinates from suggestion:", { lat, lng });
 
           setFromPickupLatitude(lat);
           setFromPickupLongitude(lng);
@@ -389,6 +444,10 @@ const Location = ({
 
           if (provinceComponent) {
             extractedProvinceName = provinceComponent.long_name;
+            console.log(
+              "Setting province name from suggestion:",
+              extractedProvinceName
+            );
             setProvinceName(extractedProvinceName);
 
             if (allProvinces?.result?.length > 0) {
@@ -399,9 +458,12 @@ const Location = ({
               );
 
               if (matchedProvince) {
+                console.log(
+                  "Setting province ID from suggestion:",
+                  matchedProvince.provinceId
+                );
                 setProvinceId(matchedProvince.provinceId);
                 setErrMessage("");
-                console.log("Province matched:", matchedProvince);
               } else {
                 setProvinceId(null);
                 setErrMessage(
@@ -414,25 +476,19 @@ const Location = ({
             setProvinceId(null);
             setErrMessage("Invalid address entered - no province detected");
           }
-
-          console.log("Selected from location:", {
-            address: prediction.description,
-            coordinates: { lat, lng },
-            province: extractedProvinceName,
-          });
-
-          setFromPickupLongitude(lng);
-          setFromPickupLatitude(lat);
         }
       }
     );
   };
 
   const selectToSuggestion = (prediction) => {
+    console.log("Selecting to suggestion:", prediction.description);
     setToLocation(prediction.description);
     setIsEditingTo(false);
     setShowToSuggestions(false);
     setToSuggestions([]);
+
+    if (!isLoaded || !window.google) return;
 
     const placesService = new window.google.maps.places.PlacesService(
       document.createElement("div")
@@ -448,16 +504,10 @@ const Location = ({
           const lat = place.geometry.location.lat();
           const lng = place.geometry.location.lng();
 
+          console.log("Setting to coordinates from suggestion:", { lat, lng });
+
           setToDropOffLatitude(lat);
           setToDropOffLongitude(lng);
-
-          console.log("Selected to location:", {
-            address: prediction.description,
-            coordinates: { lat, lng },
-          });
-
-          setToDropOffLongitude(lng);
-          setToDropOffLatitude(lat);
         }
       }
     );
@@ -569,6 +619,20 @@ const Location = ({
     }
   };
 
+  // Close modal when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setShowSizeModal(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   if (!isLoaded) {
     return <div>Loading...</div>;
   }
@@ -623,7 +687,7 @@ const Location = ({
                       />
                     ) : (
                       <p className="text-[#707070] ml-2 font-sans text-[16px] line-clamp-2 leading-[25.6px] fromLocationText truncate">
-                        {fromLocation}
+                        {fromLocation || "Enter pickup location"}
                       </p>
                     )}
                   </div>
@@ -710,7 +774,7 @@ const Location = ({
                       />
                     ) : (
                       <p className="text-[#707070] ml-2 fromLocationText line-clamp-2 truncate font-sans text-[16px] leading-[25.6px]">
-                        {toLocation}
+                        {toLocation || "Enter drop-off location"}
                       </p>
                     )}
                   </div>

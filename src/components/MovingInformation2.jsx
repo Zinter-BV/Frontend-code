@@ -523,6 +523,7 @@ const MovingInformation2 = ({
               <div className="flex mb-[10px] flex-col">
                 <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
                   {t("moveInformation.phone")}
+                  <span className="text-red-500 text-[14px] ml-[4px]">*</span>
                 </label>
                 <input
                   value={phoneNumber}

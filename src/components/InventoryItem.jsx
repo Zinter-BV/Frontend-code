@@ -52,10 +52,10 @@ const InventoryItem = ({
       className={`w-full group cursor-pointer h-[290px] rounded-[16px] border-[1px]
         `}
     >
-      <div className="border-b-[1px] border-[#e5e5e5] h-[65%] flex justify-center items-center ">
+      <div className="border-b-[5px] border-[#054D96] h-[65%] flex justify-center items-center ">
         <img
           src={img}
-          className="w-full object-cover h-full rounded-t-[16px]"
+          className="max-w-[150px] object-cover max-h-[110px] "
           alt=""
         />
       </div>
@@ -63,15 +63,15 @@ const InventoryItem = ({
         <p className="font-sans text-[20px] inventoryItemText leading-[32px] text-[#262626] ">
           {title}
         </p>
-        <div className="flex items-center">
+        <div className="flex mt-1 items-center">
           <button
-            className={`group-hover:bg-primary  h-[25px] w-[25px] flex items-center justify-center ${
+            className={` bg-[#EEF2F6] h-[25px] w-[25px] flex items-center justify-center ${
               isCardSelected && "bg-primary opacity-100"
             } duration-500 p-1 rounded-[6px] transition`}
             onClick={decreaseItems}
           >
             <p
-              className={`font-sans font-bold  text-[18px] group-hover:text-white ${
+              className={`font-sans font-bold  text-[18px] text-black ${
                 isCardSelected ? "text-white" : "text-black"
               } `}
             >
@@ -86,13 +86,13 @@ const InventoryItem = ({
             {count}
           </p>
           <button
-            className={`group-hover:bg-primary  h-[25px] w-[25px] flex items-center justify-center ${
+            className={`bg-[#EEF2F6]  h-[25px] w-[25px] flex items-center justify-center ${
               isCardSelected && "bg-primary opacity-100"
             } duration-500 p-1 rounded-[6px] transition`}
             onClick={increaseItems}
           >
             <p
-              className={`font-sans font-bold  text-[20px] group-hover:text-white ${
+              className={`font-sans font-bold  text-[20px] text-black ${
                 isCardSelected ? "text-white" : "text-black"
               } `}
             >
