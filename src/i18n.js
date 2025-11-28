@@ -123,6 +123,15 @@ const enTranslations = {
     main: "At Zinter, we envision a world where logistics is streamlined, intelligent, and effortless.",
     description:
       "By leveraging cutting-edge technology, we aim to provide a hassle-free experience that eliminates common challenges associated with moving and transportation services. Our goal is to create an all-encompassing logistics infrastructure that caters to diverse needs, from residential relocations to commercial moves.",
+    vision1Title: "User Satisfaction",
+    vision2Title: "Innovation",
+    vision3Title: "Simplicity",
+    vision1Desc:
+      "Our vision is to provide a stress-free moving experience where every customer feels understood, supported, and cared for through clear communication, dependable service, and respectful handling of every home and belonging.",
+    vision2Desc:
+      "Our vision is to transform the moving experience with advanced AI, creating a faster, easier, and more personalized user journey where technology enhances every step without losing the human touch.",
+    vision3Desc:
+      "Our vision is to make moving simple and effortless by creating a clear, organized, and easy-to-navigate experience from the first inquiry to the final delivery.",
   },
   services: {
     title: "Our Services",
@@ -997,6 +1006,15 @@ const nlTranslations = {
     main: "Bij Zinter zien wij een wereld voor ons waarin logistiek gestroomlijnd, intelligent en moeiteloos is.",
     description:
       "Door gebruik te maken van cutting-edge technologie streven we ernaar een zorgeloze ervaring te bieden die de veelvoorkomende uitdagingen associated met verhuizen en transportdiensten elimineert. Ons doel is het creëren van een alomvattende logistieke infrastructuur die voorziet in diverse behoeften, van particuliere verhuizingen tot commerciële verplaatsingen.",
+    vision1Title: "Klanttevredenheid",
+    vision2Title: "Innovatie",
+    vision3Title: "Eenvoud",
+    vision1Desc:
+      "Onze visie is om een stressvrije verhuiservaring te bieden waarbij elke klant zich begrepen, ondersteund en verzorgd voelt door duidelijke communicatie, betrouwbare service en respectvolle omgang met elke woning en elke bezitting.",
+    vision2Desc:
+      "Onze visie is om de verhuiservaring te transformeren met geavanceerde AI, zodat er een snellere, eenvoudigere en meer gepersonaliseerde gebruikersreis ontstaat waarbij technologie elke stap verbetert zonder het menselijke aspect te verliezen.",
+    vision3Desc:
+      "Onze visie is om verhuizen eenvoudig en moeiteloos te maken door een duidelijke, georganiseerde en gebruiksvriendelijke ervaring te creëren vanaf de eerste aanvraag tot aan de uiteindelijke levering.",
   },
   services: {
     title: "Onze Diensten",

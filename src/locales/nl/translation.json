@@ -100,7 +100,19 @@
   "vision": {
     "title": "Onze Visie",
     "main": "Bij Zinter zien wij een wereld voor ons waarin logistiek gestroomlijnd, intelligent en moeiteloos is.",
-    "description": "Door gebruik te maken van cutting-edge technologie streven we ernaar een zorgeloze ervaring te bieden die de veelvoorkomende uitdagingen associated met verhuizen en transportdiensten elimineert. Ons doel is het creëren van een alomvattende logistieke infrastructuur die voorziet in diverse behoeften, van particuliere verhuizingen tot commerciële verplaatsingen."
+    "description": "Door gebruik te maken van cutting-edge technologie streven we ernaar een zorgeloze ervaring te bieden die de veelvoorkomende uitdagingen associated met verhuizen en transportdiensten elimineert. Ons doel is het creëren van een alomvattende logistieke infrastructuur die voorziet in diverse behoeften, van particuliere verhuizingen tot commerciële verplaatsingen.",
+    
+  "vision1Title": "Klanttevredenheid",
+  "vision2Title": "Innovatie",
+  "vision3Title": "Eenvoud",
+
+  "vision1Desc": "Onze visie is om een stressvrije verhuiservaring te bieden waarbij elke klant zich begrepen, ondersteund en verzorgd voelt door duidelijke communicatie, betrouwbare service en respectvolle omgang met elke woning en elke bezitting.",
+
+  "vision2Desc": "Onze visie is om de verhuiservaring te transformeren met geavanceerde AI, zodat er een snellere, eenvoudigere en meer gepersonaliseerde gebruikersreis ontstaat waarbij technologie elke stap verbetert zonder het menselijke aspect te verliezen.",
+
+  "vision3Desc": "Onze visie is om verhuizen eenvoudig en moeiteloos te maken door een duidelijke, georganiseerde en gebruiksvriendelijke ervaring te creëren vanaf de eerste aanvraag tot aan de uiteindelijke levering."
+
+
   },
   "services": {
     "title": "Onze Diensten",
