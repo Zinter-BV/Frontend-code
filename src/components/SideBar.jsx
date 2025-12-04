@@ -246,7 +246,7 @@ const SideBar = () => {
                     {/* Sidebar */}
                     <div className="side_bar_container_mobile">
                         <div onClick={toggleSidebar} className="side_bar_logo_mobile">
-                            <img src="/images/logo_mobile_screen.svg" alt="logo" />
+                            <img src="/images/new-logo-zinter-complete.svg" alt="logo" />
                         </div>
 
                         {navItemsMobile.map(({ path, icon, activeIcon, label }) => (

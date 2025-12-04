@@ -287,7 +287,7 @@
     /* margin-top: 10px; */
 }
 
-.close_modal_third{
+.close_modal_third {
     position: absolute;
     right: 20px;
     top: 20px;
@@ -308,11 +308,11 @@
     color: #333;
     cursor: pointer;
     transition: color 0.2s ease;
-  }
-  
-  .close-button:hover {
+}
+
+.close-button:hover {
     color: #ff4d4f;
-  }
+}
 
 @media (max-width: 1000px) {
     .upload_container_all {
@@ -395,9 +395,9 @@
         font-weight: 500;
         font-family: "DM Sans", sans-serif;
         display: none;
-    
+
     }
-    
+
     .upload_container:hover .inner_upload_section button {
         display: flex;
     }
@@ -415,13 +415,21 @@
         width: 100%;
     }
 
-    
+
     .account_component {
         position: absolute;
         top: 54%;
         left: 50%;
         transform: translate(-50%, -45%);
         z-index: 10;
+    }
+
+    .input_multiple_sub {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+        width: 100%;
     }
 
     .cover_photo_body div img {

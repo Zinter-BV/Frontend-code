@@ -105,6 +105,18 @@
     width: 85%;
   }
 
+  .logout-btn-container {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    /* border: 1px solid; */
+    border-top: 1px solid #ccc;
+    padding: 22px 20px;
+    font-family: "DM Sans";
+  }
+
   .logout-note-laptop {
     font-family: "DM Sans";
     font-size: 20px;

@@ -112,6 +112,7 @@ const QuoteContainer = ({ data }) => {
 
   // Function to validate move info data
   const validateMoveInfo = () => {
+    // debugger
     const requiredFields = [
       { field: moveTime, name: "Move Time" },
       { field: pickUpDate, name: "Pickup Date" },
@@ -151,6 +152,7 @@ const QuoteContainer = ({ data }) => {
     //   ({ field }) => !field || field.trim() === ""
     // );
     const missingFields = requiredFields.filter(({ field }) => {
+      //  debugger
       // Handle different data types properly
       if (field === null || field === undefined) {
         return true; // Field is missing
@@ -175,6 +177,7 @@ const QuoteContainer = ({ data }) => {
     });
 
     if (missingFields.length > 0) {
+     
       // const fieldNames = missingFields.map(({ name }) => name).join(", ");
       // setErrMessage(`Please fill in all required fields: ${fieldNames}`);
       setErrMessage(`Please fill in all required fields.`);

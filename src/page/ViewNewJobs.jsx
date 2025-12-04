@@ -141,7 +141,7 @@ const ViewNewJobs = () => {
     }, [data, error]);
 
     const handdleGoBack = () => {
-        navigate("/jobs")
+        navigate("/overview")
     }
 
     const handleSuccess = () => {
@@ -176,18 +176,21 @@ const ViewNewJobs = () => {
     // };
     const handleClose = () => {
         // debugger
-        if (!date || !time) {
-            alert("Please select date and time");
+        if ( !time) {
+            alert("Please select time");
             return;
         }
 
-        const proposedTime = new Date(`${date}T${time}:00.000Z`).toISOString();
+        const proposedTime = new Date(`${moveDate.split('T')[0]}T${time}:00.000Z`).toISOString();
 
         if (moveId && amount && additonalInformation) {
             sendQuote({ moveId, amount, proposedTime, additonalInformation });
         }
     };
 
+    const navigateToOverView = () => {
+        navigate("/overview")
+    }
 
     const handleAllClose = () => {
         setShowProvideQuote(false)
@@ -211,7 +214,7 @@ const ViewNewJobs = () => {
                     <div>
                         <div className="header_job_details">
                             <div>
-                                <img src="/images/avatar-icon.svg" alt="" />
+                                {/* <img src="/images/avatar-icon.svg" alt="" /> */}
                             </div>
                             <div className="header_job_details_user">
                                 <h2>{fullName}</h2>
@@ -249,7 +252,7 @@ const ViewNewJobs = () => {
                             <div className="first_tab_job">
                                 <div className="move_tab_details">
                                     <span>Move Date</span>
-                                    <span>{moveDate} </span>
+                                    <span>{moveDate.split('T')[0]} </span>
                                 </div>
                                 <div className="move_tab_details">
                                     <span>Day</span>
@@ -518,7 +521,7 @@ const ViewNewJobs = () => {
                             <div className="body_quote">
                                 <div className="body_quote_first">
                                     <div>
-                                        <img src="/images/arrow-down-dropdown.svg" alt="" />
+                                        {/* <img src="/images/arrow-down-dropdown.svg" alt="" /> */}
                                     </div>
                                     <div className="body_quote_details">
                                         <h2>{fullName}</h2>
@@ -540,7 +543,7 @@ const ViewNewJobs = () => {
                                         </div>
                                     </div>
                                     <div className="body_quote_items">
-                                        <span>22 miles away</span>
+                                        {/* <span>22 miles away</span> */}
                                         <span>{numberOfRooms} Bedroom Apartment</span>
                                         <span>Pickup & delivery included</span>
                                     </div>
@@ -550,7 +553,7 @@ const ViewNewJobs = () => {
                                 <div className="input_multiple" >
                                     <span>Availability</span>
                                     <div className="input_date_time">
-                                        <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+                                        <input type="date" value={moveDate.split('T')[0]} disabled />
                                         <input type="time" value={time} onChange={(e) => setTime(e.target.value)} />
                                     </div>
 
@@ -609,7 +612,6 @@ const ViewNewJobs = () => {
                 <div className="provide_quote_container">
                     <div className="provide_quote_body">
                         <div className="header_quote">
-                            <img onClick={handleAllClose} src="/images/close-modal-icon.svg" alt="" />
                             {/* <span>Provide Quote</span> */}
                         </div>
                         <div className="body_quote_container">
@@ -622,7 +624,7 @@ const ViewNewJobs = () => {
                             <div className="body_quote">
                                 <div className="body_quote_first">
                                     <div>
-                                        <img src="/images/avatar-icon.svg" alt="" />
+                                       
                                     </div>
                                     <div className="body_quote_details">
                                         <h2>{fullName}</h2>
@@ -654,7 +656,7 @@ const ViewNewJobs = () => {
                         </div>
                         <div className="body_quote_footer_success">
                             {/* <button> GO BACK</button> */}
-                            <button onClick={handleAllClose}> CONTINUE</button>
+                            <button onClick={navigateToOverView}> CONTINUE</button>
                         </div>
                     </div>
                 </div>

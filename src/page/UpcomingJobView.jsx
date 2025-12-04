@@ -122,8 +122,8 @@ const UpcomingJobView = () => {
             // setMoveTo(data.result.to)
             setNumberOfRooms(data.result.numberOfRooms)
             setMoveDetailsArray(data.result.moveItemsDetails);
-            const allItems = moveDetailsArray.flatMap(detail => detail.items)
-            setItemsArray(allItems)
+            // const allItems = moveDetailsArray.flatMap(detail => detail.items)
+            // setItemsArray(allItems)
         }
     }, [data, error]);
 
