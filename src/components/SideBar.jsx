@@ -125,7 +125,7 @@ const SideBar = () => {
         { path: "/calendar", icon: calendarIcon, activeIcon: calenarIconActive, label: "Upcoming" },
         { path: "/jobs", icon: jobsIcon, activeIcon: jobsIconActive, label: "Jobs" },
         { path: "/payment", icon: transactionIcon, activeIcon: transactionIconActive, label: "Payment" },
-        { path: "/resolution", icon: resolutionIcon, activeIcon: resolutionIconActive, label: "Resolution" }
+        {  icon: resolutionIcon, activeIcon: resolutionIconActive, label: "Resolution" }
     ];
 
     const navItemsMobile = [
