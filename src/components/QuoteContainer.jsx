@@ -31,25 +31,26 @@ const QuoteContainer = ({ data }) => {
 
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
   const navigate = useNavigate();
+
   // location details
   const [fromLocation, setFromLocation] = useState(
-    user?.userMoveInfo?.pickUpAddress || "Keizersgracht 123, 1015 CJ Amsterdam"
+    user?.userMoveInfo?.pickUpAddress || ""
   );
   const [fromPickupLongitude, setFromPickupLongitude] = useState(
-    user?.userMoveInfo?.pickUpLongitude || "4.478618"
+    user?.userMoveInfo?.pickUpLongitude || ""
   );
   const [fromPickupLatitude, setFromPickupLatitude] = useState(
-    user?.userMoveInfo?.pickUpLatitude || "51.924419"
+    user?.userMoveInfo?.pickUpLatitude || ""
   );
 
   const [toLocation, setToLocation] = useState(
-    user?.userMoveInfo?.dropOffAddress || "Coolsingel 105, 3012 AG Rotterdam"
+    user?.userMoveInfo?.dropOffAddress || ""
   );
   const [toDropOffLongitude, setToDropOffLongitude] = useState(
-    user?.userMoveInfo?.dropOffLongitude || "6.093440"
+    user?.userMoveInfo?.dropOffLongitude || ""
   );
   const [toDropOffLatitude, setToDropOffLatitude] = useState(
-    user?.userMoveInfo?.dropOffLatitude || '52.010199"'
+    user?.userMoveInfo?.dropOffLatitude || ""
   );
   const [isEditingFrom, setIsEditingFrom] = useState(false);
   const [isEditingTo, setIsEditingTo] = useState(false);
@@ -86,26 +87,73 @@ const QuoteContainer = ({ data }) => {
   const [fromHasBuildingInsurance, setFromHasBuildingInsurance] =
     useState(null);
   const [fromNeedHelpPacking, setFromNeedHelpPacking] = useState(null);
+  //chheckbox
+  const [acceptTerms, setAcceptTerms] = useState(null);
+  const [receivePromotions, setReceivePromotions] = useState(null);
+  const [provinceName, setProvinceName] = useState("");
 
   // Error message state
   const [errMessage, setErrMessage] = useState("");
 
   const [moveSize, setMoveSize] = useState("");
 
-  // Function to format datetime to ISO 8601 format
-  const formatToISODateTime = (dateStr, timeStr) => {
-    if (!dateStr || !timeStr) return "";
+  console.log("Current state:", {
+    fromLocation,
+    toLocation,
+    fromPickupLatitude,
+    fromPickupLongitude,
+    toDropOffLatitude,
+    toDropOffLongitude,
+    provinceId,
+  });
 
-    // Combine date and time
-    const combinedDateTime = `${dateStr}T${timeStr}:00`;
-
-    // Create a Date object and convert to ISO string
-    const date = new Date(combinedDateTime);
-
-    // Check if date is valid
-    if (isNaN(date.getTime())) {
-      return "";
+  // Sync location state when user data changes
+  useEffect(() => {
+    if (user?.userMoveInfo) {
+      console.log("Syncing from user data:", user.userMoveInfo);
+      setFromLocation(user.userMoveInfo.pickUpAddress || "");
+      setToLocation(user.userMoveInfo.dropOffAddress || "");
+      setFromPickupLongitude(user.userMoveInfo.pickUpLongitude || "");
+      setFromPickupLatitude(user.userMoveInfo.pickUpLatitude || "");
+      setToDropOffLongitude(user.userMoveInfo.dropOffLongitude || "");
+      setToDropOffLatitude(user.userMoveInfo.dropOffLatitude || "");
     }
+  }, [user?.userMoveInfo]);
+
+  // Sync coordinates to moving information
+  useEffect(() => {
+    setPickUpLongitude(fromPickupLongitude);
+    setPickUpLatitude(fromPickupLatitude);
+    setDropOffLongitude(toDropOffLongitude);
+    setDropOffLatitude(toDropOffLatitude);
+    setPickUpAddress(fromLocation);
+    setDropOffAddress(toLocation);
+  }, [
+    fromPickupLongitude,
+    fromPickupLatitude,
+    toDropOffLongitude,
+    toDropOffLatitude,
+    fromLocation,
+    toLocation,
+  ]);
+
+  // Function to format datetime to ISO 8601 format
+  const formatToISODateTime = (dateStr) => {
+    if (!dateStr) return "";
+
+    // Create date from the selected date
+    const date = new Date(dateStr);
+
+    if (isNaN(date.getTime())) return "";
+
+    // Get current time
+    const now = new Date();
+    date.setHours(
+      now.getHours(),
+      now.getMinutes(),
+      now.getSeconds(),
+      now.getMilliseconds()
+    );
 
     return date.toISOString();
   };
@@ -114,43 +162,20 @@ const QuoteContainer = ({ data }) => {
   const validateMoveInfo = () => {
     // debugger
     const requiredFields = [
-      { field: moveTime, name: "Move Time" },
-      { field: pickUpDate, name: "Pickup Date" },
       { field: moveDate, name: "Move Date" },
-      { field: pickUpTime, name: "Pickup Time" },
       { field: fullName, name: "Full Name" },
       { field: email, name: "Email" },
-      { field: phoneNumber, name: "Phone Number" },
       { field: pickUpAddress, name: "Pick Up Address" },
       { field: dropOffAddress, name: "Drop Off Address" },
       { field: fromLocation, name: "From Location" },
       { field: toLocation, name: "To Location" },
       { field: provinceId, name: "Province" },
-      { field: pickUpAddressNumber, name: "Pick Up Address Number" },
-      { field: dropOffAddressNumber, name: "Drop Off Address Number" },
       { field: pickUpLongitude, name: "Pick Up Longitude" },
       { field: pickUpLatitude, name: "Pick Up Latitude" },
       { field: dropOffLongitude, name: "Drop Off Longitude" },
       { field: dropOffLatitude, name: "Drop Off Latitude" },
-      { field: toNumberOfFloors, name: "To Number of Floors" },
-      { field: toLongCarry, name: "To Long Carry" },
-      { field: toHasElevator, name: "To Has Elevator" },
-      { field: toNeedShuttle, name: "To Need Shuttle" },
-      { field: toHasBuildingInsurance, name: "To Has Building Insurance" },
-      { field: toNeedHelpPacking, name: "To Need Help Packing" },
-      { field: fromNumberOfFloors, name: "From Number of Floors" },
-      { field: fromLongCarry, name: "From Long Carry" },
-      { field: fromHasElevator, name: "From Has Elevator" },
-      { field: fromNeedShuttle, name: "From Need Shuttle" },
-      { field: fromHasBuildingInsurance, name: "From Has Building Insurance" },
-      { field: fromNeedHelpPacking, name: "From Need Help Packing" },
-      { field: fromRemark, name: "From Remark" },
-      { field: toRemark, name: "To Remark" },
     ];
 
-    // const missingFields = requiredFields.filter(
-    //   ({ field }) => !field || field.trim() === ""
-    // );
     const missingFields = requiredFields.filter(({ field }) => {
       //  debugger
       // Handle different data types properly
@@ -165,23 +190,20 @@ const QuoteContainer = ({ data }) => {
 
       // For numbers, check if it's a valid number (not NaN or 0 if 0 is invalid)
       if (typeof field === "number") {
-        return false; // Numbers are considered valid (adjust logic as needed)
+        return field === 0; // Consider 0 as invalid for provinceId
       }
 
-      // For booleans, they're valid (true/false are both acceptable)
-      if (typeof field === "boolean") {
-        return false;
-      }
-
-      return true; // Unknown type, consider missing
+      return false;
     });
 
     if (missingFields.length > 0) {
-     
-      // const fieldNames = missingFields.map(({ name }) => name).join(", ");
-      // setErrMessage(`Please fill in all required fields: ${fieldNames}`);
+      console.log("Missing fields:", missingFields);
       setErrMessage(`Please fill in all required fields.`);
-      return;
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+      return false;
     } else {
       setErrMessage("");
     }
@@ -201,70 +223,35 @@ const QuoteContainer = ({ data }) => {
   const formattedPickUpDateTime = formatToISODateTime(pickUpDate, pickUpTime);
 
   const moreInfoData = {
-    moveTime: formattedMoveDateTime,
-    pickUpTime: formattedPickUpDateTime,
+    moveDate: formattedMoveDateTime,
+    pickUpTime: null,
     fullName,
     email,
-    phoneNumber,
+    phoneNumber: phoneNumber || null,
     provinceId,
-    pickUpAddress: user?.userMoveInfo?.pickUpAddress || fromLocation,
-    dropOffAddress: user?.userMoveInfo?.dropOffAddress || toLocation,
-    pickUpAddressNumber,
-    dropOffAddressNumber,
-    pickUpLongitude: String(
-      user?.userMoveInfo?.pickUpLongitude || fromPickupLongitude
-    ),
-    pickUpLatitude: String(
-      user?.userMoveInfo?.pickUpLatitude || fromPickupLatitude
-    ),
-    dropOffLongitude: String(
-      user?.userMoveInfo?.toDropOffLongitude || toDropOffLongitude
-    ),
-    dropOffLatitude: String(
-      user?.userMoveInfo?.toDropOffLatitude || toDropOffLatitude
-    ),
-    toNumberOfFloors,
-    toLongCarry,
-    toRemark,
-    toHasElevator,
-    toNeedShuttle,
-    toHasBuildingInsurance,
-    toNeedHelpPacking,
-    fromNumberOfFloors,
-    fromLongCarry,
-    fromRemark,
-    fromHasElevator,
-    fromNeedShuttle,
-    fromHasBuildingInsurance,
-    fromNeedHelpPacking,
+    pickUpAddress: fromLocation,
+    dropOffAddress: toLocation,
+    pickUpAddressNumber: pickUpAddressNumber || null,
+    dropOffAddressNumber: dropOffAddressNumber || null,
+    pickUpLongitude: String(fromPickupLongitude),
+    pickUpLatitude: String(fromPickupLatitude),
+    dropOffLongitude: String(toDropOffLongitude),
+    dropOffLatitude: String(toDropOffLatitude),
+    toNumberOfFloors: toNumberOfFloors || null,
+    toLongCarry: toLongCarry || null,
+    toRemark: toRemark || null,
+    toHasElevator: toHasElevator || null,
+    toNeedShuttle: toNeedShuttle || null,
+    toHasBuildingInsurance: toHasBuildingInsurance || null,
+    toNeedHelpPacking: toNeedHelpPacking || null,
+    fromNumberOfFloors: fromNumberOfFloors || null,
+    fromLongCarry: fromLongCarry || null,
+    fromRemark: fromRemark || null,
+    fromHasElevator: fromHasElevator || null,
+    fromNeedShuttle: fromNeedShuttle || null,
+    fromHasBuildingInsurance: fromHasBuildingInsurance || null,
+    fromNeedHelpPacking: fromNeedHelpPacking || null,
   };
-
-  let content = (
-    <Location
-      fromLocation={fromLocation}
-      toLocation={toLocation}
-      setFromLocation={setFromLocation}
-      setFromPickupLongitude={setFromPickupLongitude}
-      setFromPickupLatitude={setFromPickupLatitude}
-      setToDropOffLongitude={setToDropOffLongitude}
-      setToDropOffLatitude={setToDropOffLatitude}
-      setToLocation={setToLocation}
-      isEditingFrom={isEditingFrom}
-      isEditingTo={isEditingTo}
-      setIsEditingFrom={setIsEditingFrom}
-      setIsEditingTo={setIsEditingTo}
-      fromPickupLongitude={fromPickupLongitude}
-      fromPickupLatitude={fromPickupLatitude}
-      toDropOffLongitude={toDropOffLongitude}
-      toDropOffLatitude={toDropOffLatitude}
-      setProvinceId={setProvinceId}
-      provinceId={provinceId}
-      moveSize={moveSize}
-      setMoveSize={setMoveSize}
-      errMessage={errMessage}
-      setErrMessage={setErrMessage}
-    />
-  );
 
   // Ensure your merge function creates the correct structure
   function mergeTwoObjects(items, moreInfo) {
@@ -308,34 +295,38 @@ const QuoteContainer = ({ data }) => {
     },
   });
 
+  // Common Location component props to avoid repetition
+  const locationProps = {
+    fromLocation,
+    toLocation,
+    setFromLocation,
+    setToLocation,
+    isEditingFrom,
+    isEditingTo,
+    setIsEditingFrom,
+    setIsEditingTo,
+    setFromPickupLongitude,
+    setFromPickupLatitude,
+    setToDropOffLongitude,
+    setToDropOffLatitude,
+    fromPickupLongitude,
+    fromPickupLatitude,
+    toDropOffLongitude,
+    toDropOffLatitude,
+    setProvinceId,
+    moveSize,
+    setMoveSize,
+    errMessage,
+    setErrMessage,
+    provinceName,
+    setProvinceName,
+  };
+
+  let content = <Location {...locationProps} />;
+
   switch (activeTab) {
     case 1:
-      content = (
-        <Location
-          fromLocation={fromLocation}
-          toLocation={toLocation}
-          setFromLocation={setFromLocation}
-          setToLocation={setToLocation}
-          isEditingFrom={isEditingFrom}
-          isEditingTo={isEditingTo}
-          setIsEditingFrom={setIsEditingFrom}
-          setIsEditingTo={setIsEditingTo}
-          setFromPickupLongitude={setFromPickupLongitude}
-          setFromPickupLatitude={setFromPickupLatitude}
-          setToDropOffLongitude={setToDropOffLongitude}
-          setToDropOffLatitude={setToDropOffLatitude}
-          fromPickupLongitude={fromPickupLongitude}
-          fromPickupLatitude={fromPickupLatitude}
-          toDropOffLongitude={toDropOffLongitude}
-          toDropOffLatitude={toDropOffLatitude}
-          provinceId={provinceId}
-          setProvinceId={setProvinceId}
-          moveSize={moveSize}
-          setMoveSize={setMoveSize}
-          errMessage={errMessage}
-          setErrMessage={setErrMessage}
-        />
-      );
+      content = <Location {...locationProps} />;
       break;
     case 2:
       content = <InventoryList />;
@@ -412,6 +403,10 @@ const QuoteContainer = ({ data }) => {
           setFromLocation={setFromLocation}
           setToLocation={setToLocation}
           errMessage={errMessage}
+          receivePromotions={receivePromotions}
+          setReceivePromotions={setReceivePromotions}
+          acceptTerms={acceptTerms}
+          setAcceptTerms={setAcceptTerms}
         />
       );
       break;
@@ -419,20 +414,38 @@ const QuoteContainer = ({ data }) => {
       content = <ViewSummary errMessage={errMessage} />;
       break;
     default:
-      content = <Location />;
+      content = <Location {...locationProps} />;
   }
 
   // Function to handle moving forward in tabs
   const handleTabs = () => {
+    console.log("Current state when continuing:", {
+      moveSize,
+      provinceId,
+      toLocation,
+      fromLocation,
+      fromPickupLatitude,
+      fromPickupLongitude,
+      toDropOffLatitude,
+      toDropOffLongitude,
+    });
+
     if (!moveSize) {
       setErrMessage("Please Enter House Size");
       return;
+    } else if (!provinceId || provinceId === 0) {
+      setErrMessage("Please enter a valid address");
+      return;
+    } else if (!toLocation) {
+      setErrMessage("Please enter a valid address");
+      return;
+    } else if (!fromLocation) {
+      setErrMessage("Please enter a valid address");
+      return;
     }
-    // else if (!provinceId || provinceId === 0) {
-    //   setErrMessage("Please select a province");
-    //   return;
-    // }
+
     if (activeTab === 1) {
+      setErrMessage("");
       dispatch(
         setUserDetails({
           pickUpAddress: fromLocation,
@@ -446,7 +459,6 @@ const QuoteContainer = ({ data }) => {
       dispatch(setHouseSize(moveSize));
     }
     if (activeTab === 2) {
-      // console.log(activeTab, 2);
       // if active tab is 2 and user has not added any items, stay on tab 2
       if (user.items.length === 0) {
         setActiveTab(2);
@@ -454,10 +466,19 @@ const QuoteContainer = ({ data }) => {
       }
     }
     if (activeTab === 3) {
-      console.log(activeTab, 3);
+      console.log("Validating move info...");
+
       // Validate move info before proceeding
       if (!validateMoveInfo()) {
         return; // Stop execution if validation fails
+      }
+      if (!acceptTerms) {
+        setErrMessage("Please accept terms and conditions");
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+        return;
       }
       dispatch(setUserMoreInfo(moreInfoData));
     }
@@ -470,10 +491,11 @@ const QuoteContainer = ({ data }) => {
   const handlePrevTabs = () => {
     if (activeTab <= 1) return; // Ensure we don't go below tab 1
     setActiveTab((prevTab) => prevTab - 1);
+    setErrMessage("");
   };
 
   const handleSubmit = () => {
-    console.log(openSuccessModal);
+    console.log("Submitting data...");
     fetchData();
   };
 
@@ -527,9 +549,12 @@ const QuoteContainer = ({ data }) => {
           <div className="h-[80px] quoteContainerBtns shadow-[0px_-6px_6px_-6px_rgba(0,0,0,0.3)] bg-white fixed bottom-0 max-w-[1500px] mx-auto w-[90vw] flex items-center justify-center  ">
             <div className="w-full flex items-center justify-between">
               {activeTab === 1 ? (
-                <p className="text-[#88b5fe]  py-1 px-2 rounded-[20px]  text-[14px] text-manrope font-light ">
+                <button
+                  onClick={() => navigate(-1)}
+                  className="text-[#3C82F6] hover:bg-primary py-1 px-2 hover:text-white rounded-[20px] cursor-pointer text-[14px] text-manrope font-light "
+                >
                   {t("quoteContainer.back")}
-                </p>
+                </button>
               ) : (
                 <button
                   onClick={() => handlePrevTabs(activeTab)}
@@ -567,14 +592,6 @@ const QuoteContainer = ({ data }) => {
               </button>
             )}
 
-            {/* <PrimaryBtn
-            handlePress={() => handleTabs(activeTab)}
-            className={
-              "text-[14px] quoteContainerPrimaryBtn md:hidden my-3 w-full "
-            }
-          >
-            {t("quoteContainer.continue")}
-          </PrimaryBtn> */}
             <div>
               {activeTab === 4 ? (
                 <PrimaryBtn

@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 const QuoteSuccess = ({ closeModal }) => {
   const { t } = useTranslation();
   const data = useSelector((state) => state.user);
+
   const firstName = data?.moreInfo?.fullName?.split(" ");
   return (
     <div className="fixed top-0 z-50 left-0 backdrop-blur-[3px] bg-[rgba(0,0,0,0.10)] h-full w-full flex justify-center items-center">
@@ -21,7 +22,6 @@ const QuoteSuccess = ({ closeModal }) => {
           <p className="text-[16px] mb-3 font-light leading-[25.6px] text-[#525252] font-sans ">
             {t("quoteSuccess.sentToEmail")}
             {/* clear this when ready  */}
-            {/* <p>code: {serverResponse?.result}</p> */}
           </p>
         </div>
         <div className="border-[#e3e3e3] flex items-center justify-center p-[16px] border-t-[1px]">

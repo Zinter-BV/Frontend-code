@@ -8,6 +8,9 @@ const PaymentSuccess = ({ openModal }) => {
   const moversData = useSelector((state) => state.user.moversData);
   console.log(moversData);
 
+  const serverResponse = JSON.parse(localStorage.getItem("Code"));
+  console.log(serverResponse);
+
   return (
     <div className="fixed top-0 z-50 left-0 backdrop-blur-[3px] bg-[rgba(0,0,0,0.10)] h-full w-full flex pb-7 justify-center paymentSuccessModal items-center">
       <div className="flex flex-col paymentSuccessModalBox rounded-[12px] bg-white w-[470px] h-fit justify-center">

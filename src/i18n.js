@@ -123,6 +123,15 @@ const enTranslations = {
     main: "At Zinter, we envision a world where logistics is streamlined, intelligent, and effortless.",
     description:
       "By leveraging cutting-edge technology, we aim to provide a hassle-free experience that eliminates common challenges associated with moving and transportation services. Our goal is to create an all-encompassing logistics infrastructure that caters to diverse needs, from residential relocations to commercial moves.",
+    vision1Title: "User Satisfaction",
+    vision2Title: "Innovation",
+    vision3Title: "Simplicity",
+    vision1Desc:
+      "Our vision is to provide a stress-free moving experience where every customer feels understood, supported, and cared for through clear communication, dependable service, and respectful handling of every home and belonging.",
+    vision2Desc:
+      "Our vision is to transform the moving experience with advanced AI, creating a faster, easier, and more personalized user journey where technology enhances every step without losing the human touch.",
+    vision3Desc:
+      "Our vision is to make moving simple and effortless by creating a clear, organized, and easy-to-navigate experience from the first inquiry to the final delivery.",
   },
   services: {
     title: "Our Services",
@@ -345,7 +354,7 @@ const enTranslations = {
     elevator1: "Elevator?",
     yes: "Yes",
     no: "No",
-    insurance1: "Building Insurance",
+    insurance1: "Do you need moving insurance?",
     shuttle1: "Need Shuttle?",
     needHelp1: "Need help packing your items?",
     to: "To",
@@ -997,6 +1006,15 @@ const nlTranslations = {
     main: "Bij Zinter zien wij een wereld voor ons waarin logistiek gestroomlijnd, intelligent en moeiteloos is.",
     description:
       "Door gebruik te maken van cutting-edge technologie streven we ernaar een zorgeloze ervaring te bieden die de veelvoorkomende uitdagingen associated met verhuizen en transportdiensten elimineert. Ons doel is het creëren van een alomvattende logistieke infrastructuur die voorziet in diverse behoeften, van particuliere verhuizingen tot commerciële verplaatsingen.",
+    vision1Title: "Klanttevredenheid",
+    vision2Title: "Innovatie",
+    vision3Title: "Eenvoud",
+    vision1Desc:
+      "Onze visie is om een stressvrije verhuiservaring te bieden waarbij elke klant zich begrepen, ondersteund en verzorgd voelt door duidelijke communicatie, betrouwbare service en respectvolle omgang met elke woning en elke bezitting.",
+    vision2Desc:
+      "Onze visie is om de verhuiservaring te transformeren met geavanceerde AI, zodat er een snellere, eenvoudigere en meer gepersonaliseerde gebruikersreis ontstaat waarbij technologie elke stap verbetert zonder het menselijke aspect te verliezen.",
+    vision3Desc:
+      "Onze visie is om verhuizen eenvoudig en moeiteloos te maken door een duidelijke, georganiseerde en gebruiksvriendelijke ervaring te creëren vanaf de eerste aanvraag tot aan de uiteindelijke levering.",
   },
   services: {
     title: "Onze Diensten",
@@ -1183,6 +1201,7 @@ const nlTranslations = {
     selected: "Items Geselecteerd",
     add: "+ ITEMS TOEVOEGEN",
     more: "meer",
+    addItems: "Items toevoegen",
   },
   uploadModal: {
     title1: "Afbeelding Uploaden",
@@ -1224,7 +1243,7 @@ const nlTranslations = {
     elevator1: "Lift?",
     yes: "Ja",
     no: "Nee",
-    insurance1: "Gebouwenverzekering",
+    insurance1: "Heeft u verhuisverzekering nodig?",
     shuttle1: "Shuttle Nodig?",
     needHelp1: "Hulp nodig bij het inpakken van uw spullen?",
     to: "Naar",
@@ -1765,83 +1784,118 @@ const resources = {
 };
 
 // Initialize i18next
-i18n
-  .use(LanguageDetector)
-  .use(initReactI18next)
-  .init({
-    resources,
-    fallbackLng: "en",
-    debug: false, // Set to true for development
+// i18n
+//   .use(LanguageDetector)
+//   .use(initReactI18next)
+//   .init({
+//     resources,
+//     // fallbackLng: "en",
+//     lng: "nl",
 
-    interpolation: {
-      escapeValue: false, // React already escapes values
-    },
+//     fallbackLng: "nl",
 
-    detection: {
-      // Language detection options
-      order: ["localStorage", "navigator", "htmlTag", "path", "subdomain"],
-      caches: ["localStorage"],
+//     debug: false, // Set to true for development
 
-      // Optional: Exclude certain languages from detection
-      excludeCacheFor: ["cimode"],
+//     interpolation: {
+//       escapeValue: false, // React already escapes values
+//     },
 
-      // Check for language in localStorage
-      lookupLocalStorage: "i18nextLng",
+//     detection: {
+//       order: ["localStorage"], // only detect from localStorage
+//       caches: ["localStorage"], // save chosen language
+//       lookupLocalStorage: "i18nextLng",
+//       checkWhitelist: true,
+//     },
 
-      // Check for language in cookies
-      lookupCookie: "i18next",
+//     // Whitelist of supported languages
+//     supportedLngs: ["en", "es", "fr", "nl"],
 
-      // Check for language in query string
-      lookupQuerystring: "lng",
+//     // Don't load a fallback language if no resources are found
+//     nonExplicitSupportedLngs: false,
 
-      // Check for language in path
-      lookupFromPathIndex: 0,
-      lookupFromSubdomainIndex: 0,
+//     // Additional options
+//     returnEmptyString: false,
+//     returnNull: false,
+//     returnObjects: false,
 
-      // Only detect languages that we have resources for
-      checkWhitelist: true,
-    },
+//     // Namespace configuration (optional)
+//     defaultNS: "translation",
+//     ns: ["translation"],
 
-    // Whitelist of supported languages
-    supportedLngs: ["en", "es", "fr", "nl"],
+//     // Key separator for nested translations
+//     keySeparator: ".",
+//     nsSeparator: ":",
 
-    // Don't load a fallback language if no resources are found
-    nonExplicitSupportedLngs: false,
+//     // Pluralization options
+//     pluralSeparator: "_",
+//     contextSeparator: "_",
 
-    // Additional options
-    returnEmptyString: false,
-    returnNull: false,
-    returnObjects: false,
+//     // Loading options
+//     load: "languageOnly",
+//     // preload: ["en"],
+//     preload: ["nl"],
 
-    // Namespace configuration (optional)
-    defaultNS: "translation",
-    ns: ["translation"],
+//     // Save missing translations
+//     saveMissing: false,
 
-    // Key separator for nested translations
-    keySeparator: ".",
-    nsSeparator: ":",
+//     // React specific options
+//     react: {
+//       useSuspense: true,
+//       wait: false,
+//       bindI18n: "languageChanged",
+//       bindI18nStore: "added removed",
+//       transEmptyNodeValue: "",
+//       transSupportBasicHtmlNodes: true,
+//       transKeepBasicHtmlNodesFor: ["br", "strong", "i", "p"],
+//     },
+//   });
+// i18n
+//   .use(LanguageDetector)
+//   .use(initReactI18next)
+//   .init({
+//     resources,
 
-    // Pluralization options
-    pluralSeparator: "_",
-    contextSeparator: "_",
+//     // Force Dutch as the primary language
+//     lng: "nl",
+//     fallbackLng: "nl",
 
-    // Loading options
-    load: "languageOnly",
-    preload: ["en"],
+//     detection: {
+//       // Only respect manual language changes
+//       order: ["localStorage"],
+//       caches: ["localStorage"],
+//     },
 
-    // Save missing translations
-    saveMissing: false,
+//     supportedLngs: ["nl", "en", "es", "fr"], // Dutch first in list
 
-    // React specific options
-    react: {
-      useSuspense: true,
-      wait: false,
-      bindI18n: "languageChanged",
-      bindI18nStore: "added removed",
-      transEmptyNodeValue: "",
-      transSupportBasicHtmlNodes: true,
-      transKeepBasicHtmlNodesFor: ["br", "strong", "i", "p"],
-    },
-  });
+//     // Make Dutch the "default" namespace
+//     defaultNS: "translation",
+//   });
+
+// Get saved language or default to Dutch
+const getSavedLanguage = () => {
+  return localStorage.getItem("zinter-lang") || "nl";
+};
+
+// Initialize i18n
+i18n.use(initReactI18next).init({
+  resources,
+  lng: getSavedLanguage(), // Use saved language or Dutch
+  fallbackLng: "nl",
+  supportedLngs: ["nl", "en", "es", "fr"],
+  interpolation: {
+    escapeValue: false,
+  },
+  react: {
+    useSuspense: false,
+  },
+});
+
+// Override changeLanguage to automatically save to localStorage
+const originalChangeLanguage = i18n.changeLanguage;
+i18n.changeLanguage = (lng, callback) => {
+  console.log("Saving language to localStorage:", lng);
+  localStorage.setItem("zinter-lang", lng);
+  return originalChangeLanguage.call(i18n, lng, callback);
+};
 
 export default i18n;

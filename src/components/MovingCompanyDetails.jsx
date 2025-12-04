@@ -213,6 +213,7 @@ const MovingCompanyDetails = ({ makeInActive }) => {
             className=" w-full h-full object-cover rounded-[25px]"
             alt="hero"
           />
+          {/* <img src={img || mover?.image} alt="user" className="w-full  " /> */}
           <div className="absolute bottom-[20px] flex justify-center items-center left-[5] w-full  ">
             <div className="w-full px-[23px] ">
               <div className="bg-[#d9d9d9] w-fit flex items-center  p-[10px] rounded-t-[10px] bg-opacity-70 backdrop-blur-sm h-[50px]">

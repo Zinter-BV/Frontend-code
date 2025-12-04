@@ -100,7 +100,14 @@
 "vision": {
   "title": "Our Vision",
   "main": "At Zinter, we envision a world where logistics is streamlined, intelligent, and effortless.",
-  "description": "By leveraging cutting-edge technology, we aim to provide a hassle-free experience that eliminates common challenges associated with moving and transportation services. Our goal is to create an all-encompassing logistics infrastructure that caters to diverse needs, from residential relocations to commercial moves."
+  "description": "By leveraging cutting-edge technology, we aim to provide a hassle-free experience that eliminates common challenges associated with moving and transportation services. Our goal is to create an all-encompassing logistics infrastructure that caters to diverse needs, from residential relocations to commercial moves.",
+  "vision1Title": "User Satisfaction",
+  "vision2Title": "Innovation",
+  "vision3Title":"Simplicity",
+  "vision1Desc":"Our vision is to provide a stress-free moving experience where every customer feels understood, supported, and cared for through clear communication, dependable service, and respectful handling of every home and belonging.",
+  "vision2Desc":"Our vision is to transform the moving experience with advanced AI, creating a faster, easier, and more personalized user journey where technology enhances every step without losing the human touch.",
+  "vision3Desc":"Our vision is to make moving simple and effortless by creating a clear, organized, and easy-to-navigate experience from the first inquiry to the final delivery."
+
 },
 "services":{
   "title" : "Our Services",
@@ -284,7 +291,7 @@
   "elevator1":"Elevator?",
   "yes":"Yes",
   "no":"No",
-  "insurance1":"Building Insurance",
+  "insurance1": "Do you need moving insurance?",
   "shuttle1":"Need Shuttle?",
   "needHelp1":"Need help packing your items?",
   "to":"To"

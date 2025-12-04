@@ -35,10 +35,10 @@ const SellingPoint = () => {
       <h2 className="font-unbounded text-[#121212] sellingPointText text-center font-bold my-2 text-[36px]">
         {t("features.eliteTitle")}
       </h2>
-      <p className="font-sans text-center sellingPointDesc text-[18px] text-[#9E9E9E] ">
+      {/* <p className="font-sans text-center sellingPointDesc text-[18px] text-[#9E9E9E] ">
         {t("features.eliteDescription")}
-      </p>
-      <div className="mt-16 sellingCardContainer  grid gap-8 grid-cols-3 ">
+      </p> */}
+      <div className="mt-8 sellingCardContainer  grid gap-8 grid-cols-3 ">
         {data?.map((card) => {
           return <SellingPointCard key={card?.id} card={card} />;
         })}

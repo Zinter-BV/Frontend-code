@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useJsApiLoader } from "@react-google-maps/api";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 // Define libraries outside component to prevent reloading
 const LIBRARIES = ["places"];
@@ -12,43 +13,24 @@ const MovingInformation2 = ({
   moveDate,
   setMoveDate,
   pickUpDate,
-  setPickUpDate,
-  moveTime,
-  setMoveTime,
-  pickUpTime,
-  setPickupTime,
   fullName,
   setFullName,
   email,
   setEmail,
   phoneNumber,
   setPhoneNumber,
-  provinceId,
-  setProvinceId,
-  pickUpAddress,
-  setPickUpAddress,
-  dropOffAddress,
-  setDropOffAddress,
   pickUpAddressNumber,
   setPickUpAddressNumber,
   dropOffAddressNumber,
   setDropOffAddressNumber,
-  pickUpLongitude,
   setPickUpLongitude,
-  pickUpLatitude,
   setPickUpLatitude,
-  dropOffLongitude,
   setDropOffLongitude,
-  dropOffLatitude,
   setDropOffLatitude,
   fromNumberOfFloors,
   setFromNumberOfFloors,
   toNumberOfFloors,
   setToNumberOfFloors,
-  fromLongCarry,
-  setFromLongCarry,
-  toLongCarry,
-  setToLongCarry,
   fromRemark,
   setFromRemark,
   toRemark,
@@ -78,6 +60,10 @@ const MovingInformation2 = ({
   setFromLocation,
   setToLocation,
   errMessage,
+  receivePromotions,
+  setReceivePromotions,
+  acceptTerms,
+  setAcceptTerms,
 }) => {
   const fromInputRef = useRef(null);
   const toInputRef = useRef(null);
@@ -351,15 +337,15 @@ const MovingInformation2 = ({
   };
 
   // FROM UI state handlers
-  const [fromElevatorYes, setFromElevatorYes] = useState(true);
-  const [fromElevatorNo, setFromElevatorNo] = useState(false);
-  const [fromNeedShuttleYes, setFromNeedShuttleYes] = useState(true);
-  const [fromNeedShuttleNo, setFromNeedShuttleNo] = useState(false);
+  const [fromElevatorYes, setFromElevatorYes] = useState(null);
+  const [fromElevatorNo, setFromElevatorNo] = useState(null);
+  const [fromNeedShuttleYes, setFromNeedShuttleYes] = useState(null);
+  const [fromNeedShuttleNo, setFromNeedShuttleNo] = useState(null);
   const [fromBuildingInsuranceYes, setFromBuildingInsuranceYes] =
-    useState(true);
-  const [fromBuildingInsuranceNo, setFromBuildingInsuranceNo] = useState(false);
-  const [fromNeedHelpPackingYes, setFromNeedHelpPackingYes] = useState(true);
-  const [fromNeedHelpPackingNo, setFromNeedHelpPackingNo] = useState(false);
+    useState(null);
+  const [fromBuildingInsuranceNo, setFromBuildingInsuranceNo] = useState(null);
+  const [fromNeedHelpPackingYes, setFromNeedHelpPackingYes] = useState(null);
+  const [fromNeedHelpPackingNo, setFromNeedHelpPackingNo] = useState(null);
 
   const handleFromElevator = (value) => {
     if (value === "yes") {
@@ -402,14 +388,14 @@ const MovingInformation2 = ({
   };
 
   // TO UI state handlers
-  const [toElevatorYes, setToElevatorYes] = useState(true);
-  const [toElevatorNo, setToElevatorNo] = useState(false);
-  const [toNeedShuttleYes, setToNeedShuttleYes] = useState(true);
-  const [toNeedShuttleNo, setToNeedShuttleNo] = useState(false);
-  const [toBuildingInsuranceYes, setToBuildingInsuranceYes] = useState(true);
-  const [toBuildingInsuranceNo, setToBuildingInsuranceNo] = useState(false);
-  const [toNeedHelpPackingYes, setToNeedHelpPackingYes] = useState(true);
-  const [toNeedHelpPackingNo, setToNeedHelpPackingNo] = useState(false);
+  const [toElevatorYes, setToElevatorYes] = useState(null);
+  const [toElevatorNo, setToElevatorNo] = useState(null);
+  const [toNeedShuttleYes, setToNeedShuttleYes] = useState(null);
+  const [toNeedShuttleNo, setToNeedShuttleNo] = useState(null);
+  const [toBuildingInsuranceYes, setToBuildingInsuranceYes] = useState(null);
+  const [toBuildingInsuranceNo, setToBuildingInsuranceNo] = useState(null);
+  const [toNeedHelpPackingYes, setToNeedHelpPackingYes] = useState(null);
+  const [toNeedHelpPackingNo, setToNeedHelpPackingNo] = useState(null);
 
   const handleToElevator = (value) => {
     if (value === "yes") {
@@ -496,118 +482,64 @@ const MovingInformation2 = ({
                 placeholder="Select Move Date"
                 type="date"
                 value={moveDate}
-                min={
-                  pickUpDate
-                    ? new Date(
-                        new Date(pickUpDate).getTime() + 24 * 60 * 60 * 1000
-                      )
-                        .toISOString()
-                        .split("T")[0]
-                    : new Date().toISOString().split("T")[0]
-                }
+                min={new Date().toISOString().split("T")[0]} // ⬅️ Prevent past dates
                 onChange={(e) => setMoveDate(e.target.value)}
-                className="h-[45px] border-[#e3e3e3] w-full font-light border-[1px] outline-none p-[8px] rounded-[8px] "
+                className="h-[45px] border-[#e3e3e3] w-full font-light border-[1px] outline-none p-[8px] rounded-[8px]"
               />
             </div>
           </div>
-          <div className="border-[#e3e3e3] mb-6 border-[1px] rounded-[12px] p-5 ">
-            <div className="justify-between flex  ">
-              <div className="flex items-center">
-                <div className="flex items-center ">
-                  <p className="font-sans text-[#136AB5] text-[18px] font-bold ">
-                    {t("moveInformation.contactInfo")}
-                  </p>
+          <div className=" border-[#e3e3e3] mb-6 pb-2 border-b-[1px]">
+            <p className="font-sans text-[#136AB5] text-[18px] font-bold ">
+              {t("moveInformation.contactInfo")}
+            </p>
+
+            <div className="mt-[10px]">
+              <div className="flex mb-[15px] flex-col">
+                <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
+                  {t("moveInformation.fullName")}
                   <span className="text-red-500 text-[14px] ml-[4px]">*</span>
-                </div>
-                {isContactInfoOpen && (
-                  <div className="flex contactInfoItems items-center ml-2">
-                    <p className="font-sans text-[14px] mr-2 ">Full Name</p>{" "}
-                    <div className="w-[6px] h-[6px] mr-2 rounded-full bg-[#9E9E9E] " />
-                    <p className="font-sans text-[14px] mr-2  ">
-                      Email Address
-                    </p>{" "}
-                    <div className="w-[6px] h-[6px] mr-2 rounded-full bg-[#9E9E9E] " />
-                    <p className="font-sans text-[14px] ">Phone Number</p>{" "}
-                  </div>
-                )}
+                </label>
+                <input
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  placeholder="Enter Your Full Name"
+                  type="text"
+                  className="h-[45px] border-[#e3e3e3] font-light w-full border-[1px] outline-none p-[8px] rounded-[8px] "
+                />
               </div>
-              <div className="flex" onClick={toggleContactInfo}>
-                {!isContactInfoOpen ? (
-                  <div className="group flex items-center border-[#e3e3e3] justify-center border-[1px] rounded-full h-[32px] w-[32px] hover:bg-[#248CD9] cursor-pointer">
-                    <IoIosArrowDown className="text-black group-hover:text-white" />
-                  </div>
-                ) : (
-                  <div className="group flex items-center border-[#e3e3e3] justify-center border-[1px] rounded-full h-[32px] w-[32px] hover:bg-[#248CD9] cursor-pointer">
-                    <IoIosArrowUp className="text-black group-hover:text-white" />
-                  </div>
-                )}
+              <div className="flex mb-[10px] flex-col">
+                <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
+                  {t("moveInformation.email")}
+                  <span className="text-red-500 text-[14px] ml-[4px]">*</span>
+                </label>
+                <input
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter Your Email Address"
+                  type="email"
+                  className="h-[45px] w-full border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
+                />
+              </div>
+              <div className="flex mb-[10px] flex-col">
+                <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
+                  {t("moveInformation.phone")}
+                </label>
+                <input
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                  placeholder="Enter Your Phone Number"
+                  type="number"
+                  className="h-[45px] appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none w-full border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
+                />
               </div>
             </div>
-            {isContactInfoOpen && (
-              <div className="mt-[10px]">
-                <div className="flex mb-[15px] flex-col">
-                  <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                    {t("moveInformation.fullName")}
-                    <span className="text-red-500 text-[14px] ml-[4px]">*</span>
-                  </label>
-                  <input
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    placeholder="Enter Your Full Name"
-                    type="text"
-                    className="h-[45px] border-[#e3e3e3] font-light w-full border-[1px] outline-none p-[8px] rounded-[8px] "
-                  />
-                </div>
-                <div className="flex mb-[10px] flex-col">
-                  <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                    {t("moveInformation.email")}
-                    <span className="text-red-500 text-[14px] ml-[4px]">*</span>
-                  </label>
-                  <input
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter Your Email Address"
-                    type="email"
-                    className="h-[45px] w-full border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
-                  />
-                </div>
-                <div className="flex mb-[10px] flex-col">
-                  <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
-                    {t("moveInformation.phone")}
-                  </label>
-                  <input
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                    placeholder="Enter Your Phone Number"
-                    type="number"
-                    className="h-[45px] appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none w-full border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
-                  />
-                </div>
-              </div>
-            )}
           </div>
 
           <div>
-            <div className="border-[#e3e3e3] mb-6 border-[1px] rounded-[12px] p-5 ">
-              <div className="flex items-center w-full justify-between ">
-                <div className="flex items-center ">
-                  <p className="font-sans text-[#136AB5] text-[18px] font-bold ">
-                    {t("moveInformation.pickup")}
-                  </p>
-                  <span className="text-red-500 text-[14px] ml-[4px]">*</span>
-                </div>
-                <div className="flex" onClick={togglePickUpDetails}>
-                  {!isPickUpDetailsOpen ? (
-                    <div className="group flex items-center border-[#e3e3e3] justify-center border-[1px] rounded-full h-[32px] w-[32px] hover:bg-[#248CD9] cursor-pointer">
-                      <IoIosArrowDown className="text-black group-hover:text-white" />
-                    </div>
-                  ) : (
-                    <div className="group flex items-center border-[#e3e3e3] justify-center border-[1px] rounded-full h-[32px] w-[32px] hover:bg-[#248CD9] cursor-pointer">
-                      <IoIosArrowUp className="text-black group-hover:text-white" />
-                    </div>
-                  )}
-                </div>
-              </div>
+            <div className="border-[#e3e3e3] mb-6 border-b-[1px] pb-4  ">
+              <p className="font-sans text-[#136AB5] text-[18px] font-bold ">
+                {t("moveInformation.pickup")}
+              </p>
 
               {/* FROM Address with Photon Search */}
               {isPickUpDetailsOpen && (
@@ -677,7 +609,7 @@ const MovingInformation2 = ({
                   </div>
 
                   <div className="flex mt-4 mb-5 justify-between  items-center apartmentNumberContainer ">
-                    <div className="flex  w-[35%] mb-[10px] flex-col">
+                    {/* <div className="flex  w-[35%] mb-[10px] flex-col">
                       <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
                         {t("moveInformation.apartment1")}
                       </label>
@@ -694,8 +626,8 @@ const MovingInformation2 = ({
                         }}
                         className="h-[45px] appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none w-full border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
                       />
-                    </div>
-                    <div className="flex w-[60%] mb-[10px] flex-col">
+                    </div> */}
+                    <div className="flex w-full mb-[10px] flex-col">
                       <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
                         {t("moveInformation.remark1")}
                       </label>
@@ -716,7 +648,7 @@ const MovingInformation2 = ({
                           {t("moveInformation.restrictions")}
                         </p>
                         {!isRestrictionsOpen && (
-                          <div className="flex contactInfoItems items-center ml-2">
+                          <div className="flex contactInfoItems items-center ml-3">
                             <p className="font-sans text-[14px] mr-2 ">
                               Number of Floors
                             </p>{" "}
@@ -1000,28 +932,11 @@ const MovingInformation2 = ({
             </div>
 
             {/* TO Address with Photon Search */}
-            <div className="border-[#e3e3e3] border-[1px] rounded-[12px] p-5 ">
-              <div>
-                <div className="flex items-center w-full justify-between ">
-                  <div className="flex items-center ">
-                    <p className="font-sans text-[#136AB5] text-[18px] font-bold ">
-                      Drop-off Details
-                    </p>
-                    <span className="text-red-500 text-[14px] ml-[4px]">*</span>
-                  </div>
-                  <div className="flex" onClick={toggleDropOffDetails}>
-                    {!isDropOffDetailsOpen ? (
-                      <div className="group flex items-center border-[#e3e3e3] justify-center border-[1px] rounded-full h-[32px] w-[32px] hover:bg-[#248CD9] cursor-pointer">
-                        <IoIosArrowDown className="text-black group-hover:text-white" />
-                      </div>
-                    ) : (
-                      <div className="group flex items-center border-[#e3e3e3] justify-center border-[1px] rounded-full h-[32px] w-[32px] hover:bg-[#248CD9] cursor-pointer">
-                        <IoIosArrowUp className="text-black group-hover:text-white" />
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
+            <div className="border-[#e3e3e3] border-b-[1px] pb-4 ">
+              <p className="font-sans text-[#136AB5] text-[18px] font-bold ">
+                Drop-off Details
+              </p>
+
               {isDropOffDetailsOpen && (
                 <div>
                   <div className="relative mt-4">
@@ -1044,6 +959,9 @@ const MovingInformation2 = ({
                           </svg>
                           <p className="text-[#b8b8b8] ml-2 font-light font-sans text-[16px] leading-[25.6px] ">
                             {t("moveInformation.to")}
+                            <span className="text-red-500 text-[14px] ml-[4px]">
+                              *
+                            </span>
                           </p>
                         </div>
                         <div className="flex w-[80%] flex-1">
@@ -1086,7 +1004,7 @@ const MovingInformation2 = ({
                   </div>
 
                   <div className="flex mt-4 mb-5 justify-between  items-center apartmentNumberContainer ">
-                    <div className="flex  w-[35%] mb-[10px] flex-col">
+                    {/* <div className="flex  w-[35%] mb-[10px] flex-col">
                       <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
                         {t("moveInformation.apartment1")}
                       </label>
@@ -1110,8 +1028,8 @@ const MovingInformation2 = ({
                         }}
                         className="h-[45px] appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none w-full border-[#e3e3e3] font-light border-[1px] outline-none p-[8px] rounded-[8px] "
                       />
-                    </div>
-                    <div className="flex w-[60%] mb-[10px] flex-col">
+                    </div> */}
+                    <div className="flex w-full mb-[10px] flex-col">
                       <label className="text-[#2c2c2c] mb-1 font-sans text-[14px] ">
                         {t("moveInformation.remark1")}
                       </label>
@@ -1424,12 +1342,21 @@ const MovingInformation2 = ({
               name="termsAndCondition"
               className="h-[20px] w-[20px]"
               id="termsAndConditionLabel"
+              checked={acceptTerms}
+              onChange={(e) => setAcceptTerms(e.target.checked)}
             />
             <label
               id="termsAndConditionLabel"
               className="text-[#2c2c2c] ml-2 font-sans text-[14px]"
             >
-              Accept terms and condition <span className="text-red-500">*</span>
+              Accept
+              <Link
+                className="ml-1 text-[#136AB5] underline font-sans text-[14px]"
+                to="/terms"
+              >
+                terms and condition
+              </Link>{" "}
+              <span className="text-red-500">*</span>
             </label>
           </div>
           <div className="flex items-center">
@@ -1438,6 +1365,8 @@ const MovingInformation2 = ({
               name="termsAndCondition"
               className="h-[20px] w-[20px]"
               id="movigTips"
+              checked={receivePromotions}
+              onChange={(e) => setReceivePromotions(e.target.checked)}
             />
             <label
               id="movigTips"

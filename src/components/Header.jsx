@@ -96,7 +96,7 @@ const Header = () => {
           </li>
         </ul>
 
-        <div>
+        <div className="flex items-center">
           <LanguageSwitcher />
           <SecondaryBtn
             handlePress={openMenuOptions}

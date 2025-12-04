@@ -367,6 +367,11 @@
   .subMobileProgressArrow{
     width: 200%;
   }
+
+  .womanHighlight{
+    left: -10px;
+    bottom: 40px;
+  }
 }
 
 @media screen and (max-width: 635px){

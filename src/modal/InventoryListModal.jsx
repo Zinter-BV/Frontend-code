@@ -1,23 +1,44 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import InventoryItem from "../components/InventoryItem";
-import { formattedItems, countMap } from "../utils";
 import "./InventoryListModal.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserItems } from "../redux/action";
 import SearchIcon from "../Assets/SVG/SearchIcon";
 import { useTranslation } from "react-i18next";
+import centerTable from "../Assets/centerTable.png";
+import chair from "../Assets/chair.png";
+import couch from "../Assets/couch.png";
+import cupboard from "../Assets/cupboard.png";
+import dresser from "../Assets/dresser.jpg";
+import frame from "../Assets/frame.jpg";
+import mirror from "../Assets/mirror.png";
+import tv from "../Assets/tv.png";
+import lamp from "../Assets/lamp.png";
+import glassTable from "../Assets/glassTable.png";
 
-// Create a centralized image loader module
-const imageCache = {};
+//
+import bed from "../Assets/bed.png";
+import bedStand from "../Assets/bedStand.png";
+import bigDrawer from "../Assets/bigdrawer.png";
+import closet from "../Assets/closet.jpg";
+import drawer from "../Assets/drawer.png";
+import smallCupboard from "../Assets/smallCupboard.png";
 
-const preloadImage = (imgPath) => {
-  if (!imageCache[imgPath]) {
-    imageCache[imgPath] = import(`../Assets/${imgPath}`).then(
-      (module) => module.default
-    );
-  }
-  return imageCache[imgPath];
-};
+import barStand from "../Assets/barStand.png";
+import dispenser from "../Assets/dispenser.png";
+import bench from "../Assets/foamChair.png";
+import rug from "../Assets/rug.png";
+import diningChair from "../Assets/slimChair.png";
+import stool from "../Assets/stool.png";
+import table from "../Assets/table.png";
+
+import fridge from "../Assets/fridge.png";
+import toaster from "../Assets/toaster.png";
+import microwave from "../Assets/microwave.png";
+import blender from "../Assets/blender.png";
+import trashbin from "../Assets/trashbin.png";
+import washer from "../Assets/washer.png";
+import broom from "../Assets/broom.png";
 
 const InventoryListModal = ({
   activeRoom,
@@ -29,146 +50,78 @@ const InventoryListModal = ({
   const { t } = useTranslation();
 
   const [allInventories, setAllInventories] = useState([]);
-  const [items, setItems] = useState([]);
-  const [loadedImages, setLoadedImages] = useState({});
+  // Change items state to be an object keyed by room name
+  const [itemsByRoom, setItemsByRoom] = useState({});
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Room data configuration
+  // Room data configuration with direct image imports
   const ROOM_DATA = useMemo(
     () => ({
       "Living Room": [
-        { id: 0, title: "Glass Lounge Table", imgPath: "Image.svg" },
-        { id: 1, title: "Arm Chair", imgPath: "Image (1).svg" },
-        { id: 2, title: "Speakers Home Theater", imgPath: "Image (2).svg" },
-        { id: 3, title: "Picture / Painting", imgPath: "Image (3).svg" },
-        { id: 4, title: "Mirror", imgPath: "Image (4).svg" },
-        { id: 5, title: "Book Case", imgPath: "Image (5).svg" },
-        { id: 6, title: "Coffee Table", imgPath: "Image (6).svg" },
-        { id: 7, title: "Flat Screen TV", imgPath: "Image (8).svg" },
-        { id: 8, title: "TV Stand", imgPath: "Image (9).svg" },
-        { id: 9, title: "Sectional Sofa", imgPath: "Image (10).svg" },
-        { id: 10, title: "Elegant Floor Lamp", imgPath: "Image (11).svg" },
-        { id: 11, title: "Center Table", imgPath: "Image (12).svg" },
+        { id: 0, title: "Glass Lounge Table", img: glassTable },
+        { id: 1, title: "Arm Chair", img: chair },
+        { id: 2, title: "Picture / Painting", img: frame },
+        { id: 3, title: "Mirror", img: mirror },
+        { id: 4, title: "Book Case", img: cupboard },
+        { id: 5, title: "Center Table", img: centerTable },
+        { id: 6, title: "TV", img: tv },
+        { id: 7, title: "TV Stand", img: dresser },
+        { id: 8, title: "Sectional Sofa", img: couch },
+        { id: 9, title: "Elegant Floor Lamp", img: lamp },
       ],
       Bedroom: [
-        { id: 0, title: "Bed (All Parts Included)", imgPath: "Image (13).svg" },
-        { id: 1, title: "Lamp", imgPath: "Image (14).svg" },
-        { id: 2, title: "Dresser", imgPath: "Image (15).svg" },
-        { id: 3, title: "Picture / Painting", imgPath: "Image (16).svg" },
-        { id: 4, title: "TV", imgPath: "Image (17).svg" },
-        { id: 5, title: "Walk-in Closet", imgPath: "Image (18).svg" },
-        { id: 6, title: "Area Rug", imgPath: "Image (19).svg" },
-        { id: 7, title: "Mirror", imgPath: "Image (20).svg" },
-        { id: 8, title: "Armchair", imgPath: "Image (21).svg" },
-        { id: 9, title: "Mattress", imgPath: "Image (22).svg" },
-        { id: 10, title: "Desk", imgPath: "Image (23).svg" },
-        { id: 11, title: "Shoe Stand", imgPath: "Image (24).svg" },
+        { id: 0, title: "Bed (All Parts Included)", img: bedStand },
+        { id: 1, title: "Lamp", img: lamp },
+        { id: 2, title: "Dresser", img: drawer },
+        { id: 3, title: "Picture / Painting", img: frame },
+        { id: 4, title: "TV", img: tv },
+        { id: 5, title: "Walk-in Closet", img: closet },
+        { id: 6, title: "Mirror", img: mirror },
+        { id: 7, title: "Armchair", img: chair },
+        { id: 8, title: "Mattress", img: bed },
+        { id: 9, title: "Desk", img: bigDrawer },
+        { id: 10, title: "Night Stand", img: smallCupboard },
       ],
       "Dinning Room": [
-        { id: 0, title: "Glassware (cups etc)", imgPath: "Image (25).svg" },
-        { id: 1, title: "Dining Chairs", imgPath: "Image (26).svg" },
-        { id: 2, title: "Dining Table", imgPath: "Image (27).svg" },
-        { id: 3, title: "Cabinet", imgPath: "Image (28).svg" },
-        { id: 4, title: "Buffet or Sideboard", imgPath: "Image (29).svg" },
-        { id: 5, title: "Bar Stool", imgPath: "Image (30).svg" },
-        { id: 6, title: "Cutlery (forks, spoons)", imgPath: "Image (31).svg" },
-        { id: 7, title: "Area Rug", imgPath: "Image (32).svg" },
-        { id: 8, title: "Table Runner", imgPath: "Image (42).svg" },
-        { id: 9, title: "Serving dishes", imgPath: "Image (34).svg" },
-        { id: 10, title: "Table Cloth", imgPath: "Image (35).svg" },
-        { id: 11, title: "Candles / Candlestick", imgPath: "Image (36).svg" },
-        { id: 12, title: "Salt & pepper shakers", imgPath: "Image (37).svg" },
-        {
-          id: 13,
-          title: "Trays / Serving platters",
-          imgPath: "Image (39).svg",
-        },
-        { id: 14, title: "Placemats", imgPath: "Image (40).svg" },
-        { id: 15, title: "Pitcher / Carafe", imgPath: "Image (33).svg" },
-      ],
-      "Toilet and bath": [
-        { id: 0, title: "Toilet plunger", imgPath: "Image (43).svg" },
-        { id: 1, title: "Toilet seat & lid", imgPath: "Image (44).svg" },
-        { id: 2, title: "Toilet paper", imgPath: "Image (45).svg" },
-        { id: 3, title: "Hand towel & towel rack", imgPath: "Image (46).svg" },
-        { id: 4, title: "Air freshener", imgPath: "Image (47).svg" },
-        { id: 5, title: "Toilet brush & holder", imgPath: "Image (48).svg" },
-        { id: 6, title: "Hand soap dispenser", imgPath: "Image (49).svg" },
-        { id: 7, title: "Bathroom mirror", imgPath: "Image (50).svg" },
-        { id: 8, title: "Sink & faucet", imgPath: "Image (51).svg" },
+        { id: 1, title: "Bar Stool", img: stool },
+        { id: 2, title: "Dining Chairs", img: diningChair },
+        { id: 3, title: "Dining Table", img: table },
+        { id: 4, title: "Cabinet", img: dispenser },
+        { id: 5, title: "Area Rug", img: rug },
+        { id: 6, title: "Bench", img: bench },
+        { id: 7, title: "Lounge Table", img: centerTable },
+        { id: 8, title: "Mirror", img: mirror },
+        { id: 9, title: "China Cabinet", img: barStand },
       ],
       Kitchen: [
-        { id: 0, title: "Cutting board", imgPath: "Image (60).svg" },
-        { id: 1, title: "Frying pan / skillet", imgPath: "Image (61).svg" },
-        { id: 2, title: "Cooking Pots", imgPath: "Image (63).svg" },
-        { id: 3, title: "Stove", imgPath: "Image (64).svg" },
-        { id: 4, title: "Cabinet", imgPath: "Image (65).svg" },
-        { id: 5, title: "Blender", imgPath: "Image (91).svg" },
-        { id: 6, title: "Chef's knives", imgPath: "Image (92).svg" },
-        { id: 7, title: "Buffet or Sideboard", imgPath: "Image (93).svg" },
-        { id: 8, title: "Mixing bowls", imgPath: "Image (94).svg" },
-        { id: 9, title: "Kettle", imgPath: "Image (95).svg" },
-        { id: 10, title: "Salt & pepper shakers", imgPath: "Image (37).svg" },
-        { id: 11, title: "Cutlery (forks, spoons)", imgPath: "Image (96).svg" },
-        { id: 12, title: "Air Fryer ", imgPath: "Image (97).svg" },
-        { id: 13, title: "Serving dishes", imgPath: "Image (34).svg" },
-        { id: 14, title: "Food storage containers", imgPath: "Image (98).svg" },
-        { id: 15, title: "Grater", imgPath: "Image (99).svg" },
-        { id: 16, title: "Coffee maker", imgPath: "Image (100).svg" },
-        { id: 17, title: "Refrigerator", imgPath: "Image (101).svg" },
-        {
-          id: 18,
-          title: "Measuring cups & spoons",
-          imgPath: "Image (102).svg",
-        },
-        { id: 19, title: "Kitchen Scale", imgPath: "Image (103).svg" },
-        { id: 20, title: "Oven", imgPath: "Image (104).svg" },
-        {
-          id: 21,
-          title: "Trays / Serving platters",
-          imgPath: "Image (39).svg",
-        },
+        { id: 0, title: "Dining Table", img: table },
+        { id: 1, title: "Dresser", img: bigDrawer },
+        { id: 2, title: "Dining Chairs", img: diningChair },
+        { id: 3, title: "Picture / Painting", img: frame },
+        { id: 4, title: "Bar Stool", img: stool },
+        { id: 5, title: "China Cabinet", img: barStand },
+        { id: 6, title: "Refridgerator", img: fridge },
+        { id: 7, title: "Toaster", img: toaster },
+        { id: 8, title: "Bench", img: bench },
+        { id: 9, title: "Microwave", img: microwave },
+        { id: 10, title: "Blender", img: blender },
+        { id: 11, title: "Trash Can", img: trashbin },
+        { id: 12, title: "Electric Broom", img: broom },
+        { id: 13, title: "Washer", img: washer },
       ],
     }),
     []
   );
 
-  const DEFAULT_ROOM = "Living Room";
-
-  // Preload all rooms on mount
-  useEffect(() => {
-    const preloadAllRooms = async () => {
-      const allRooms = Object.keys(ROOM_DATA);
-
-      for (const roomName of allRooms) {
-        const roomData = ROOM_DATA[roomName];
-
-        // Start loading all images in parallel
-        const imagePromises = roomData.map((item) =>
-          preloadImage(item.imgPath).then((img) => ({
-            id: item.id,
-            title: item.title,
-            img,
-          }))
-        );
-
-        // Load them all at once
-        Promise.all(imagePromises).then((loadedRoomImages) => {
-          setLoadedImages((prev) => ({
-            ...prev,
-            [roomName]: loadedRoomImages,
-          }));
-        });
-      }
-    };
-
-    preloadAllRooms();
-  }, [ROOM_DATA]);
-
-  // Get current room data with fallback
+  // Get current room data
   const currentRoomData = useMemo(() => {
-    return loadedImages[activeRoom] || [];
-  }, [loadedImages, activeRoom]);
+    return ROOM_DATA[activeRoom] || [];
+  }, [ROOM_DATA, activeRoom]);
+
+  // Get items for current room
+  const currentRoomItems = useMemo(() => {
+    return itemsByRoom[activeRoom] || [];
+  }, [itemsByRoom, activeRoom]);
 
   // Filter items based on search query
   const filteredItems = useMemo(() => {
@@ -191,35 +144,46 @@ const InventoryListModal = ({
   };
 
   const appendItemToArray = (newItem) => {
-    setItems((prevArray) => {
-      const existingItemIndex = prevArray.findIndex(
-        (item) =>
-          item.itemName === newItem.itemName && item.room === newItem.room
+    setItemsByRoom((prevItemsByRoom) => {
+      const currentRoomItems = prevItemsByRoom[activeRoom] || [];
+      const existingItemIndex = currentRoomItems.findIndex(
+        (item) => item.itemName === newItem.itemName
       );
 
-      if (existingItemIndex >= 0) {
-        const updatedArray = [...prevArray];
+      let updatedRoomItems;
 
+      if (existingItemIndex >= 0) {
         if (newItem.numberOfCount === 0) {
-          return updatedArray.filter((_, index) => index !== existingItemIndex);
+          // Remove item if count is 0
+          updatedRoomItems = currentRoomItems.filter(
+            (_, index) => index !== existingItemIndex
+          );
         } else {
-          updatedArray[existingItemIndex] = {
-            ...updatedArray[existingItemIndex],
+          // Update item count
+          updatedRoomItems = [...currentRoomItems];
+          updatedRoomItems[existingItemIndex] = {
+            ...updatedRoomItems[existingItemIndex],
             numberOfCount: newItem.numberOfCount,
           };
-          return updatedArray;
         }
       } else if (newItem.numberOfCount > 0) {
-        return [
-          ...prevArray,
+        // Add new item
+        updatedRoomItems = [
+          ...currentRoomItems,
           {
             itemName: newItem.itemName,
             numberOfCount: newItem.numberOfCount,
             room: newItem.room,
           },
         ];
+      } else {
+        updatedRoomItems = currentRoomItems;
       }
-      return prevArray;
+
+      return {
+        ...prevItemsByRoom,
+        [activeRoom]: updatedRoomItems,
+      };
     });
   };
 
@@ -242,13 +206,22 @@ const InventoryListModal = ({
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
-    if (items.length === 0) return;
-    console.log(items);
-    dispatch(setUserItems(items));
+    if (currentRoomItems.length === 0) return;
+
+    // Combine all room items before dispatching
+    const allItems = Object.values(itemsByRoom).flat();
+    console.log("Submitting all items:", allItems);
+    dispatch(setUserItems(allItems));
     closeInventoryListModal();
   };
 
-  const isLoading = currentRoomData.length === 0;
+  // Get total count of all items across all rooms for display
+  const totalItemsCount = useMemo(() => {
+    return Object.values(itemsByRoom).reduce(
+      (total, roomItems) => total + roomItems.length,
+      0
+    );
+  }, [itemsByRoom]);
 
   return (
     <div className="fixed top-0 z-50 left-0 backdrop-blur-[3px] bg-[rgba(0,0,0,0.10)] h-full w-full flex justify-center items-center ">
@@ -277,9 +250,9 @@ const InventoryListModal = ({
             </svg>
           </div>
         </div>
-        <div className="w-full overflow-y-scroll  h-[80%]">
+        <div className="w-full overflow-y-scroll h-[80%]">
           <div className="w-[90%] py-4 mx-auto h-full ">
-            <div className="h-[42px] w-fit rounded-[1000px] mx-auto border-[1px] p-[3px] border-[#E5E5E5] flex items-center ">
+            <div className="h-[42px] w-fit mb-4 rounded-[1000px] mx-auto border-[1px] p-[3px] border-[#E5E5E5] flex items-center ">
               <div
                 className={`h-[36px] mr-1 cursor-pointer  border-[1px] rounded-[1000px] p-[10px] flex justify-center items-center border-[#E5E5E5] `}
               >
@@ -302,15 +275,15 @@ const InventoryListModal = ({
                 </p>
               </div>
             </div>
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between inventorySearchContainer items-center">
               <p className="font-sans text-[20px] font-semibold italic text-[#9e9e9e]">
                 {activeRoom}
               </p>
-              <div className="w-[300px] border-[#E5E5E5] h-[40px] justify-between border-[1px] flex items-center rounded-[100px] px-1 ">
+              <div className="w-[300px] searchInputBx border-[#E5E5E5] h-[40px] justify-between border-[1px] flex items-center rounded-[100px] px-1 ">
                 <input
                   type="text"
                   placeholder="Search item here"
-                  className="border-none pl-4 w-[94%] outline-none"
+                  className="border-none px-4 w-[94%] outline-none"
                   value={searchQuery}
                   onChange={handleSearchChange}
                   onKeyPress={(e) => {
@@ -328,12 +301,6 @@ const InventoryListModal = ({
               </div>
             </div>
 
-            {isLoading && (
-              <div className="flex justify-center items-center py-8">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-              </div>
-            )}
-
             <div className="my-3 grid grid-cols-3 inventoryItemContainer gap-[18px] pb-4 w-full  ">
               {filteredItems.map((property) => {
                 return (
@@ -344,14 +311,14 @@ const InventoryListModal = ({
                     title={property?.title}
                     img={property?.img}
                     appendItemToArray={appendItemToArray}
-                    selectedItems={items}
+                    selectedItems={currentRoomItems}
                     activeRoom={activeRoom}
                   />
                 );
               })}
             </div>
 
-            {!isLoading && searchQuery && filteredItems.length === 0 && (
+            {searchQuery && filteredItems.length === 0 && (
               <div className="flex flex-col items-center justify-center py-12">
                 <div className="text-[#9e9e9e] text-lg mb-2">
                   No items found
@@ -362,33 +329,34 @@ const InventoryListModal = ({
         </div>
         <div className="flex allListCont items-center w-full shadow-[0px_-6px_6px_-6px_rgba(0,0,0,0.3)] justify-between  p-[28px] border-t-[1px] border-[#E3E8EF] ">
           <div className="flex allSelectedContainer items-center">
-            <div className="flex bg-[#F0F9FF] border-[1px] border-[#E0F2FE] rounded-[4px] p-1 items-center">
+            <div className="flex bg-[#F0F9FF] selectCont border-[1px] border-[#E0F2FE] rounded-[4px] p-1 items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="10"
-                height="7"
+                width="16"
+                height="16"
                 viewBox="0 0 10 7"
                 fill="none"
+                className="flex-shrink-0"
               >
                 <path
                   d="M3.77578 6.9998L0.925781 4.1498L1.63828 3.4373L3.77578 5.5748L8.36328 0.987305L9.07578 1.6998L3.77578 6.9998Z"
                   fill="#3C82F6"
                 />
               </svg>
-              <p className="font-sans text-[16px] w-[130px] text-[#3C82F6] ml-2 leading-[25.6px] ">
-                {items.length || user?.items?.length}{" "}
-                <span className="selectedItems  uploadImageItemSelected">
+              <p className="font-sans text-[16px] w-[130px] text-[#3C82F6] ml-2 leading-[25.6px]">
+                {currentRoomItems.length}{" "}
+                <span className="selectedItems uploadImageItemSelected">
                   {t("roomItemContainer.selected")}
                 </span>
               </p>
             </div>
             <div className="flex flex-wrap finalItemsContainer ml-2 w-[60%] items-center">
-              {items.map((item, index) => (
+              {currentRoomItems.map((item, index) => (
                 <div key={index} className="flex ml-2 items-center">
                   <p className="mr-2 text-[14px] font-sans leading-[18.2px] text-[#707070] ">
                     {item.itemName} ({item.numberOfCount})
                   </p>
-                  {index !== items.length - 1 && (
+                  {index !== currentRoomItems.length - 1 && (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="4"

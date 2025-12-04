@@ -33,6 +33,20 @@ const MoversContainer = ({ trackingCode }) => {
     (state) => state.user.paymentSuccessful
   );
 
+  // screenn size
+
+  const [isWide, setIsWide] = useState(
+    typeof window !== "undefined" ? window.innerWidth > 700 : false
+  );
+
+  useEffect(() => {
+    const onResize = () => setIsWide(window.innerWidth > 700);
+    window.addEventListener("resize", onResize);
+    // ensure correct initial value (in case of hydration/server)
+    onResize();
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
   console.log(isPaymentSuccessful);
 
   useEffect(() => {
@@ -90,6 +104,7 @@ const MoversContainer = ({ trackingCode }) => {
         setOpenSuccessModal(true);
         setErr(false);
         setActiveTab(3);
+        localStorage.setItem("Code", JSON.stringify(data));
         console.log(data);
       } else {
         // alert("Not Cool");
@@ -172,14 +187,7 @@ const MoversContainer = ({ trackingCode }) => {
               )}
               {
                 <div>
-                  {activeTab === 2 ? (
-                    <PrimaryBtn
-                      handlePress={openModal}
-                      className={"text-[14px] "}
-                    >
-                      {t("moversContainer.payment")}
-                    </PrimaryBtn>
-                  ) : (
+                  {activeTab === 2 ? null : ( // </PrimaryBtn> //   {t("moversContainer.payment")} // > //   className={"text-[14px] "} //   handlePress={openModal} // <PrimaryBtn
                     <PrimaryBtn
                       handlePress={() => handleTabs(activeTab)}
                       className={"text-[14px] "}
@@ -192,7 +200,8 @@ const MoversContainer = ({ trackingCode }) => {
             </div>
           </div>
         )}
-        <div className={`${activeTab === 3 ? "hidden" : ""} pb-[20px]`}>
+
+        <div className={`${isWide ? "hidden" : "pb-10"} `}>
           {activeTab > 1 && (
             <button
               onClick={() => handlePrevTabs(activeTab)}
@@ -201,26 +210,28 @@ const MoversContainer = ({ trackingCode }) => {
               {t("moversContainer.back")}
             </button>
           )}
-          <div className={`${activeTab === 2 ? "flex" : "hidden"}`}>
-            {activeTab === 2 ? (
-              <PrimaryBtn
-                handlePress={openModal}
-                className={
-                  "text-[14px] quoteContainerPrimaryBtn hidden my-3 w-full "
-                }
-              >
-                {t("moversContainer.payment")}
-              </PrimaryBtn>
-            ) : (
-              <PrimaryBtn
-                handlePress={() => handleTabs(activeTab)}
-                className={
-                  "text-[14px] quoteContainerPrimaryBtn hidden my-3 w-full "
-                }
-              >
-                {t("moversContainer.make")}
-              </PrimaryBtn>
-            )}
+          <div className={` ${activeTab === 2 && "hidden"}`}>
+            <div className={`${activeTab === 2 ? "flex" : ""}`}>
+              {activeTab === 2 ? (
+                <PrimaryBtn
+                  handlePress={openModal}
+                  className={
+                    "text-[14px] quoteContainerPrimaryBtn  my-3 w-full "
+                  }
+                >
+                  {t("moversContainer.payment")}
+                </PrimaryBtn>
+              ) : (
+                <PrimaryBtn
+                  handlePress={() => handleTabs(activeTab)}
+                  className={
+                    "text-[14px] quoteContainerPrimaryBtn my-3 w-full "
+                  }
+                >
+                  {t("moversContainer.make")}
+                </PrimaryBtn>
+              )}
+            </div>
           </div>
           {/* <PrimaryBtn
             handlePress={() => handleTabs(activeTab)}
