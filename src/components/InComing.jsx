@@ -1,38 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-// import OSMMap from "../components/OsMap";
-// import JobsPage from "./JobsPage";
-// import SideBar from "../components/SideBar";
-// import movingForwardIcon from "../Assets/Grade Icon.svg"
-// import notificationBell from "../Assets/Email-verification-icon.svg"
-// import userIcon from "../Assets/users-icon.svg"
-// import viewJobs from "../Assets/View Arrow.svg"
-// import approvedRequestIcon from "../Assets/approved-request-icon.svg"
-// import paymentMadeIcon from "../Assets/payment-made-icon.svg"
-// import upcomingIcon from "../Assets/upcoming-event-icon.svg"
-// import inTransit from "../Assets/in-transit-icon.svg"
-// import completedIcon from "../Assets/completed-icon.svg"
-// import cancalledIcon from "../Assets/cancelled-icon.svg"
-// import completedSignal from "../Assets/completed-signal.svg"
-// import cancelledSignal from "../Assets/cancelled-signal.svg"
-import searchIcon from "../Assets/search-01.svg"
-import filterIcon from "../Assets/filter-horizontal.svg"
-import refreshIcon from "../Assets/refresh (1).svg"
-import arrowDown from "../Assets/arrow-down-02.svg"
-import avatar from "../Assets/Gb-Avatar.svg"
-import dot from "../Assets/Dot.svg"
-import viewMore from "../Assets/Eye.svg"
-import SkeletonLine from "./SkeletonLineLoader";
-import { getAllJobs } from "../api/province";
-import { useQuery } from "@tanstack/react-query";
-import Loader from "./loader";
-import LoaderInApp from "./LoaderInApp";
-import PaginationComponent from "./Pagination";
-
 import "./allJobs.css"
+import PaginationComponent from "./Pagination";
 import EmptyState from "./EmptyState";
+import SkeletonLine from "./SkeletonLineLoader";
+import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import { getIncomingJobs } from "../api/province";
 
-const AllJobs = () => {
+
+const InComing = ({onClose}) => {
     const [pageNumber, setPageNumber] = useState(1);
     const [numberOfRecords, setNumberOfRecords] = useState(5);
     const [totalCount, setTotalCount] = useState(0);
@@ -41,19 +17,18 @@ const AllJobs = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const navigate = useNavigate();
 
-    // const { data, isLoading, error } = useQuery({
-    //     queryKey: ["allJobs", pageNumber, numberOfRecords],
-    //     queryFn: () => getAllJobs(pageNumber, numberOfRecords),
-    //     staleTime: Infinity,              // prevent re-fetching due to stale data
-    //     refetchOnWindowFocus: false,      // don't refetch on tab/window focus
-    //     refetchOnReconnect: false,        // don't refetch on network reconnect
-    //     refetchInterval: false,
-    // });
-
-
     const { data, isLoading, error } = useQuery({
-        queryKey: ["allJobsSub"]
-    })
+        queryKey: ["getIncomingJobs", pageNumber, numberOfRecords],
+        queryFn: () => getIncomingJobs({pageNumber, numberOfRecords}),
+        staleTime: Infinity,              // prevent re-fetching due to stale data
+        refetchOnWindowFocus: false,      // don't refetch on tab/window focus
+        refetchOnReconnect: false,        // don't refetch on network reconnect
+        refetchInterval: false,
+    });
+
+
+
+
 
     const filteredJobs = allJobs.filter((job) =>
         job.fullName?.toLowerCase().includes(searchTerm.toLowerCase())
@@ -93,15 +68,12 @@ const AllJobs = () => {
         navigate("/view-new-jobs");
     };
 
-
-
-
     return (
-        <div>
-            <div className="table_container">
+        <div className="table_all">
+            <div className="table_container_modal">
                 <div className="table_header">
                     <div className="left_table_head">
-                        <h1>All Jobs</h1>
+                        <h1>Incoming jobs</h1>
                     </div>
                     <div className="right_table_head">
                         <div className="search_icon">
@@ -116,10 +88,10 @@ const AllJobs = () => {
                             </span>
                             <span>Filter</span>
                         </div> */}
-                        <div className="refresh">
-                            {/* <img src={refreshIcon} alt="" /> */}
+                        {/* <div className="refresh">
+                            <img src={refreshIcon} alt="" />
                             <img src="/images/refresh (1).svg" alt="" />
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <div className="table_wrapper">
@@ -274,8 +246,11 @@ const AllJobs = () => {
                 </div>
             </div>
             {/* {true && <Loader />} */}
+            <div className="close_btn">
+                <img src="/images/cta - Cancel.svg" alt="" onClick={onClose} />
+            </div>
         </div>
     )
 }
 
-export default AllJobs
+export default InComing

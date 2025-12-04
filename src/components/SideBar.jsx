@@ -125,7 +125,7 @@ const SideBar = () => {
         { path: "/calendar", icon: calendarIcon, activeIcon: calenarIconActive, label: "Upcoming" },
         { path: "/jobs", icon: jobsIcon, activeIcon: jobsIconActive, label: "Jobs" },
         { path: "/payment", icon: transactionIcon, activeIcon: transactionIconActive, label: "Payment" },
-        { path: "/resolution", icon: resolutionIcon, activeIcon: resolutionIconActive, label: "Resolution" }
+        {  icon: resolutionIcon, activeIcon: resolutionIconActive, label: "Resolution" }
     ];
 
     const navItemsMobile = [
@@ -246,7 +246,7 @@ const SideBar = () => {
                     {/* Sidebar */}
                     <div className="side_bar_container_mobile">
                         <div onClick={toggleSidebar} className="side_bar_logo_mobile">
-                            <img src="/images/logo_mobile_screen.svg" alt="logo" />
+                            <img src="/images/new-logo-zinter-complete.svg" alt="logo" />
                         </div>
 
                         {navItemsMobile.map(({ path, icon, activeIcon, label }) => (

@@ -1,7 +1,7 @@
 import api from "./baseUrl";
 
 export const getAllJobs =  async (PageNumber, NumberOfRecords) => {
-   const response = await api.get(`Province/GetRequestHistory?PageNumber=${PageNumber}&NumberOfRecords=${NumberOfRecords}`)
+   const response = await api.get(`Province/GetRequestHistory?moveStatus=1&PageNumber=${PageNumber}&NumberOfRecords=${NumberOfRecords}`)
    return response.data
 }
 
@@ -34,6 +34,13 @@ export const getPaymentsMadeJobs =  async (PageNumber, NumberOfRecords) => {
 }
 export const getUpcomingJobs =  async (PageNumber, NumberOfRecords) => {
    const response = await api.get(`Province/GetRequestHistory?moveStatus=7&PageNumber=${PageNumber}&NumberOfRecords=${NumberOfRecords}`)
+   return response.data
+} 
+
+export const getIncomingJobs = async ({pageNumber, numberOfRecords}) => {
+   const response = await api.post(`Province/GetActiveRequests`, {
+      pageNumber, numberOfRecords
+   })
    return response.data
 }
 
