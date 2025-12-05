@@ -160,6 +160,7 @@ const QuoteContainer = ({ data }) => {
 
   // Function to validate move info data
   const validateMoveInfo = () => {
+    // debugger
     const requiredFields = [
       { field: moveDate, name: "Move Date" },
       { field: fullName, name: "Full Name" },
@@ -177,6 +178,7 @@ const QuoteContainer = ({ data }) => {
     ];
 
     const missingFields = requiredFields.filter(({ field }) => {
+      //  debugger
       // Handle different data types properly
       if (field === null || field === undefined) {
         return true; // Field is missing

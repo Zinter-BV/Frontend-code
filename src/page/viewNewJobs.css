@@ -56,6 +56,9 @@
 .header_job_details_user {
     display: flex;
     flex-direction: column;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .header_job_detail_new {
@@ -72,6 +75,9 @@
     padding: 2px !important;
     /* margin: 0 20px; */
     border-radius: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 
@@ -80,6 +86,9 @@
     font-family: "Unbounded", sans-serif;
     font-weight: 500;
     font-size: 24px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     color: rgba(32, 41, 57, 1);
 }
 
@@ -94,6 +103,9 @@
     font-weight: 400;
     font-size: 14px;
     font-size: "DM Sans";
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .location_job_details {
@@ -523,6 +535,83 @@
     flex-wrap: wrap;
     gap: 2rem;
     border-top: 1px solid #e5e7eb;
+}
+
+@media (max-width: 1000px) {
+    .location_from {
+        background-color: rgba(255, 255, 255, 1);
+        border: 1px solid rgba(227, 232, 239, 1);
+        padding: 16px;
+        display: flex;
+        width: auto;
+        flex-direction: column;
+        border-radius: 8px;
+        margin-top: 10px;
+    }
+
+    .location_job_details {
+        display: flex;
+        flex-direction: column;
+        /* justify-content: space-between; */
+    }
+
+    .new_jobs_header {
+        display: flex;
+        gap: 10px;
+        width: 85%;
+        margin: 0 auto;
+        padding-bottom: 10px;
+    }
+
+    .footer_view_jobs {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translate(-50%, 10px);
+        width: 100%;
+        /* margin: 0 auto; */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 10vh;
+        padding: 17px 20px;
+        background: white;
+    }
+
+    .body_quote_location_items {
+        background-color: rgba(247, 247, 247, 1);
+        display: flex;
+        /* justify-content: space-between; */
+        margin-top: 20px;
+        flex-direction: column;
+        border-radius: 8px;
+    }
+
+    .body_quote_sub {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .body_quote_footer {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translate(-50%, 10px);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin: 0 auto;
+        padding: 10px 20px;
+        background-color: #fff;
+        border: 1px solid rgba(227, 232, 239, 1);
+    }
+
+    .body_quote_container {
+    max-height: 80vh;
+    overflow: auto;
+    text-align: center;
+}
 }
 
 @media (max-width: 700px) {
