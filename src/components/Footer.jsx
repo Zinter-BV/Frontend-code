@@ -3,7 +3,7 @@ import logo from "../Assets/domain.com.png";
 import { SiGmail } from "react-icons/si";
 import { AiFillInstagram } from "react-icons/ai";
 import { BsTwitterX } from "react-icons/bs";
-import { FaFacebookF } from "react-icons/fa";
+import { FaFacebookF, FaLinkedinIn } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import ReportIssue from "../modal/ReportIssue";
 
@@ -20,10 +20,37 @@ const Footer = () => {
           <div>
             <img src={logo} alt="logo" className="" />
             <div className="flex mt-5">
-              <SiGmail size={20} className="mr-2" />
-              <AiFillInstagram size={20} className="mr-2" />
-              <BsTwitterX size={20} className="mr-2" />
-              <FaFacebookF size={20} />
+              <a
+                href="mailto:support@zinter"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <SiGmail size={20} className="mr-2 cursor-pointer" />
+              </a>
+
+              <a
+                href="https://www.linkedin.com/company/zinter-bv/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaLinkedinIn size={20} className="mr-2 cursor-pointer" />
+              </a>
+
+              <a
+                href="https://x.com/MoveWithZinter"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <BsTwitterX size={20} className="mr-2 cursor-pointer" />
+              </a>
+
+              <a
+                href="https://facebook.com/MoveWithZinter"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaFacebookF size={20} className="cursor-pointer" />
+              </a>
             </div>
           </div>
           <div className="flex footerSubContainer">
