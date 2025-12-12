@@ -46,7 +46,6 @@ const InventoryListModal = ({
   isInventoryListModalOpen,
   openUploadImageModal,
 }) => {
-  const user = useSelector((state) => state.user);
   const { t } = useTranslation();
 
   const [allInventories, setAllInventories] = useState([]);
@@ -108,6 +107,34 @@ const InventoryListModal = ({
         { id: 11, title: "Trash Can", img: trashbin },
         { id: 12, title: "Electric Broom", img: broom },
         { id: 13, title: "Washer", img: washer },
+      ],
+      Others: [
+        { id: 0, title: "Dining Table", img: table },
+        { id: 1, title: "Dresser", img: bigDrawer },
+        { id: 2, title: "Dining Chairs", img: diningChair },
+        { id: 3, title: "Picture / Painting", img: frame },
+        { id: 4, title: "Bar Stool", img: stool },
+        { id: 5, title: "China Cabinet", img: barStand },
+        { id: 6, title: "Refridgerator", img: fridge },
+        { id: 7, title: "Toaster", img: toaster },
+        { id: 8, title: "Bench", img: bench },
+        { id: 9, title: "Microwave", img: microwave },
+        { id: 10, title: "Blender", img: blender },
+        { id: 11, title: "Trash Can", img: trashbin },
+        { id: 12, title: "Electric Broom", img: broom },
+        { id: 13, title: "Washer", img: washer },
+        { id: 14, title: "Cabinet", img: dispenser },
+        { id: 15, title: "Area Rug", img: rug },
+        { id: 16, title: "Lounge Table", img: centerTable },
+        { id: 17, title: "Mirror", img: mirror },
+        { id: 18, title: "Glass Lounge Table", img: glassTable },
+        { id: 19, title: "Arm Chair", img: chair },
+        { id: 20, title: "Book Case", img: cupboard },
+        { id: 21, title: "Center Table", img: centerTable },
+        { id: 22, title: "TV", img: tv },
+        { id: 23, title: "TV Stand", img: dresser },
+        { id: 24, title: "Sectional Sofa", img: couch },
+        { id: 25, title: "Elegant Floor Lamp", img: lamp },
       ],
     }),
     []

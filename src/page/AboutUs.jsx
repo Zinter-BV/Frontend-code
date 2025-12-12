@@ -77,7 +77,7 @@ const AboutUs = () => {
               "url": "https://zinter.nl",
               "logo": "https://zinter.nl/images/logo.png",
               "description": "Your company description here",
-             
+
               ]
             }
           `}

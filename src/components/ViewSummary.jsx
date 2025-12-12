@@ -74,7 +74,7 @@ const ViewSummary = ({ errMessage }) => {
                 <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
                   {t("summary.movingFrom")}
                 </p>
-                <p className="text-[20px] text-[#136AB5] font-bold font-sans ">
+                <p className="text-[20px] text-[#136AB5] overflow-hidden text-ellipsis whitespace-nowrap font-bold font-sans ">
                   {data?.moreInfo?.pickUpAddress}
                 </p>
               </div>
@@ -118,7 +118,7 @@ const ViewSummary = ({ errMessage }) => {
                 <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
                   {t("summary.movingTo")}
                 </p>
-                <p className="text-[20px] text-[#136AB5] font-bold font-sans ">
+                <p className="text-[20px] text-[#136AB5] overflow-hidden text-ellipsis whitespace-nowrap font-bold font-sans ">
                   {data?.moreInfo?.dropOffAddress}
                 </p>
               </div>

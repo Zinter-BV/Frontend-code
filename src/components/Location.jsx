@@ -6,6 +6,8 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchProvince } from "../api/agentApi";
 import MoveSize from "../Assets/SVG/MoveSize";
 import DownIcon from "../Assets/SVG/DownIcon";
+import { setUserItems } from "../redux/action";
+import { useDispatch } from "react-redux";
 
 // Define libraries outside component to prevent reloading
 const LIBRARIES = ["places"];
@@ -336,6 +338,7 @@ const Location = ({
     const value = e.target.value;
     console.log("Setting from location to:", value);
     setFromLocation(value);
+    setErrMessage("");
 
     // Clear error when user starts typing
     if (value.trim() !== "") {
@@ -365,7 +368,7 @@ const Location = ({
     const value = e.target.value;
     console.log("Setting to location to:", value);
     setToLocation(value);
-
+    setErrMessage("");
     if (value.length >= 3 && isLoaded && window.google) {
       const service = new window.google.maps.places.AutocompleteService();
 
@@ -410,6 +413,7 @@ const Location = ({
   const selectFromSuggestion = (prediction) => {
     console.log("Selecting from suggestion:", prediction.description);
     setFromLocation(prediction.description);
+    setErrMessage("");
     setIsEditingFrom(false);
     setShowFromSuggestions(false);
     setFromSuggestions([]);
@@ -484,6 +488,7 @@ const Location = ({
   const selectToSuggestion = (prediction) => {
     console.log("Selecting to suggestion:", prediction.description);
     setToLocation(prediction.description);
+    setErrMessage("");
     setIsEditingTo(false);
     setShowToSuggestions(false);
     setToSuggestions([]);
@@ -547,6 +552,7 @@ const Location = ({
   ];
 
   const [activeMoveSizeTab, setActiveMoveSizeTab] = useState("house");
+  const dispatch = useDispatch();
 
   const renderTabContent = () => {
     switch (activeMoveSizeTab) {
@@ -557,10 +563,13 @@ const Location = ({
               <div
                 key={`house-${index}`}
                 className="p-3 flex items-center border-b border-[#E3E2E0] hover:bg-gray-100 cursor-pointer"
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   setMoveSize(house.text);
-                  setShowSizeModal(false);
                   setErrMessage("");
+                  setShowSizeModal(false);
+                  inputRef.current?.blur();
+                  // dispatch(setUserItems([]));
                 }}
               >
                 <p className="font-sans text-[16px] leading-[25.6px] text-[#373737]">
@@ -580,9 +589,13 @@ const Location = ({
               <div
                 key={`apartment-${index}`}
                 className="p-3 flex items-center border-b border-[#E3E2E0] hover:bg-gray-100 cursor-pointer"
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   setMoveSize(apartment.text);
+                  setErrMessage("");
                   setShowSizeModal(false);
+                  inputRef.current?.blur();
+                  // dispatch(setUserItems([]));
                 }}
               >
                 <p className="font-sans text-[16px] leading-[25.6px] text-[#373737]">
@@ -602,9 +615,13 @@ const Location = ({
               <div
                 key={`storage-${index}`}
                 className="p-3 flex items-center border-b border-[#E3E2E0] hover:bg-gray-100 cursor-pointer"
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   setMoveSize(store);
+                  setErrMessage("");
                   setShowSizeModal(false);
+                  inputRef.current?.blur();
+                  // dispatch(setUserItems([]));
                 }}
               >
                 <p className="font-sans text-[16px] leading-[25.6px] text-[#373737]">
@@ -820,7 +837,10 @@ const Location = ({
                   ))}
                 </div>
               )}
-              <div className="moveDetailsBtnBox mt-[16px] relative flex justify-between border-r-2 border-[#E3E2E0] p-3 items-center w-full h-[68px] rounded-[8px] border-[1px] px-[16px]">
+              <div
+                onClick={() => setShowSizeModal(true)}
+                className="moveDetailsBtnBox mt-[16px] relative flex justify-between border-r-2 border-[#E3E2E0] p-3 items-center w-full h-[68px] rounded-[8px] border-[1px] px-[16px]"
+              >
                 <div className="flex w-[90%] items-center">
                   <div className="mr-[8px]">
                     <MoveSize />
@@ -834,7 +854,7 @@ const Location = ({
                     readOnly
                   />
                 </div>
-                <button onClick={() => setShowSizeModal(true)}>
+                <button>
                   <DownIcon />
                 </button>
                 {showSizeModal && (

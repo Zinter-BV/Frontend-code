@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import UploadImageForAIRecognition from "./UploadImageForAIRecognition";
-import RoomItemContainer from "./RoomItemContainer";
 import UploadImageModal from "../modal/UploadImageModal";
 import InventoryListModal from "../modal/InventoryListModal";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import FullHouseRooms from "./FullHouseRooms";
 
 const InventoryList = () => {
   const { t } = useTranslation();
@@ -32,6 +33,9 @@ const InventoryList = () => {
   const closeUploadImageModal = () => {
     setIsUploadImageModalOpen(false);
   };
+
+  const data = useSelector((state) => state.user);
+  console.log(data?.houseSize);
 
   return (
     <div className="ml-4 inventoryListContainer w-full">
@@ -63,31 +67,19 @@ const InventoryList = () => {
             </svg>
           </button>
         </div>
-
         <UploadImageForAIRecognition
           openUploadImageModal={openUploadImageModal}
         />
-
-        {/* RoomItemContainers with updated props */}
-        <RoomItemContainer
-          openIsInventoryList={() => openIsInventoryList("Living Room")}
-          activeIcon="Living Room"
-        />
-        {/* <RoomItemContainer
-          openIsInventoryList={() => openIsInventoryList("Toilet and bath")}
-          activeIcon="Toilet and bath"
-        /> */}
-        <RoomItemContainer
-          openIsInventoryList={() => openIsInventoryList("Dinning Room")}
-          activeIcon="Dinning Room"
-        />
-        <RoomItemContainer
-          openIsInventoryList={() => openIsInventoryList("Kitchen")}
-          activeIcon="Kitchen"
-        />
-        <RoomItemContainer
-          openIsInventoryList={() => openIsInventoryList("Bedroom")}
-          activeIcon="Bedroom"
+        {/* Room containers - simplified */}
+        <FullHouseRooms
+          isUploadImageModalOpen={isUploadImageModalOpen}
+          isInventoryListModalOpen={isInventoryListModalOpen}
+          openUploadImageModal={openUploadImageModal}
+          activeRoom={activeRoom}
+          closeUploadImageModal={closeUploadImageModal}
+          openIsInventoryList={openIsInventoryList}
+          data={data}
+          closeInventoryListModal={closeInventoryListModal}
         />
       </div>
 
