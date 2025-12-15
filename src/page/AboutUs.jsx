@@ -37,7 +37,6 @@ import AboutZinter from "../components/AboutZinter";
 import OurMission from "../components/OurMission";
 import OurVision from "../components/OurVision";
 import OurServices from "../components/OurServices";
-import TestimonialsAboutUs from "../components/TestimonialsAbout";
 import ContactUs from "../components/ContactUs";
 import Testimonials from "../components/Testimonials";
 import Footer from "../components/Footer";
@@ -90,7 +89,6 @@ const AboutUs = () => {
         <OurMission />
         <OurVision />
         <OurServices />
-        <TestimonialsAboutUs />
         <Testimonials />
         <ContactUs />
         <Footer />
