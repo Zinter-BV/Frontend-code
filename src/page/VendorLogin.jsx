@@ -8,6 +8,7 @@ import { loginAgent } from "../api/agentApi";
 import { useNavigate } from "react-router-dom";
 import Toast from "../components/toast";
 import Loader from "../components/loader";
+import FirstCardToggle from "../components/FirstCardToggle";
 // import "../components/toast.css"
 
 const VendorLogin = () => {
@@ -88,45 +89,50 @@ const VendorLogin = () => {
 
 
     return (
-        <div className="admin_login_container">
-            <div className="admin_login_header">
-                <h3>Vendor Login</h3>
-                <span>Please enter your login credentials</span>
+        <div className="container_firstStep">
+            <div className="card_toggle">
+                <FirstCardToggle />
             </div>
-            <div className="admin_login_input">
-                <div className="admin_login_email">
-                    <label>Email Address</label>
-                    <input type="text" value={user} onChange={(e) => setEmail(e.target.value)} placeholder="Email Address" />
+            <div className="admin_login_container_vendor">
+                <div className="admin_login_header">
+                    <h3>Vendor Login</h3>
+                    <span>Please enter your login credentials</span>
                 </div>
-                <div className="admin_login_password">
-                    <label>Password</label>
-                    <input onChange={(e) => setPassword(e.target.value)} type={showPassword ? "text" : "password"} value={password} placeholder="Password" />
-                    <span className="admin_forgot_pass" ></span>
-                    <span className="admin_login_pass_btn" onClick={() => setShowPassword((prev) => !prev)}>
-                        {showPassword ? "HIDE" : "SHOW"}
-                    </span>
+                <div className="admin_login_input">
+                    <div className="admin_login_email">
+                        <label>Email Address</label>
+                        <input type="text" value={user} onChange={(e) => setEmail(e.target.value)} placeholder="Email Address" />
+                    </div>
+                    <div className="admin_login_password">
+                        <label>Password</label>
+                        <input onChange={(e) => setPassword(e.target.value)} type={showPassword ? "text" : "password"} value={password} placeholder="Password" />
+                        <span className="admin_forgot_pass" ></span>
+                        <span className="admin_login_pass_btn" onClick={() => setShowPassword((prev) => !prev)}>
+                            {showPassword ? "HIDE" : "SHOW"}
+                        </span>
+                    </div>
+                    <div className="no_account_section">
+                        <span>Don't have an account?</span>   <a onClick={handleSignUp} href="#">Sign up</a>
+                    </div>
                 </div>
-                <div className="no_account_section">
-                    <span>Don't have an account?</span>   <a onClick={handleSignUp} href="#">Sign up</a>
+
+                <div className="admin_footer_btn_vendor">
+                    <button onClick={() => handleContinue()}>CONTINUE</button>
                 </div>
+
+                {isLoading && <Loader />}
+
+                {toast && (
+                    <Toast
+                        className="toast-container"
+                        message={toast.message}
+                        type={toast.type}
+                        duration={5000}
+                        onClose={() => setToast(null)}
+                    />
+                )}
+
             </div>
-
-            <div className="admin_footer_btn">
-                <button onClick={() => handleContinue()}>CONTINUE</button>
-            </div>
-
-            {isLoading && <Loader />}
-
-            {toast && (
-                <Toast
-                    className="toast-container"
-                    message={toast.message}
-                    type={toast.type}
-                    duration={5000}
-                    onClose={() => setToast(null)}
-                />
-            )}
-
         </div>
     )
 }
