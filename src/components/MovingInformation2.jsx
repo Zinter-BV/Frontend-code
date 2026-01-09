@@ -935,7 +935,7 @@ const MovingInformation2 = ({
             {/* TO Address with Photon Search */}
             <div className="border-[#e3e3e3] border-b-[1px] pb-4 ">
               <p className="font-sans text-[#136AB5] text-[18px] font-bold ">
-                Drop-off Details
+                {t("moveInformation.dropOffDetails")}
               </p>
 
               {isDropOffDetailsOpen && (
@@ -1350,12 +1350,11 @@ const MovingInformation2 = ({
               id="termsAndConditionLabel"
               className="text-[#2c2c2c] ml-2 font-sans text-[14px]"
             >
-              Accept
               <Link
                 className="ml-1 text-[#136AB5] underline font-sans text-[14px]"
                 to="/terms"
               >
-                terms and condition
+                {t("moveinformation.termsCondition")}
               </Link>{" "}
               <span className="text-red-500">*</span>
             </label>
@@ -1373,7 +1372,7 @@ const MovingInformation2 = ({
               id="movigTips"
               className="text-[#2c2c2c] ml-2 font-sans text-[14px]"
             >
-              Receive Promotions and moving tips{" "}
+              {t("moveinformation.receive")}{" "}
             </label>
           </div>
         </div>

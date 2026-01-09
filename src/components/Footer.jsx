@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import logo from "../Assets/domain.com.png";
 import { SiGmail } from "react-icons/si";
-import { AiFillInstagram } from "react-icons/ai";
 import { BsTwitterX } from "react-icons/bs";
 import { FaFacebookF, FaLinkedinIn } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import ReportIssue from "../modal/ReportIssue";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
+
+  const { t } = useTranslation();
 
   const openModal = () => setIsReportModalOpen(true);
   const closeModal = () => setIsReportModalOpen(false);
@@ -56,7 +58,7 @@ const Footer = () => {
           <div className="flex footerSubContainer">
             <div className="mr-8">
               <p className="font-sans text-[24px] footerMainText text-[#136AB5] text-right font-bold ">
-                Quicklinks
+                {t("footer.quicklinks")}
               </p>
               <div className="flex flex-col">
                 <Link
@@ -64,14 +66,14 @@ const Footer = () => {
                   className="font-sora text-right font-regular footerDesc"
                 >
                   {" "}
-                  About Us
+                  {t("footer.aboutUs")}
                 </Link>
                 <span
                   onClick={openModal}
                   className="font-sora cursor-pointer font-regular text-[#136AB5] text-[15px] text-right footerDesc mt-2"
                 >
                   {" "}
-                  Report an issue
+                  {t("footer.reportIssue")}
                 </span>
                 {/* <Link
                   to="/faq"
@@ -85,20 +87,20 @@ const Footer = () => {
                   className="font-sora text-right font-regular footerDesc mt-2"
                 >
                   {" "}
-                  Privacy Policy
+                  {t("footer.privacyPolicy")}
                 </Link>
                 <Link
                   to="/terms"
                   className="font-sora text-right font-regular footerDesc mt-2"
                 >
                   {" "}
-                  Terms & Conditions
+                  {t("footer.termsConditions")}
                 </Link>
               </div>
             </div>
             <div className="footerSubBox">
               <p className="font-sans text-[24px] footerMainText text-[#136AB5] text-right font-bold ">
-                Contact
+                {t("footer.contact")}
               </p>
               <div className="flex flex-col">
                 <a
@@ -114,7 +116,7 @@ const Footer = () => {
         </div>
         <div className="border-t-2 w-full py-4 footerEndContainer flex justify-between border-black mt-6 ">
           <p className="font-sans text-[18px] text-[#121212] font-normal ">
-            © 2025 All rights Reserved
+            {t("footer.copyright")}
           </p>
           <p className="font-sans text-[18px] text-[#121212] font-normal ">
             Zinter.nl

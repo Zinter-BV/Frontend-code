@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from "../Assets/logo.png";
 import Logo from "./Logo";
+import { useTranslation } from "react-i18next";
 
 const QuoteHeader = () => {
+  const { t } = useTranslation();
   return (
     <header className="h-[80px] border-b-[1px] border-[#d1d1d1] w-full z-30 bg-white fixed top-0 left-0 right-0  mx-auto max-w-[1500px] flex justify-center items-center">
       <nav className="flex w-[90vw] relative items-center justify-between">
@@ -11,7 +12,7 @@ const QuoteHeader = () => {
           <Logo />
         </Link>
 
-        <div className="flex items-center cursor-pointer ">
+        <Link to={"/faq"} className="flex items-center cursor-pointer ">
           <div className="flex justify-center border-[1px] border-black items-center w-[24px] h-[24px] rounded-full mr-2 ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -27,9 +28,9 @@ const QuoteHeader = () => {
             </svg>
           </div>
           <p className="font-sans needMoreAssitance text-[14px] leading-[19.6px] text-[#9e9e9e] ">
-            Need more assistance ?
+            {t("navigation.assistance")} ?
           </p>
-        </div>
+        </Link>
       </nav>
     </header>
   );
