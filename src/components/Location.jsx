@@ -7,6 +7,7 @@ import { fetchProvince } from "../api/agentApi";
 import MoveSize from "../Assets/SVG/MoveSize";
 import DownIcon from "../Assets/SVG/DownIcon";
 import { useDispatch } from "react-redux";
+import { setUserItems } from "../redux/action";
 
 // Define libraries outside component to prevent reloading
 const LIBRARIES = ["places"];
@@ -552,6 +553,8 @@ const Location = ({
 
   const [activeMoveSizeTab, setActiveMoveSizeTab] = useState("house");
   const dispatch = useDispatch();
+
+ 
 
   const renderTabContent = () => {
     switch (activeMoveSizeTab) {

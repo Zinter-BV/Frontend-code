@@ -60,7 +60,7 @@ function App() {
         <Route path="/payment" element={<Payment />} />
         <Route path="/view-new-jobs" element={<ViewNewJobs />} />
         <Route path="/upcoming-jobs-view" element={<UpcomingJobView />} />
-        <Route path="/movers?id=:id" element={<Movers />} />
+        <Route path="/movers/:id" element={<Movers />} />
         <Route path="/track-code" element={<EnterTrackCode />} />
         <Route path="/make-report" element={<MakeAReport />} />
         <Route path="/track-report" element={<TrackReport />} />
