@@ -1,11 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 // Emmanuel's code
 import { loadStripe } from "@stripe/stripe-js";
-import { createPayment } from "../api/tracking";
-import PrimaryBtn from "./PrimaryBtn";
 import Stripe from "../page/Stripe";
 import { Elements } from "@stripe/react-stripe-js";
 import { stripPTags } from "../utils";
@@ -14,7 +10,7 @@ const stripePromise = loadStripe(
   "pk_test_51O2JovLw5fKJMXx3zvARABxAlQpptJi9aO6gPkcbH9lFFCfJXV8rgAw170q4wt3CHz00uDfGtPqKmvdvPFWQqNMc00c3Dqphpr"
 );
 
-const Payment = ({}) => {
+const Payment = () => {
   const moversData = useSelector((state) => state.user.moversData);
 
   console.log(moversData);

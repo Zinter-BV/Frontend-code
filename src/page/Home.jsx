@@ -36,7 +36,6 @@ import React, { useEffect } from "react";
 import Header from "../components/Header";
 import HeroSection from "../components/HeroSection";
 import MoveDetails from "../components/MoveDetails";
-import TrustedBy from "../components/TrustedBy";
 import SellingPoint from "../components/SellingPoint";
 import Process from "../components/Process";
 import Testimonials from "../components/Testimonials";
@@ -70,7 +69,6 @@ const Home = () => {
         <Header />
         <HeroSection />
         <MoveDetails />
-        {/* <TrustedBy /> */}
         <SellingPoint />
         <Process />
         <Testimonials />

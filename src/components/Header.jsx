@@ -1,11 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import SecondaryBtn from "./SecondaryBtn";
 import InvoiceIcon from "../Assets/SVG/Invoice";
 import TrackingIcon from "../Assets/SVG/TrackingIcon";
 import TruckIcon from "../Assets/SVG/TruckIcon";
 import Logo from "./Logo";
-import { IoCloseSharp } from "react-icons/io5";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 const Header = () => {
