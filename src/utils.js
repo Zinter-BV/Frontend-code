@@ -77,3 +77,7 @@ export function convertTo12Hour(input) {
     hour12: true,
   });
 }
+
+export const stripPTags = (html) => {
+  return html?.replace(/<\/?p>/g, "") || "";
+};
