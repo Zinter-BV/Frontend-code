@@ -1784,92 +1784,92 @@ const resources = {
 };
 
 // Initialize i18next
-// i18n
-//   .use(LanguageDetector)
-//   .use(initReactI18next)
-//   .init({
-//     resources,
-//     // fallbackLng: "en",
-//     lng: "nl",
+i18n
+  .use(LanguageDetector)
+  .use(initReactI18next)
+  .init({
+    resources,
+    // fallbackLng: "en",
+    lng: "nl",
 
-//     fallbackLng: "nl",
+    fallbackLng: "nl",
 
-//     debug: false, // Set to true for development
+    debug: false, // Set to true for development
 
-//     interpolation: {
-//       escapeValue: false, // React already escapes values
-//     },
+    interpolation: {
+      escapeValue: false, // React already escapes values
+    },
 
-//     detection: {
-//       order: ["localStorage"], // only detect from localStorage
-//       caches: ["localStorage"], // save chosen language
-//       lookupLocalStorage: "i18nextLng",
-//       checkWhitelist: true,
-//     },
+    detection: {
+      order: ["localStorage"], // only detect from localStorage
+      caches: ["localStorage"], // save chosen language
+      lookupLocalStorage: "i18nextLng",
+      checkWhitelist: true,
+    },
 
-//     // Whitelist of supported languages
-//     supportedLngs: ["en", "es", "fr", "nl"],
+    // Whitelist of supported languages
+    supportedLngs: ["en", "es", "fr", "nl"],
 
-//     // Don't load a fallback language if no resources are found
-//     nonExplicitSupportedLngs: false,
+    // Don't load a fallback language if no resources are found
+    nonExplicitSupportedLngs: false,
 
-//     // Additional options
-//     returnEmptyString: false,
-//     returnNull: false,
-//     returnObjects: false,
+    // Additional options
+    returnEmptyString: false,
+    returnNull: false,
+    returnObjects: false,
 
-//     // Namespace configuration (optional)
-//     defaultNS: "translation",
-//     ns: ["translation"],
+    // Namespace configuration (optional)
+    defaultNS: "translation",
+    ns: ["translation"],
 
-//     // Key separator for nested translations
-//     keySeparator: ".",
-//     nsSeparator: ":",
+    // Key separator for nested translations
+    keySeparator: ".",
+    nsSeparator: ":",
 
-//     // Pluralization options
-//     pluralSeparator: "_",
-//     contextSeparator: "_",
+    // Pluralization options
+    pluralSeparator: "_",
+    contextSeparator: "_",
 
-//     // Loading options
-//     load: "languageOnly",
-//     // preload: ["en"],
-//     preload: ["nl"],
+    // Loading options
+    load: "languageOnly",
+    // preload: ["en"],
+    preload: ["nl"],
 
-//     // Save missing translations
-//     saveMissing: false,
+    // Save missing translations
+    saveMissing: false,
 
-//     // React specific options
-//     react: {
-//       useSuspense: true,
-//       wait: false,
-//       bindI18n: "languageChanged",
-//       bindI18nStore: "added removed",
-//       transEmptyNodeValue: "",
-//       transSupportBasicHtmlNodes: true,
-//       transKeepBasicHtmlNodesFor: ["br", "strong", "i", "p"],
-//     },
-//   });
-// i18n
-//   .use(LanguageDetector)
-//   .use(initReactI18next)
-//   .init({
-//     resources,
+    // React specific options
+    react: {
+      useSuspense: true,
+      wait: false,
+      bindI18n: "languageChanged",
+      bindI18nStore: "added removed",
+      transEmptyNodeValue: "",
+      transSupportBasicHtmlNodes: true,
+      transKeepBasicHtmlNodesFor: ["br", "strong", "i", "p"],
+    },
+  });
+i18n
+  .use(LanguageDetector)
+  .use(initReactI18next)
+  .init({
+    resources,
 
-//     // Force Dutch as the primary language
-//     lng: "nl",
-//     fallbackLng: "nl",
+    // Force Dutch as the primary language
+    lng: "nl",
+    fallbackLng: "nl",
 
-//     detection: {
-//       // Only respect manual language changes
-//       order: ["localStorage"],
-//       caches: ["localStorage"],
-//     },
+    detection: {
+      // Only respect manual language changes
+      order: ["localStorage"],
+      caches: ["localStorage"],
+    },
 
-//     supportedLngs: ["nl", "en", "es", "fr"], // Dutch first in list
+    supportedLngs: ["nl", "en", "es", "fr"], // Dutch first in list
 
-//     // Make Dutch the "default" namespace
-//     defaultNS: "translation",
-//   });
+    // Make Dutch the "default" namespace
+    defaultNS: "translation",
+  });
 
 // Get saved language or default to Dutch
 const getSavedLanguage = () => {

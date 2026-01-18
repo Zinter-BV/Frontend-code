@@ -9,10 +9,13 @@ import { useNavigate } from "react-router-dom";
 import Toast from "../components/toast";
 import Loader from "../components/loader";
 import FirstCardToggle from "../components/FirstCardToggle";
+// import LanguageSwitcher from "./LanguageSwitcher"
 // import "../components/toast.css"
+import LanguageSwitcher from "../components/LanguageSwitcher";
 
 const VendorLogin = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const [language, setLanguage] = useState("NL");
     const [password, setPassword] = useState("");
     const [user, setEmail] = useState("")
     const [showVerifyEmail, setShowVerifyEmail] = useState(false)
@@ -33,6 +36,8 @@ const VendorLogin = () => {
     //         console.log(data.result.responseMessage)
     //     }
     // })
+
+
 
     useEffect(() => {
         if (error) {
@@ -72,6 +77,7 @@ const VendorLogin = () => {
                 console.log(data.result)
                 sessionStorage.setItem('token', data.result.jwtToken)
                 sessionStorage.setItem('name', data.result.name)
+                sessionStorage.setItem('companyImage', data.result.image )
                 navigate("/overview")
             }
         } else {
@@ -94,9 +100,18 @@ const VendorLogin = () => {
                 <FirstCardToggle />
             </div>
             <div className="admin_login_container_vendor">
+                <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                    <LanguageSwitcher language={language} setLanguage={setLanguage} />
+                </div>
+
+                <div>
+                    {/* {language} */}
+                </div>
                 <div className="admin_login_header">
-                    <h3>Vendor Login</h3>
-                    <span>Please enter your login credentials</span>
+                    <h3>{language === "EN" ? "Vendor Login" : "Leverancier Login"}</h3>
+                    <span>{language === "EN"
+                        ? "Please enter your login credentials"
+                        : "Voer uw inloggegevens in"}</span>
                 </div>
                 <div className="admin_login_input">
                     <div className="admin_login_email">

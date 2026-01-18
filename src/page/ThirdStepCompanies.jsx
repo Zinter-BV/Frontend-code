@@ -164,6 +164,7 @@ const ThirdStepCompanies = () => {
 
 
     const openSuccessMessage = async () => {
+        debugger
         if (
             email &&
             kvkNumber &&
@@ -186,6 +187,9 @@ const ThirdStepCompanies = () => {
                 // Optionally show error modal/message here
             } else {
                 console.log(data);
+                sessionStorage.setItem('token', data.result.jwtToken)
+                sessionStorage.setItem('name', data.result.name)
+                sessionStorage.setItem('companyImage', data.result.image)
                 setShowSuccessModal(true);
             }
 
@@ -259,7 +263,7 @@ const ThirdStepCompanies = () => {
                         {coverPhoto && <div className="inner_upload_section">
                             <button onClick={openMoreOptions}>
                                 <img src="/images/image-upload.svg" alt="" />
-                               
+
                                 <span>Change Image</span>
                             </button>
 

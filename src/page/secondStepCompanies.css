@@ -108,13 +108,15 @@
 .requirement {
     font-size: 14px;
     margin-top: 5px;
-  }
-  .requirement.pass {
+}
+
+.requirement.pass {
     color: green;
-  }
-  .requirement.fail {
+}
+
+.requirement.fail {
     color: red;
-  }
+}
 
 @media (max-width: 1000px) {
 
@@ -138,5 +140,13 @@
         left: 50%;
         transform: translate(-50%, -45%);
         z-index: 10;
+    }
+}
+
+@media (max-width: 600px) {
+    .company_input_reg {
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
     }
 }

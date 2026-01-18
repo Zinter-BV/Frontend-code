@@ -98,6 +98,8 @@ import jobsIcon from "../Assets/jobs-icon.svg";
 import jobsIconActive from "../Assets/jobs-active-icon.svg"
 // import supportIcon from "../Assets/support-icon.svg";
 // import sidebarIcon from "../Assets/sidebar-icon.svg";
+import settingIcon from "../Assets/settings-icon.svg"
+import settingActiveIcon from "../Assets/settings-active-icon.svg"
 import resolutionIcon from "../Assets/resolutionIcon.svg"
 import resolutionIconActive from "../Assets/resolutionIconActive.svg"
 import transactionIcon from "../Assets/credit-card.svg"
@@ -111,21 +113,69 @@ import LogoutModal from "./Logout";
 // import hamburgerBtn from "../Assets/hamburger_btn.svg"
 
 
-const SideBar = () => {
+const SideBar = ({ adminView }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [showLogout, setShowLogout] = useState(false);
+    // const [companyName, setCompanyName] = useState("")
+    const companyName = sessionStorage.getItem("name")
+    const companyImage = sessionStorage.getItem('companyImage');
+
+    // const [showBackBtn, setShowBackBtn] = useState(false)
     const toggleSidebar = () => {
         setIsOpen(!isOpen);
     };
     const location = useLocation();
     const navigate = useNavigate()
+    const activeTab = location.pathname.includes('create-new-role') || location.pathname.includes('view-summary-role') ? "Create new role" : 'Create new user'
+
+    const checkLocation = () => {
+        const path = location.pathname;
+
+        if (path.includes('create-new-user')) {
+            navigate('/admin');
+        } else if (path.includes('create-new-role')) {
+            navigate('/admin');
+        } else if (path.includes('view-summary-user')) {
+            navigate('/create-new-user');
+        } else if (path.includes('view-summary-role')) {
+            navigate('/create-new-role');
+        }
+    };
+
+    const path = location.pathname;
+
+    const showBackBtn =
+        path.includes("create-new-user") ||
+        path.includes("create-new-role") ||
+        path.includes("view-summary-user") ||
+        path.includes("view-summary-role");
+
+
+    const isAdminActive =
+        path === "/admin" ||
+        path.includes("create-new-user") ||
+        path.includes("create-new-role") ||
+        path.includes("view-summary-user") ||
+        path.includes("view-summary-role");
+
+
+
+    const isAdminPage = location.pathname === "/admin";
+    const showAdminUser = isAdminPage && adminView === 'user'
+    const showAdminRole = isAdminPage && adminView === 'roles'
+
+
+
 
     const navItems = [
         { path: "/overview", icon: overviewIcon, activeIcon: overviewIconActive, label: "Overview" },
         { path: "/calendar", icon: calendarIcon, activeIcon: calenarIconActive, label: "Upcoming" },
         { path: "/jobs", icon: jobsIcon, activeIcon: jobsIconActive, label: "Jobs" },
         { path: "/payment", icon: transactionIcon, activeIcon: transactionIconActive, label: "Payment" },
-        {  icon: resolutionIcon, activeIcon: resolutionIconActive, label: "Resolution" }
+        { icon: resolutionIcon, activeIcon: resolutionIconActive, label: "Resolution" },
+        { path: "/admin", icon: settingIcon, activeIcon: settingActiveIcon, label: "Admin" },
+        // { path: "/create-new-user", icon: settingIcon, activeIcon: settingActiveIcon, label: "Create new user" },
+        // { path: "/create-new-role", icon: settingIcon, activeIcon: settingActiveIcon, label: "Create new role" }
     ];
 
     const navItemsMobile = [
@@ -141,6 +191,18 @@ const SideBar = () => {
         setShowLogout(false);
     };
 
+    const handleUser = () => {
+        navigate('/create-new-user')
+
+    }
+
+    const handleRole = () => {
+
+        navigate('/create-new-role')
+
+
+    }
+
     const handleDeactivate = () => {
         setShowLogout(false);
         navigate('/vendor-login')
@@ -148,43 +210,81 @@ const SideBar = () => {
 
     };
 
+
+
     return (
         <div>
             <div className="side_bar_header_container">
                 <div className="side_bar_container">
-                    {navItems.map(({ path, icon, activeIcon, label }) => (
-                        <Link key={path} to={path}>
-                            <div className={`side_bar_child ${location.pathname === path ? "side_bar_child_active" : ""}`}>
-                                <img src={location.pathname === path ? activeIcon : icon} alt={label} />
-                                <span>{label}</span>
-                            </div>
-                        </Link>
-                    ))}
+                    {navItems.map(({ path, icon, activeIcon, label }) => {
+                        const isActive =
+                            label === "Admin"
+                                ? isAdminActive
+                                : location.pathname === path;
 
+                        return (
+                            <Link key={label} to={path}>
+                                <div
+                                    className={`side_bar_child ${isActive ? "side_bar_child_active" : ""
+                                        }`}
+                                >
+                                    <img src={isActive ? activeIcon : icon} alt={label} />
+                                    <span>{label}</span>
+                                </div>
+                            </Link>
+                        );
+                    })}
                     <div className="side_bar_bottom">
-                        <div>
-                            <img src="/images/sidebar-icon.svg" alt="" />
-                            {/* <img src={sidebarIcon} alt="" /> */}
-                        </div>
+                        <div
+                            className="company-image"
+                            style={{
+                                backgroundImage: companyImage ? `url(${companyImage})` : "none",
+                            }}
+                        ></div>
                         <div className="side_bar_bottom_text">
-                            <span>Urban Movers</span>
-                            <span>Workspace</span>
+                            <span>{companyName}</span>
+
                         </div>
                     </div>
                 </div>
+
                 <div className="header_container">
                     <div className="header_container_left">
                         {/* <img src={logoAndTextNew} alt="" /> */}
                         <img src="/images/new-logo-zinter-complete.svg" alt="" />
-                        <span>{navItems.find(item => item.path === location.pathname)?.label || ""}</span>
+                        <div className="header_create">
+                            {showBackBtn && (
+                                <span><img onClick={checkLocation} src="/images/go-back.svg" alt="" /></span>
+                            )}
+
+                            <span>{navItems.find(item => item.path === location.pathname)?.label || activeTab}</span>
+
+                        </div>
                     </div>
-                    <div className="header_container_right">
-                        {/* <img src={helpLogo} alt="" /> */}
-                        <img src="/images/help-circle.svg" alt="" />
-                        {/* <img src={notificationLogo} alt="" /> */}
-                        <img src="/images/notification-03.svg" alt="" />
-                        <img className="logout" onClick={showLogoutFunc} src="/images/logout-03.svg" alt="" />
-                    </div>
+                    {!isAdminPage && (
+                        <div className="header_container_right">
+                            <img src="/images/help-circle.svg" alt="" />
+                            <img src="/images/notification-03.svg" alt="" />
+                            <img
+                                className="logout"
+                                onClick={showLogoutFunc}
+                                src="/images/logout-03.svg"
+                                alt=""
+                            />
+                        </div>
+                    )}
+
+                    {isAdminPage && (
+                        <div className="header_container_right">
+                            {showAdminUser && (
+                                <button className="btn_user" onClick={handleUser} >ADD USER</button>
+                            )}
+                            {showAdminRole && (
+                                <button className="btn_user" onClick={handleRole}>ADD ROLE</button>
+                            )}
+
+                        </div>
+                    )}
                 </div>
                 <div className="body_container"></div>
             </div>
@@ -197,6 +297,15 @@ const SideBar = () => {
                     <div >
                         <span>{location.pathname === '/overview' ? 'Overview' : 'Upcoming'}</span>
                     </div>
+                    <div>
+
+                        <img
+                            className="logout"
+                            onClick={showLogoutFunc}
+                            src="/images/logout-03.svg"
+                            alt=""
+                        />
+                    </div>
                     {/* {navItems.map(({ path, icon, activeIcon, label }) => (
                             <Link key={path} to={path}>
                                 <div className={`side_bar_child_mobile ${location.pathname === path ? "side_bar_child_active" : ""}`}>
@@ -205,16 +314,10 @@ const SideBar = () => {
                                 </div>
                             </Link>
                         ))} */}
-                    <div className="header_container_right">
-                        {/* <img src={helpLogo} alt="" /> */}
-                        {/* <img src="/images/help-circle.svg" alt="" /> */}
-
-                        {/* <img src={notificationLogo} alt="" /> */}
-                        {/* <img src="/images/notification-03.svg" alt="" /> */}
-                        <img className="logout" onClick={showLogoutFunc} src="/images/logout-03.svg" alt="" />
 
 
-                    </div>
+
+
                 </div>
                 {/* <div className={`side_bar_mobile_all ${isOpen ? "open" : ""}`}>
                     <div className="side_bar_container_mobile">
@@ -232,12 +335,15 @@ const SideBar = () => {
                         ))}
 
                         <div className="side_bar_bottom">
-                            <div>
-                                <img src="/images/sidebar-icon.svg" alt="" />
-                            </div>
+                            <div
+                                className="company-image"
+                                style={{
+                                    backgroundImage: companyImage ? `url(${companyImage})` : "none",
+                                }}
+                            ></div>
                             <div className="side_bar_bottom_text">
-                                <span>Urban Movers</span>
-                                <span>Workspace</span>
+                                <span>{companyName}</span>
+
                             </div>
                         </div>
                     </div>
@@ -265,12 +371,15 @@ const SideBar = () => {
                         ))}
 
                         <div className="side_bar_bottom">
-                            <div>
-                                <img src="/images/sidebar-icon.svg" alt="icon" />
-                            </div>
+                            <div
+                                className="company-image"
+                                style={{
+                                    backgroundImage: companyImage ? `url(${companyImage})` : "none",
+                                }}
+                            ></div>
                             <div className="side_bar_bottom_text">
-                                <span>Urban Movers</span>
-                                <span>Workspace</span>
+                                <span>{companyName}</span>
+                                {/* <span>Workspace</span> */}
                             </div>
                         </div>
                     </div>

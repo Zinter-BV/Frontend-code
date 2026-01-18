@@ -171,9 +171,10 @@ const SideBarAdmin = () => {
                     <div onClick={toggleSidebar}>
                         <img src={hamburgerBtn} alt="" />
                     </div>
-                    <div >
+                    <div>
                         <span>{location.pathname === '/overview' ? 'Overview' : 'Upcoming'}</span>
                     </div>
+                   
                       {/* {navItems.map(({ path, icon, activeIcon, label }) => (
                             <Link key={path} to={path}>
                                 <div className={`side_bar_child_mobile ${location.pathname === path ? "side_bar_child_active" : ""}`}>

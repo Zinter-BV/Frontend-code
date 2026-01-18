@@ -119,7 +119,7 @@ const InComing = ({onClose}) => {
                                         {/* <img src={arrowDown} alt="" /> */}
                                     </div>
                                 </th>
-                                <th>
+                                <th className="progress_bar_mobile">
                                     <div>
                                         <span>Progress</span>
                                         <img src="/images/arrow-down-02.svg" alt="" />
@@ -216,7 +216,7 @@ const InComing = ({onClose}) => {
                                             <span>New Request</span>
                                         </div>
                                     </td>
-                                    <td>
+                                    <td className="progress_bar_mobile">
                                         <div className="progress_bar_new">
                                             <div className="progress_bar_moving_new"></div>
                                         </div>

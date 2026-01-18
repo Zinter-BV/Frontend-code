@@ -1,0 +1,33 @@
+.lang-switcher {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.lang-option {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: #f3f3f3;
+    border: 1px solid transparent;
+    transition: 0.2s ease;
+}
+
+.lang-option img {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+}
+
+.lang-option.active {
+    border-color: #0052ff;
+    background: white;
+    font-weight: bold;
+}
+
+.lang-option:hover {
+    background: #e7e7e7;
+}

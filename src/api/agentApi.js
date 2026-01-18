@@ -17,12 +17,25 @@ export const registerAgent = async ({ email, kvkNumber, companyName, password, i
     return response.data
 }
 
-export const loginAgent = async ({user, password}) => {
-    const response = await api.post(`Auth/LoginUser`, {
-        user, password
-    })
-    return response.data
-}
+// export const loginAgent = async ({user, password}) => {
+//     const response = await api.post(`Auth/LoginUser`, {
+//         user, password
+//     })
+//     return response.data
+// }
+
+export const loginAgent = async ({ user, password }) => {
+    // check screen width
+    const channel = window.innerWidth <= 1000 ? 2 : 1;
+
+    const response = await api.post(`Auth/LoginUser?channel=${channel}`, {
+        user,
+        password,
+    });
+
+    return response.data;
+};
+
 
 export const getVerificationAgent = async ({ email, password }) => {
     const response = await api.post(`Agent/GetVerificationCode`, {
@@ -34,5 +47,10 @@ export const getVerificationAgent = async ({ email, password }) => {
 export const moversDashboardAnalytics = async () => {
     const response = await api.get(`Agent/DashBoardAnalytics`)
 
+    return response.data
+}
+
+export const verifyCode = async (email, code) => {
+    const response = await api.get(`Agent/VerifyCode?email=${email}&code=${code}`)
     return response.data
 }

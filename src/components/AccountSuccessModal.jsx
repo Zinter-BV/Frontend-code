@@ -8,7 +8,8 @@ const AccountSuccessMessage = () => {
     const navigate = useNavigate();
 
     const handleContinue = () => {
-        navigate('/vendor-login')
+        navigate("/overview")
+        // navigate('/vendor-login')
     }
     return (
         <div className="success_modal_background">
@@ -23,7 +24,7 @@ const AccountSuccessMessage = () => {
                     </div>
                 </div>
                 <div className="border-btn">
-                    <button onClick={handleContinue}>PROCEED TO LOGIN</button>
+                    <button onClick={handleContinue}>PROCEED TO DASHBOARD</button>
                 </div>
             </div>
         </div>

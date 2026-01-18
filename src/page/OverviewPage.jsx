@@ -106,7 +106,7 @@ const OverviewPage = () => {
                         <div className="map_revenue">
                             <div className="revenue_container">
                                 <div>
-                                    {/* <img src={revenueIcon} alt="" /> */}
+
                                     <img src="/images/dashboard-revenue-logo.svg" alt="" />
                                 </div>
                                 <div className="revenue_text">
@@ -121,15 +121,15 @@ const OverviewPage = () => {
                         </div>
                         <div className="map_btn">
                             <button>
-                                {/* <img src={addServiceIcon} alt="" /> */}
+
                                 <span>Add Your Services</span>
                             </button>
                             <button>
-                                {/* <img src={configureIcon} alt="" /> */}
+
                                 <span>Configure Pricing</span>
                             </button>
                             <button>
-                                {/* <img src={settingsIcon} alt="" /> */}
+
                                 <span>Account Settings</span>
                             </button>
                         </div>
@@ -138,13 +138,13 @@ const OverviewPage = () => {
                 <div className="calendar_container">
                     <div className="first_step">
                         <div className="first_step_arrow">
-                            {/* <img src={movingForwardIcon} alt="" /> */}
+
                             <img src="/images/Grade Icon.svg" alt="" />
-                            {/* <span>--------------</span> */}
+
                         </div>
                         <div className="approved_number_text_container">
                             <div className="approved_icon">
-                                {/* <img src={approvedRequestIcon} alt="" /> */}
+
                                 <img src="/images/approved-request-icon.svg" alt="" />
                             </div>
                             <div className="approved_number_text">
@@ -156,12 +156,11 @@ const OverviewPage = () => {
                     <div className="first_step">
                         <div className="first_step_arrow">
                             <img src="/images/Grade Icon.svg" alt="" />
-                            {/* <img src={movingForwardIcon} alt="" /> */}
-                            {/* <span>-----------</span> */}
+
                         </div>
                         <div className="approved_number_text_container">
                             <div className="approved_icon">
-                                {/* <img src={paymentMadeIcon} alt="" /> */}
+
                                 <img src="/images/payment-made-icon.svg" alt="" />
                             </div>
                             <div className="approved_number_text">
@@ -176,7 +175,7 @@ const OverviewPage = () => {
                         </div>
                         <div className="approved_number_text_container">
                             <div className="approved_icon">
-                                {/* <img src={upcomingIcon} alt="" /> */}
+
                                 <img src="upcoming-event-icon.svg" alt="" />
                             </div>
                             <div className="approved_number_text">
@@ -188,12 +187,11 @@ const OverviewPage = () => {
                     <div className="first_step">
                         <div className="first_step_arrow">
                             <img src="/images/Grade Icon.svg" alt="" />
-                            {/* <img src={movingForwardIcon} alt="" /> */}
-                            {/* <span>---------</span> */}
+
                         </div>
                         <div className="approved_number_text_container">
                             <div className="approved_icon">
-                                {/* <img src={inTransit} alt="" /> */}
+
                                 <img src="/images/in-transit-icon.svg" alt="" />
                             </div>
                             <div className="approved_number_text">
@@ -204,13 +202,13 @@ const OverviewPage = () => {
                     </div>
                     <div className="first_step">
                         <div className="first_step_arrow">
-                            {/* <img src={completedSignal} alt="" /> */}
+
                             <img src="/images/completed-signal.svg" alt="" />
 
                         </div>
                         <div className="approved_number_text_container">
                             <div className="approved_icon">
-                                {/* <img src={completedIcon} alt="" /> */}
+
                                 <img src="/images/completed-icon.svg" alt="" />
                             </div>
                             <div className="approved_number_text">
@@ -221,13 +219,13 @@ const OverviewPage = () => {
                     </div>
                     <div className="first_step">
                         <div className="first_step_arrow">
-                            {/* <img src={cancelledSignal} alt="" /> */}
+
                             <img src="/images/cancelled-signal.svg" alt="" />
                         </div>
                         <div className="approved_number_text_container">
                             <div className="approved_icon"  >
                                 <img src="/images/cancelled-icon.svg" alt="" />
-                                {/* <img src={cancalledIcon} alt="" /> */}
+
                             </div>
                             <div className="approved_number_text">
                                 <span>Cancelled Moves</span>
@@ -268,46 +266,14 @@ const OverviewPage = () => {
                                     </th>
                                     <th>
                                         <div className="view_more_thead">
-                                        
+
                                         </div>
                                     </th>
 
                                 </tr>
                             </thead>
                             <tbody>
-                                {moveRequests.map((request, index) => (
-                                    <tr key={index}>
-                                        <td>
-                                            <div className="name_td td">
-                                                <div><img src={avatar} alt="user-initials" /></div>
-                                                <div className="name_text">
-                                                    <span>{request.name}</span>
-                                                    <span>{request.email}</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div className="move_summary td">
-                                                <span>3 Bedroom House</span>
-                                                <span>Amsterdam (Damrack - Hilversum)</span>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div className="status td">
-                                                <span><img src={dot} alt="" /></span>
-                                                <span>{request.status}</span>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div className="progress_bar_new">
-                                                <div className="progress_bar_moving_new"></div>
-                                            </div>
-                                        </td>
-                                        <td className="view">
-                                            <img src={viewMore} alt="view more" />
-                                        </td>
-                                    </tr>
-                                ))}
+
 
                             </tbody>
                         </table> */}
@@ -315,6 +281,7 @@ const OverviewPage = () => {
                     </div>
                 </div>
             </div>
+
             {showIncomingModal && (
                 <div className="blur_background">
                     <InComing onClose={() => setShowIncomingModal(false)} />
@@ -327,3 +294,5 @@ const OverviewPage = () => {
 }
 
 export default OverviewPage
+
+

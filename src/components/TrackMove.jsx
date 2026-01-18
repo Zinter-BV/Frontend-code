@@ -53,7 +53,7 @@ const TrackMove = () => {
     );
   }
 
-  console.log(data.result, "tracking data");
+  // console.log(data.result, "tracking data");
 
   const fromPickupLongitude =
     data?.result?.fromLongitude || moversData?.moveDetails?.pickUpLongitude;
@@ -63,6 +63,13 @@ const TrackMove = () => {
     data?.result?.toLongitude || moversData?.moveDetails?.dropOffLongitude;
   const toDropOffLatitude =
     data?.result?.toLatitude || moversData?.moveDetails?.dropOffLatitude;
+
+  // SAVE TO SESSION STORAGE
+  sessionStorage.setItem("fromPickupLongitude", fromPickupLongitude);
+  sessionStorage.setItem("fromPickupLatitude", fromPickupLatitude);
+  sessionStorage.setItem("toDropOffLongitude", toDropOffLongitude);
+  sessionStorage.setItem("toDropOffLatitude", toDropOffLatitude);
+
 
   // Get status flags from API
   const hasArrived = data?.result?.hasArrived || false;
@@ -133,9 +140,8 @@ const TrackMove = () => {
               {/* Payment Made */}
               <div className="flex gap-[10px] mb-[30px] relative items-center">
                 <div
-                  className={`absolute h-[80px] w-[2px] left-2 top-11 rounded-[1px] ${
-                    isStepActive("pickup") ? "bg-[#136AB5]" : "bg-[#b8b8b8]"
-                  }`}
+                  className={`absolute h-[80px] w-[2px] left-2 top-11 rounded-[1px] ${isStepActive("pickup") ? "bg-[#136AB5]" : "bg-[#b8b8b8]"
+                    }`}
                 ></div>
 
                 <svg
@@ -188,9 +194,8 @@ const TrackMove = () => {
               {/* Pickup Start */}
               <div className="flex gap-[10px] mb-[30px] relative items-center">
                 <div
-                  className={`absolute h-[80px] w-[2px] left-2 top-11 rounded-[1px] ${
-                    isStepActive("transit") ? "bg-[#136AB5]" : "bg-[#b8b8b8]"
-                  }`}
+                  className={`absolute h-[80px] w-[2px] left-2 top-11 rounded-[1px] ${isStepActive("transit") ? "bg-[#136AB5]" : "bg-[#b8b8b8]"
+                    }`}
                 ></div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -266,9 +271,8 @@ const TrackMove = () => {
               {/* In Transit */}
               <div className="flex gap-[10px] mb-[30px] relative items-center">
                 <div
-                  className={`absolute h-[80px] w-[2px] left-2 top-11 rounded-[1px] ${
-                    isStepActive("unload") ? "bg-[#136AB5]" : "bg-[#b8b8b8]"
-                  }`}
+                  className={`absolute h-[80px] w-[2px] left-2 top-11 rounded-[1px] ${isStepActive("unload") ? "bg-[#136AB5]" : "bg-[#b8b8b8]"
+                    }`}
                 ></div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

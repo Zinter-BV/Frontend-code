@@ -13,10 +13,14 @@ import { useNavigate } from "react-router-dom";
 import { getVerificationAgent } from "../api/agentApi";
 import Loader from "../components/loader";
 
+import { verifyCode } from "../api/agentApi"
+import Toast from "../components/toast";
+
 const SecondStepCompanies = () => {
 
     const navigate = useNavigate()
     const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false)
     const [password, setPassword] = useState("");
     const [passwordErr, setPasswordErr] = useState("")
     const [shouldFetch, setShouldFetch] = useState(false);
@@ -24,6 +28,7 @@ const SecondStepCompanies = () => {
     const [showVerifyEmail, setShowVerifyEmail] = useState(false)
     const [showSucessModal, setSuccessModal] = useState(false)
     const [showErrMsg, setShowErrMsg] = useState(false)
+    const [toast, setToast] = useState(null);
     const { data, isLoading, error, refetch } = useQuery({
         queryKey: ["get-verification", email, password],
         queryFn: () => getVerificationAgent({ email, password }),
@@ -53,7 +58,10 @@ const SecondStepCompanies = () => {
             } else {
                 console.log(data);
                 setShowVerifyEmail(true);
-
+                setToast({
+                    message: "A verification token has been sent to your email",
+                    type: "success"
+                })
                 setShouldFetch(false)
             }
         }
@@ -69,7 +77,7 @@ const SecondStepCompanies = () => {
 
 
     const handleContinue = () => {
-        // debugger
+
         if (!email.includes('@')) {
             setShowErrMsg(true)
             setPasswordErr('Input a valid email address')
@@ -91,20 +99,75 @@ const SecondStepCompanies = () => {
 
         if (email && password) {
             refetch();
+            setShowVerifyEmail(true);
         }
 
-        // setShowVerifyEmail(true)
+
     }
 
-    const handleBtnInOtherPage = () => {
-        setSuccessModal(true)
-        sessionStorage.setItem('email', email)
-        sessionStorage.setItem('password', password)
-        setShowVerifyEmail(false)
+    // const handleBtnInOtherPage = () => {
+    //     setSuccessModal(true)
+    //     sessionStorage.setItem('email', email)
+    //     sessionStorage.setItem('password', password)
+    //     setShowVerifyEmail(false)
+    // }
+
+    const handleBtnInOtherPage = async (code) => {
+        try {
+            debugger
+            setLoading(true)
+            const response = await verifyCode(email, code)
+            console.log(response)
+            if (response.result) {
+                setSuccessModal(true)
+                setShowVerifyEmail(false)
+                sessionStorage.setItem('email', email)
+                sessionStorage.setItem('password', password)
+
+            } else {
+                setToast({
+                    message: 'Invalid token',
+                    type: "error"
+                })
+                return
+            }
+
+        } catch (e) {
+            console.log(e)
+        } finally {
+            setLoading(false)
+            
+        }
     }
 
     const closeModal = () => {
         setShowVerifyEmail(false)
+    }
+
+    const resendToken = async () => {
+
+        try {
+            if (email && password) {
+                setLoading(true)
+                const response = await getVerificationAgent({ email, password })
+                setLoading(false)
+                if (response.responseStatus) {
+                    setToast({
+                        message: "A new verification token has been sent to your email",
+                        type: "success"
+                    })
+                } else {
+                    setToast({
+                        message: "An error occurred!",
+                        type: "error"
+                    })
+                }
+            } else {
+                return
+            }
+        } catch (e) {
+            console.log(e)
+        }
     }
     return (
         <div className="container_firstStep">
@@ -180,14 +243,24 @@ const SecondStepCompanies = () => {
 
             {showVerifyEmail &&
                 <div className="verify_component" >
-                    <VerifyTokenModal handleSubmit={handleBtnInOtherPage} closeModal={closeModal} />
+                    <VerifyTokenModal handleSubmit={handleBtnInOtherPage} closeModal={closeModal} resendToken={resendToken} />
                 </div>}
             {showSucessModal &&
                 <div className="verify_component">
                     <SuccessMessage />
                 </div>}
+            {loading && <Loader />}
 
-                {isLoading && <Loader />}
+            {isLoading && <Loader />}
+            {toast && (
+                <Toast
+                    className="toast-container"
+                    message={toast.message}
+                    type={toast.type}
+                    duration={5000}
+                    onClose={() => setToast(null)}
+                />
+            )}
         </div>
     )
 }

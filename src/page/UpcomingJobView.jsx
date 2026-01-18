@@ -43,6 +43,8 @@ import { endMove, logArrival } from '../api/tracking';
 import { startMove } from '../api/tracking';
 import Toast from '../components/toast';
 import { trackMove } from '../api/moveDetails';
+// import LocationMap from "./LocationMap";
+import LocationMap from '../components/LocationMap';
 
 
 
@@ -73,6 +75,10 @@ const UpcomingJobView = () => {
     const [moveDetailsArray, setMoveDetailsArray] = useState([])
     const [itemsArray, setItemsArray] = useState([])
     const [toast, setToast] = useState(null)
+    const pickupLng = Number(sessionStorage.getItem("fromPickupLongitude"));
+    const pickupLat = Number(sessionStorage.getItem("fromPickupLatitude"));
+    const dropLng = Number(sessionStorage.getItem("toDropOffLongitude"));
+    const dropLat = Number(sessionStorage.getItem("toDropOffLatitude"));
 
     const [loading, setLoader] = useState(false)
     const { data, isLoading, error } = useQuery({
@@ -325,7 +331,13 @@ const UpcomingJobView = () => {
                             </div>
                         </div>}
                         {showMoveDetails && <div className="map_job_details">
-                            <MovementMap />
+                            {/* <MovementMap /> */}
+                            <LocationMap
+                                fromPickupLongitude={pickupLng}
+                                fromPickupLatitude={pickupLat}
+                                toDropOffLongitude={dropLng}
+                                toDropOffLatitude={dropLat}
+                            />
                         </div>}
                         {showMoveDetails && <div className="more_jobs_details">
                             <div className="first_tab_job">
@@ -846,7 +858,7 @@ const UpcomingJobView = () => {
                                 <input
                                     type="checkbox"
                                     checked={currentStep >= 3}
-                                   
+
                                 />
                                 <span className={currentStep !== 4 ? "disabled-text" : ""}>
                                     <strong>End Move</strong> using customer tracking code
@@ -855,7 +867,7 @@ const UpcomingJobView = () => {
                             <div className="body_checklist_input">
                                 <input
                                     type="text"
-                                   
+
                                     onChange={(e) => setEndMoveValue(e.target.value)}
                                     placeholder="-----"
                                     value={endMoveValue}
@@ -863,7 +875,7 @@ const UpcomingJobView = () => {
                                 <button
                                     className="end_move_btn"
                                     onClick={openMoveSuccess}
-                                   
+
                                 >
                                     End move
                                 </button>
