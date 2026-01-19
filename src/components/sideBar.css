@@ -154,7 +154,7 @@
 
 .input_user_first {
     display: flex;
-    gap: 3px;
+    gap: 4px;
     align-items: center;
     background-color: #10B981;
     border: 1px solid #10B981;
