@@ -2,7 +2,7 @@ import React, { useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 
-const RoomItemContainer = ({ activeIcon, openIsInventoryList }) => {
+const RoomItemContainer = ({ activeIcon, onClick }) => {
   const [isOpenDropDown, setIsOpenDropDown] = useState(false);
   const openDropDown = () => setIsOpenDropDown((prev) => !prev);
 
@@ -257,14 +257,14 @@ const RoomItemContainer = ({ activeIcon, openIsInventoryList }) => {
         <div className="flex items-center">
           <div>
             <p
-              onClick={openIsInventoryList}
+              onClick={onClick}
               className="text-[#b8b8b8] mr-2 cursor-pointer addItemsText hover:text-[#3C82F6] font-sans text-[14px] font-bold "
             >
               {" "}
               {t("roomItemContainer.add")}
             </p>
             <button
-              onClick={openIsInventoryList}
+              onClick={onClick}
               className="h-[28px] mr-2 w-[28px] rounded-full addNewItemBtn hidden self-center justify-center items-center border-[1px] border-[#b8b8b8] cursor-pointer text-[14px]"
             >
               <svg

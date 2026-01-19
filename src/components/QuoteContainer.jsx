@@ -97,26 +97,26 @@ const QuoteContainer = ({ data }) => {
 
   const [moveSize, setMoveSize] = useState("");
 
-  console.log("Current state:", {
-    fromLocation,
-    toLocation,
-    fromPickupLatitude,
-    fromPickupLongitude,
-    toDropOffLatitude,
-    toDropOffLongitude,
-    provinceId,
-  });
+  // console.log("Current state:", {
+  //   fromLocation,
+  //   toLocation,
+  //   fromPickupLatitude,
+  //   fromPickupLongitude,
+  //   toDropOffLatitude,
+  //   toDropOffLongitude,
+  //   provinceId,
+  // });
 
   // Sync location state when user data changes
   useEffect(() => {
     if (user?.userMoveInfo) {
-      console.log("Syncing from user data:", user.userMoveInfo);
-      setFromLocation(user.userMoveInfo.pickUpAddress || "");
-      setToLocation(user.userMoveInfo.dropOffAddress || "");
-      setFromPickupLongitude(user.userMoveInfo.pickUpLongitude || "");
-      setFromPickupLatitude(user.userMoveInfo.pickUpLatitude || "");
-      setToDropOffLongitude(user.userMoveInfo.dropOffLongitude || "");
-      setToDropOffLatitude(user.userMoveInfo.dropOffLatitude || "");
+      // console.log("Syncing from user data:", user.userMoveInfo);
+      setFromLocation(user?.userMoveInfo?.pickUpAddress || "");
+      setToLocation(user?.userMoveInfo?.dropOffAddress || "");
+      setFromPickupLongitude(user?.userMoveInfo?.pickUpLongitude || "");
+      setFromPickupLatitude(user?.userMoveInfo?.pickUpLatitude || "");
+      setToDropOffLongitude(user?.userMoveInfo?.dropOffLongitude || "");
+      setToDropOffLatitude(user?.userMoveInfo?.dropOffLatitude || "");
     }
   }, [user?.userMoveInfo]);
 
@@ -420,16 +420,16 @@ const QuoteContainer = ({ data }) => {
 
   // Function to handle moving forward in tabs
   const handleTabs = () => {
-    console.log("Current state when continuing:", {
-      moveSize,
-      provinceId,
-      toLocation,
-      fromLocation,
-      fromPickupLatitude,
-      fromPickupLongitude,
-      toDropOffLatitude,
-      toDropOffLongitude,
-    });
+    // console.log("Current state when continuing:", {
+    //   moveSize,
+    //   provinceId,
+    //   toLocation,
+    //   fromLocation,
+    //   fromPickupLatitude,
+    //   fromPickupLongitude,
+    //   toDropOffLatitude,
+    //   toDropOffLongitude,
+    // });
 
     if (!moveSize) {
       setErrMessage("Please Enter House Size");
@@ -442,6 +442,9 @@ const QuoteContainer = ({ data }) => {
       return;
     } else if (!fromLocation) {
       setErrMessage("Please enter a valid address");
+      return;
+    } else if (fromLocation === toLocation) {
+      setErrMessage("Start Address can not be the same as End address");
       return;
     }
 

@@ -1,8 +1,8 @@
-import React from "react";
 import img from "../Assets/Rectangle 4562.svg";
 import { useDispatch } from "react-redux";
 import { setMoversData } from "../redux/action";
 import { useTranslation } from "react-i18next";
+import { stripPTags } from "../utils";
 
 const MoversCard = ({ makeActive, quoteData }) => {
   const dispatch = useDispatch();
@@ -12,6 +12,10 @@ const MoversCard = ({ makeActive, quoteData }) => {
   };
 
   const { t } = useTranslation();
+
+  // Get the stripped text
+  const additionalInfo = stripPTags(quoteData?.additionalInformation);
+  const shouldShowLoremText = (additionalInfo?.length || 0) > 50;
 
   return (
     <div
@@ -33,8 +37,8 @@ const MoversCard = ({ makeActive, quoteData }) => {
         </svg>
         <p className="ml-1 self-center text-[16px] font-sora ">4.3</p>
       </div>
-      <img src={img} alt="user" className="w-full  " />
-      {/* <img src={img || quoteData?.image} alt="user" className="w-full  " /> */}
+      {/* <img src={img} alt="user" className="w-full  " /> */}
+      <img src={img || quoteData?.image} alt="user" className="w-full  " />
       <div className="border-b-[1px] pb-[20px] border-[#e3e3e3]">
         <div className="w-[90%] mx-auto ">
           <div className="flex items-center mt-2 justify-between">
@@ -61,10 +65,17 @@ const MoversCard = ({ makeActive, quoteData }) => {
             €{quoteData?.amount}
           </p>
 
-          <p className="text-[#9e9e9e] cardCompanyFeatures font-normal text-[16px] leading-[25.6px] font-sans  ">
-            Pickup & delivery included
-          </p>
+          {!shouldShowLoremText && (
+            <p className="text-[#9e9e9e] cardCompanyFeatures font-normal text-[16px] leading-[25.6px] font-sans  ">
+              {additionalInfo}
+            </p>
+          )}
         </div>
+        {shouldShowLoremText && (
+          <p className="text-[#9e9e9e] cardCompanyFeatures font-normal text-[16px] leading-[25.6px] font-sans  ">
+            {additionalInfo}
+          </p>
+        )}
       </div>
     </div>
   );

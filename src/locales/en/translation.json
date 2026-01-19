@@ -2,7 +2,8 @@
   "navigation": {
     "home": "Home",
     "about": "About Us",
-    "faqs": "FAQs"
+    "faqs": "FAQs",
+    "assistance": "Need more assistance"
   },
   "hero": {
     "getStarted": "GET STARTED",
@@ -19,7 +20,7 @@
     "sellingPoint": "SELLING POINT",
     "eliteTitle": "Elite Movers. Fully Vetted. Always Reliable.",
     "eliteDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
-    "seamlessBooking": "Seamless and easy booking process",
+    "seamlessBooking": "easy booking process",
     "trustedNetwork": "Trusted network of moving companies",
     "expertGuidance": "Expert guidance and swift support anytime",
     "getStartedBtn": "Get Started"
@@ -27,7 +28,7 @@
   "process": {
     "title": "Your Move, in 60 Seconds.",
     "step1Title": "Submit your move details",
-    "step1Description": "Fill in our quick form with your move's start and end locations, and size of your move",
+    "step1Description": "Fill in our quick form with your move's start and end locations and size of your move",
     "step2Title": "Snap your space",
     "step2Description": "Take a few quick photos of the rooms or items you're moving.",
     "step3Title": "Get real-time quotes",
@@ -289,6 +290,9 @@
   "floors1":"Number of floors",
   "longCarry1":"Long Carry",
   "elevator1":"Elevator?",
+  "dropOffDetails":"Drop-off Details",
+  "termsCondition": "Accept terms and condition",
+  "receive": "Receive Promotions and moving tips",
   "yes":"Yes",
   "no":"No",
   "insurance1": "Do you need moving insurance?",
@@ -372,6 +376,21 @@
     "belongings": "Belongings securely loaded; transit begins immediately.",
     "unload": "Unloading Move",
     "moverUnload": "Mover unloads inventory at delivery location."
+  },
+  "movingSize": {
+    "movingSize": "Moving Size",
+    "house": "House",
+    "apartment": "Apartment",
+    "storage": "Storage",
+    "fewItems": "Few Items",
+   "onebedroom": "1 bedroom",
+   "twobedroom": "2 bedrooms",
+    "threebedroom": "3 bedrooms",
+    "fourbedroom": "4 bedrooms",
+    "fivebedroom": "5 bedrooms",
+    "sixbedroom": "6 bedrooms",
+    "studio": "Studio",
+    "small": "Small"
   }
 
 

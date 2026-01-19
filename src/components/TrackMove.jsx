@@ -98,7 +98,7 @@ const TrackMove = () => {
         <h3 className="mb-3 font-sans text-[20px] font-bold text-[#121212] ">
           {t("trackMove.title")}
         </h3>
-        <p>{code.result}</p>
+
         <div className="flex moversTrackInfoContainer items-center mb-4 bg-[#F0F9FD] w-fit rounded-[12px] p-[20px]  ">
           <div className="flex justify-center border-[1px] border-black items-center w-[24px] h-[24px] min-w-[24px] min-h-[24px] rounded-full mr-2">
             <svg

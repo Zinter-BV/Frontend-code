@@ -48,7 +48,7 @@ const OurVision = () => {
             onClick={() => navigate("/quote")}
             className="get_started_btn"
           >
-            GET STARTED
+            {t("features.getStartedBtn")}
           </button>
         </div>
       </div>

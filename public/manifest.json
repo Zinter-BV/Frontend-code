@@ -8,12 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "Zinter Logo.png",
+      "src": "zinter-logo.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "Zinter Logo.png",
+      "src": "zinter-logo.png",
       "type": "image/png",
       "sizes": "512x512"
     }
@@ -22,5 +22,6 @@
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
-}
 
+
+}

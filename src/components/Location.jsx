@@ -6,6 +6,8 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchProvince } from "../api/agentApi";
 import MoveSize from "../Assets/SVG/MoveSize";
 import DownIcon from "../Assets/SVG/DownIcon";
+import { useDispatch } from "react-redux";
+import { setUserItems } from "../redux/action";
 
 // Define libraries outside component to prevent reloading
 const LIBRARIES = ["places"];
@@ -336,6 +338,7 @@ const Location = ({
     const value = e.target.value;
     console.log("Setting from location to:", value);
     setFromLocation(value);
+    setErrMessage("");
 
     // Clear error when user starts typing
     if (value.trim() !== "") {
@@ -365,7 +368,7 @@ const Location = ({
     const value = e.target.value;
     console.log("Setting to location to:", value);
     setToLocation(value);
-
+    setErrMessage("");
     if (value.length >= 3 && isLoaded && window.google) {
       const service = new window.google.maps.places.AutocompleteService();
 
@@ -410,6 +413,7 @@ const Location = ({
   const selectFromSuggestion = (prediction) => {
     console.log("Selecting from suggestion:", prediction.description);
     setFromLocation(prediction.description);
+    setErrMessage("");
     setIsEditingFrom(false);
     setShowFromSuggestions(false);
     setFromSuggestions([]);
@@ -484,6 +488,7 @@ const Location = ({
   const selectToSuggestion = (prediction) => {
     console.log("Selecting to suggestion:", prediction.description);
     setToLocation(prediction.description);
+    setErrMessage("");
     setIsEditingTo(false);
     setShowToSuggestions(false);
     setToSuggestions([]);
@@ -517,24 +522,24 @@ const Location = ({
   const inputRef = useRef(null);
   const [showSizeModal, setShowSizeModal] = useState(false);
   const houses = [
-    { text: "Few Items", desc: '(10" Truck)' },
-    { text: "1 Bedrooom", desc: '(17" Truck)' },
-    { text: "2 Bedrooms", desc: '(20" Truck)' },
-    { text: "3 Bedrooms", desc: '(26" Truck)' },
-    { text: "4 Bedrooms", desc: '(28" Truck)' },
-    { text: "5 Bedrooms", desc: '(32" Truck)' },
-    { text: "6 Bedrooms", desc: '(36" Truck)' },
+    { text: t("movingSize.fewItems"), desc: '(10" Truck)' },
+    { text: t("movingSize.onebedroom"), desc: '(17" Truck)' },
+    { text: t("movingSize.twobedroom"), desc: '(20" Truck)' },
+    { text: t("movingSize.threebedroom"), desc: '(26" Truck)' },
+    { text: t("movingSize.fourbedroom"), desc: '(28" Truck)' },
+    { text: t("movingSize.fivebedroom"), desc: '(32" Truck)' },
+    { text: t("movingSize.sixbedroom"), desc: '(36" Truck)' },
   ];
 
   const apartments = [
-    { text: "Few Items", desc: '(10" Truck)' },
-    { text: "Studio", desc: '(15" Truck)' },
-    { text: "1 Bedrooom", desc: '(17" Truck)' },
-    { text: "2 Bedrooms", desc: '(20" Truck)' },
-    { text: "3 Bedrooms", desc: '(26" Truck)' },
-    { text: "4 Bedrooms", desc: '(28" Truck)' },
-    { text: "5 Bedrooms", desc: '(32" Truck)' },
-    { text: "6 Bedrooms", desc: '(36" Truck)' },
+    { text: t("movingSize.fewItems"), desc: '(10" Truck)' },
+    { text: t("movingSize.studio"), desc: '(15" Truck)' },
+    { text: t("movingSize.onebedroom"), desc: '(17" Truck)' },
+    { text: t("movingSize.twobedroom"), desc: '(20" Truck)' },
+    { text: t("movingSize.threebedroom"), desc: '(26" Truck)' },
+    { text: t("movingSize.fourbedroom"), desc: '(28" Truck)' },
+    { text: t("movingSize.fivebedroom"), desc: '(32" Truck)' },
+    { text: t("movingSize.sixbedroom"), desc: '(36" Truck)' },
   ];
 
   const storages = [
@@ -547,6 +552,9 @@ const Location = ({
   ];
 
   const [activeMoveSizeTab, setActiveMoveSizeTab] = useState("house");
+  const dispatch = useDispatch();
+
+ 
 
   const renderTabContent = () => {
     switch (activeMoveSizeTab) {
@@ -557,10 +565,13 @@ const Location = ({
               <div
                 key={`house-${index}`}
                 className="p-3 flex items-center border-b border-[#E3E2E0] hover:bg-gray-100 cursor-pointer"
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   setMoveSize(house.text);
-                  setShowSizeModal(false);
                   setErrMessage("");
+                  setShowSizeModal(false);
+                  inputRef.current?.blur();
+                  // dispatch(setUserItems([]));
                 }}
               >
                 <p className="font-sans text-[16px] leading-[25.6px] text-[#373737]">
@@ -580,9 +591,13 @@ const Location = ({
               <div
                 key={`apartment-${index}`}
                 className="p-3 flex items-center border-b border-[#E3E2E0] hover:bg-gray-100 cursor-pointer"
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   setMoveSize(apartment.text);
+                  setErrMessage("");
                   setShowSizeModal(false);
+                  inputRef.current?.blur();
+                  // dispatch(setUserItems([]));
                 }}
               >
                 <p className="font-sans text-[16px] leading-[25.6px] text-[#373737]">
@@ -602,9 +617,13 @@ const Location = ({
               <div
                 key={`storage-${index}`}
                 className="p-3 flex items-center border-b border-[#E3E2E0] hover:bg-gray-100 cursor-pointer"
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   setMoveSize(store);
+                  setErrMessage("");
                   setShowSizeModal(false);
+                  inputRef.current?.blur();
+                  // dispatch(setUserItems([]));
                 }}
               >
                 <p className="font-sans text-[16px] leading-[25.6px] text-[#373737]">
@@ -820,7 +839,10 @@ const Location = ({
                   ))}
                 </div>
               )}
-              <div className="moveDetailsBtnBox mt-[16px] relative flex justify-between border-r-2 border-[#E3E2E0] p-3 items-center w-full h-[68px] rounded-[8px] border-[1px] px-[16px]">
+              <div
+                onClick={() => setShowSizeModal(true)}
+                className="moveDetailsBtnBox mt-[16px] relative flex justify-between border-r-2 border-[#E3E2E0] p-3 items-center w-full h-[68px] rounded-[8px] border-[1px] px-[16px]"
+              >
                 <div className="flex w-[90%] items-center">
                   <div className="mr-[8px]">
                     <MoveSize />
@@ -829,12 +851,12 @@ const Location = ({
                     ref={inputRef}
                     value={moveSize}
                     onFocus={() => setShowSizeModal(true)}
-                    placeholder="Moving Size"
+                    placeholder={t("movingSize.movingSize")}
                     className="font-sans w-full font-light text-[#707070] leading-[25.6px] border-none outline-none"
                     readOnly
                   />
                 </div>
-                <button onClick={() => setShowSizeModal(true)}>
+                <button>
                   <DownIcon />
                 </button>
                 {showSizeModal && (
@@ -877,7 +899,7 @@ const Location = ({
                               : "text-[#9e9e9e]"
                           } ml-2 font-sans text-[14px]`}
                         >
-                          House
+                          {t("movingSize.house")}
                         </span>
                       </button>
 
@@ -915,7 +937,7 @@ const Location = ({
                               : "text-[#9e9e9e]"
                           } ml-2 font-sans text-[14px]`}
                         >
-                          Apartment
+                          {t("movingSize.apartment")}
                         </span>
                       </button>
 
@@ -950,7 +972,7 @@ const Location = ({
                               : "text-[#9e9e9e]"
                           } ml-2 font-sans text-[14px]`}
                         >
-                          Storage
+                          {t("movingSize.storage")}
                         </span>
                       </button>
                     </div>

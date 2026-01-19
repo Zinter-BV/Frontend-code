@@ -47,7 +47,7 @@ const EnterTrackCode = () => {
       }
       setErr("");
       // Navigate with the API response data
-      navigate("/movers", { state: { data: data } });
+      navigate(`/movers/${otp.join("")}`, { state: { data: data } });
     },
     onError: (error) => {
       console.error("Error tracking move:", error);

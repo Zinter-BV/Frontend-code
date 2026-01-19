@@ -33,9 +33,9 @@ const PaymentSuccess = ({ openModal }) => {
               <p className="text-[#121212] trackMoveSuccessInnerBoxText font-sans text-[18px] font-bold ">
                 {formatDate(moversData?.moveDetails?.moveDate)}
               </p>
-              <p className="text-[#121212] trackMoveSuccessInnerBoxText font-sans text-[18px] font-bold ml-2 ">
+              {/* <p className="text-[#121212] trackMoveSuccessInnerBoxText font-sans text-[18px] font-bold ml-2 ">
                 {convertTo12Hour(moversData?.moveDetails?.moveTime)}
-              </p>
+              </p> */}
             </div>
             <p className="text-[#121212] mt-2 text-center trackMoveSuccessInnerBoxText font-sans text-[18px] font-bold ">
               {moversData?.moveDetails?.from}

@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import img from "../Assets/Rectangle 4562.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { convertTo12Hour, formatDate } from "../utils";
+import { convertTo12Hour, formatDate, stripPTags } from "../utils";
 import { resetMoversInfo } from "../redux/action";
 
 const MovingCompanyDetails = ({ makeInActive }) => {
@@ -13,23 +13,6 @@ const MovingCompanyDetails = ({ makeInActive }) => {
     makeInActive();
   };
 
-  // // Memoized room items and counts calculation
-  // const { roomCounts } = useMemo(() => {
-  //   return mover?.moveDetails?.moveItemsDetails?.reduce(
-  //     (acc, item) => {
-  //       // Count items per room
-  //       acc.roomCounts[item.room] =
-  //         (acc.roomCounts[item.room] || 0) + (item.numberOfCount || 1);
-  //       return acc;
-  //     },
-  //     { roomCounts: {}, roomItems: [] }
-  //   );
-  // }, [mover?.moveDetails?.moveItemsDetails]);
-
-  // // Safe function to get room count
-  // const getRoomCount = (roomName) => {
-  //   return roomCounts[roomName] ?? 0;
-  // };
   // Memoized room items and counts calculation
   const { roomCounts, roomItems, totalItems } = useMemo(() => {
     // Handle both old and new data structures
@@ -174,6 +157,8 @@ const MovingCompanyDetails = ({ makeInActive }) => {
     return fuzzyMatch ? roomCounts[fuzzyMatch] : 0;
   };
 
+  const additionalInfo = stripPTags(mover?.additionalInformation);
+
   return (
     <div className="ml-4 mb-[40px] movingCompanyDetailBox h-fit ">
       <div className="overflow-y-scroll pb-[70px] custom-scroll ">
@@ -308,7 +293,7 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                     <p className="text-[#b8b8b8] ml-2 font-light font-sans text-[16px]">
                       -
                     </p>
-                    <p className="text-[#707070] ml-2 movingContainerFromLocation font-sans text-[16px] leading-[25.6px]">
+                    <p className="text-[#707070] overflow-hidden text-ellipsis whitespace-nowrap movingContainerFromLocation ml-2 font-sans text-[16px] leading-[25.6px] max-w-[300px]">
                       {mover?.moveDetails?.from}
                     </p>
                   </div>
@@ -365,11 +350,12 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                       To
                     </p>
                   </div>
+
                   <div className="flex">
                     <p className="text-[#b8b8b8] ml-2 font-light font-sans text-[16px]">
                       -
                     </p>
-                    <p className="text-[#707070] movingContainerFromLocation ml-2 font-sans text-[16px] leading-[25.6px]">
+                    <p className="text-[#707070] overflow-hidden text-ellipsis whitespace-nowrap movingContainerFromLocation ml-2 font-sans text-[16px] leading-[25.6px] max-w-[300px]">
                       {mover?.moveDetails?.to}
                     </p>
                   </div>
@@ -386,7 +372,7 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                   €{mover?.amount}
                 </p>
                 <p className="text-[16px] leading-[25.6px] font-light text-[#373737] font-sans ">
-                  Pickup & delivery included
+                  {additionalInfo}
                 </p>
               </div>
               <div className="mobileOptionsContainer">
@@ -399,7 +385,7 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                     22 miles away
                   </p>
                   <p className="text-[16px] leading-[25.6px] mobileOptionsContainerOptions font-light text-[#373737] font-sans ">
-                    Pickup & delivery included
+                    {additionalInfo}
                   </p>
                 </div>
               </div>

@@ -1,5 +1,4 @@
-import React from "react";
-import { Link, useLocation, Router, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Home from "./page/Home";
 import GetQuote from "./page/GetQuote";
 import AboutUs from "./page/AboutUs";
@@ -18,8 +17,6 @@ import Overview from "./page/OverviewPage";
 import CalendarPage from "./page/calendarPage";
 import JobsPage from "./page/jobsPage";
 import Payment from "./page/PaymentPage";
-
-import SideBar from "./components/SideBar"; // Import Sidebar
 import ViewNewJobs from "./page/ViewNewJobs";
 import UpcomingJobView from "./page/UpcomingJobView";
 import OverviewPageAdmin from "./page/OverviewPageAdmin";
@@ -48,10 +45,6 @@ const stripePromise = loadStripe(
 function App() {
   return (
     <div className="app-container">
-      {/* <Elements stripe={stripePromise}>
-        <Stripe />
-      </Elements> */}
-      {/* { pathname === '/overview' && <SideBar /> } */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/vendor-login" element={<VendorLogin />} />
@@ -72,7 +65,7 @@ function App() {
         <Route path="/view-summary-role" element={<ViewSummaryRole/>}/>
         <Route path="/view-new-jobs" element={<ViewNewJobs />} />
         <Route path="/upcoming-jobs-view" element={<UpcomingJobView />} />
-        <Route path="/movers" element={<Movers />} />
+        <Route path="/movers/:id" element={<Movers />} />
         <Route path="/track-code" element={<EnterTrackCode />} />
         <Route path="/make-report" element={<MakeAReport />} />
         <Route path="/track-report" element={<TrackReport />} />
@@ -129,9 +122,9 @@ export default App;
 
 // // import StripeComponent from "./StripeComponent";
 
-// const stripePromise = loadStripe(
-//   "pk_test_51O2JovLw5fKJMXx3zvARABxAlQpptJi9aO6gPkcbH9lFFCfJXV8rgAw170q4wt3CHz00uDfGtPqKmvdvPFWQqNMc00c3Dqphpr"
-// );
+// // const stripePromise = loadStripe(
+// //   "pk_test_51O2JovLw5fKJMXx3zvARABxAlQpptJi9aO6gPkcbH9lFFCfJXV8rgAw170q4wt3CHz00uDfGtPqKmvdvPFWQqNMc00c3Dqphpr"
+// // );
 
 // function App() {
 //   return (

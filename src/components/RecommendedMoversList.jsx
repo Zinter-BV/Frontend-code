@@ -9,15 +9,15 @@ const code = JSON.parse(localStorage.getItem("Code")) || null;
 console.log(code);
 
 // API function to fetch quotes
-const fetchQuotes = async () => {
-  const response = await axios.get(
-    `https://involved-birgit-zinter-cb767b47.koyeb.app/api/Quote/GetAllQuotes?code=${code.result}`
-  );
 
-  return response.data;
-};
+const RecommendedMoversList = ({ makeActive, id }) => {
+  const fetchQuotes = async () => {
+    const response = await axios.get(
+      `https://involved-birgit-zinter-cb767b47.koyeb.app/api/Quote/GetAllQuotes?code=${id}`
+    );
 
-const RecommendedMoversList = ({ makeActive }) => {
+    return response.data;
+  };
   const {
     data: quotes,
     isLoading,
