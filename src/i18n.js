@@ -342,6 +342,7 @@ const enTranslations = {
     moveDate: "Move Date",
     contactInfo: "Contact Info",
     fullName: "Full Name",
+    dropOffDetails: "Drop-off Details",
     email: "Email Address",
     phone: "Phone Number",
     pickup: "Pickup Details",
@@ -359,6 +360,8 @@ const enTranslations = {
     shuttle1: "Need Shuttle?",
     needHelp1: "Need help packing your items?",
     to: "To",
+    termsCondition: "Accept terms and condition",
+    receive: "Receive Promotions and moving tips",
   },
   summary: {
     title: "Move Summary",

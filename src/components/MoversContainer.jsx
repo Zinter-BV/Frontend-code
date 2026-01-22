@@ -62,9 +62,8 @@ const MoversContainer = ({ trackingCode }) => {
 
   switch (activeTab) {
     case 1:
-      // content = <Payment />;
       content = <MoversHolder isActive={isActive} setIsActive={setIsActive} />;
-      // content = <TrackMove />;
+
       break;
     case 2:
       content = <Payment />;
@@ -105,7 +104,7 @@ const MoversContainer = ({ trackingCode }) => {
         setErr(false);
         setActiveTab(3);
         localStorage.setItem("Code", JSON.stringify(data));
-        console.log(data);
+        console.log(data, "blahh");
       } else {
         // alert("Not Cool");
         setErr(true);

@@ -19,7 +19,7 @@ const UserReducer = (state = initialState, action) => {
     case actionTypes.SET_USER_ITEMS:
       return {
         ...state,
-        items: [...state.items, ...action.payload],
+        items: action.payload,
       };
     case actionTypes.SET_USER_MORE_INFO:
       return {
