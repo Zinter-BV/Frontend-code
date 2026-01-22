@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import QuoteProgress from "./QuoteProgress";
 import Location from "./Location";
 import PrimaryBtn from "./PrimaryBtn";
 import InventoryList from "./InventoryList";
-import MovingInformation from "./MovingInformation";
 import ViewSummary from "./ViewSummary";
 import QuoteSuccess from "../modal/QuoteSuccess";
 import MobileQuoteProgress from "./MobileQuoteProgress";
