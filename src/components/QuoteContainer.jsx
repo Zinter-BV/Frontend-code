@@ -13,6 +13,7 @@ import {
   resetUserInfo,
   setHouseSize,
   setUserDetails,
+  setUserItems,
   setUserMoreInfo,
 } from "../redux/action";
 import axios from "axios";
@@ -461,6 +462,8 @@ const QuoteContainer = ({ data }) => {
         })
       );
       dispatch(setHouseSize(moveSize));
+      dispatch(setUserItems([]));
+      localStorage.removeItem("inventory_selections");
     }
     if (activeTab === 2) {
       // if active tab is 2 and user has not added any items, stay on tab 2
