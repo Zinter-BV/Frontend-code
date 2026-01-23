@@ -1,8 +1,7 @@
-import React from "react";
 import QuoteSuccessIcon from "../Assets/SVG/QuoteSuccess";
 import PrimaryBtn from "../components/PrimaryBtn";
 import { useSelector } from "react-redux";
-import { convertTo12Hour, formatDate } from "../utils";
+import { formatDate } from "../utils";
 
 const PaymentSuccess = ({ openModal }) => {
   const moversData = useSelector((state) => state.user.moversData);

@@ -20,7 +20,7 @@ const Payment = () => {
 
   return (
     <div className="ml-4 h-fit movingCompanyDetailBox w-full">
-      <div className="overflow-y-scroll pb-[70px] custom-scroll ">
+      <div className="overflow-y-scroll pb-[20px] custom-scroll ">
         <p className="font-sans text-[20px] text-[#121212] font-bold ">
           {t("payment.complete")}
         </p>

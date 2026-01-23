@@ -47,8 +47,6 @@ const MoversContainer = ({ trackingCode }) => {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  console.log(isPaymentSuccessful);
-
   useEffect(() => {
     if (trackingCode) setActiveTab(3);
     else setActiveTab(1);
@@ -89,8 +87,8 @@ const MoversContainer = ({ trackingCode }) => {
   const sendQuoteData = async () => {
     const response = await axios.get(
       `https://involved-birgit-zinter-cb767b47.koyeb.app/api/Quote/AcceptQuote?id=${moversData?.quoteId}`
-      // `https://involved-birgit-zinter-cb767b47.koyeb.app/api/Quote/AcceptQuote?id=q5mPNV`
     );
+    console.log(response.data, "response data");
     return response.data;
   };
 
@@ -104,9 +102,7 @@ const MoversContainer = ({ trackingCode }) => {
         setErr(false);
         setActiveTab(3);
         localStorage.setItem("Code", JSON.stringify(data));
-        console.log(data, "blahh");
       } else {
-        // alert("Not Cool");
         setErr(true);
       }
     },
@@ -141,10 +137,6 @@ const MoversContainer = ({ trackingCode }) => {
     setActiveTab((prevTab) => prevTab - 1);
   };
 
-  // const handleSubmit = () => {
-  //   console.log("Helloo");
-  // };
-
   const closeSuccessModal = () => {
     setOpenSuccessModal(false);
     dispatch(resetPaymentStatus());
@@ -155,7 +147,6 @@ const MoversContainer = ({ trackingCode }) => {
     handleTabs();
     fetchData();
     closeSuccessModal();
-    // ;
   };
 
   return (
@@ -186,7 +177,7 @@ const MoversContainer = ({ trackingCode }) => {
               )}
               {
                 <div>
-                  {activeTab === 2 ? null : ( // </PrimaryBtn> //   {t("moversContainer.payment")} // > //   className={"text-[14px] "} //   handlePress={openModal} // <PrimaryBtn
+                  {activeTab === 2 ? null : (
                     <PrimaryBtn
                       handlePress={() => handleTabs(activeTab)}
                       className={"text-[14px] "}
@@ -201,7 +192,7 @@ const MoversContainer = ({ trackingCode }) => {
         )}
 
         <div className={`${isWide ? "hidden" : "pb-10"} `}>
-          {activeTab > 1 && (
+          {activeTab > 1 && activeTab !== 3 && (
             <button
               onClick={() => handlePrevTabs(activeTab)}
               className="text-[#3C82F6] w-full quoteContainerPrimaryBtn  py-1 px-2 rounded-[20px] cursor-pointer text-[14px] text-manrope font-light "
@@ -209,9 +200,10 @@ const MoversContainer = ({ trackingCode }) => {
               {t("moversContainer.back")}
             </button>
           )}
-          <div className={` ${activeTab === 2 && "hidden"}`}>
+
+          {/* <div className={` ${activeTab === 2 && "hidden"}`}>
             <div className={`${activeTab === 2 ? "flex" : ""}`}>
-              {activeTab === 2 ? (
+              {activeTab === 2  ? (
                 <PrimaryBtn
                   handlePress={openModal}
                   className={
@@ -231,15 +223,22 @@ const MoversContainer = ({ trackingCode }) => {
                 </PrimaryBtn>
               )}
             </div>
+          </div> */}
+
+          <div className={` ${activeTab === 2 && "hidden"}`}>
+            <div className={`${activeTab === 2 ? "flex" : ""}`}>
+              {isActive && (
+                <PrimaryBtn
+                  handlePress={() => handleTabs(activeTab)}
+                  className={
+                    "text-[14px] quoteContainerPrimaryBtn my-3 w-full "
+                  }
+                >
+                  {t("moversContainer.make")}
+                </PrimaryBtn>
+              )}
+            </div>
           </div>
-          {/* <PrimaryBtn
-            handlePress={() => handleTabs(activeTab)}
-            className={
-              "text-[14px] quoteContainerPrimaryBtn hidden my-3 w-full "
-            }
-          >
-            CONTINUE
-          </PrimaryBtn> */}
         </div>
       </div>
       {isPaymentSuccessful && (
