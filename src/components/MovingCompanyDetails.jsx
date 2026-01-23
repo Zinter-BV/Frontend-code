@@ -14,7 +14,7 @@ const MovingCompanyDetails = ({ makeInActive }) => {
   };
 
   // Memoized room items and counts calculation
-  const { roomCounts, roomItems, totalItems } = useMemo(() => {
+  const { roomCounts } = useMemo(() => {
     // Handle both old and new data structures
     const moveItemsData = mover?.moveDetails?.moveItemsDetails;
 
