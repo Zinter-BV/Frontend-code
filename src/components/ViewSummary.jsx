@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import "./ViewSummary.css";
 import { useSelector } from "react-redux";
-import { formatDate, getDayOfWeek, convertTo12Hour } from "../utils";
+import { formatDate, getDayOfWeek, convertTo12Hour, roomType } from "../utils";
 import { useTranslation } from "react-i18next";
 
 const ViewSummary = ({ errMessage }) => {
@@ -28,13 +28,7 @@ const ViewSummary = ({ errMessage }) => {
     return roomCounts[roomName] ?? 0;
   };
 
-  const roomSize = data?.houseSize || "";
-  const roomSizeLower = roomSize.toLowerCase();
-
-  // Check if it's a small space
-  const isSmallSpace = ["few items", "studio", "small"].some((term) =>
-    roomSizeLower.includes(term)
-  );
+  const isSmallSpace = roomType(data);
 
   return (
     <div className="ml-4 summaryBox w-full">

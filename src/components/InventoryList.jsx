@@ -3,8 +3,10 @@ import UploadImageForAIRecognition from "./UploadImageForAIRecognition";
 import UploadImageModal from "../modal/UploadImageModal";
 import InventoryListModal from "../modal/InventoryListModal";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import FullHouseRooms from "./FullHouseRooms";
+import { roomType } from "../utils";
+import { incrementHouseSizeAction } from "../redux/action";
 
 const InventoryList = () => {
   const { t } = useTranslation();
@@ -12,6 +14,7 @@ const InventoryList = () => {
   const [isInventoryListModalOpen, setIsInventoryListModalModalOpen] =
     useState(false);
   const [activeRoom, setActiveRoom] = useState(null);
+  const dispatch = useDispatch();
 
   // open inventory list modal with room name
   const openIsInventoryList = (roomName) => {
@@ -35,7 +38,12 @@ const InventoryList = () => {
   };
 
   const data = useSelector((state) => state.user);
-  console.log(data?.houseSize);
+
+  const isSmallSpace = roomType(data);
+
+  const handleIncrementHouseSize = () => {
+    dispatch(incrementHouseSizeAction());
+  };
 
   return (
     <div className="ml-4 inventoryListContainer w-full">
@@ -46,13 +54,22 @@ const InventoryList = () => {
               {t("inventoryList.title")}
             </h3>
             <p className="font-sans text-[20px] font-semibold italic text-[#9e9e9e]">
-              {t("inventoryList.house")}
+              {/* {t("inventoryList.house")} */}
+              {data?.houseSize}
             </p>
           </div>
-          <button className="text-[#3C82F6] addRoomBtnText self-center hover:bg-primary py-2 px-4 hover:text-white rounded-[20px] cursor-pointer text-[14px] text-manrope font-light ">
-            {t("inventoryList.room")}
-          </button>
-          <button className="h-[32px] w-[32px] rounded-full addRoomBtn hidden self-center justify-center items-center border-[1px] border-[#3C82F6] cursor-pointer text-[14px]">
+          {!isSmallSpace && (
+            <button
+              onClick={handleIncrementHouseSize}
+              className="text-[#3C82F6] addRoomBtnText self-center hover:bg-primary py-2 px-4 hover:text-white rounded-[20px] cursor-pointer text-[14px] text-manrope font-light "
+            >
+              {t("inventoryList.room")}
+            </button>
+          )}
+          <button
+            onClick={handleIncrementHouseSize}
+            className="h-[32px] w-[32px] rounded-full addRoomBtn hidden self-center justify-center items-center border-[1px] border-[#3C82F6] cursor-pointer text-[14px]"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
