@@ -79,9 +79,13 @@ const RecommendedMoversList = ({ makeActive, id }) => {
 
   return (
     <div className="ml-4 h-fit w-full recommendContainer">
-      <div className="overflow-y-scroll h-[1200px] pb-[70px] custom-scroll">
+      <div
+        className={`overflow-y-scroll ${
+          quotesCount > 2 ? "h-[1200px]" : "h-[750px]"
+        } pb-[70px] custom-scroll`}
+      >
         <div className="flex items-center w-full justify-between">
-          <div className="flex mb-4 items-center">
+          <div className="flex recoTextHeader mb-4 items-center">
             <h3 className="mr-2 font-sans text-[20px] font-bold text-[#121212]">
               {t("recommendedList.showing")}
             </h3>

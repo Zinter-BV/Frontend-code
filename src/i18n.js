@@ -460,6 +460,13 @@ const enTranslations = {
     studio: "Studio",
     small: "Small",
   },
+  paymentSuccess: {
+    success: "You have successfully made payment for your move",
+    tracking:
+      "Link to track move and move details have been sent to your email address",
+    location: "Move Date and Location",
+    btn: "OK, GOT IT",
+  },
 };
 
 const esTranslations = {
@@ -1368,6 +1375,13 @@ const nlTranslations = {
     sixbedroom: "6 slaapkamer",
     studio: "Studio",
     small: "Small",
+  },
+  paymentSuccess: {
+    success: "U heeft de betaling voor uw verhuizing succesvol uitgevoerd.",
+    tracking:
+      "Een link om de verhuizing te volgen en de verhuisdetails is naar uw e-mailadres verzonden.",
+    location: "Verhuisdatum en locatie",
+    btn: "OK, BEGREPEN",
   },
 };
 

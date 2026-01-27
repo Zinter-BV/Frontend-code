@@ -162,7 +162,7 @@ const MovingCompanyDetails = ({ makeInActive }) => {
   return (
     <div className="ml-4 mb-[40px] movingCompanyDetailBox h-fit ">
       <div className="overflow-y-scroll pb-[70px] custom-scroll ">
-        <div className="flex mb-3 items-center">
+        <div className="flex altQuoteTop mb-3 items-center">
           <p
             onClick={goBack}
             className="text-[#9e9e9e] cursor-pointer text-[14px] font-sans leading-[19.6px]"
