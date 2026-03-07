@@ -25,6 +25,10 @@ export const setHouseSize = (data) => ({
   payload: data,
 });
 
+export const incrementHouseSizeAction = () => ({
+  type: actionTypes.INCREMENT_HOUSE_SIZE,
+});
+
 export const resetMoversInfo = () => ({
   type: actionTypes.RESET_MOVERS_DATA,
 });

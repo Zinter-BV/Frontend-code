@@ -2,14 +2,14 @@ import React from "react";
 
 const MoversMobileContainer = ({ activeTab }) => {
   return (
-    <div className="h-fit mb-3 w-full bg-[#f7f7f7] hidden mobileStaticProgress rounded-[20px] border-[1px] border-[#E4F2FB] px-[24px] py-[32px] ">
+    <div className="h-fit mb-3 w-full bg-[#f7f7f7] mobileStaticProgress rounded-[20px] border-[1px] border-[#E4F2FB] px-[24px] py-[32px] ">
       <div className="flex items-center w-full justify-between">
         <div className="flex w-[80%] justify-between items-center ">
           <div className="flex relative">
             <div
               className={`absolute top-4 left-[30px] ${
                 activeTab > 1 ? "bg-[#248CD9]" : "bg-[#E3E8EF]"
-              } h-[2px] w-[150px] rounded-[2px] mobileProgressArrow`}
+              } h-[2px] w-[150px] rounded-[2px] mobileProgressArrow2`}
             ></div>
             <div className="mr-4">
               {activeTab > 1 ? (
@@ -95,7 +95,7 @@ const MoversMobileContainer = ({ activeTab }) => {
             <div
               className={`absolute top-4 left-[30px] ${
                 activeTab > 2 ? "bg-[#248CD9]" : "bg-[#E3E8EF]"
-              }  h-[2px] w-[150px] mobileProgressArrow  rounded-[2px] `}
+              }  h-[2px] w-[150px] mobileProgressArrow2  rounded-[2px] `}
             ></div>
             <div className="mr-4">
               {activeTab > 2 ? (
@@ -178,11 +178,6 @@ const MoversMobileContainer = ({ activeTab }) => {
             </div>
           </div>
           <div className="flex relative">
-            <div
-              className={`absolute top-4 left-[30px] ${
-                activeTab > 3 ? "bg-[#248CD9]" : "bg-[#E3E8EF]"
-              }  h-[2px] w-[140px]  mobileProgressArrow rounded-[2px] `}
-            ></div>
             <div className="mr-4">
               {activeTab > 3 ? (
                 <div className="h-[32px] w-[32px] flex justify-center z-40 bg-white items-center border-[2px] border-[#248CD9] rounded-full">
@@ -264,88 +259,10 @@ const MoversMobileContainer = ({ activeTab }) => {
             </div>
           </div>
           <div className="flex ">
-            <div className="mr-4">
-              {activeTab > 4 ? (
-                <div className="h-[32px] w-[32px] flex justify-center z-40 items-center border-[2px] border-[#248CD9] rounded-full">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="14"
-                    viewBox="0 0 16 14"
-                    fill="none"
-                  >
-                    <path
-                      d="M2 8.81818C2 8.81818 3.28571 8.81818 5 12C5 12 9.76471 3.66667 14 2"
-                      stroke="#248CD9"
-                      stroke-width="2.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </div>
-              ) : (
-                <div>
-                  {activeTab === 4 ? (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="32"
-                      height="32"
-                      viewBox="0 0 32 32"
-                      fill="none"
-                    >
-                      <rect
-                        x="1"
-                        y="1"
-                        width="30"
-                        height="30"
-                        rx="15"
-                        fill="#E4F0FC"
-                      />
-                      <rect
-                        x="1"
-                        y="1"
-                        width="30"
-                        height="30"
-                        rx="15"
-                        stroke="#248CD9"
-                        stroke-width="2"
-                      />
-                      <circle cx="16" cy="16" r="5" fill="#075DB2" />
-                    </svg>
-                  ) : (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="32"
-                      height="32"
-                      viewBox="0 0 32 32"
-                      fill="none"
-                    >
-                      <rect
-                        x="1"
-                        y="1"
-                        width="30"
-                        height="30"
-                        rx="15"
-                        fill="#fff"
-                      />
-                      <rect
-                        x="1"
-                        y="1"
-                        width="30"
-                        height="30"
-                        rx="15"
-                        stroke="#CDD5DF"
-                        stroke-width="2"
-                      />
-                      <circle cx="16" cy="16" r="5" fill="#CDD5DF" />
-                    </svg>
-                  )}
-                </div>
-              )}
-            </div>
+            <div className="mr-4"></div>
           </div>
         </div>
-        <div className="h-[32px] w-[32px] rounded-full flex justify-center z-40 bg-white  items-center ">
+        <div className="h-[32px] w-[32px] rounded-full flex justify-center z-10 bg-white  items-center ">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"

@@ -71,24 +71,24 @@ const MoveDetails = () => {
   }, []);
 
   const houses = [
-    { text: "Few Items", desc: '(10" Truck)' },
-    { text: "1 Bedrooom", desc: '(17" Truck)' },
-    { text: "2 Bedrooms", desc: '(20" Truck)' },
-    { text: "3 Bedrooms", desc: '(26" Truck)' },
-    { text: "4 Bedrooms", desc: '(28" Truck)' },
-    { text: "5 Bedrooms", desc: '(32" Truck)' },
-    { text: "6 Bedrooms", desc: '(36" Truck)' },
+    { text: t("movingSize.fewItems"), desc: '(10" Truck)' },
+    { text: t("movingSize.onebedroom"), desc: '(17" Truck)' },
+    { text: t("movingSize.twobedroom"), desc: '(20" Truck)' },
+    { text: t("movingSize.threebedroom"), desc: '(26" Truck)' },
+    { text: t("movingSize.fourbedroom"), desc: '(28" Truck)' },
+    { text: t("movingSize.fivebedroom"), desc: '(32" Truck)' },
+    { text: t("movingSize.sixbedroom"), desc: '(36" Truck)' },
   ];
 
   const apartments = [
-    { text: "Few Items", desc: '(10" Truck)' },
-    { text: "Studio", desc: '(15" Truck)' },
-    { text: "1 Bedrooom", desc: '(17" Truck)' },
-    { text: "2 Bedrooms", desc: '(20" Truck)' },
-    { text: "3 Bedrooms", desc: '(26" Truck)' },
-    { text: "4 Bedrooms", desc: '(28" Truck)' },
-    { text: "5 Bedrooms", desc: '(32" Truck)' },
-    { text: "6 Bedrooms", desc: '(36" Truck)' },
+    { text: t("movingSize.fewItems"), desc: '(10" Truck)' },
+    { text: t("movingSize.studio"), desc: '(15" Truck)' },
+    { text: t("movingSize.onebedroom"), desc: '(17" Truck)' },
+    { text: t("movingSize.twobedroom"), desc: '(20" Truck)' },
+    { text: t("movingSize.threebedroom"), desc: '(26" Truck)' },
+    { text: t("movingSize.fourbedroom"), desc: '(28" Truck)' },
+    { text: t("movingSize.fivebedroom"), desc: '(32" Truck)' },
+    { text: t("movingSize.sixbedroom"), desc: '(36" Truck)' },
   ];
 
   const storages = [
@@ -439,7 +439,7 @@ const MoveDetails = () => {
                 onChange={handleInputChange("from")}
                 onFocus={() => setShowFromModal(true)}
                 onKeyDown={handleKeyDown("from")}
-                placeholder="Moving From"
+                placeholder={t("location.from")}
                 className="font-sans w-full leading-[25.6px] font-light text-[#707070] border-none outline-none"
               />
             </div>
@@ -461,7 +461,7 @@ const MoveDetails = () => {
                 onChange={handleInputChange("to")}
                 onFocus={() => setShowToModal(true)}
                 onKeyDown={handleKeyDown("to")}
-                placeholder="Moving To"
+                placeholder={t("location.to")}
                 className="font-sans w-full font-light text-[#707070] leading-[25.6px] border-none outline-none"
               />
             </div>
@@ -481,7 +481,7 @@ const MoveDetails = () => {
                 ref={inputRef}
                 value={moveSize}
                 onFocus={() => setShowSizeModal(true)}
-                placeholder="Moving Size"
+                placeholder={t("movingSize.movingSize")}
                 className="font-sans w-full font-light text-[#707070] leading-[25.6px] border-none outline-none"
                 readOnly
               />
@@ -528,7 +528,7 @@ const MoveDetails = () => {
                           : "text-[#9e9e9e]"
                       } ml-2 font-sans text-[14px]`}
                     >
-                      House
+                      {t("movingSize.house")}
                     </span>
                   </button>
 
@@ -566,7 +566,7 @@ const MoveDetails = () => {
                           : "text-[#9e9e9e]"
                       } ml-2 font-sans text-[14px]`}
                     >
-                      Apartment
+                      {t("movingSize.apartment")}
                     </span>
                   </button>
 
@@ -601,7 +601,7 @@ const MoveDetails = () => {
                           : "text-[#9e9e9e]"
                       } ml-2 font-sans text-[14px]`}
                     >
-                      Storage
+                      {t("movingSize.storage")}
                     </span>
                   </button>
                 </div>

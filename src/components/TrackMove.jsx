@@ -1,7 +1,8 @@
-import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useSelector } from "react-redux";
+
+import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import LocationMap from "./LocationMap";
 
@@ -9,13 +10,35 @@ const TrackMove = () => {
   const moversData = useSelector((state) => state.user.moversData);
   console.log(moversData.moveDetails, "move");
   const code = JSON.parse(localStorage.getItem("Code")) || null;
-  console.log(code.result);
+  console.log(code?.result);
+
+  const { state } = useLocation();
+  const locationData = state?.data?.result;
 
   const fetchTrackingData = async () => {
-    const response = await axios.get(
-      `https://involved-birgit-zinter-cb767b47.koyeb.app/api/MoveRequest/TrackMove?code=${code.result}`
-    );
-    return response.data;
+    try {
+      const response = await axios.get(
+        `https://involved-birgit-zinter-cb767b47.koyeb.app/api/MoveRequest/TrackMove?code=${code?.result}`
+      );
+
+      // Check if response is valid
+      if (!response.data) {
+        throw new Error("No response data");
+      }
+
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        throw new Error(
+          error.response.data?.responseMessage ||
+            "Failed to fetch tracking data"
+        );
+      } else if (error.request) {
+        throw new Error("No response from server");
+      } else {
+        throw new Error(error.message || "Failed to fetch tracking data");
+      }
+    }
   };
 
   const { t } = useTranslation();
@@ -27,6 +50,7 @@ const TrackMove = () => {
     refetchIntervalInBackground: true,
     retry: 3,
     staleTime: 0,
+    enabled: !!code?.result,
   });
 
   if (isLoading) {
@@ -46,41 +70,61 @@ const TrackMove = () => {
         <div className="flex items-center justify-center h-64">
           <div className="text-red-500">
             <p>Error loading tracking data</p>
-            <p className="text-sm">{error.message}</p>
+            <p className="text-sm">
+              {error?.message || "No tracking data available"}
+            </p>
           </div>
         </div>
       </div>
     );
   }
 
-  // console.log(data.result, "tracking data");
+  console.log(data, "tracking data");
 
+  // Check if we have valid tracking data
+  const hasTrackingData = state?.data?.responseStatus === true && locationData;
+
+  // Get coordinates - use API data or fallback to moversData
   const fromPickupLongitude =
-    data?.result?.fromLongitude || moversData?.moveDetails?.pickUpLongitude;
+    hasTrackingData && locationData.fromLongitude
+      ? locationData.fromLongitude
+      : moversData?.moveDetails?.pickUpLongitude;
+
   const fromPickupLatitude =
-    data?.result?.fromLatitude || moversData?.moveDetails?.pickUpLatitude;
+    hasTrackingData && locationData.fromLatitude
+      ? locationData.fromLatitude
+      : moversData?.moveDetails?.pickUpLatitude;
+
   const toDropOffLongitude =
-    data?.result?.toLongitude || moversData?.moveDetails?.dropOffLongitude;
+    hasTrackingData && locationData.toLongitude
+      ? locationData.toLongitude
+      : moversData?.moveDetails?.dropOffLongitude;
+
   const toDropOffLatitude =
-    data?.result?.toLatitude || moversData?.moveDetails?.dropOffLatitude;
+    hasTrackingData && locationData.toLatitude
+      ? locationData.toLatitude
+      : moversData?.moveDetails?.dropOffLatitude;
 
-  // SAVE TO SESSION STORAGE
-  sessionStorage.setItem("fromPickupLongitude", fromPickupLongitude);
-  sessionStorage.setItem("fromPickupLatitude", fromPickupLatitude);
-  sessionStorage.setItem("toDropOffLongitude", toDropOffLongitude);
-  sessionStorage.setItem("toDropOffLatitude", toDropOffLatitude);
+  console.log(
+    fromPickupLongitude,
+    fromPickupLatitude,
+    toDropOffLongitude,
+    toDropOffLatitude,
+    "coords"
+  );
 
-
-  // Get status flags from API
-  const hasArrived = data?.result?.hasArrived || false;
-  const inTransit = data?.result?.inTransit || false;
-  const isCompleted = data?.result?.isCompleted || false;
+  // Get status flags from API - use defaults if no tracking data
+  const hasArrived = hasTrackingData ? locationData.hasArrived || false : false;
+  const inTransit = hasTrackingData ? locationData.inTransit || false : false;
+  const isCompleted = hasTrackingData
+    ? locationData.isCompleted || false
+    : false;
 
   // Helper function to determine if step is active
   const isStepActive = (step) => {
     switch (step) {
       case "payment":
-        return true; // Payment is always completed if tracking exists
+        return true; // Payment is always completed if we're on tracking page
       case "pickup":
         return inTransit || hasArrived || isCompleted;
       case "transit":
@@ -120,13 +164,25 @@ const TrackMove = () => {
         </div>
 
         <div className="flex gap-x-[22px] moveTimeLine items-center">
-          <LocationMap
-            fromPickupLongitude={fromPickupLongitude}
-            fromPickupLatitude={fromPickupLatitude}
-            toDropOffLongitude={toDropOffLongitude}
-            toDropOffLatitude={toDropOffLatitude}
-          />
+          {/* LocationMap - Show if we have valid coordinates */}
+          {fromPickupLongitude &&
+          fromPickupLatitude &&
+          toDropOffLongitude &&
+          toDropOffLatitude ? (
+            <LocationMap
+              fromPickupLongitude={fromPickupLongitude}
+              fromPickupLatitude={fromPickupLatitude}
+              toDropOffLongitude={toDropOffLongitude}
+              toDropOffLatitude={toDropOffLatitude}
+            />
+          ) : (
+            <div className="w-1/2 h-[400px] bg-gray-100 rounded-lg flex items-center justify-center">
+              <p className="text-gray-500">Loading map data...</p>
+            </div>
+          )}
+
           <div className="mt-4 moveTimeLineInfo relative ">
+            {/* KEEP the overlay - it only shows when move is NOT completed */}
             {!isCompleted && (
               <div className="w-full h-[420px] moveTimeLineInfoOverlay absolute top-0 z-30 ">
                 <div className="w-full h-[25%]"></div>

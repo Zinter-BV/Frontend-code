@@ -221,6 +221,16 @@
   }
 }
 
+@media screen and (max-width: 815px){
+  .mobileProgressArrow{
+    width: 130px;
+  }
+  .mobileProgressArrow2{
+    width: 150px;
+  }
+}
+  
+
 @media screen and (max-width: 800px){
   .processText{
     font-size: 36px;
@@ -266,6 +276,9 @@
   .subMobileProgressArrow{
     width: 125px;
   }
+  .mobileProgressArrow{
+    width: 125px;
+  }
 }
 
 @media screen and (max-width: 755px){
@@ -276,16 +289,19 @@
 
 @media screen and (max-width: 745px){
   .mobileProgressArrow{
-    width: 130px;
+    width: 120px;
   }
-  /* .subMobileProgressArrow{
-    width: 110px;
-  } */
 }
 
 @media screen and (max-width: 735px){
   .subMobileProgressArrow{
     width: 115px;
+  }
+}
+
+@media screen and (max-width: 725px){
+  .mobileProgressArrow{
+    width: 110px;
   }
 }
 
@@ -316,10 +332,13 @@
   .subMobileProgressArrow{
     width: 110px;
   }
+   .mobileProgressArrow2{
+    width: 120px;
+  }
 }
 
 @media screen and (max-width: 695px){
-  .subMobileProgressArrow{
+  .subMobileProgressArrow, .mobileProgressArrow{
     width: 105px;
   }
 }
@@ -349,22 +368,22 @@
 }
 
 @media screen and (max-width: 675px){
-  .subMobileProgressArrow{
+  .subMobileProgressArrow, .mobileProgressArrow{
     width: 103px;
   }
 }
 
 @media screen and (max-width: 675px){
-  .subMobileProgressArrow{
+  .subMobileProgressArrow, .mobileProgressArrow{
     width: 210%;
   }
 }
 
 @media screen and (max-width: 655px){
-  .mobileProgressArrow{
+  /* .mobileProgressArrow{
     width: 110px;
-  }
-  .subMobileProgressArrow{
+  } */
+  .subMobileProgressArrow, .mobileProgressArrow{
     width: 200%;
   }
 
@@ -375,13 +394,13 @@
 }
 
 @media screen and (max-width: 635px){
-  .subMobileProgressArrow{
+  .subMobileProgressArrow, .mobileProgressArrow{
     width: 190%;
   }
 }
 
 @media screen and (max-width: 615px){
-  .subMobileProgressArrow{
+  .subMobileProgressArrow, .mobileProgressArrow{
     width: 180%;
   }
 }
@@ -405,19 +424,21 @@
     padding: 2rem .5rem
   }
 
-  .subMobileProgressArrow{
+  .subMobileProgressArrow, .mobileProgressArrow{
     width: 172%;
   }
   .fromLocationText{
     width: 250px;
   }
+
+   .mobileProgressArrow2{
+    width: 100px;
+  }
 }
 
 @media screen and (max-width: 570px){
-  .mobileProgressArrow{
-    width: 90px;
-  }
-  .subMobileProgressArrow{
+
+.subMobileProgressArrow, .mobileProgressArrow{
     width: 162%;
   }
 }
@@ -442,19 +463,19 @@
 }
 
 @media screen and (max-width: 560px){
-  .subMobileProgressArrow{
+  .subMobileProgressArrow, .mobileProgressArrow{
     width: 152%;
   }
 }
 
 @media screen and (max-width: 540px){
-  .subMobileProgressArrow{
+  .subMobileProgressArrow, .mobileProgressArrow{
     width: 142%;
   }
 }
 
 @media screen and (max-width: 520px){
-  .subMobileProgressArrow{
+ .subMobileProgressArrow, .mobileProgressArrow{
     width: 132%;
   }
 }
@@ -518,11 +539,9 @@
   .trackCodeBox{
     width: 400px;
   }
-  .mobileProgressArrow{
-    width: 70px;
-  }
-  .subMobileProgressArrow{
-    width: 122%;
+
+  .subMobileProgressArrow, .mobileProgressArrow{
+    width: 138%;
   }
   .fromLocationText{
     width: 200px;
@@ -530,20 +549,23 @@
 }
 
 @media screen and (max-width: 480px){
-  .subMobileProgressArrow{
-    width: 112%;
+.subMobileProgressArrow, .mobileProgressArrow{
+    width: 130%;
+  }
+   .mobileProgressArrow2{
+    width: 80px;
   }
 }
 
-@media screen and (max-width: 480px){
-  .subMobileProgressArrow{
-    width: 102%;
+@media screen and (max-width: 460px){
+  .subMobileProgressArrow, .mobileProgressArrow{
+    width: 120%;
   }
 }
 
 @media screen and (max-width: 440px){
-  .subMobileProgressArrow{
-    width: 92%;
+  .subMobileProgressArrow, .mobileProgressArrow{
+    width: 110%;
   }
   .fromLocationText{
     width: 160px;
@@ -573,14 +595,8 @@
 }
 
 @media screen and (max-width: 420px){
-  .subMobileProgressArrow{
-    width: 82%;
-  }
-}
-
-@media screen and (max-width:415px) {
-  .mobileProgressArrow{
-    width: 50px;
+  .subMobileProgressArrow, .mobileProgressArrow{
+    width: 100%;
   }
 }
 
@@ -600,14 +616,17 @@
   .processWoman{
     height: 380px;
   }
-  .subMobileProgressArrow{
-    width: 72%;
+ .subMobileProgressArrow, .mobileProgressArrow{
+    width: 90%;
+  }
+   .mobileProgressArrow2{
+    width: 60px;
   }
 }
 
 @media screen and (max-width: 380px){
-  .subMobileProgressArrow{
-    width: 62%;
+  .subMobileProgressArrow, .mobileProgressArrow{
+    width: 80%;
   }
   .locationFrom{
     padding: 0 8px;
@@ -618,15 +637,20 @@
 }
 
 @media screen and (max-width: 360px){
-  .subMobileProgressArrow{
-    width: 52%;
+ .subMobileProgressArrow, .mobileProgressArrow{
+    width: 70%;
   }
   
 }
 
 @media screen and (max-width: 340px){
-  .subMobileProgressArrow{
-    width: 43%;
+ .subMobileProgressArrow, .mobileProgressArrow{
+    width: 60%;
   }
 }
 
+@media screen and (max-width: 330px){
+ .subMobileProgressArrow, .mobileProgressArrow{
+    width: 55%;
+  }
+}

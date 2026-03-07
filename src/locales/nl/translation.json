@@ -413,5 +413,12 @@
     "sixbedroom": "6 slaapkamer",
     "studio": "Studio",
     "small": "Small"
+  },
+   "paymentSuccess": {
+    "success": "U heeft de betaling voor uw verhuizing succesvol uitgevoerd.",
+    "tracking":
+      "Een link om de verhuizing te volgen en de verhuisdetails is naar uw e-mailadres verzonden.",
+    "location": "Verhuisdatum en locatie",
+    "btn": "OK, BEGREPEN"
   }
 }

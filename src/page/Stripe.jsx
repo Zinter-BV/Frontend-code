@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { createPayment } from "../api/tracking";
+import { useState } from "react";
 import {
   useStripe,
   useElements,
@@ -11,6 +10,7 @@ import PrimaryBtn from "../components/PrimaryBtn";
 import { useDispatch } from "react-redux";
 import { setPaymentStatus } from "../redux/action";
 import Loader from "../components/loader";
+import { useTranslation } from "react-i18next";
 
 const Stripe = ({ amount }) => {
   const stripe = useStripe();
@@ -18,6 +18,8 @@ const Stripe = ({ amount }) => {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
   const [isProcessing, setIsProcessing] = useState(false);
+
+  const { t } = useTranslation();
 
   const CARD_ELEMENT_OPTIONS = {
     style: {
@@ -194,7 +196,7 @@ const Stripe = ({ amount }) => {
               className="text-[14px] w-full mt-3"
               disabled={!stripe || isProcessing}
             >
-              MAKE PAYMENT
+              {t("moversContainer.make")}
             </PrimaryBtn>
           </div>
         </div>

@@ -1354,7 +1354,7 @@ const MovingInformation2 = ({
                 className="ml-1 text-[#136AB5] underline font-sans text-[14px]"
                 to="/terms"
               >
-                {t("moveinformation.termsCondition")}
+                {t("moveInformation.termsCondition")}
               </Link>{" "}
               <span className="text-red-500">*</span>
             </label>
@@ -1372,7 +1372,7 @@ const MovingInformation2 = ({
               id="movigTips"
               className="text-[#2c2c2c] ml-2 font-sans text-[14px]"
             >
-              {t("moveinformation.receive")}{" "}
+              {t("moveInformation.receive")}{" "}
             </label>
           </div>
         </div>

@@ -20,7 +20,7 @@ const Payment = () => {
 
   return (
     <div className="ml-4 h-fit movingCompanyDetailBox w-full">
-      <div className="overflow-y-scroll pb-[70px] custom-scroll ">
+      <div className="overflow-y-scroll pb-[20px] custom-scroll ">
         <p className="font-sans text-[20px] text-[#121212] font-bold ">
           {t("payment.complete")}
         </p>
@@ -86,7 +86,7 @@ const Payment = () => {
                     <p className="text-[#b8b8b8] ml-2 font-light font-sans text-[16px]">
                       -
                     </p>
-                    <p className="text-[#707070] ml-2 movingContainerFromLocation font-sans text-[16px] leading-[25.6px]">
+                    <p className="ml-2 max-w-[280px] overflow-hidden movingContainerFromLocation text-ellipsis whitespace-nowrap text-[#707070] font-sans text-[16px] leading-[25.6px]">
                       {moversData?.moveDetails?.from}
                     </p>
                   </div>
@@ -147,7 +147,7 @@ const Payment = () => {
                     <p className="text-[#b8b8b8] ml-2 font-light font-sans text-[16px]">
                       -
                     </p>
-                    <p className="text-[#707070] movingContainerFromLocation ml-2 font-sans text-[16px] leading-[25.6px]">
+                    <p className="ml-2 max-w-[280px] overflow-hidden text-ellipsis whitespace-nowrap movingContainerFromLocation text-[#707070] font-sans text-[16px] leading-[25.6px]">
                       {moversData?.moveDetails?.to}
                     </p>
                   </div>

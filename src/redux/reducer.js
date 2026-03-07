@@ -1,3 +1,4 @@
+import { incrementHouseSize } from "../utils";
 import { actionTypes } from "./actionTypes";
 
 const initialState = {
@@ -19,7 +20,7 @@ const UserReducer = (state = initialState, action) => {
     case actionTypes.SET_USER_ITEMS:
       return {
         ...state,
-        items: [...state.items, ...action.payload],
+        items: action.payload,
       };
     case actionTypes.SET_USER_MORE_INFO:
       return {
@@ -35,6 +36,11 @@ const UserReducer = (state = initialState, action) => {
       return {
         ...state,
         houseSize: action.payload,
+      };
+    case actionTypes.INCREMENT_HOUSE_SIZE: // Add this case
+      return {
+        ...state,
+        houseSize: incrementHouseSize(state.houseSize),
       };
     case actionTypes.SET_PAYMENT_SUCCESS:
       return {
