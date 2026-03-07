@@ -10,9 +10,9 @@ export const getCompanyDetailsByNumber = async (number) => {
     return response.data
 }
 
-export const registerAgent = async ({ email, kvkNumber, companyName, password, image, provinces, companyOverView }) => {
+export const registerAgent = async ({ email, kvkNumber, companyName, phoneNumber, password, image, provinces, companyOverView, accountName, bankName, iban }) => {
     const response = await api.post(`Auth/RegisterAgent`, {
-        email, kvkNumber, companyName, password, image, provinces, companyOverView
+        email, kvkNumber, companyName, phoneNumber, password, image, provinces, companyOverView, accountName, bankName, iban
     })
     return response.data
 }
@@ -46,11 +46,27 @@ export const getVerificationAgent = async ({ email, password }) => {
 
 export const moversDashboardAnalytics = async () => {
     const response = await api.get(`Agent/DashBoardAnalytics`)
-
     return response.data
 }
 
 export const verifyCode = async (email, code) => {
     const response = await api.get(`Agent/VerifyCode?email=${email}&code=${code}`)
+    return response.data
+}
+
+export const getProfileSetting = async () => {
+    const response = await api.get(`Agent/GetProfileSettingValues`)
+    return response.data
+}
+
+export const updateAccountDetails = async ({ accountName, bankName, iban }) => {
+    const response = await api.post(`Agent/UpdateAccountDetails`, {
+        accountName, bankName, iban
+    })
+    return response.data
+}
+
+export const getEarnings = async () => {
+    const response = await api.get(`Agent/GetEarnings`)
     return response.data
 }

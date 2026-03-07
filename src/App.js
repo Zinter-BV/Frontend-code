@@ -36,6 +36,7 @@ import CreateNewUser from "./page/CreateNewUser";
 import CreateNewRole from "./page/CreateNewRole";
 import ViewSummaryUser from "./page/ViewSummaryUser";
 import ViewSummaryRole from "./page/ViewSummaryRole";
+import { ProfileSetting } from "./page/ProfileSetting";
 // import StripeComponent from "./StripeComponent";
 
 const stripePromise = loadStripe(
@@ -78,7 +79,7 @@ function App() {
         <Route path="/transactions" element={<Transactions />} />
         <Route path="/resolution" element={<Resolution />} />
         <Route path="/stripe" element={<Stripe />} />
-
+        <Route path="/profile-setting" element={<ProfileSetting/>}/>
         {/* Sidebar should only be visible on Overview & Calendar */}
       </Routes>
     </div>

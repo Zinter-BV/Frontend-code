@@ -87,7 +87,7 @@
 
 // export default SideBar
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./sideBar.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import overviewIcon from "../Assets/dasboard-icon.svg";
@@ -116,6 +116,7 @@ import LogoutModal from "./Logout";
 const SideBar = ({ adminView }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [showLogout, setShowLogout] = useState(false);
+    const [showInactivityModal, setShowInactivityModal] = useState(false);
     // const [companyName, setCompanyName] = useState("")
     const companyName = sessionStorage.getItem("name")
     const companyImage = sessionStorage.getItem('companyImage');
@@ -127,6 +128,40 @@ const SideBar = ({ adminView }) => {
     const location = useLocation();
     const navigate = useNavigate()
     const activeTab = location.pathname.includes('create-new-role') || location.pathname.includes('view-summary-role') ? "Create new role" : 'Create new user'
+
+    const logoutTimer = useRef(null);
+
+    const INACTIVITY_LIMIT = 10 * 60 * 1000; // 5 minutes, adjust as needed
+
+    // Function to log out user
+    const logoutDueToInactivity = () => {
+        sessionStorage.clear();
+        setShowLogout(false);
+        navigate("/vendor-login", {
+            state: { inactivity: true }
+        });
+    };
+
+    // Reset timer on user activity
+    const resetTimer = () => {
+        if (logoutTimer.current) clearTimeout(logoutTimer.current);
+        logoutTimer.current = setTimeout(logoutDueToInactivity, INACTIVITY_LIMIT);
+    };
+
+    useEffect(() => {
+        // Start the inactivity timer when component mounts
+        resetTimer();
+
+        // Listen to user activity events
+        const events = ["keydown", "click"];
+        events.forEach((event) => window.addEventListener(event, resetTimer));
+
+        // Cleanup
+        return () => {
+            if (logoutTimer.current) clearTimeout(logoutTimer.current);
+            events.forEach((event) => window.removeEventListener(event, resetTimer));
+        };
+    }, []);
 
     const checkLocation = () => {
         const path = location.pathname;
@@ -185,6 +220,7 @@ const SideBar = ({ adminView }) => {
 
     const showLogoutFunc = () => {
         setShowLogout(true)
+        setIsOpen(!isOpen);
     }
 
     const handleCancel = () => {
@@ -201,6 +237,10 @@ const SideBar = ({ adminView }) => {
         navigate('/create-new-role')
 
 
+    }
+
+    const navigateToProfile = () => {
+        navigate('/profile-setting')
     }
 
     const handleDeactivate = () => {
@@ -234,18 +274,35 @@ const SideBar = ({ adminView }) => {
                             </Link>
                         );
                     })}
-                    <div className="side_bar_bottom">
-                        <div
-                            className="company-image"
-                            style={{
-                                backgroundImage: companyImage ? `url(${companyImage})` : "none",
-                            }}
-                        ></div>
-                        <div className="side_bar_bottom_text">
-                            <span>{companyName}</span>
+                    <div className="complete_side_bar_bottom">
+                        <div className="side_bar_bottom">
+                            <div
+                                className="company-image"
+                                style={{
+                                    backgroundImage: companyImage ? `url(${companyImage})` : "none",
+                                }}
+                            ></div>
+                            <div className="side_bar_bottom_text">
+                                {/* <span>{companyName}</span> */}
+                                <span className="side_bar_bottom_text sidebar_text">{companyName}</span>
 
+                            </div>
+                        </div>
+                        <div className="side_bar_bottom side_bar_bottom_cursor" onClick={navigateToProfile}>
+                            <p className="side_bar_bottom_text"> Profile Settings </p>
+                        </div>
+                        <div className="side_bar_bottom side_bar_bottom_cursor"
+                            onClick={showLogoutFunc}>
+                            <img
+                                className="logout"
+
+                                src="/images/logout-03.svg"
+                                alt=""
+                            />
+                            <span className="side_bar_bottom_text">Log Out</span>
                         </div>
                     </div>
+
                 </div>
 
                 <div className="header_container">
@@ -263,14 +320,7 @@ const SideBar = ({ adminView }) => {
                     </div>
                     {!isAdminPage && (
                         <div className="header_container_right">
-                            <img src="/images/help-circle.svg" alt="" />
-                            <img src="/images/notification-03.svg" alt="" />
-                            <img
-                                className="logout"
-                                onClick={showLogoutFunc}
-                                src="/images/logout-03.svg"
-                                alt=""
-                            />
+
                         </div>
                     )}
 
@@ -370,17 +420,32 @@ const SideBar = ({ adminView }) => {
                             </Link>
                         ))}
 
-                        <div className="side_bar_bottom">
-                            <div
-                                className="company-image"
-                                style={{
-                                    backgroundImage: companyImage ? `url(${companyImage})` : "none",
-                                }}
-                            ></div>
-                            <div className="side_bar_bottom_text">
-                                <span>{companyName}</span>
-                                {/* <span>Workspace</span> */}
+                        <div className="side_bar_mobile_bottom">
+                            <div className="side_bar_bottom">
+                                <div
+                                    className="company-image"
+                                    style={{
+                                        backgroundImage: companyImage ? `url(${companyImage})` : "none",
+                                    }}
+                                ></div>
+                                <div className="side_bar_bottom_text">
+                                    <span>{companyName}</span>
+                                    {/* <span>Workspace</span> */}
+                                </div>
                             </div>
+                            <div>
+                                <div className="side_bar_bottom side_bar_bottom_cursor"
+                                    onClick={showLogoutFunc}>
+                                    <img
+                                        className="logout"
+
+                                        src="/images/logout-03.svg"
+                                        alt=""
+                                    />
+                                    <span className="side_bar_bottom_text">Log Out</span>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 

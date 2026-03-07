@@ -141,7 +141,7 @@ const ViewSummaryUser = () => {
             <div className="footer_user_btn">
                 <button onClick={handleCreate}>Create user</button>
             </div>
-            <div className="modal_middle">
+            <div className="modal_middle1">
                 {showSuccess && <UserCreatedSuccess />}
             </div>
             {loading && <Loader />}

@@ -13,6 +13,9 @@
     /* border: 1px solid; */
     width: 592px;
     position: relative;
+    max-height: 80vh;
+    overflow: auto;
+    padding: 0 0 80px;
 }
 
 .stepper_icon {
@@ -119,6 +122,9 @@
     border-radius: 6px;
 }
 
+.movers_details_first {
+    padding: 15px;
+}
 
 .movers_details_text {
     font-family: "Unbounded", sans-serif;

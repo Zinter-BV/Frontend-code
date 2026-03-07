@@ -60,6 +60,7 @@
 .container_provinces {
     display: flex;
     justify-content: space-between;
+    overflow: auto;
 
 }
 
@@ -74,6 +75,8 @@
     font-size: 18px;
     font-weight: 400;
     color: rgba(123, 123, 123, 1);
+    white-space: nowrap;
+    margin-right: 20px;
 }
 
 .provinces :last-child {

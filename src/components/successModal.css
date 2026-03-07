@@ -1,4 +1,17 @@
 .success_modal_background {
+    /* position: absolute;
+    top: 0; */
+    backdrop-filter: blur(3px);
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.success_modal_backgrounds {
+    position: absolute;
+    top: 0;
     backdrop-filter: blur(3px);
     height: 100vh;
     width: 100vw;

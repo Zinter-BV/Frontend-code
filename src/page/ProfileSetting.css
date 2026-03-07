@@ -1,0 +1,269 @@
+.profile_head {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #C4C4C4;
+    padding: 20px;
+}
+
+.profile_head_first {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+.profile_close {
+    border: 1px solid #D1D4E1;
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+    padding: 3px;
+
+}
+
+.profile_close img {
+    /* position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%); */
+    width: 20px;
+    height: 20px;
+}
+
+.details_tabs {
+    display: flex;
+    justify-content: center;
+    border: 1px solid #D1D1D1;
+    width: fit-content;
+    margin: 20px auto 0;
+    color: #8D909B;
+    background-color: #F5F8FE;
+    padding: 2px;
+    border-radius: 4px;
+
+}
+
+.profile_tab_active {
+    border: 1px solid #EDF0FC;
+    color: #08090C;
+    background-color: #fff;
+    padding: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.account_tab {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.profile_details {
+    width: 500px;
+    margin: 10px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.movers_profile_image {
+    width: 500px;
+    height: 200px;
+    border: 10px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    /* background: url(../Assets/Cover\ image\ Container.svg); */
+}
+
+.movers_details {
+    background-color: #E4F2FB;
+    /* border: 1px solid #BCDFF6; */
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.mover_details_icon {
+    /* background: url(../Assets/driver_avatar.svg); */
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.movers_details_name {
+    display: flex;
+    flex-direction: column;
+}
+
+.movers_details_name :first-child {
+    color: #121212;
+    /* font-size: 24px; */
+}
+
+.movers_details_name :last-child {
+    color: #4B5565;
+    /* background-color: #FFFFFF; */
+    /* border: 1px solid #E3E8EF; */
+    /* padding: 5px; */
+}
+
+.movers_details_name1 {
+    font-size: 17px;
+}
+
+.movers_details_name2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mover_details_sub {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.movers_details_email {
+    color: #4B5565;
+    background-color: #FFFFFF;
+    border: 1px solid #E3E8EF;
+    padding: 5px;
+    font-size: 13px;
+}
+
+.movers_date_registered {
+    display: flex;
+    align-items: center;
+    color: #4B5565;
+    background-color: #FFFFFF;
+    border: 1px solid #E3E8EF;
+    padding: 5px;
+    font-size: 13px
+}
+
+.movers_date_registered :first-child {
+    color: rgba(75, 85, 101, .6);
+}
+
+.movers_date_registered :last-child {
+    color: #4B5565;
+    font-size: 13px
+}
+
+.movers_details_more {
+    display: flex;
+}
+
+.email_details {
+    display: flex;
+    flex-direction: column;
+    /* gap: 10px; */
+}
+
+.email_details :first-child {
+    color: #121212;
+}
+
+.email_details :last-child {
+    border: 1px solid #D1D1D1;
+    outline: none;
+    padding: 7px 10px;
+    resize: none;
+}
+
+
+.province_details {
+    display: flex;
+    flex-direction: column;
+}
+
+.province_details label {
+    color: #121212;
+}
+
+.province_details .tag_input_wrapper {
+    /* border: 1px solid red; */
+    width: 100%;
+}
+
+.email_details_input {}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #D1D1D1;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.footer button {
+    background-color: #136AB5;
+    color: #fff;
+    border-radius: 1000px;
+    padding: 10px 18px;
+
+}
+
+.account_detail_input {
+    width: 500px;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.account_details {
+    display: flex;
+    flex-direction: column;
+    /* gap: 10px; */
+}
+
+.account_details :first-child {
+    color: #121212;
+}
+
+.account_details :last-child {
+    border: 1px solid #D1D1D1;
+    outline: none;
+    padding: 7px 10px;
+    resize: none;
+    width: 242px;
+}
+
+.account_details_profile {
+    display: flex;
+    flex-direction: column;
+    /* gap: 10px; */
+}
+
+.account_details_profile :first-child {
+    color: #121212;
+}
+
+.account_details_profile :last-child {
+    border: 1px solid #D1D1D1;
+    outline: none;
+    padding: 7px 10px;
+    resize: none;
+    width: 242px;
+}
+
+
+.company_account_details {
+    display: flex;
+    /* justify-content: space-between; */
+    gap: 15px;
+    margin: 10px auto;
+}
+
+.profile_setting_account {
+    width: 100% !important;
+}

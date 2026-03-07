@@ -49,6 +49,7 @@ const SecondStepCompanies = () => {
             if (data.responseStatus === false) {
                 setShowErrMsg(true)
                 setPasswordErr(data.responseMessage)
+                setShowVerifyEmail(false);
 
                 setTimeout(() => {
                     setShowErrMsg(false)
@@ -114,7 +115,7 @@ const SecondStepCompanies = () => {
 
     const handleBtnInOtherPage = async (code) => {
         try {
-            debugger
+
             setLoading(true)
             const response = await verifyCode(email, code)
             console.log(response)
@@ -136,7 +137,7 @@ const SecondStepCompanies = () => {
             console.log(e)
         } finally {
             setLoading(false)
-            
+
         }
     }
 
@@ -174,59 +175,60 @@ const SecondStepCompanies = () => {
             <div className="card_toggle">
                 <FirstCardToggle />
             </div>
-            <div className="first_company_card">
-                <div className="stepper_icon">
-                    {/* <img className="mobile_only_stepper_icon" src={stepperMobileSecond} alt="" /> */}
-                    <img className="mobile_only_stepper_icon" src="/images/mobile-stepper-icon-second.svg" alt="" />
-                    {/* <img className="laptop_only_stepper_icon" src={stepperIconSecond} alt="" /> */}
-                    <img className="laptop_only_stepper_icon" src="/images/second-step.svg" alt="" />
-                </div>
-                <div className="company_header">
-                    <h1>Email Verification</h1>
-                    <p>Please provide your basic Information</p>
-                </div>
-                <div className="company_input_reg">
-                    <label>Email Address</label>
-                    <input value={email} onChange={(e) => setEmail(e.target.value)} type="text" placeholder="Enter Email" />
-                </div>
-
-                <div className="company_input_reg_pass">
-                    <label>Enter Password</label>
-                    <input type={showPassword ? "text" : "password"} value={password} placeholder="Enter Password"
-                        onChange={(e) => setPassword(e.target.value)} />
-                    <div className={`requirement ${passwordRequirements.length ? 'pass' : 'fail'}`}>
-                        Password must be 8 characters long
+            <div className="third_card_info_body">
+                <div className="first_company_card">
+                    <div className="stepper_icon">
+                        {/* <img className="mobile_only_stepper_icon" src={stepperMobileSecond} alt="" /> */}
+                        <img className="mobile_only_stepper_icon" src="/images/mobile-stepper-icon-second.svg" alt="" />
+                        {/* <img className="laptop_only_stepper_icon" src={stepperIconSecond} alt="" /> */}
+                        <img className="laptop_only_stepper_icon" src="/images/second-step.svg" alt="" />
                     </div>
-                    <div className={`requirement ${passwordRequirements.uppercase ? 'pass' : 'fail'}`}>
-                        Password must include 1 uppercase letter
+                    <div className="company_header">
+                        <h1>Email Verification</h1>
+                        <p>Please provide your basic Information</p>
                     </div>
-                    <div className={`requirement ${passwordRequirements.lowercase ? 'pass' : 'fail'}`}>
-                        Password must include 1 lowercase letter
-                    </div>
-                    <div className={`requirement ${passwordRequirements.number ? 'pass' : 'fail'}`}>
-                        Password must include 1 number
-                    </div>
-                    <div className={`requirement ${passwordRequirements.specialChar ? 'pass' : 'fail'}`}>
-                        Password must include 1 special character
+                    <div className="company_input_reg">
+                        <label>Email Address</label>
+                        <input value={email} onChange={(e) => setEmail(e.target.value)} type="text" placeholder="Enter Email" />
                     </div>
 
-                    <span onClick={() => setShowPassword((prev) => !prev)}>
-                        {showPassword ? "HIDE" : "SHOW"}
-                    </span>
-                </div>
-                {showErrMsg && (
-                    <div className="error_message_container">
-                        <div className="error_message">
-                            <span>Invalid Details</span>
-                            <span>
-                                {passwordErr ? passwordErr : 'Make sure that the password meets all the requirements'}
-
-                            </span>
+                    <div className="company_input_reg_pass">
+                        <label>Enter Password</label>
+                        <input type={showPassword ? "text" : "password"} value={password} placeholder="Enter Password"
+                            onChange={(e) => setPassword(e.target.value)} />
+                        <div className={`requirement ${passwordRequirements.length ? 'pass' : 'fail'}`}>
+                            Password must be 8 characters long
                         </div>
+                        <div className={`requirement ${passwordRequirements.uppercase ? 'pass' : 'fail'}`}>
+                            Password must include 1 uppercase letter
+                        </div>
+                        <div className={`requirement ${passwordRequirements.lowercase ? 'pass' : 'fail'}`}>
+                            Password must include 1 lowercase letter
+                        </div>
+                        <div className={`requirement ${passwordRequirements.number ? 'pass' : 'fail'}`}>
+                            Password must include 1 number
+                        </div>
+                        <div className={`requirement ${passwordRequirements.specialChar ? 'pass' : 'fail'}`}>
+                            Password must include 1 special character
+                        </div>
+
+                        <span onClick={() => setShowPassword((prev) => !prev)}>
+                            {showPassword ? "HIDE" : "SHOW"}
+                        </span>
                     </div>
-                )}
+                    {showErrMsg && (
+                        <div className="error_message_container">
+                            <div className="error_message">
+                                <span>Invalid Details</span>
+                                <span>
+                                    {passwordErr ? passwordErr : 'Make sure that the password meets all the requirements'}
 
+                                </span>
+                            </div>
+                        </div>
+                    )}
 
+                </div>
                 <div className="company_policy">
                     <span>
 
@@ -238,7 +240,6 @@ const SecondStepCompanies = () => {
                     <button onClick={handlePrevious}>Go Back</button>
                     <button onClick={handleContinue}>Continue</button>
                 </div>
-
             </div>
 
             {showVerifyEmail &&

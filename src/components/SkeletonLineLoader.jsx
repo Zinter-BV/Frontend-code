@@ -7,8 +7,8 @@ const SkeletonLine = () => {
     return (
         
     <div>
-      <div class="card__header">
-        <div class="skeleton skeleton-text"></div>
+      <div className="card__header">
+        <div className="skeleton skeleton-text"></div>
        
       </div>
     </div>

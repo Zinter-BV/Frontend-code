@@ -2,16 +2,16 @@ import React from "react";
 import successIcon from "../Assets/success-good-tick.svg"
 import { useNavigate } from "react-router-dom";
 
-const UserCreatedSuccess = () => {
+const UpdatedProfileSuccess = () => {
     const navigate = useNavigate()
 
-    const handleToAdmin = () => {
-        navigate('/admin')
+    const handleBack = () => {
+        navigate('/overview')
 
     }
 
     return (
-        <div className="success_modal_backgrounds">
+        <div className="success_modal_background">
             <div className="success_modal_container">
                 <div className="success_modal_upper">
                     <div>
@@ -19,15 +19,15 @@ const UserCreatedSuccess = () => {
                     </div>
                     <div className="success_modal_upper_text">
                         <h2> Successful</h2>
-                        <span>User successfully created</span>
+                        <span>Profile successfully updated</span>
                     </div>
                 </div>
                 <div className="border-btn">
-                    <button onClick={handleToAdmin}>OK, GOT IT</button>
+                    <button onClick={handleBack}>OK, GOT IT</button>
                 </div>
             </div>
         </div>
     )
 }
 
-export default UserCreatedSuccess
+export default UpdatedProfileSuccess

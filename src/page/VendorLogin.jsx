@@ -12,12 +12,15 @@ import FirstCardToggle from "../components/FirstCardToggle";
 // import LanguageSwitcher from "./LanguageSwitcher"
 // import "../components/toast.css"
 import LanguageSwitcher from "../components/LanguageSwitcher";
+import { useLocation } from "react-router-dom";
 
 const VendorLogin = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const [language, setLanguage] = useState("NL");
+    const [language, setLanguage] = useState("EN");
     const [password, setPassword] = useState("");
     const [user, setEmail] = useState("")
+    const location = useLocation();
+    const [inactivityLogout, setInactivityLogout] = useState(false);
     const [showVerifyEmail, setShowVerifyEmail] = useState(false)
     const [showSucessModal, setSuccessModal] = useState(false)
     const [toast, setToast] = useState(null);
@@ -77,7 +80,7 @@ const VendorLogin = () => {
                 console.log(data.result)
                 sessionStorage.setItem('token', data.result.jwtToken)
                 sessionStorage.setItem('name', data.result.name)
-                sessionStorage.setItem('companyImage', data.result.image )
+                sessionStorage.setItem('companyImage', data.result.image)
                 navigate("/overview")
             }
         } else {
@@ -93,6 +96,13 @@ const VendorLogin = () => {
     }
 
 
+    useEffect(() => {
+        if (location.state?.inactivity) {
+            setInactivityLogout(true);
+        }
+    }, [location]);
+
+
 
     return (
         <div className="container_firstStep">
@@ -100,9 +110,9 @@ const VendorLogin = () => {
                 <FirstCardToggle />
             </div>
             <div className="admin_login_container_vendor">
-                <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                {/* <div style={{ display: "flex", justifyContent: "flex-end" }}>
                     <LanguageSwitcher language={language} setLanguage={setLanguage} />
-                </div>
+                </div> */}
 
                 <div>
                     {/* {language} */}
@@ -137,17 +147,32 @@ const VendorLogin = () => {
 
                 {isLoading && <Loader />}
 
-                {toast && (
-                    <Toast
-                        className="toast-container"
-                        message={toast.message}
-                        type={toast.type}
-                        duration={5000}
-                        onClose={() => setToast(null)}
-                    />
-                )}
+
 
             </div>
+            {toast && (
+                <Toast
+                    className="toast-container"
+                    message={toast.message}
+                    type={toast.type}
+                    duration={5000}
+                    onClose={() => setToast(null)}
+                />
+            )}
+            {inactivityLogout && (
+                <div className="logout_overlay">
+                    <div className="logout_modal">
+                        <p>You were logged out due to inactivity. Kindly log back in.</p>
+
+                        <button
+                            className="logout_btn"
+                            onClick={() => setInactivityLogout(false)}
+                        >
+                            OK
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

@@ -43,8 +43,12 @@ const OverviewPage = () => {
     const [inTransitNumber, setInTransitNumber] = useState(0)
     const [completedMoves, setCompletedMove] = useState(0)
     const [cancelledMoves, setCancelledMove] = useState(0)
+    const [totalRevenue, setTotalRevenue] = useState(0)
     const [showIncomingModal, setShowIncomingModal] = useState(false)
-
+    const formatWithComma = (number) => {
+        if (!number && number !== 0) return ""; // handle null/undefined
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    };
 
     const handleIncomingModal = () => {
         setShowIncomingModal(true)
@@ -60,6 +64,7 @@ const OverviewPage = () => {
             setIncomingRequest(data.result.incoming)
             setApprovedRequest(data.result.approvedRequest)
             setPaymentMade(data.result.paymentMade)
+            setTotalRevenue(formatWithComma(data.result.totalRevenue))
             setUpcomingPickup(data.result.upcoming)
             setInTransitNumber(data.result.inTransit)
             setCompletedMove(data.result.completed)
@@ -111,7 +116,7 @@ const OverviewPage = () => {
                                 </div>
                                 <div className="revenue_text">
                                     <span>Total Revenue</span>
-                                    <span>$123,000</span>
+                                    <span>${totalRevenue}</span>
                                 </div>
                             </div>
 

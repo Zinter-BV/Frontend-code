@@ -345,6 +345,7 @@
     background-color: #fff;
     border-radius: 10px;
     padding: 8px 12px;
+    max-width: 45%;
     /* text-overflow: ellipsis; */
     /* border-right: 1px solid rgba(184, 184, 184, 1); */
 }
