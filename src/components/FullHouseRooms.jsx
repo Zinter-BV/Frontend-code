@@ -1,4 +1,3 @@
-import React from "react";
 import RoomItemContainer from "./RoomItemContainer";
 
 const FullHouseRooms = ({ openIsInventoryList, data }) => {
@@ -6,9 +5,17 @@ const FullHouseRooms = ({ openIsInventoryList, data }) => {
   const roomSizeLower = roomSize.toLowerCase();
 
   // Check if it's a small space
-  const isSmallSpace = ["few items", "studio", "small"].some((term) =>
-    roomSizeLower.includes(term)
-  );
+  const isSmallSpace = [
+    "few items",
+    "studio",
+    "small",
+    "een aantal items",
+    "Small 2 x 4",
+    "Small 5 x 5",
+    "Small 5 x 10",
+    "Small 5 x 15",
+    "Small 10 x 20",
+  ].some((term) => roomSizeLower.includes(term));
 
   // If it's a small space, show ONLY Toilet and bath
   if (isSmallSpace) {
@@ -34,21 +41,16 @@ const FullHouseRooms = ({ openIsInventoryList, data }) => {
   };
 
   const bedroomCount = getBedroomCount();
-  const bedrooms = Array.from({ length: bedroomCount }, (_, i) => i + 1);
 
   // For regular houses, show all rooms
   return (
     <>
-      {/* Bedrooms */}
-      {bedrooms.map((num) => (
-        <RoomItemContainer
-          key={`bedroom-${num}`}
-          onClick={() =>
-            openIsInventoryList(bedroomCount > 1 ? `Bedroom` : "Bedroom")
-          }
-          activeIcon={"Bedroom"}
-        />
-      ))}
+      {/* Bedroom with count */}
+      <RoomItemContainer
+        onClick={() => openIsInventoryList("Bedroom")}
+        activeIcon={"Bedroom"}
+        label={bedroomCount > 1 && `${bedroomCount} `}
+      />
 
       {/* Other rooms */}
       <RoomItemContainer

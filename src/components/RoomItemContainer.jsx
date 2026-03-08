@@ -2,7 +2,7 @@ import React, { useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 
-const RoomItemContainer = ({ activeIcon, onClick }) => {
+const RoomItemContainer = ({ activeIcon, onClick, label }) => {
   const [isOpenDropDown, setIsOpenDropDown] = useState(false);
   const openDropDown = () => setIsOpenDropDown((prev) => !prev);
 
@@ -228,7 +228,7 @@ const RoomItemContainer = ({ activeIcon, onClick }) => {
         <div className="flex items-center">
           {content}
           <p className="mx-2 font-sans text-[18px] roomItemName text-[#525252] font-bold ">
-            {activeIcon}
+            {label} {activeIcon}
           </p>
           {!isOpenDropDown && (
             <div className="flex bg-[#F0F9FF] numberOfItemsContainer border-[1px] border-[#E0F2FE] rounded-[4px] p-1 items-center">
@@ -245,7 +245,7 @@ const RoomItemContainer = ({ activeIcon, onClick }) => {
                 />
               </svg>
               <p className="font-sans text-[16px] text-[#3C82F6] ml-2 leading-[25.6px] ">
-                {getRoomCount(activeIcon)}{" "}
+                {getRoomCount(activeIcon)}
                 <span className="selectedText">
                   {" "}
                   {t("roomItemContainer.selected")}

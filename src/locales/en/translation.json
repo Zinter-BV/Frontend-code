@@ -391,6 +391,12 @@
     "sixbedroom": "6 bedrooms",
     "studio": "Studio",
     "small": "Small"
+  },
+  "paymentSuccess": {
+    "success": "You have successfully made payment for your move",
+    "tracking":"Link to track move and move details have been sent to your email address",
+    "location": "Move Date and Location",
+    "btn":"OK, GOT IT"
   }
 
 

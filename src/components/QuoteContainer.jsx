@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import QuoteProgress from "./QuoteProgress";
 import Location from "./Location";
 import PrimaryBtn from "./PrimaryBtn";
 import InventoryList from "./InventoryList";
-import MovingInformation from "./MovingInformation";
 import ViewSummary from "./ViewSummary";
 import QuoteSuccess from "../modal/QuoteSuccess";
 import MobileQuoteProgress from "./MobileQuoteProgress";
@@ -13,6 +12,7 @@ import {
   resetUserInfo,
   setHouseSize,
   setUserDetails,
+  setUserItems,
   setUserMoreInfo,
 } from "../redux/action";
 import axios from "axios";
@@ -461,6 +461,8 @@ const QuoteContainer = ({ data }) => {
         })
       );
       dispatch(setHouseSize(moveSize));
+      dispatch(setUserItems([]));
+      localStorage.removeItem("inventory_selections");
     }
     if (activeTab === 2) {
       // if active tab is 2 and user has not added any items, stay on tab 2

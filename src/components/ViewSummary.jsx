@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import "./ViewSummary.css";
 import { useSelector } from "react-redux";
-import { formatDate, getDayOfWeek, convertTo12Hour } from "../utils";
+import { formatDate, getDayOfWeek, convertTo12Hour, roomType } from "../utils";
 import { useTranslation } from "react-i18next";
 
 const ViewSummary = ({ errMessage }) => {
@@ -27,6 +27,8 @@ const ViewSummary = ({ errMessage }) => {
   const getRoomCount = (roomName) => {
     return roomCounts[roomName] ?? 0;
   };
+
+  const isSmallSpace = roomType(data);
 
   return (
     <div className="ml-4 summaryBox w-full">
@@ -133,65 +135,128 @@ const ViewSummary = ({ errMessage }) => {
           <div className="flex">
             <div className="w-[30px] sideSide "></div>
             <div className="w-full boxSide ml-[10px]">
-              <div className="h-[160px] w-full webTable border-[#e3e3e3] border-[1px] rounded-[12px] ">
-                <div className="w-full h-[50%] flex items-center justify-between border-[#e3e3e3] border-b-[1px]">
-                  <div className="flex rounded-tl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full justify-between">
-                    <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      {t("summary.moveSize")}
-                    </p>
-                    <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      {data?.houseSize}
-                    </p>
-                  </div>
+              {!isSmallSpace && (
+                <div className="h-[160px] w-full webTable border-[#e3e3e3] border-[1px] rounded-[12px] ">
+                  <div className="w-full h-[50%] flex items-center justify-between border-[#e3e3e3] border-b-[1px]">
+                    <div className="flex rounded-tl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full justify-between">
+                      <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
+                        {t("summary.moveSize")}
+                      </p>
+                      <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
+                        {data?.houseSize}
+                      </p>
+                    </div>
 
-                  <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
-                    <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      {t("summary.livingRoom")}
-                    </p>
-                    <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      {getRoomCount("Living Room")} {t("summary.items")}
-                    </p>
+                    <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
+                      <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
+                        {t("summary.livingRoom")}
+                      </p>
+                      <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
+                        {getRoomCount("Living Room")} {t("summary.items")}
+                      </p>
+                    </div>
+                    <div className="flex p-[16px] rounded-tr-[12px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
+                      <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
+                        {t("summary.toilet")}
+                      </p>
+                      <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
+                        {getRoomCount("Toilet and bath")} {t("summary.items")}
+                      </p>
+                    </div>
                   </div>
-                  <div className="flex p-[16px] rounded-tr-[12px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
-                    <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      {t("summary.toilet")}
-                    </p>
-                    <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      {getRoomCount("Toilet and bath")} {t("summary.items")}
-                    </p>
+                  <div className="w-full h-[50%] flex items-center justify-between ">
+                    <div className="flex rounded-bl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full justify-between">
+                      <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
+                        {t("summary.kitchen")}
+                      </p>
+                      <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
+                        {getRoomCount("Kitchen")} {t("summary.items")}
+                      </p>
+                    </div>
+                    <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
+                      <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
+                        {t("summary.dinning")}
+                      </p>
+                      <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
+                        {getRoomCount("Dinning Room")} {t("summary.items")}
+                      </p>
+                    </div>
+                    <div className="flex p-[16px] rounded-br-[12px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
+                      <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
+                        {t("summary.bed")}
+                      </p>
+                      <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
+                        {getRoomCount("Bedroom")} {t("summary.items")}
+                      </p>
+                    </div>
                   </div>
                 </div>
-                <div className="w-full h-[50%] flex items-center justify-between ">
-                  <div className="flex rounded-bl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full justify-between">
-                    <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      {t("summary.kitchen")}
-                    </p>
-                    <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      {getRoomCount("Kitchen")} {t("summary.items")}
-                    </p>
-                  </div>
-                  <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
-                    <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      {t("summary.dinning")}
-                    </p>
-                    <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      {getRoomCount("Dinning Room")} {t("summary.items")}
-                    </p>
-                  </div>
-                  <div className="flex p-[16px] rounded-br-[12px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
-                    <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      {t("summary.bed")}
-                    </p>
-                    <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      {getRoomCount("Bedroom")} {t("summary.items")}
-                    </p>
-                  </div>
-                </div>
-              </div>
+              )}
 
               {/* mobile */}
-              <div className="h-fit w-full mobileTable border-[#e3e3e3] border-[1px] rounded-[12px] ">
-                <div className="w-full h-[50%] flex items-center justify-between border-[#e3e3e3] border-b-[1px]">
+              {!isSmallSpace && (
+                <div className="h-fit w-full mobileTable border-[#e3e3e3] border-[1px] rounded-[12px] ">
+                  <div className="w-full h-[50%] flex items-center justify-between border-[#e3e3e3] border-b-[1px]">
+                    <div className="flex w-[50%] rounded-tl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7]  h-full justify-between">
+                      <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
+                        {t("summary.moveSize")}
+                      </p>
+                      <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
+                        {data?.houseSize}
+                      </p>
+                    </div>
+
+                    <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[50%] h-full  justify-between">
+                      <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
+                        {t("summary.livingRoom")}
+                      </p>
+                      <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
+                        {getRoomCount("Living Room")} {t("summary.items")}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="w-full h-[50%] flex items-center border-[#e3e3e3] border-b-[1px] justify-between ">
+                    <div className="flex rounded-bl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7] w-[50%] h-full justify-between">
+                      <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
+                        {t("summary.bed")}
+                      </p>
+                      <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
+                        {getRoomCount("Bedroom")} {t("summary.items")}
+                      </p>
+                    </div>
+                    <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[50%] h-full  justify-between">
+                      <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
+                        {t("summary.dinning")}
+                      </p>
+                      <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
+                        {getRoomCount("Dinning Room")} {t("summary.items")}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="w-full h-[50%] flex items-center justify-between ">
+                    <div className="flex rounded-bl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7] w-[50%] h-full justify-between">
+                      <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
+                        {t("summary.toilet")}
+                      </p>
+                      <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
+                        {getRoomCount("Toilet and bath")} {t("summary.items")}
+                      </p>
+                    </div>
+                    <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[50%] h-full  justify-between">
+                      <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
+                        {t("summary.kitchen")}
+                      </p>
+                      <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
+                        {getRoomCount("Kitchen")} {t("summary.items")}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Desktop for others */}
+              {isSmallSpace && (
+                <div className="w-full h-[90px] webTable flex items-center border-[#e3e3e3] border-[1px] rounded-[12px] justify-between ">
                   <div className="flex w-[50%] rounded-tl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7]  h-full justify-between">
                     <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
                       {t("summary.moveSize")}
@@ -200,53 +265,41 @@ const ViewSummary = ({ errMessage }) => {
                       {data?.houseSize}
                     </p>
                   </div>
+                  <div className="flex w-[50%] rounded-br-[12px] p-[16px]  flex-col  hover:bg-[#f7f7f7]  h-full justify-between">
+                    <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
+                      {data?.houseSize}
+                    </p>
+                    <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
+                      {getRoomCount("Others")} {t("summary.items")}
+                    </p>
+                  </div>
+                </div>
+              )}
 
-                  <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[50%] h-full  justify-between">
-                    <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      {t("summary.livingRoom")}
-                    </p>
-                    <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      {getRoomCount("Living Room")} {t("summary.items")}
-                    </p>
+              {/* mobile */}
+              {isSmallSpace && (
+                <div className="h-fit w-full mobileTable border-[#e3e3e3] border-[1px] mt-[20px] rounded-[12px]">
+                  <div className="w-full h-[50%] flex items-center justify-between border-[#e3e3e3] border-b-[1px]">
+                    <div className="flex w-[50%] rounded-tl-[12px] p-[16px] flex-col hover:bg-[#f7f7f7] h-full justify-between">
+                      <p className="font-sans text-[14px] leading-[19.6px] text-[#707070]">
+                        {t("summary.moveSize")}
+                      </p>
+                      <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans">
+                        {data?.houseSize}
+                      </p>
+                    </div>
+
+                    <div className="flex flex-col p-[16px] hover:bg-[#f7f7f7] w-[50%] h-full justify-between">
+                      <p className="font-sans text-[14px] leading-[19.6px] text-[#707070]">
+                        {data?.houseSize}
+                      </p>
+                      <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans">
+                        {getRoomCount("Others")} {t("summary.items")}
+                      </p>
+                    </div>
                   </div>
                 </div>
-                <div className="w-full h-[50%] flex items-center border-[#e3e3e3] border-b-[1px] justify-between ">
-                  <div className="flex rounded-bl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7] w-[50%] h-full justify-between">
-                    <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      {t("summary.bed")}
-                    </p>
-                    <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      {getRoomCount("Bedroom")} {t("summary.items")}
-                    </p>
-                  </div>
-                  <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[50%] h-full  justify-between">
-                    <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      {t("summary.dinning")}
-                    </p>
-                    <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      {getRoomCount("Dinning Room")} {t("summary.items")}
-                    </p>
-                  </div>
-                </div>
-                <div className="w-full h-[50%] flex items-center justify-between ">
-                  <div className="flex rounded-bl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7] w-[50%] h-full justify-between">
-                    <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      {t("summary.toilet")}
-                    </p>
-                    <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      {getRoomCount("Toilet and bath")} {t("summary.items")}
-                    </p>
-                  </div>
-                  <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[50%] h-full  justify-between">
-                    <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                      {t("summary.kitchen")}
-                    </p>
-                    <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                      {getRoomCount("Kitchen")} {t("summary.items")}
-                    </p>
-                  </div>
-                </div>
-              </div>
+              )}
 
               <div className="w-full h-[90px] webTable flex items-center border-[#e3e3e3] border-[1px] mt-[20px] rounded-[12px] justify-between ">
                 <div className="flex rounded-bl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full justify-between">

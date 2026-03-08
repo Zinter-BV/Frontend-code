@@ -1,11 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 // Emmanuel's code
 import { loadStripe } from "@stripe/stripe-js";
-import { createPayment } from "../api/tracking";
-import PrimaryBtn from "./PrimaryBtn";
 import Stripe from "../page/Stripe";
 import { Elements } from "@stripe/react-stripe-js";
 import { stripPTags } from "../utils";
@@ -14,7 +10,7 @@ const stripePromise = loadStripe(
   "pk_test_51O2JovLw5fKJMXx3zvARABxAlQpptJi9aO6gPkcbH9lFFCfJXV8rgAw170q4wt3CHz00uDfGtPqKmvdvPFWQqNMc00c3Dqphpr"
 );
 
-const Payment = ({}) => {
+const Payment = () => {
   const moversData = useSelector((state) => state.user.moversData);
 
   console.log(moversData);
@@ -24,7 +20,7 @@ const Payment = ({}) => {
 
   return (
     <div className="ml-4 h-fit movingCompanyDetailBox w-full">
-      <div className="overflow-y-scroll pb-[70px] custom-scroll ">
+      <div className="overflow-y-scroll pb-[20px] custom-scroll ">
         <p className="font-sans text-[20px] text-[#121212] font-bold ">
           {t("payment.complete")}
         </p>
@@ -90,7 +86,7 @@ const Payment = ({}) => {
                     <p className="text-[#b8b8b8] ml-2 font-light font-sans text-[16px]">
                       -
                     </p>
-                    <p className="text-[#707070] ml-2 movingContainerFromLocation font-sans text-[16px] leading-[25.6px]">
+                    <p className="ml-2 max-w-[280px] overflow-hidden movingContainerFromLocation text-ellipsis whitespace-nowrap text-[#707070] font-sans text-[16px] leading-[25.6px]">
                       {moversData?.moveDetails?.from}
                     </p>
                   </div>
@@ -151,7 +147,7 @@ const Payment = ({}) => {
                     <p className="text-[#b8b8b8] ml-2 font-light font-sans text-[16px]">
                       -
                     </p>
-                    <p className="text-[#707070] movingContainerFromLocation ml-2 font-sans text-[16px] leading-[25.6px]">
+                    <p className="ml-2 max-w-[280px] overflow-hidden text-ellipsis whitespace-nowrap movingContainerFromLocation text-[#707070] font-sans text-[16px] leading-[25.6px]">
                       {moversData?.moveDetails?.to}
                     </p>
                   </div>

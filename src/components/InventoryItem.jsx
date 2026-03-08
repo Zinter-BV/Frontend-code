@@ -1,29 +1,73 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const InventoryItem = ({
-  activeRoom = { activeRoom },
+  activeRoom,
   img,
-  appendItemToArray,
   title,
   handleInventoriesSelected,
-  handleRemoveInventory,
-  selectedItems = [], // Pass selected items from parent
+  selectedItems = [],
+  isSelected: externalIsSelected,
+  currentCount: externalCount,
 }) => {
-  // Find if this item is already selected
+  // Find if this item is already selected from props or selectedItems array
   const existingItem = selectedItems.find((item) => item.itemName === title);
-  const initialCount = existingItem ? existingItem.numberOfCount : 0;
-  const initialSelected = existingItem ? true : false;
+
+  // Use external props if provided, otherwise use selectedItems array
+  const initialCount =
+    externalCount !== undefined
+      ? externalCount
+      : existingItem
+      ? existingItem.numberOfCount
+      : 0;
+
+  const initialSelected =
+    externalIsSelected !== undefined
+      ? externalIsSelected
+      : existingItem
+      ? true
+      : false;
 
   const [isCardSelected, setIsCardSelected] = useState(initialSelected);
   const [count, setCount] = useState(initialCount);
 
+  // Update local state when external props change
+  useEffect(() => {
+    if (externalIsSelected !== undefined) {
+      setIsCardSelected(externalIsSelected);
+    }
+    if (externalCount !== undefined) {
+      setCount(externalCount);
+    }
+  }, [externalIsSelected, externalCount]);
+
+  // Update when selectedItems array changes
+  useEffect(() => {
+    if (selectedItems.length > 0) {
+      const item = selectedItems.find((item) => item.itemName === title);
+      if (item) {
+        setIsCardSelected(true);
+        setCount(item.numberOfCount);
+      } else {
+        setIsCardSelected(false);
+        setCount(0);
+      }
+    }
+  }, [selectedItems, title]);
+
   const increaseItems = () => {
     const newCount = count + 1;
     setCount(newCount);
-    handleInventoriesSelected(title);
 
-    // Update the array with the new count
-    updateItemInArray(newCount);
+    if (!isCardSelected) {
+      setIsCardSelected(true);
+    }
+
+    // Call parent handler with updated count
+    handleInventoriesSelected({
+      itemName: title,
+      numberOfCount: newCount,
+      room: activeRoom,
+    });
   };
 
   const decreaseItems = () => {
@@ -31,28 +75,28 @@ const InventoryItem = ({
 
     const newCount = count - 1;
     setCount(newCount);
-    handleRemoveInventory(title);
 
-    // Update the array with the new count
-    updateItemInArray(newCount);
-  };
+    if (newCount === 0) {
+      setIsCardSelected(false);
+    }
 
-  const updateItemInArray = (newCount) => {
-    // Pass the item with a flag to indicate it should update existing
-    appendItemToArray({
+    // Call parent handler with updated count
+    handleInventoriesSelected({
       itemName: title,
       numberOfCount: newCount,
       room: activeRoom,
-      shouldUpdateExisting: true,
     });
   };
 
   return (
     <div
       className={`w-full group cursor-pointer h-[290px] rounded-[16px] border-[1px]
-        `}
+        ${isCardSelected ? "border-[#054D96]" : "border-[#e3e3e3]"}`}
     >
-      <div className="border-b-[5px] border-[#054D96] h-[65%] flex justify-center items-center ">
+      <div
+        className={`border-b-[5px] h-[65%] flex justify-center items-center
+        ${isCardSelected ? "border-[#054D96]" : "border-[#e3e3e3]"}`}
+      >
         <img
           src={img}
           className="max-w-[150px] object-cover max-h-[110px] "

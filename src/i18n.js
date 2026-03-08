@@ -342,6 +342,7 @@ const enTranslations = {
     moveDate: "Move Date",
     contactInfo: "Contact Info",
     fullName: "Full Name",
+    dropOffDetails: "Drop-off Details",
     email: "Email Address",
     phone: "Phone Number",
     pickup: "Pickup Details",
@@ -359,6 +360,8 @@ const enTranslations = {
     shuttle1: "Need Shuttle?",
     needHelp1: "Need help packing your items?",
     to: "To",
+    termsCondition: "Accept terms and condition",
+    receive: "Receive Promotions and moving tips",
   },
   summary: {
     title: "Move Summary",
@@ -456,6 +459,13 @@ const enTranslations = {
     sixbedroom: "6 bedrooms",
     studio: "Studio",
     small: "Small",
+  },
+  paymentSuccess: {
+    success: "You have successfully made payment for your move",
+    tracking:
+      "Link to track move and move details have been sent to your email address",
+    location: "Move Date and Location",
+    btn: "OK, GOT IT",
   },
 };
 
@@ -1365,6 +1375,13 @@ const nlTranslations = {
     sixbedroom: "6 slaapkamer",
     studio: "Studio",
     small: "Small",
+  },
+  paymentSuccess: {
+    success: "U heeft de betaling voor uw verhuizing succesvol uitgevoerd.",
+    tracking:
+      "Een link om de verhuizing te volgen en de verhuisdetails is naar uw e-mailadres verzonden.",
+    location: "Verhuisdatum en locatie",
+    btn: "OK, BEGREPEN",
   },
 };
 

@@ -1,15 +1,13 @@
-import React from "react";
 import QuoteSuccessIcon from "../Assets/SVG/QuoteSuccess";
 import PrimaryBtn from "../components/PrimaryBtn";
 import { useSelector } from "react-redux";
-import { convertTo12Hour, formatDate } from "../utils";
+import { formatDate } from "../utils";
+import { useTranslation } from "react-i18next";
 
 const PaymentSuccess = ({ openModal }) => {
   const moversData = useSelector((state) => state.user.moversData);
-  console.log(moversData);
 
-  const serverResponse = JSON.parse(localStorage.getItem("Code"));
-  console.log(serverResponse);
+  const { t } = useTranslation();
 
   return (
     <div className="fixed top-0 z-50 left-0 backdrop-blur-[3px] bg-[rgba(0,0,0,0.10)] h-full w-full flex pb-7 justify-center paymentSuccessModal items-center">
@@ -19,23 +17,22 @@ const PaymentSuccess = ({ openModal }) => {
             <QuoteSuccessIcon />
           </div>
           <h2 className="my-3 text-center trackMoveSuccessText font-sans text-[24px] w-[90%] text-[#121212] font-bold ">
-            You have successfully made payment for your move
+            {t("paymentSuccess.success")}
           </h2>
           <p className="text-[16px] text-center trackMoveSuccessSubText mb-3 font-light leading-[25.6px] w-[90%] text-[#525252] font-sans ">
-            Link to track move and move details have been sent to your email
-            address
+            {t("paymentSuccess.tracking")}
           </p>
           <div className="w-[90%] mx-auto trackMoveSuccessInnerBox rounded-[8px] border-[1px] p-4 border-[#e3e3e3] h-fit mb-4 ">
             <p className="font-sans text-center text-[14px] text-[#707070] ml-2 leading-[25.6px] ">
-              Move Date & Location
+              {t("paymentSuccess.location")}
             </p>
             <div className="flex justify-center items-center">
               <p className="text-[#121212] trackMoveSuccessInnerBoxText font-sans text-[18px] font-bold ">
                 {formatDate(moversData?.moveDetails?.moveDate)}
               </p>
-              <p className="text-[#121212] trackMoveSuccessInnerBoxText font-sans text-[18px] font-bold ml-2 ">
+              {/* <p className="text-[#121212] trackMoveSuccessInnerBoxText font-sans text-[18px] font-bold ml-2 ">
                 {convertTo12Hour(moversData?.moveDetails?.moveTime)}
-              </p>
+              </p> */}
             </div>
             <p className="text-[#121212] mt-2 text-center trackMoveSuccessInnerBoxText font-sans text-[18px] font-bold ">
               {moversData?.moveDetails?.from}
@@ -49,7 +46,7 @@ const PaymentSuccess = ({ openModal }) => {
             handlePress={openModal}
             className={"text-[14px] "}
           >
-            OK, GOT IT
+            {t("paymentSuccess.btn")}
           </PrimaryBtn>
         </div>
       </div>

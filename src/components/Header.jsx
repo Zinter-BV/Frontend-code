@@ -1,11 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import SecondaryBtn from "./SecondaryBtn";
 import InvoiceIcon from "../Assets/SVG/Invoice";
 import TrackingIcon from "../Assets/SVG/TrackingIcon";
 import TruckIcon from "../Assets/SVG/TruckIcon";
 import Logo from "./Logo";
-import { IoCloseSharp } from "react-icons/io5";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 const Header = () => {
@@ -52,7 +51,7 @@ const Header = () => {
     " text-[#121212] font-unbounded text-[18px] font-bold";
 
   return (
-    <header className="h-[80px] header mx-auto w-[100vw] border-b-[1px] border-[#d1d1d1] z-30 bg-white fixed top-0 left-0 flex justify-center items-center">
+    <header className="h-[80px] header mx-auto w-[100vw] border-b-[1px] border-[#d1d1d1] z-50 bg-white fixed top-0 left-0 flex justify-center items-center">
       <nav className="flex w-[90vw] desktopNav relative items-center mx-auto max-w-[1500px] justify-between">
         <Link to="/" className="">
           <Logo />

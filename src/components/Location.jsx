@@ -554,8 +554,6 @@ const Location = ({
   const [activeMoveSizeTab, setActiveMoveSizeTab] = useState("house");
   const dispatch = useDispatch();
 
- 
-
   const renderTabContent = () => {
     switch (activeMoveSizeTab) {
       case "house":
