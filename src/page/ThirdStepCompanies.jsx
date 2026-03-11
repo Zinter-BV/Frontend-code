@@ -45,7 +45,7 @@ const ThirdStepCompanies = () => {
 
     const [selectedProvinces, setSelectedProvinces] = useState([]);
     const [showDropdown, setShowDropdown] = useState(false);
-    const [showSuccessModal, setShowSuccessModal] = useState(false)
+    const [showSuccessModal, setShowSuccessModal] = useState(true)
     const [allProvinces, setAllProvinces] = useState([]);
 
     const { data, isLoading, error } = useQuery({
@@ -112,10 +112,10 @@ const ThirdStepCompanies = () => {
         const storedCompanyName = sessionStorage.getItem("companyName");
 
         // redirect condition
-        if (!storedEmail || !storedPassword || !storedKvkNumber || !storedCompanyName) {
-            navigate("/get-started");
-            return;
-        }
+        // if (!storedEmail || !storedPassword || !storedKvkNumber || !storedCompanyName) {
+        //     navigate("/get-started");
+        //     return;
+        // }
 
         // set state only if valid
         setEmail(storedEmail);

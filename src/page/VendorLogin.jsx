@@ -76,8 +76,7 @@ const VendorLogin = () => {
                     type: "error"
                 });
             } else {
-                console.log(data.responseMessage)
-                console.log(data.result)
+                
                 sessionStorage.setItem('token', data.result.jwtToken)
                 sessionStorage.setItem('name', data.result.name)
                 sessionStorage.setItem('companyImage', data.result.image)

@@ -88,7 +88,7 @@
 
 .company_input_reg_pass span {
     position: absolute;
-    top: 20%;
+    top: 50%;
     right: 10px;
     font-family: "DM Sans", sans-serif;
     font-weight: 600;
@@ -96,6 +96,10 @@
     color: rgba(44, 44, 44, 1);
     cursor: pointer;
 
+}
+
+.requirement_div {
+    margin-top: 20px;
 }
 
 .verify_component {
@@ -123,11 +127,11 @@
 
 
     .company_firststep_btn_second {
-        position: absolute;
+        position: relative;
         padding-top: 10px;
         padding-bottom: 20px;
         width: 100%;
-        top: 85vh;
+        top: 0;
         /* border-top: 1px solid rgba(229, 229, 229, 1); */
         display: flex;
         flex-direction: column;

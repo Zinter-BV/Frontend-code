@@ -312,6 +312,7 @@
         /* width: 593px; */
         width: 100%;
         position: relative;
+        padding: 0 0 20px;
     }
 
     .company_header {
@@ -350,9 +351,11 @@
 
     .company_policy {
         /* margin-top: 87vh; */
-        position: absolute;
-        top: 70vh;
+        /* position: absolute; */
+        /* top: 70vh; */
         /* bottom: 80px; */
+        position: relative;
+        top: 0;
         color: rgba(137, 141, 147, 1);
         font-size: 14px;
         font-weight: 400;
@@ -362,11 +365,11 @@
 
 
     .company_firststep_btn {
-        position: absolute;
+        position: relative;
         padding: 10px 0 80px;
         /* margin-top: 50px; */
         width: 100%;
-        top: 82vh;
+        top: 10px;
         /* bottom: -5vh; */
         /* border-top: 1px solid rgba(229, 229, 229, 1); */
         display: flex;
@@ -410,8 +413,8 @@
 
     .company_policy {
         /* margin-top: 87vh; */
-        position: absolute;
-        top: 70vh;
+        position: relative;
+        top: 0;
         /* bottom: 80px; */
         color: rgba(137, 141, 147, 1);
         font-size: 12px;

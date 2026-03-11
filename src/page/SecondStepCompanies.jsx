@@ -196,6 +196,12 @@ const SecondStepCompanies = () => {
                         <label>Enter Password</label>
                         <input type={showPassword ? "text" : "password"} value={password} placeholder="Enter Password"
                             onChange={(e) => setPassword(e.target.value)} />
+
+                        <span onClick={() => setShowPassword((prev) => !prev)}>
+                            {showPassword ? "HIDE" : "SHOW"}
+                        </span>
+                    </div>
+                    <div className="requirement_div">
                         <div className={`requirement ${passwordRequirements.length ? 'pass' : 'fail'}`}>
                             Password must be 8 characters long
                         </div>
@@ -211,10 +217,6 @@ const SecondStepCompanies = () => {
                         <div className={`requirement ${passwordRequirements.specialChar ? 'pass' : 'fail'}`}>
                             Password must include 1 special character
                         </div>
-
-                        <span onClick={() => setShowPassword((prev) => !prev)}>
-                            {showPassword ? "HIDE" : "SHOW"}
-                        </span>
                     </div>
                     {showErrMsg && (
                         <div className="error_message_container">
