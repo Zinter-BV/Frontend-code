@@ -5,6 +5,7 @@ import simplicity from "../Assets/simplicity.svg";
 import { useNavigate } from "react-router-dom";
 import "./ourVision.css";
 import { useTranslation } from "react-i18next";
+import SecondaryBtn from "./SecondaryBtn";
 
 const OurVision = () => {
   const navigate = useNavigate();
@@ -44,12 +45,18 @@ const OurVision = () => {
         <div className="second_container_vision">
           <h2>{t("vision.main")}</h2>
           <span>{t("vision.description")}</span>
-          <button
+          {/* <button
             onClick={() => navigate("/quote")}
-            className="get_started_btn"
+            className=" w-[250px]"
           >
             {t("features.getStartedBtn")}
-          </button>
+          </button> */}
+          <SecondaryBtn
+            onClick={() => navigate("/quote")}
+            className={"text-[14px] w-[400px]"}
+          >
+            {t("features.getStartedBtn")}
+          </SecondaryBtn>
         </div>
       </div>
     </div>
