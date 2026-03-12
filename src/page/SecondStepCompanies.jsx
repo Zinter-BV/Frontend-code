@@ -234,7 +234,7 @@ const SecondStepCompanies = () => {
                 <div className="company_policy">
                     <span>
 
-                        By creating account you accept our <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>
+                        By creating an account you accept our <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>
                     </span>
 
                 </div>
