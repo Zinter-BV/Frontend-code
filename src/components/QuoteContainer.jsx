@@ -230,6 +230,7 @@ const QuoteContainer = ({ data }) => {
     email,
     phoneNumber,
     provinceId,
+    houseSize: moveSize,
     pickUpAddress: fromLocation,
     dropOffAddress: toLocation,
     pickUpAddressNumber: pickUpAddressNumber || null,

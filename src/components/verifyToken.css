@@ -47,6 +47,9 @@
     color: rgba(44, 44, 44, 1);
     font-weight: 400;
     font-family: "DM Sans", sans-serif;
+    margin: 0 auto;
+    width: 80%;
+    text-align: center;
 }
 
 .token_input {

@@ -34,6 +34,8 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { moveDetails } from "../api/moveDetails";
 import Loader from "../components/loader";
 import { createQuote } from "../api/quote";
+import Toast from "../components/toast";
+import LocationMap from "../components/LocationMap";
 
 
 
@@ -59,6 +61,33 @@ const ViewNewJobs = () => {
     const [additonalInformation, setAddtionalComment] = useState('');
     const [showProvideQuote, setShowProvideQuote] = useState(false)
     const [showSuccessQuote, setshowSuccessQuote] = useState(false)
+    const [fromLatitude, setFromLatitude] = useState("")
+    const [toLatitude, setToLatitude] = useState("")
+    const [fromLongitude, setFromLongitude] = useState("")
+    const [toLongitude, setToLongitude] = useState("")
+    const [rawAmount, setRawAmount] = useState("");
+    const [toast, setToast] = useState(null);
+    const handleAmountChange = (e) => {
+
+        const input = e.target.value;
+
+        // remove commas
+        const numeric = input.replace(/,/g, "");
+
+        // allow only digits
+        if (!/^\d*$/.test(numeric)) return;
+
+        setRawAmount(numeric);                 // for API
+        setAmount(formatWithComma(numeric));
+    }
+
+    const formatWithComma = (value) => {
+        if (!value) return "";
+        const number = value.toString().replace(/,/g, "");
+        return number.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    };
+
+    // for UI
     // const { data: dataQuote, isLoading: isLoadingQuote, error: errorQuote, refetch } = useQuery({
     //     queryKey: ["createQuote", moveId, amount, proposedTime, additonalInformation],
     //     queryFn: () => createQuote({
@@ -86,13 +115,22 @@ const ViewNewJobs = () => {
     // });
 
     const { mutate: sendQuote, isPending, errors } = useMutation({
-        mutationFn: ({ moveId, amount, proposedTime, additonalInformation }) =>
-            createQuote({ moveId, amount, proposedTime, additonalInformation }),
+        mutationFn: ({ moveId, amount, proposedTime, additonalInformation }) => {
+            // const payloadAmount = typeof amount !== "undefined" ? amount : rawAmount;
+            const payloadRaw = typeof amount !== "undefined" ? amount : rawAmount;
+            // payloadRaw can be a numeric string (rawAmount) or formatted string — ensure numeric value
+            const numericAmount = Number(String(payloadRaw).replace(/,/g, "")) || 0;
+            return createQuote({ moveId, amount: numericAmount, proposedTime, additonalInformation });
+        },
 
         onSuccess: (data) => {
             if (data?.responseStatus === false) {
                 console.log("Error:", data.responseMessage);
                 console.log(errors)
+                setToast({
+                    message: data.responseMessage,
+                    type: 'error'
+                })
             } else {
                 console.log("Success:", data.responseMessage);
                 setShowProvideQuote(false);
@@ -135,6 +173,10 @@ const ViewNewJobs = () => {
             setMoveTime(data.result.moveTime)
             setNumberOfRooms(data.result.numberOfRooms)
             setMoveDetailsArray(data.result.moveItemsDetails);
+            setFromLatitude(data.result.pickUpLongitude)
+            setToLatitude(data.result.pickUpLatitude)
+            setFromLongitude(data.result.dropOffLongitude)
+            setToLongitude(data.result.dropOffLatitude)
             const allItems = moveDetailsArray.flatMap(detail => detail.items)
             setItemsArray(allItems)
         }
@@ -176,15 +218,24 @@ const ViewNewJobs = () => {
     // };
     const handleClose = () => {
         // debugger
-        if ( !time) {
+        if (!time) {
             alert("Please select time");
             return;
         }
+        if (time < "07:00" || time > "17:00") {
+            setToast({
+                message: "Please select a time between 07:00 and 17:00",
+                type: "error"
+            });
+            // alert("Please select a time between 07:00 and 17:00");
+            return;
+        }
+        const datePart = moveDate.split("T")[0];
+        const proposedTime = new Date(`${datePart}T${time}`).toISOString();
+        // const proposedTime = new Date(`${moveDate.split('T')[0]}T${time}:00.000Z`).toISOString();
 
-        const proposedTime = new Date(`${moveDate.split('T')[0]}T${time}:00.000Z`).toISOString();
-
-        if (moveId && amount && additonalInformation) {
-            sendQuote({ moveId, amount, proposedTime, additonalInformation });
+        if (moveId && rawAmount && additonalInformation) {
+            sendQuote({ moveId, rawAmount, proposedTime, additonalInformation });
         }
     };
 
@@ -222,7 +273,7 @@ const ViewNewJobs = () => {
                                     <div className="header_job_detail_new">
                                         <span>
                                             <img src="/images/Dot.svg" alt="" />
-                                            </span>
+                                        </span>
                                         <span>New Request</span>
                                     </div>
                                     <span className="header_user_job_email">{email}</span>
@@ -246,7 +297,13 @@ const ViewNewJobs = () => {
                             </div>
                         </div>
                         <div className="map_job_details">
-                            <MovementMap />
+                            {/* <LocationMap
+                                style={{ width: "100%" }}
+                                fromPickupLongitude={fromLatitude}
+                                fromPickupLatitude={toLatitude}
+                                toDropOffLongitude={fromLongitude}
+                                toDropOffLatitude={toLongitude}
+                            /> */}
                         </div>
                         <div className="more_jobs_details">
                             <div className="first_tab_job">
@@ -554,7 +611,8 @@ const ViewNewJobs = () => {
                                     <span>Availability</span>
                                     <div className="input_date_time">
                                         <input type="date" value={moveDate.split('T')[0]} disabled />
-                                        <input type="time" value={time} onChange={(e) => setTime(e.target.value)} />
+                                        <input type="time" min="07:00"
+                                            max="17:00" value={time} onChange={(e) => setTime(e.target.value)} />
                                     </div>
 
                                     {/* <div className="tag_input_wrapper_view">
@@ -589,9 +647,10 @@ const ViewNewJobs = () => {
                                 </div>
                                 <div className="body_quote_sub_amount">
                                     <span>How much do you want to charge</span>
-                                    <input type="number"
-                                        onChange={(e) => setAmount(e.target.value)}
+                                    <input type="text"
+                                        onChange={handleAmountChange}
                                         name="" id=""
+                                        value={amount}
                                         placeholder="Enter a competitive quote" />
                                 </div>
                                 <div className="body_quote_sub_text">
@@ -624,7 +683,7 @@ const ViewNewJobs = () => {
                             <div className="body_quote">
                                 <div className="body_quote_first">
                                     <div>
-                                       
+
                                     </div>
                                     <div className="body_quote_details">
                                         <h2>{fullName}</h2>
@@ -665,6 +724,14 @@ const ViewNewJobs = () => {
             {isPending && <Loader />}
 
             {isLoading && <Loader />}
+
+            {toast && <Toast
+                className="toast-container"
+                message={toast.message}
+                type={toast.type}
+                duration={7000}
+                onClose={() => setToast(null)}
+            />}
 
         </div>
     )

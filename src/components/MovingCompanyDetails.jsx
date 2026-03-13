@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import img from "../Assets/Rectangle 4562.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { convertTo12Hour, formatDate, stripPTags } from "../utils";
+import { convertTo12Hour, formatDate, roomType, stripPTags } from "../utils";
 import { resetMoversInfo } from "../redux/action";
 
 const MovingCompanyDetails = ({ makeInActive }) => {
@@ -158,6 +158,10 @@ const MovingCompanyDetails = ({ makeInActive }) => {
   };
 
   const additionalInfo = stripPTags(mover?.additionalInformation);
+
+  // Safe function to get room count
+
+  const isSmallSpace = roomType(mover?.moveDetails);
 
   return (
     <div className="ml-4 mb-[40px] movingCompanyDetailBox h-fit ">
@@ -393,122 +397,150 @@ const MovingCompanyDetails = ({ makeInActive }) => {
           </div>
         </div>
         <div className="w-full">
-          <div className="h-[160px] w-full webTable border-[#e3e3e3] border-[1px] rounded-[12px] ">
-            <div className="w-full h-[50%] flex items-center justify-between border-[#e3e3e3] border-b-[1px]">
-              <div className="flex rounded-tl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full justify-between">
-                <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                  Move Size
-                </p>
-                <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  House - {mover?.moveDetails?.numberOfRooms}{" "}
-                  {mover?.moveDetails?.numberOfRooms > 1 ? "Rooms" : "Room"}
-                </p>
-              </div>
+          {!isSmallSpace && (
+            <div className="h-[160px] w-full webTable border-[#e3e3e3] border-[1px] rounded-[12px] ">
+              <div className="w-full h-[50%] flex items-center justify-between border-[#e3e3e3] border-b-[1px]">
+                <div className="flex rounded-tl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full justify-between">
+                  <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
+                    Move Size
+                  </p>
+                  <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
+                    {/* House - {mover?.moveDetails?.numberOfRooms}{" "} */}
+                    {mover?.moveDetails?.houseSize}
+                  </p>
+                </div>
 
-              <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
-                <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                  Living Room
-                </p>
-                <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  {getRoomCount("Living Room")} items selected
-                </p>
+                <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
+                  <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
+                    Living Room
+                  </p>
+                  <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
+                    {getRoomCount("Living Room")} items selected
+                  </p>
+                </div>
+                <div className="flex p-[16px] rounded-tr-[12px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
+                  <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
+                    Bedroom
+                  </p>
+                  <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
+                    {getRoomCount("Bedroom")} items selected
+                  </p>
+                </div>
               </div>
-              <div className="flex p-[16px] rounded-tr-[12px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
-                <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                  Bedroom
-                </p>
-                <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  {getRoomCount("Bedroom")} items selected
-                </p>
+              <div className="w-full h-[50%] flex items-center justify-between ">
+                <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[50%] h-full  justify-between">
+                  <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
+                    Dinning Room
+                  </p>
+                  <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
+                    {getRoomCount("Dinning Room")} items selected
+                  </p>
+                </div>
+                <div className="flex p-[16px] rounded-br-[12px] flex-col  hover:bg-[#f7f7f7] w-[50%] h-full  justify-between">
+                  <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
+                    Kitchen
+                  </p>
+                  <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
+                    {getRoomCount("Kitchen")} items selected
+                  </p>
+                </div>
               </div>
             </div>
-            <div className="w-full h-[50%] flex items-center justify-between ">
-              <div className="flex rounded-bl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full justify-between">
-                <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                  Toilet and bath
-                </p>
-                <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  {getRoomCount("Toilet and bath")} items selected
-                </p>
-              </div>
-              <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
-                <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                  Dinning Room
-                </p>
-                <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  {getRoomCount("Dinning Room")} items selected
-                </p>
-              </div>
-              <div className="flex p-[16px] rounded-br-[12px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full  justify-between">
-                <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                  Kitchen
-                </p>
-                <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  {getRoomCount("Kitchen")} items selected
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* mobile */}
-          <div className="h-fit w-full mobileTable border-[#e3e3e3] border-[1px] rounded-[12px] ">
-            <div className="w-full h-[50%] flex items-center justify-between border-[#e3e3e3] border-b-[1px]">
+          )}
+          {isSmallSpace && (
+            <div className="w-full h-[90px] webTable flex items-center border-[#e3e3e3] border-[1px] rounded-[12px] justify-between ">
               <div className="flex w-[50%] rounded-tl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7]  h-full justify-between">
                 <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
                   Move Size
                 </p>
                 <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  House - {mover?.moveDetails?.numberOfRooms}{" "}
-                  {mover?.moveDetails?.numberOfRooms > 1 ? "Rooms" : "Room"}
+                  {mover?.moveDetails?.houseSize}
                 </p>
               </div>
+              <div className="flex w-[50%] rounded-br-[12px] p-[16px]  flex-col  hover:bg-[#f7f7f7]  h-full justify-between">
+                <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
+                  {mover?.moveDetails?.houseSize}
+                </p>
+                <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
+                  {getRoomCount("Others")} items selected
+                </p>
+              </div>
+            </div>
+          )}
 
-              <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[50%] h-full  justify-between">
+          {/* mobile */}
+          {!isSmallSpace && (
+            <div className="h-fit w-full mobileTable border-[#e3e3e3] border-[1px] rounded-[12px] ">
+              <div className="w-full h-[50%] flex items-center justify-between border-[#e3e3e3] border-b-[1px]">
+                <div className="flex w-[50%] rounded-tl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7]  h-full justify-between">
+                  <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
+                    Move Size
+                  </p>
+                  <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
+                    {mover?.moveDetails?.houseSize}
+                  </p>
+                </div>
+
+                <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[50%] h-full  justify-between">
+                  <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
+                    Living Room
+                  </p>
+                  <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
+                    {getRoomCount("Living Room")} items selected
+                  </p>
+                </div>
+              </div>
+              <div className="w-full h-[50%] flex items-center border-[#e3e3e3] border-b-[1px] justify-between ">
+                <div className="flex rounded-bl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7] w-[50%] h-full justify-between">
+                  <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
+                    Bedroom
+                  </p>
+                  <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
+                    {getRoomCount("Bedroom")} items selected
+                  </p>
+                </div>
+                <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[50%] h-full  justify-between">
+                  <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
+                    Dinning Room
+                  </p>
+                  <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
+                    {getRoomCount("Dinning Room")} items selected
+                  </p>
+                </div>
+              </div>
+              <div className="w-full h-[50%] flex items-center justify-between ">
+                <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[50%] h-full  justify-between">
+                  <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
+                    Kitchen
+                  </p>
+                  <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
+                    {getRoomCount("Kitchen")} items selected
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {isSmallSpace && (
+            <div className="w-full h-[90px] mobileTable flex items-center border-[#e3e3e3] border-[1px] rounded-[12px] justify-between ">
+              <div className="flex w-[50%] rounded-tl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7]  h-full justify-between">
                 <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                  Living Room
+                  Move Size
                 </p>
                 <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  {getRoomCount("Living Room")} items selected
+                  {mover?.moveDetails?.houseSize}
+                </p>
+              </div>
+              <div className="flex w-[100%] mt-4 border-[#e3e3e3] border-[1px] rounded-[12px]  rounded-br-[12px] p-[16px] mb-0 flex-col  hover:bg-[#f7f7f7]  h-full justify-between">
+                <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
+                  {mover?.moveDetails?.houseSize}
+                </p>
+                <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
+                  {getRoomCount("Others")} items selected
                 </p>
               </div>
             </div>
-            <div className="w-full h-[50%] flex items-center border-[#e3e3e3] border-b-[1px] justify-between ">
-              <div className="flex rounded-bl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7] w-[50%] h-full justify-between">
-                <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                  Bedroom
-                </p>
-                <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  {getRoomCount("Bedroom")} items selected
-                </p>
-              </div>
-              <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[50%] h-full  justify-between">
-                <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                  Dinning Room
-                </p>
-                <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  {getRoomCount("Dinning Room")} items selected
-                </p>
-              </div>
-            </div>
-            <div className="w-full h-[50%] flex items-center justify-between ">
-              <div className="flex rounded-bl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7] w-[50%] h-full justify-between">
-                <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                  Bath / Toilet
-                </p>
-                <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  {getRoomCount("Toilet and bath")} items selected
-                </p>
-              </div>
-              <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[50%] h-full  justify-between">
-                <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
-                  Kitchen
-                </p>
-                <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  {getRoomCount("Kitchen")} items selected
-                </p>
-              </div>
-            </div>
-          </div>
+          )}
 
           <div className="w-full h-[90px] webTable flex items-center border-[#e3e3e3] border-[1px] mt-[20px] rounded-[12px] justify-between ">
             <div className="flex rounded-bl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7] w-[33%] h-full justify-between">
@@ -532,7 +564,9 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                 Move Time
               </p>
               <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                {convertTo12Hour(mover?.moveDetails?.moveTime)}
+                {convertTo12Hour(
+                  mover?.proposedTime || mover?.moveDetails?.moveTime
+                )}
               </p>
             </div>
           </div>
@@ -564,7 +598,11 @@ const MovingCompanyDetails = ({ makeInActive }) => {
           </div>
 
           {/* mobile */}
-          <div className="h-fit w-full mobileTable border-[#e3e3e3] border-[1px] rounded-[12px] ">
+          <div
+            className={`h-fit ${
+              isSmallSpace && "mt-32"
+            } w-full mobileTable border-[#e3e3e3] border-[1px] rounded-[12px] `}
+          >
             <div className="w-full h-[50%] flex items-center justify-between border-[#e3e3e3] border-b-[1px]">
               <div className="flex w-[50%] rounded-tl-[12px] p-[16px] flex-col  hover:bg-[#f7f7f7]  h-full justify-between">
                 <p className="font-sans text-[14px] leading-[19.6px] text-[#707070] ">
@@ -590,7 +628,9 @@ const MovingCompanyDetails = ({ makeInActive }) => {
                   Move Time
                 </p>
                 <p className="text-[16px] leading-[25.6px] font-light text-[#121212] font-sans ">
-                  {convertTo12Hour(mover?.moveDetails?.moveTime)}
+                  {convertTo12Hour(
+                    mover?.proposedTime || mover?.moveDetails?.moveTime
+                  )}
                 </p>
               </div>
               <div className="flex flex-col p-[16px]  hover:bg-[#f7f7f7] w-[50%] h-full  justify-between">
