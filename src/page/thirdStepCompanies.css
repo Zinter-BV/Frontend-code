@@ -1,3 +1,8 @@
+.third_card_info_body {
+    position: relative;
+    width: 592px;
+}
+
 .upload_container_all {
     width: 500px;
 }
@@ -314,7 +319,47 @@
     color: #ff4d4f;
 }
 
+.company_account_details_step {
+    display: flex;
+    /* justify-content: space-between; */
+    gap: 15px;
+    margin: 10px auto;
+    flex-direction: column;
+}
+
+.account_details_last {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.account_details_last :first-child {
+    color: #121212;
+}
+
+.account_details_last :last-child {
+    border: 1px solid #D1D1D1;
+    outline: none;
+    padding: 7px 10px;
+    resize: none;
+    width: 242px;
+}
+
+.account_name_input {
+    width: 85% !important;
+}
+
+.company_account_details_inner {
+    display: flex;
+    gap: 20px;
+}
+
 @media (max-width: 1000px) {
+    .third_card_info_body {
+        position: relative;
+        width: 100%;
+    }
+
     .upload_container_all {
         width: auto;
     }
@@ -418,11 +463,24 @@
 
     .account_component {
         position: absolute;
-        top: 54%;
+        top: 55%;
         left: 50%;
-        transform: translate(-50%, -45%);
+        transform: translate(-50%, -50%);
         z-index: 10;
     }
+
+    .account_details_last :last-child {
+        border: 1px solid #D1D1D1;
+        outline: none;
+        padding: 7px 10px;
+        resize: none;
+        width: 100%;
+    }
+
+    .account_name_input {
+        width: 100% !important;
+    }
+
 
     .input_multiple_sub {
         position: relative;
@@ -431,6 +489,17 @@
         margin-top: 20px;
         width: 100%;
     }
+
+    .cover_photo_container {
+        width: 90%;
+        background-color: #fff;
+        border: 1px solid rgba(227, 232, 239, 1);
+        border-radius: 8px;
+        max-height: 70vh;
+        overflow: auto;
+    }
+
+
 
     .cover_photo_body div img {
         /* width: 40%; */

@@ -38,10 +38,14 @@ const ThirdStepCompanies = () => {
     const [image, setImage] = useState("");
     const [provinces, setProvinces] = useState("");
     const [companyOverView, setCompanyOverView] = useState("");
+    const [iban, setIban] = useState("")
+    const [bankName, setBankName] = useState("")
+    const [accountName, setAccountName] = useState("")
+    const [phoneNumber, setPhoneNumber] = useState("")
 
     const [selectedProvinces, setSelectedProvinces] = useState([]);
     const [showDropdown, setShowDropdown] = useState(false);
-    const [showSuccessModal, setShowSuccessModal] = useState(false)
+    const [showSuccessModal, setShowSuccessModal] = useState(true)
     const [allProvinces, setAllProvinces] = useState([]);
 
     const { data, isLoading, error } = useQuery({
@@ -49,18 +53,22 @@ const ThirdStepCompanies = () => {
         queryFn: fetchProvince,
     });
     const { data: dataReg, isLoading: isLoadingReg, error: errorReg, refetch } = useQuery({
-        queryKey: ["register-agent", email, kvkNumber, companyName, password, image, provinces, companyOverView],
+        queryKey: ["register-agent", email, kvkNumber, companyName, password, image, provinces, companyOverView, iban, bankName, accountName],
         queryFn: () => registerAgent({
             email,
             kvkNumber,
             companyName,
+            phoneNumber,
             password,
             image: coverPhoto,
             provinces: selectedProvinces.map((provinceName) => {
                 const match = allProvinces.find(p => p.provinceName === provinceName);
                 return match.provinceId;
             }),
-            companyOverView
+            companyOverView,
+            iban,
+            bankName,
+            accountName
         }),
         enabled: false,
         refetchOnWindowFocus: false,
@@ -103,10 +111,18 @@ const ThirdStepCompanies = () => {
         const storedKvkNumber = sessionStorage.getItem("kvkNumber");
         const storedCompanyName = sessionStorage.getItem("companyName");
 
-        if (storedEmail) setEmail(storedEmail);
-        if (storedPassword) setPassword(storedPassword);
-        if (storedKvkNumber) setKvkNumber(storedKvkNumber);
-        if (storedCompanyName) setCompanyName(storedCompanyName);
+        // redirect condition
+        // if (!storedEmail || !storedPassword || !storedKvkNumber || !storedCompanyName) {
+        //     navigate("/get-started");
+        //     return;
+        // }
+
+        // set state only if valid
+        setEmail(storedEmail);
+        setPassword(storedPassword);
+        setKvkNumber(storedKvkNumber);
+        setCompanyName(storedCompanyName)
+
     }, []);
 
     // console.log('Dataaa', data)
@@ -164,6 +180,7 @@ const ThirdStepCompanies = () => {
 
 
     const openSuccessMessage = async () => {
+
         if (
             email &&
             kvkNumber &&
@@ -171,7 +188,12 @@ const ThirdStepCompanies = () => {
             password &&
             coverPhoto &&
             selectedProvinces.length > 0 &&
-            companyOverView.trim() !== ""
+            companyOverView.trim() !== "" &&
+            iban.trim() !== "" &&
+            bankName.trim() !== "" &&
+            accountName.trim() !== ""
+
+
         ) {
 
             // setShowSuccessModal(true); 
@@ -186,6 +208,9 @@ const ThirdStepCompanies = () => {
                 // Optionally show error modal/message here
             } else {
                 console.log(data);
+                sessionStorage.setItem('token', data.result.jwtToken)
+                sessionStorage.setItem('name', data.result.name)
+                sessionStorage.setItem('companyImage', data.result.image)
                 setShowSuccessModal(true);
             }
 
@@ -202,137 +227,162 @@ const ThirdStepCompanies = () => {
             <div className="card_toggle">
                 <FirstCardToggle />
             </div>
-            <div className="first_company_card">
-                {/* <ul>
+            <div className="third_card_info_body">
+                <div className="first_company_card">
+                    {/* <ul>
                     {data.map((user) => (
                         <li key={user.id}>{user.name}</li>
                     ))}
                 </ul> */}
-                <div className="stepper_icon">
-                    {/* <img className="mobile_only_stepper_icon" src={stepperMobileThird} alt="" /> */}
-                    <img className="mobile_only_stepper_icon" src="/images/mobile-stepper-icon-third.svg" alt="" />
-                    {/* <img className="laptop_only_stepper_icon" src={stepperIconSecond} alt="" /> */}
-                    <img className="laptop_only_stepper_icon" src="/images/third-stepper-icon.svg" alt="" />
+                    <div className="stepper_icon">
+                        {/* <img className="mobile_only_stepper_icon" src={stepperMobileThird} alt="" /> */}
+                        <img className="mobile_only_stepper_icon" src="/images/mobile-stepper-icon-third.svg" alt="" />
+                        {/* <img className="laptop_only_stepper_icon" src={stepperIconSecond} alt="" /> */}
+                        <img className="laptop_only_stepper_icon" src="/images/third-stepper-icon.svg" alt="" />
 
-                </div>
-                <div className="company_header">
-                    <h1>Profile Setup</h1>
-                    <p>Set up your profile details</p>
-                </div>
-                <div className="upload_container_all">
-                    <div className="upload_container"
-                        style={{
-                            backgroundImage: coverPhoto
-                                ? `url(${coverPhoto})`
-                                : 'none',
-                            backgroundSize: 'cover',
-                            backgroundPosition: 'center',
-                            backgroundColor: coverPhoto ? 'transparent' : 'rgba(240, 249, 253, 1)',
-                        }}>
-                        {!coverPhoto && <button onClick={openMoreOptions}>
-                            {/* <img src={imageUpload} alt="" /> */}
-                            <img src="/images/image-upload.svg" alt="" />
-                            <span>Upload cover photo</span>
-
-                        </button>}
-
-                        {showMoreOptions &&
-                            <div className="choose_photo_container">
-                                <div className="choose_photo_btn" onClick={openCoverPhoto}>
-                                    {/* <img src={coverPhotoIcon} alt="" /> */}
-                                    <img src="/images/album-02.svg" alt="" />
-                                    <span>Choose cover photo</span>
-                                </div>
-                                <div className="choose_photo_btn" onClick={() => fileInputRef.current && fileInputRef.current.click()}>
-                                    {/* <img src={imageUpload} alt="" /> */}
-                                    <img src="/images/image-upload.svg" alt="" />
-                                    <span>Upload from device</span>
-                                    <input
-                                        type="file"
-                                        accept="image/*"
-                                        ref={fileInputRef}
-                                        onChange={handleFileUpload}
-                                        style={{ display: "none" }}
-                                    />
-                                </div>
-                            </div>}
-                        {coverPhoto && <div className="inner_upload_section">
-                            <button onClick={openMoreOptions}>
+                    </div>
+                    <div className="company_header">
+                        <h1>Profile Setup</h1>
+                        <p>Set up your profile details</p>
+                    </div>
+                    <div className="upload_container_all">
+                        <div className="upload_container"
+                            style={{
+                                backgroundImage: coverPhoto
+                                    ? `url(${coverPhoto})`
+                                    : 'none',
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center',
+                                backgroundColor: coverPhoto ? 'transparent' : 'rgba(240, 249, 253, 1)',
+                            }}>
+                            {!coverPhoto && <button onClick={openMoreOptions}>
+                                {/* <img src={imageUpload} alt="" /> */}
                                 <img src="/images/image-upload.svg" alt="" />
-                               
-                                <span>Change Image</span>
-                            </button>
+                                <span>Upload cover photo</span>
 
-                        </div>}
+                            </button>}
 
+                            {showMoreOptions &&
+                                <div className="choose_photo_container">
+                                    <div className="choose_photo_btn" onClick={openCoverPhoto}>
+                                        {/* <img src={coverPhotoIcon} alt="" /> */}
+                                        <img src="/images/album-02.svg" alt="" />
+                                        <span>Choose cover photo</span>
+                                    </div>
+                                    <div className="choose_photo_btn" onClick={() => fileInputRef.current && fileInputRef.current.click()}>
+                                        {/* <img src={imageUpload} alt="" /> */}
+                                        <img src="/images/image-upload.svg" alt="" />
+                                        <span>Upload from device</span>
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            ref={fileInputRef}
+                                            onChange={handleFileUpload}
+                                            style={{ display: "none" }}
+                                        />
+                                    </div>
+                                </div>}
+                            {coverPhoto && <div className="inner_upload_section">
+                                <button onClick={openMoreOptions}>
+                                    <img src="/images/image-upload.svg" alt="" />
 
-                    </div>
-                    <div className="upload_container_note" >
-                        <span>This is the photo users see when you send them a quote</span>
-                    </div>
-                </div>
-                <div
-                    className="input_multiple"
-                    ref={dropdownRef}
-                    onClick={() => {
-                        if (!showDropdown) {
-                            setShowDropdown(true);
-                        }
-                    }}
-                >
-                    <span>Provinces Covered</span>
-
-                    <div className="tag_input_wrapper">
-                        {selectedProvinces.map((province, idx) => (
-                            <div className="tag_item" key={idx}>
-                                <span>{province}</span>
-                                <button
-                                    className="remove_btn"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        removeProvince(province);
-                                    }}
-                                >
-                                    ×
+                                    <span>Change Image</span>
                                 </button>
-                            </div>
-                        ))}
+
+                            </div>}
+
+
+                        </div>
+                        <div className="upload_container_note" >
+                            <span>This is the photo users see when you send them a quote</span>
+                        </div>
                     </div>
+                    <div
+                        className="input_multiple"
+                        ref={dropdownRef}
+                        onClick={() => {
+                            if (!showDropdown) {
+                                setShowDropdown(true);
+                            }
+                        }}
+                    >
+                        <span>Provinces Covered</span>
 
-                    <img className="dropdown_icon" src="/images/arrow-down-dropdown.svg" alt="" onClick={(e) => {
-                        e.stopPropagation();
-                        setShowDropdown((prev) => !prev);
-                    }} />
-
-                    {showDropdown && (
-                        <div className="dropdown_list">
-                            {allProvinces.map((province, idx) => (
-                                <label className="dropdown_item" key={idx}>
-                                    <input
-                                        type="checkbox"
-                                        checked={selectedProvinces.includes(province.provinceName)}
-                                        onChange={() => toggleProvince(province.provinceName)}
-                                    />
-                                    <span>{province.provinceName}</span>
-                                </label>
+                        <div className="tag_input_wrapper">
+                            {selectedProvinces.map((province, idx) => (
+                                <div className="tag_item" key={idx}>
+                                    <span>{province}</span>
+                                    <button
+                                        className="remove_btn"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            removeProvince(province);
+                                        }}
+                                    >
+                                        ×
+                                    </button>
+                                </div>
                             ))}
                         </div>
-                    )}
-                </div>
 
+                        <img className="dropdown_icon" src="/images/arrow-down-dropdown.svg" alt="" onClick={(e) => {
+                            e.stopPropagation();
+                            setShowDropdown((prev) => !prev);
+                        }} />
 
-                <div className="input_multiple_sub">
-                    <span>Company Overview</span>
-                    <div className="rich_text">
-                        <RichTextEditor onChange={(val) => setCompanyOverView(val)} />
+                        {showDropdown && (
+                            <div className="dropdown_list">
+                                {allProvinces.map((province, idx) => (
+                                    <label className="dropdown_item" key={idx}>
+                                        <input
+                                            type="checkbox"
+                                            checked={selectedProvinces.includes(province.provinceName)}
+                                            onChange={() => toggleProvince(province.provinceName)}
+                                        />
+                                        <span>{province.provinceName}</span>
+                                    </label>
+                                ))}
+                            </div>
+                        )}
                     </div>
-                </div>
+                    <div className="company_account_details_step">
+                        <div className="company_account_details_inner">
+                            <div className="account_details_last">
+                                <label htmlFor="">IBAN</label>
+                                <input type="text" placeholder="Enter account number" onChange={(e) => setIban(e.target.value)} />
+                            </div>
+                            <div className="account_details_last">
+                                <label htmlFor="">Bank name</label>
+                                <input type="text" placeholder="Enter bank name" onChange={(e) => setBankName(e.target.value)} />
+                            </div>
+                        </div>
+                        <div className="account_details_last">
+                            <label htmlFor=""> Account name</label>
+                            <input type="text" className="account_name_input" placeholder="Enter account name" onChange={(e) => setAccountName(e.target.value)} />
+                        </div>
+                        <div className="account_details_last">
+                            <label htmlFor=""> Phone number</label>
+                            <input type="text" className="account_name_input" placeholder="Enter phone number" onChange={(e) => setPhoneNumber(e.target.value)} />
+                        </div>
 
+                    </div>
+
+
+                    <div className="input_multiple_sub">
+                        <span>Company Overview</span>
+                        <div className="rich_text">
+                            <RichTextEditor onChange={(val) => setCompanyOverView(val)} />
+                        </div>
+                    </div>
+
+
+                </div>
                 <div className="company_firststep_btn_second">
                     <button ></button>
                     <button onClick={openSuccessMessage}>Continue</button> {/* Add onClick */}
                 </div>
             </div>
+
             {showCoverPhoto &&
                 <div className="cover_photo_background">
                     <div className="cover_photo_container">

@@ -43,6 +43,8 @@ import { endMove, logArrival } from '../api/tracking';
 import { startMove } from '../api/tracking';
 import Toast from '../components/toast';
 import { trackMove } from '../api/moveDetails';
+import LocationMap from '../components/LocationMap';
+import axios from 'axios';
 
 
 
@@ -73,6 +75,14 @@ const UpcomingJobView = () => {
     const [moveDetailsArray, setMoveDetailsArray] = useState([])
     const [itemsArray, setItemsArray] = useState([])
     const [toast, setToast] = useState(null)
+    const [fromLatitude, setFromLatitude] = useState("")
+    const [toLatitude, setToLatitude] = useState("")
+    const [fromLongitude, setFromLongitude] = useState("")
+    const [toLongitude, setToLongitude] = useState("")
+    const pickupLng = Number(sessionStorage.getItem("fromPickupLongitude"));
+    const pickupLat = Number(sessionStorage.getItem("fromPickupLatitude"));
+    const dropLng = Number(sessionStorage.getItem("toDropOffLongitude"));
+    const dropLat = Number(sessionStorage.getItem("toDropOffLatitude"));
 
     const [loading, setLoader] = useState(false)
     const { data, isLoading, error } = useQuery({
@@ -84,6 +94,7 @@ const UpcomingJobView = () => {
         queryKey: ["logArrival", moveCode],
         queryFn: () => logArrival(moveCode),
         enabled: false,
+
         onSuccess: (data) => {
             console.log("Fresh success data:", data);
             if (data?.responseStatus) {
@@ -101,7 +112,12 @@ const UpcomingJobView = () => {
             }
         },
         onError: (error) => {
-            console.error(error);
+            setToast({
+                message: error.message,
+                type: "error"
+            });
+
+            setCurrentStep(0);
         }
 
     })
@@ -117,6 +133,10 @@ const UpcomingJobView = () => {
             setTo(data.result.to)
             setMoveDate(data.result.moveDate)
             setMoveDay(data.result.moveDay)
+            setFromLatitude(data.result.pickUpLongitude)
+            setToLatitude(data.result.pickUpLatitude)
+            setFromLongitude(data.result.dropOffLongitude)
+            setToLongitude(data.result.dropOffLatitude)
             setMoveTime(data.result.moveTime)
             // setMoveFrom(data.result.from)
             // setMoveTo(data.result.to)
@@ -232,6 +252,8 @@ const UpcomingJobView = () => {
                     } else {
                         setCurrentStep(0); // fallback
                     }
+
+
                 } else {
                     setCurrentStep(0);
                 }
@@ -325,7 +347,14 @@ const UpcomingJobView = () => {
                             </div>
                         </div>}
                         {showMoveDetails && <div className="map_job_details">
-                            <MovementMap />
+                            {/* <MovementMap /> */}
+                            <LocationMap
+                                style={{ width: "100%" }}
+                                fromPickupLongitude={fromLatitude}
+                                fromPickupLatitude={toLatitude}
+                                toDropOffLongitude={fromLongitude}
+                                toDropOffLatitude={toLongitude}
+                            />
                         </div>}
                         {showMoveDetails && <div className="more_jobs_details">
                             <div className="first_tab_job">
@@ -777,8 +806,8 @@ const UpcomingJobView = () => {
                             <div className="body_checklist">
                                 <input
                                     type="checkbox"
-                                    checked={currentStep >= 0}
-                                    disabled={currentStep !== 0 || currentStep === 4}
+                                    checked={currentStep > 0}
+                                    disabled={currentStep !== 0}
                                     onChange={() => handleStepComplete(0)}
                                     onClick={logArrivalBtn}
                                 />
@@ -791,8 +820,8 @@ const UpcomingJobView = () => {
                             <div className="body_checklist">
                                 <input
                                     type="checkbox"
-                                    checked={currentStep >= 1}
-                                    disabled={currentStep !== 1 || currentStep === 4}
+                                    checked={currentStep > 1}
+                                    disabled={currentStep !== 1}
                                     onChange={() => handleStepComplete(1)}
                                 />
                                 <span className={currentStep !== 1 ? "disabled-text" : ""}>
@@ -804,8 +833,8 @@ const UpcomingJobView = () => {
                             <div className="body_checklist">
                                 <input
                                     type="checkbox"
-                                    checked={currentStep >= 2}
-                                    disabled={currentStep !== 2 || currentStep === 4}
+                                    checked={currentStep > 2}
+                                    disabled={currentStep !== 2}
                                 />
                                 <span className={currentStep !== 2 ? "disabled-text" : ""}>
                                     <strong>Start Move</strong> using customer tracking code
@@ -814,7 +843,7 @@ const UpcomingJobView = () => {
                             <div className="body_checklist_input">
                                 <input
                                     type="text"
-                                    disabled={currentStep !== 2 || currentStep === 4}
+                                    disabled={currentStep !== 2}
                                     onChange={(e) => setStartMoveValue(e.target.value)}
                                     placeholder="-----"
                                     value={startMoveValue}
@@ -822,7 +851,7 @@ const UpcomingJobView = () => {
                                 <button
                                     className="end_move_btn"
                                     onClick={startMoveBtn}
-                                    disabled={currentStep !== 2 || currentStep === 4}
+                                    disabled={currentStep > 2}
                                 >
                                     Start move
                                 </button>
@@ -832,8 +861,8 @@ const UpcomingJobView = () => {
                             <div className="body_checklist">
                                 <input
                                     type="checkbox"
-                                    checked={currentStep >= 3}
-                                    disabled={currentStep !== 3 || currentStep === 4}
+                                    checked={currentStep > 3}
+                                    disabled={currentStep !== 3}
                                     onChange={() => handleStepComplete(3)}
                                 />
                                 <span className={currentStep !== 3 ? "disabled-text" : ""}>
@@ -845,17 +874,18 @@ const UpcomingJobView = () => {
                             <div className="body_checklist">
                                 <input
                                     type="checkbox"
-                                    checked={currentStep >= 3}
-                                   
+                                    checked={currentStep > 4}
+                                    disabled={currentStep !== 4}
+
                                 />
-                                <span className={currentStep !== 4 ? "disabled-text" : ""}>
+                                <span className={currentStep === 4 ? "disabled-text" : ""}>
                                     <strong>End Move</strong> using customer tracking code
                                 </span>
                             </div>
                             <div className="body_checklist_input">
                                 <input
                                     type="text"
-                                   
+                                    disabled={currentStep !== 4}
                                     onChange={(e) => setEndMoveValue(e.target.value)}
                                     placeholder="-----"
                                     value={endMoveValue}
@@ -863,7 +893,7 @@ const UpcomingJobView = () => {
                                 <button
                                     className="end_move_btn"
                                     onClick={openMoveSuccess}
-                                   
+
                                 >
                                     End move
                                 </button>
