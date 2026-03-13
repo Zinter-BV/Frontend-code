@@ -115,8 +115,13 @@ const ViewNewJobs = () => {
     // });
 
     const { mutate: sendQuote, isPending, errors } = useMutation({
-        mutationFn: ({ moveId, rawAmount, proposedTime, additonalInformation }) =>
-            createQuote({ moveId, rawAmount, proposedTime, additonalInformation }),
+        mutationFn: ({ moveId, amount, proposedTime, additonalInformation }) => {
+            // const payloadAmount = typeof amount !== "undefined" ? amount : rawAmount;
+            const payloadRaw = typeof amount !== "undefined" ? amount : rawAmount;
+            // payloadRaw can be a numeric string (rawAmount) or formatted string — ensure numeric value
+            const numericAmount = Number(String(payloadRaw).replace(/,/g, "")) || 0;
+            return createQuote({ moveId, amount: numericAmount, proposedTime, additonalInformation });
+        },
 
         onSuccess: (data) => {
             if (data?.responseStatus === false) {
@@ -218,7 +223,11 @@ const ViewNewJobs = () => {
             return;
         }
         if (time < "07:00" || time > "17:00") {
-            alert("Please select a time between 07:00 and 17:00");
+            setToast({
+                message: "Please select a time between 07:00 and 17:00",
+                type: "error"
+            });
+            // alert("Please select a time between 07:00 and 17:00");
             return;
         }
         const datePart = moveDate.split("T")[0];
