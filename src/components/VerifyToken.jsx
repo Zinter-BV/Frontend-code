@@ -1,12 +1,15 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import cancelIcon from "../Assets/cancel-01.svg"
 import "./verifyToken.css"
+import { verifyCode } from "../api/agentApi";
 
-const VerifyTokenModal = ({handleSubmit, closeModal }) => {
+const VerifyTokenModal = ({ handleSubmit, closeModal, resendToken }) => {
     const inputRefs = useRef([]);
+
 
     const handleInput = (e, index) => {
         const value = e.target.value;
+        console.log(inputRefs)
 
         if (value && index < inputRefs.current.length - 1) {
             inputRefs.current[index + 1].focus();
@@ -18,7 +21,15 @@ const VerifyTokenModal = ({handleSubmit, closeModal }) => {
             inputRefs.current[index - 1].focus();
         }
     };
- 
+
+    const getOtpString = () => {
+        return inputRefs.current
+            .map(input => input?.value || "")
+            .filter(Boolean)
+            .join("");
+    };
+
+
 
 
     return (
@@ -42,7 +53,7 @@ const VerifyTokenModal = ({handleSubmit, closeModal }) => {
                                     maxLength={1}
                                     onChange={(e) => handleInput(e, index)}
                                     onKeyDown={(e) => handleKeyDown(e, index)}
-                                
+
                                 />
                                 {index === 2 && (
                                     <span style={{ margin: "0 8px", fontWeight: "bold" }}>-</span>
@@ -51,12 +62,12 @@ const VerifyTokenModal = ({handleSubmit, closeModal }) => {
                         ))}
                     </div>
                     <div className="no_code_yet">
-                        <span> Didn’t receive the code? </span> <span>Resend code</span>
+                        <span> Didn’t receive the code? </span> <span onClick={resendToken}>Resend code</span>
                     </div>
 
                 </div>
                 <div className="border-btn">
-                    <button onClick={handleSubmit}>VERIFY EMAIL </button>
+                    <button onClick={() => handleSubmit(getOtpString())}>VERIFY EMAIL </button>
                 </div>
             </div>
         </div>

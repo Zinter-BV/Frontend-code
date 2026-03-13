@@ -138,85 +138,88 @@ const FirstStepCompanies = () => {
             <div className="card_toggle">
                 <FirstCardToggle />
             </div>
-            <div className="first_company_card">
-                <div className="stepper_icon">
-                    {/* <img className="mobile_only_stepper_icon" src={mobileStepperIcon} alt="" /> */}
-                    <img className="mobile_only_stepper_icon" src="/images/mobile-stepper-icon.svg" alt="" />
-                    {/* <img className="laptop_only_stepper_icon" src={stepperIcon} alt="" /> */}
-                    <img className="laptop_only_stepper_icon" src="/images/Progress minimal icons connected.svg" alt="" />
-                </div>
-                <div className="company_header">
-                    <h1>Company Information</h1>
-                    <p>Please provide company details and list of services you offer</p>
-                </div>
-                <div className="company_input_reg">
-                    <label>Company Registration Number</label>
-                    <input type="text"
-                        value={regNumber}
-                        onChange={handleInputChanges}
-                        placeholder="Enter Registration Number" />
-                    {showTick && <img src="/images/tick-01.svg" alt="Valid" />}
-                </div>
-                {showError && (
-                    <div className="error_message_container">
-                        <div className="error_message">
-                            <span>Company does not exist</span>
-                            <span>
-                                Please check if the number inputted is correct or visit the
-                                registration body to register your company
-                            </span>
-                        </div>
+            <div className="third_card_info_body">
+                <div className="first_company_card">
+                    <div className="stepper_icon">
+                        {/* <img className="mobile_only_stepper_icon" src={mobileStepperIcon} alt="" /> */}
+                        <img className="mobile_only_stepper_icon" src="/images/mobile-stepper-icon.svg" alt="" />
+                        {/* <img className="laptop_only_stepper_icon" src={stepperIcon} alt="" /> */}
+                        <img className="laptop_only_stepper_icon" src="/images/Progress minimal icons connected.svg" alt="" />
                     </div>
-                )}
-                {showErrorInvalid && (
-                    <div className="error_message_container">
-                        <div className="error_message">
-                            <span>Invalid number</span>
-                            <span>
-                                Please check if the number inputted is correct or visit the
-                                registration body to register your company
-                            </span>
-                        </div>
+                    <div className="company_header">
+                        <h1>Company Information</h1>
+                        <p>Please provide company details and list of services you offer</p>
                     </div>
-                )}
-                {showTick && (
-                    <div className="good_tick_container">
-                        <div className="first_card_good_tick" >
-                            <div>
-                                <img src="/images/Content.svg" alt="" />
-                                {/* <img src={companyImage} alt="" /> */}
+                    <div className="company_input_reg">
+                        <label>Company Registration Number</label>
+                        <input type="text"
+                            value={regNumber}
+                            onChange={handleInputChanges}
+                            placeholder="Enter Registration Number" />
+                        {showTick && <img src="/images/tick-01.svg" alt="Valid" />}
+                    </div>
+                    {showError && (
+                        <div className="error_message_container">
+                            <div className="error_message">
+                                <span>Company does not exist</span>
+                                <span>
+                                    Please check if the number inputted is correct or visit the
+                                    registration body to register your company
+                                </span>
                             </div>
-                            <div className="movers_details">
-                                <div className="movers_details_text"> {companyName} </div>
-                                <div className="movers_details_sub">
-                                    <span>Registered Company</span>
-                                    {/* <span>+31 20-1234567</span> */}
+                        </div>
+                    )}
+                    {showErrorInvalid && (
+                        <div className="error_message_container">
+                            <div className="error_message">
+                                <span>Invalid number</span>
+                                <span>
+                                    Please check if the number inputted is correct or visit the
+                                    registration body to register your company
+                                </span>
+                            </div>
+                        </div>
+                    )}
+                    {showTick && (
+                        <div className="good_tick_container">
+                            <div className="first_card_good_tick" >
+                                <div>
+                                    <img src="/images/Content.svg" alt="" />
+                                    {/* <img src={companyImage} alt="" /> */}
                                 </div>
-                            </div>
-                        </div>
-                        <div className="">
-                            <div className="mover_details_container">
-                                <div className="mover_details_upper">
-                                    <div className="user_success_phone">
-                                        <span>Phone</span>
-                                        <span> {phoneNumber ? phoneNumber : 'N/A'} </span>
-                                    </div>
-                                    <div className="user_success_phone">
-                                        <span>Date of registeration</span>
-                                        <span>{registrationDate.split('T')[0]} </span>
+                                <div className="movers_details_first">
+                                    <div className="movers_details_text"> {companyName} </div>
+                                    <div className="movers_details_sub">
+                                        <span>Registered Company</span>
+                                        {/* <span>+31 20-1234567</span> */}
                                     </div>
                                 </div>
-                                <div className="user_success_phone_last">
-                                    <span>Company Address</span>
-                                    <span> {address} </span>
-                                </div>
                             </div>
-                            <div>
+                            <div className="">
+                                <div className="mover_details_container">
+                                    <div className="mover_details_upper">
+                                        <div className="user_success_phone">
+                                            <span>Phone</span>
+                                            <span> {phoneNumber ? phoneNumber : 'N/A'} </span>
+                                        </div>
+                                        <div className="user_success_phone">
+                                            <span>Date of registeration</span>
+                                            <span>{registrationDate.split('T')[0]} </span>
+                                        </div>
+                                    </div>
+                                    <div className="user_success_phone_last">
+                                        <span>Company Address</span>
+                                        <span> {address} </span>
+                                    </div>
+                                </div>
+                                <div>
 
+                                </div>
                             </div>
                         </div>
-                    </div>
-                )}
+                    )}
+
+                </div>
                 <div className="company_policy">
                     <span>
                         By creating an account, you accept our <a onClick={handleTermsAndCondition} href="#">Terms of Use</a> and <a onClick={handlePrivacyPolicy} href="#">Privacy Policy</a>
@@ -230,6 +233,7 @@ const FirstStepCompanies = () => {
                     <button onClick={handleContinue}>Continue</button> {/* Add onClick */}
                 </div>
             </div>
+
 
             {isLoading && <Loader />}
         </div>

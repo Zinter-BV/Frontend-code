@@ -233,12 +233,15 @@ const hours = Array.from({ length: 11 }, (_, i) => 7 + i);
 
 
 
+
+
 const Calendar = () => {
     const navigate = useNavigate();
     // const navigateToUpcomingJob = () => {
     //     navigate('/upcoming-jobs-view');
     // };
     const [currentWeekStart, setCurrentWeekStart] = useState(startOfWeek(new Date(), { weekStartsOn: 0 }));
+    const [searchTerm, setSearchTerm] = useState("");
     const todayStr = format(new Date(), 'yyyy-MM-dd');
 
     const getWeekDays = () =>
@@ -249,6 +252,14 @@ const Calendar = () => {
 
     const weekDays = getWeekDays();
     const [events, setEvents] = useState([]);
+    const filteredEvents = events.filter((event) => {
+        const term = searchTerm.toLowerCase();
+
+        return (
+            event.name?.toLowerCase().includes(term) ||
+            event.location?.toLowerCase().includes(term)
+        );
+    });
     useEffect(() => {
         const fetchCalendar = async () => {
             const startDate = format(
@@ -266,8 +277,8 @@ const Calendar = () => {
                 const mappedEvents = data.result.map(ev => {
                     const evDate = new Date(ev.date);
                     return {
-                        date: format(evDate, "yyyy-MM-dd"),   
-                        hour: evDate.getHours(),              
+                        date: format(evDate, "yyyy-MM-dd"),
+                        hour: evDate.getHours(),
                         name: ev.name,
                         location: ev.address,
                         moveId: ev.moveId,
@@ -352,7 +363,9 @@ const Calendar = () => {
                 <div className="relative w-full sm:w-auto">
                     <input
                         type="text"
-                        placeholder="Search"
+                        placeholder="Search by name or address"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
                         className="w-full sm:w-auto pl-10 pr-3 py-2 rounded text-sm border border-gray-300 bg-gray-100"
                     />
                     <img
@@ -401,7 +414,7 @@ const Calendar = () => {
                                 const cellDateStr = format(date, 'yyyy-MM-dd');
                                 const isSatOrSun = isWeekend(date);
 
-                                const event = events.find(
+                                const event = filteredEvents.find(
                                     (ev) => ev.date === cellDateStr && ev.hour === hour
                                 );
 

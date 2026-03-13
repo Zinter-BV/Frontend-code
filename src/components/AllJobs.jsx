@@ -61,7 +61,7 @@ const AllJobs = () => {
 
     useEffect(() => {
         if (isLoading) {
-            setAllJobs([]); // clear jobs while fetching
+            setAllJobs([]); 
         }
     }, [isLoading]);
 

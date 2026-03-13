@@ -13,6 +13,9 @@
     /* border: 1px solid; */
     width: 592px;
     position: relative;
+    max-height: 80vh;
+    overflow: auto;
+    padding: 0 0 80px;
 }
 
 .stepper_icon {
@@ -119,11 +122,14 @@
     border-radius: 6px;
 }
 
+.movers_details_first {
+    padding: 15px;
+}
 
 .movers_details_text {
     font-family: "Unbounded", sans-serif;
     font-weight: 500;
-    font-size: 24px;
+    font-size: 18px;
     color: rgba(32, 41, 57, 1);
 }
 
@@ -285,14 +291,15 @@
 
     .mobile_only_stepper_icon {
         display: block;
+        width: 120px;
     }
-    
+
     .laptop_only_stepper_icon {
         display: none;
     }
 
     .container_firstStep {
-        width: 90%;
+        width: 100%;
         position: absolute;
         top: 16px;
         left: 50%;
@@ -305,6 +312,7 @@
         /* width: 593px; */
         width: 100%;
         position: relative;
+        padding: 0 0 20px;
     }
 
     .company_header {
@@ -343,9 +351,11 @@
 
     .company_policy {
         /* margin-top: 87vh; */
-        position: absolute;
-        top: 70vh;
+        /* position: absolute; */
+        /* top: 70vh; */
         /* bottom: 80px; */
+        position: relative;
+        top: 0;
         color: rgba(137, 141, 147, 1);
         font-size: 14px;
         font-weight: 400;
@@ -355,11 +365,11 @@
 
 
     .company_firststep_btn {
-        position: absolute;
-        padding: 10px 0 15px;
+        position: relative;
+        padding: 10px 0 80px;
         /* margin-top: 50px; */
         width: 100%;
-        top: 82vh;
+        top: 10px;
         /* bottom: -5vh; */
         /* border-top: 1px solid rgba(229, 229, 229, 1); */
         display: flex;
@@ -369,4 +379,54 @@
     }
 
 
+}
+
+@media (max-width: 600px) {
+    .company_header :first-child {
+        color: rgba(17, 21, 25, 1);
+        font-size: 18px;
+        font-weight: 500;
+        font-family: "Unbounded", sans-serif;
+    }
+
+    .company_header :last-child {
+        color: rgba(49, 53, 57, 1);
+        font-size: 14px;
+        font-weight: 400;
+        font-family: "DM Sans", sans-serif;
+    }
+
+    .company_input_reg :first-child {
+        color: rgba(49, 53, 57, 1);
+        font-size: 14px;
+        font-weight: 400;
+        font-family: "DM Sans", sans-serif;
+    }
+
+    .company_input_reg input {
+        width: 100%;
+        padding: 6px 10px;
+        border-radius: 8px;
+        border: 1px solid rgba(227, 227, 227, 1);
+        outline: none;
+    }
+
+    .company_policy {
+        /* margin-top: 87vh; */
+        position: relative;
+        top: 0;
+        /* bottom: 80px; */
+        color: rgba(137, 141, 147, 1);
+        font-size: 12px;
+        font-weight: 400;
+        font-family: "DM Sans", sans-serif;
+    }
+
+    .company_policy span a {
+        color: rgba(60, 130, 246, 1);
+        font-size: 14px;
+        font-weight: 400;
+        font-family: "DM Sans", sans-serif;
+        text-decoration: underline;
+    }
 }

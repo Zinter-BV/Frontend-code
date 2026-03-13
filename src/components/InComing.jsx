@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { getIncomingJobs } from "../api/province";
 
 
-const InComing = ({onClose}) => {
+const InComing = ({ onClose }) => {
     const [pageNumber, setPageNumber] = useState(1);
     const [numberOfRecords, setNumberOfRecords] = useState(5);
     const [totalCount, setTotalCount] = useState(0);
@@ -19,7 +19,7 @@ const InComing = ({onClose}) => {
 
     const { data, isLoading, error } = useQuery({
         queryKey: ["getIncomingJobs", pageNumber, numberOfRecords],
-        queryFn: () => getIncomingJobs({pageNumber, numberOfRecords}),
+        queryFn: () => getIncomingJobs({ pageNumber, numberOfRecords }),
         staleTime: Infinity,              // prevent re-fetching due to stale data
         refetchOnWindowFocus: false,      // don't refetch on tab/window focus
         refetchOnReconnect: false,        // don't refetch on network reconnect
@@ -119,7 +119,7 @@ const InComing = ({onClose}) => {
                                         {/* <img src={arrowDown} alt="" /> */}
                                     </div>
                                 </th>
-                                <th>
+                                <th className="progress_bar_mobile">
                                     <div>
                                         <span>Progress</span>
                                         <img src="/images/arrow-down-02.svg" alt="" />
@@ -216,7 +216,7 @@ const InComing = ({onClose}) => {
                                             <span>New Request</span>
                                         </div>
                                     </td>
-                                    <td>
+                                    <td className="progress_bar_mobile">
                                         <div className="progress_bar_new">
                                             <div className="progress_bar_moving_new"></div>
                                         </div>
@@ -231,12 +231,17 @@ const InComing = ({onClose}) => {
 
                         </tbody>
                     </table>
-                    <PaginationComponent
-                        totalCount={totalCount}
-                        pageSize={numberOfRecords}
-                        currentPage={pageNumber}
-                        onPageChange={(page) => setPageNumber(page)}
-                    />
+                    {filteredJobs.length > 0 && (
+                        <PaginationComponent
+                            totalCount={totalCount}
+                            pageSize={numberOfRecords}
+                            currentPage={pageNumber}
+                            onPageChange={(page) => setPageNumber(page)}
+                        />
+                    )
+
+                    }
+
                     {!isLoading && filteredJobs.length === 0 && (
                         <div className="empty_state_overlay">
                             <EmptyState />

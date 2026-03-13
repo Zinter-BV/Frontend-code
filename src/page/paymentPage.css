@@ -1,11 +1,14 @@
 .container_payment {
     margin-top: 15vh;
+
     max-height: 80vh;
     overflow: auto;
     position: absolute;
     top: 0;
     left: 200px;
 }
+
+
 
 .container_payment_header {
     display: flex;
@@ -34,7 +37,7 @@
     font-family: "Unbounded", sans-serif;
     font-size: 20px;
     font-weight: 500;
-    color:rgba(0, 0, 0, 1);
+    color: rgba(0, 0, 0, 1);
 }
 
 .container_earnings_province {
@@ -57,6 +60,7 @@
 .container_provinces {
     display: flex;
     justify-content: space-between;
+    overflow: auto;
 
 }
 
@@ -71,13 +75,15 @@
     font-size: 18px;
     font-weight: 400;
     color: rgba(123, 123, 123, 1);
+    white-space: nowrap;
+    margin-right: 20px;
 }
 
 .provinces :last-child {
     font-family: "Unbounded", sans-serif;
     font-size: 20px;
     font-weight: 500;
-    color:rgba(17, 21, 25, 1);
+    color: rgba(17, 21, 25, 1);
 }
 
 .table_container_payment {
@@ -95,5 +101,5 @@
 }
 
 .td_payment_table {
-    border-bottom:1px solid rgba(227, 232, 239, 1);
+    border-bottom: 1px solid rgba(227, 232, 239, 1);
 }

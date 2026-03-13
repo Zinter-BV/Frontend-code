@@ -26,7 +26,22 @@ import Transactions from "./page/Transaction";
 import AdminLogin from "./page/AdminLogin";
 import Resolution from "./page/Resolution";
 import VendorLogin from "./page/VendorLogin";
+// import AdminUser from "./page/adminUser";
+// import AdminUser from "./page/adminUser";
+import AdminUser from "./page/adminUser";
 import Stripe from "./page/Stripe";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import CreateNewUser from "./page/CreateNewUser";
+import CreateNewRole from "./page/CreateNewRole";
+import ViewSummaryUser from "./page/ViewSummaryUser";
+import ViewSummaryRole from "./page/ViewSummaryRole";
+import { ProfileSetting } from "./page/ProfileSetting";
+// import StripeComponent from "./StripeComponent";
+
+const stripePromise = loadStripe(
+  "pk_test_51O2JovLw5fKJMXx3zvARABxAlQpptJi9aO6gPkcbH9lFFCfJXV8rgAw170q4wt3CHz00uDfGtPqKmvdvPFWQqNMc00c3Dqphpr"
+);
 
 function App() {
   return (
@@ -44,6 +59,11 @@ function App() {
         <Route path="/calendar" element={<CalendarPage />} />
         <Route path="/jobs" element={<JobsPage />} />
         <Route path="/payment" element={<Payment />} />
+        <Route path="/admin" element={<AdminUser />} />
+        <Route path="/create-new-user" element={<CreateNewUser />} />
+        <Route path="/create-new-role" element={<CreateNewRole />} />
+        <Route path="/view-summary-user" element={<ViewSummaryUser/>}/>
+        <Route path="/view-summary-role" element={<ViewSummaryRole/>}/>
         <Route path="/view-new-jobs" element={<ViewNewJobs />} />
         <Route path="/upcoming-jobs-view" element={<UpcomingJobView />} />
         <Route path="/movers/:id" element={<Movers />} />
@@ -59,7 +79,7 @@ function App() {
         <Route path="/transactions" element={<Transactions />} />
         <Route path="/resolution" element={<Resolution />} />
         <Route path="/stripe" element={<Stripe />} />
-
+        <Route path="/profile-setting" element={<ProfileSetting/>}/>
         {/* Sidebar should only be visible on Overview & Calendar */}
       </Routes>
     </div>

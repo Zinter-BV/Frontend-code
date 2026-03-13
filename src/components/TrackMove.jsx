@@ -196,9 +196,8 @@ const TrackMove = () => {
               {/* Payment Made */}
               <div className="flex gap-[10px] mb-[30px] relative items-center">
                 <div
-                  className={`absolute h-[80px] w-[2px] left-2 top-11 rounded-[1px] ${
-                    isStepActive("pickup") ? "bg-[#136AB5]" : "bg-[#b8b8b8]"
-                  }`}
+                  className={`absolute h-[80px] w-[2px] left-2 top-11 rounded-[1px] ${isStepActive("pickup") ? "bg-[#136AB5]" : "bg-[#b8b8b8]"
+                    }`}
                 ></div>
 
                 <svg
@@ -251,9 +250,8 @@ const TrackMove = () => {
               {/* Pickup Start */}
               <div className="flex gap-[10px] mb-[30px] relative items-center">
                 <div
-                  className={`absolute h-[80px] w-[2px] left-2 top-11 rounded-[1px] ${
-                    isStepActive("transit") ? "bg-[#136AB5]" : "bg-[#b8b8b8]"
-                  }`}
+                  className={`absolute h-[80px] w-[2px] left-2 top-11 rounded-[1px] ${isStepActive("transit") ? "bg-[#136AB5]" : "bg-[#b8b8b8]"
+                    }`}
                 ></div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -329,9 +327,8 @@ const TrackMove = () => {
               {/* In Transit */}
               <div className="flex gap-[10px] mb-[30px] relative items-center">
                 <div
-                  className={`absolute h-[80px] w-[2px] left-2 top-11 rounded-[1px] ${
-                    isStepActive("unload") ? "bg-[#136AB5]" : "bg-[#b8b8b8]"
-                  }`}
+                  className={`absolute h-[80px] w-[2px] left-2 top-11 rounded-[1px] ${isStepActive("unload") ? "bg-[#136AB5]" : "bg-[#b8b8b8]"
+                    }`}
                 ></div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

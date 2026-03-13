@@ -65,7 +65,8 @@ const LocationMap = ({
 
   return (
     <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
-      <div className="pb-4 map w-full rounded-[16px] h-[450px] md:w-[270px]">
+      <div
+        style={{ width: "100%" }} className="pb-4 map w-full rounded-[16px] h-[450px] md:w-[270px]">
         <Map
           defaultCenter={point1}
           defaultZoom={10}
